@@ -4,6 +4,8 @@ import Time.DateUtils;
 import Time.WeekView;
 import data.TaskManager;
 import data.TaskManagerException;
+import ui.AvatarUi;
+import ui.UiRenderer;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -23,6 +25,9 @@ public class Main {
         LocalDate startOfWeek = DateUtils.getStartOfWeek(today);
         WeekView weekView = new WeekView(startOfWeek, dateFormatter);
         TaskManager taskManager = new TaskManager();
+
+        UiRenderer.printWelcomeMessage();
+        scanner.nextLine();
 
         while (true) {
             weekView.printWeekView(taskManager);
