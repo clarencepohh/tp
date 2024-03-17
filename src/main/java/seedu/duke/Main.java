@@ -5,11 +5,12 @@ import Time.WeekView;
 import data.TaskManager;
 import data.TaskManagerException;
 import ui.AvatarUi;
+import ui.TerminalSize;
 import ui.UiRenderer;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -20,6 +21,11 @@ public class Main {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(String[] args) {
+        try {
+            TerminalSize terminalSize = new TerminalSize();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scanner scanner = new Scanner(System.in);
         LocalDate today = LocalDate.now();
         LocalDate startOfWeek = DateUtils.getStartOfWeek(today);
