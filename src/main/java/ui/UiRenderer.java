@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import data.TaskManager;
-import ui.AnsiColors;
 
 public class UiRenderer {
     private static final String[] WEEK_DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
@@ -27,7 +26,7 @@ public class UiRenderer {
     }
 
     private static void printHorizontalDivider() {
-        for (String day : WEEK_DAYS) {
+        for (int i = 0; i < 7; i++) {
             System.out.print(SINGLE_HORIZONTAL_DIVIDER);
         }
         System.out.println(END_HORIZONTAL_DIVIDER);
@@ -41,8 +40,7 @@ public class UiRenderer {
     }
 
     public static void printWeekBody(LocalDate startOfWeek, DateTimeFormatter dateFormatter, TaskManager taskManager) {
-        LocalDate date = startOfWeek;
-        printDateRow(dateFormatter, date);
+        printDateRow(dateFormatter, startOfWeek);
 
         printHorizontalDivider();
         int maxTasks = getMaxTasks(startOfWeek, taskManager);
@@ -69,7 +67,7 @@ public class UiRenderer {
         }
     }
 
-    private static void printTaskForDay(List<String> dayTasks, int taskIndex) {
+    public static void printTaskForDay(List<String> dayTasks, int taskIndex) {
         if (taskIndex < dayTasks.size()) {
             String task = dayTasks.get(taskIndex);
             System.out.printf(TASK_DISPLAY_FORMAT, task);
@@ -78,7 +76,7 @@ public class UiRenderer {
         }
     }
 
-    private static int getMaxTasks(LocalDate startOfWeek, TaskManager taskManager) {
+    public static int getMaxTasks(LocalDate startOfWeek, TaskManager taskManager) {
         int maxTasks = 0;
         for (int i = 0; i < numberOfDaysInWeek; i++) {
             LocalDate currentDate = startOfWeek.plusDays(i);
@@ -94,4 +92,12 @@ public class UiRenderer {
         AvatarUi.printAvatar();
         System.out.println("Hello there, I am CLI-nton, your CLI-based personal assistant in event management!");
     }
+  
+    public static void printSeparator() {
+        for (int i = 0; i < 7; i++) {
+            System.out.print("+------------");
+        }
+        System.out.println("+");
+    }
 }
+
