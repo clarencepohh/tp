@@ -45,6 +45,14 @@ public class AvatarUi {
             "▓▓█████████████████████████████████████████████████████████████████████████████▒\n";
 
     public static void printAvatar() {
-        System.out.println(AVATAR_ASCII_ART);
+        String[] lines = AVATAR_ASCII_ART.split("\n");
+        int terminalWidth = TerminalSize.getTerminalWidth();
+        int avatarWidth = lines[0].length();
+        int avatarPadding = (terminalWidth - avatarWidth) / 2;
+
+        for (String line : lines) {
+            System.out.print(" ".repeat(avatarPadding));
+            System.out.println(line);
+        }
     }
 }
