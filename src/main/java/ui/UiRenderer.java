@@ -89,11 +89,6 @@ public class UiRenderer {
         return maxTasks;
     }
 
-    public static void printWelcomeMessage() {
-        AvatarUi.printAvatar();
-        System.out.println("Hello there, I am CLI-nton, your CLI-based personal assistant in event management!");
-    }
-  
     public static void printSeparator() {
         for (int i = 0; i < 7; i++) {
             System.out.print("+------------");

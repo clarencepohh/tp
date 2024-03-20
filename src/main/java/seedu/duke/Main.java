@@ -5,6 +5,7 @@ import time.DateUtils;
 import time.WeekView;
 import data.TaskManager;
 import data.TaskManagerException;
+import ui.AvatarUi;
 import ui.TerminalSize;
 import ui.UiRenderer;
 
@@ -45,7 +46,8 @@ public class Main {
         Map<LocalDate, List<String>> tasksFromFile = 
                 Storage.loadTasksFromFile(Storage.FILE_PATH); //Reads tasks from txt file
         taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
-        UiRenderer.printWelcomeMessage();
+        AvatarUi.printAvatar();
+        AvatarUi.printWelcomeMessage();
         scanner.nextLine();
 
         while (true) {
