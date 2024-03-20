@@ -7,7 +7,6 @@ import data.TaskManager;
 import data.TaskManagerException;
 import ui.AvatarUi;
 import ui.TerminalSize;
-import ui.UiRenderer;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;

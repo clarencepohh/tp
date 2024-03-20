@@ -2,7 +2,7 @@ package ui;
 
 public class AvatarUi {
 
-    private static final String AVATAR_ASCII_ART = 
+    private static final String LARGE_AVATAR = 
             "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓████▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\n" +
             "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓█████▓▓▓▓▓▓▓▓███▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\n" +
             "░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓███████▓▓▓▓▓▓▓▓▓██████▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
@@ -44,12 +44,75 @@ public class AvatarUi {
             "▓▓█████████████████████████████████████████████████████████████████████████████▒\n" +
             "▓▓█████████████████████████████████████████████████████████████████████████████▒\n";
 
+    private static final String MEDIUM_AVATAR = 
+            "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\n" + 
+            "░░░░░░░░░░░░░░░░▒▒▓███▓▓▓▓▓▓▓█▓▓▒░░░░░░░░░░░░░░░░░\n" + 
+            "░░░░░░░░░░░▒▒▒▒▒▓███▓▓▓▓▓▓███▓▓▓█▒▒▒▒▒▒▒░░░░░░░░░░\n" + 
+            "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█████▓▓▓█▓▓▓▓▓▓██▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\n" + 
+            "░░░░░░░░░░░░░░░░███▓▒▒▒▒▒▒▒▒▒▒▓██▒░░░░░░░░░░░▒░░▒░\n" + 
+            "░░░░░░░░░░░░░░░░███▓▒▒▒▒▒▒▒▒▒▒▓██░░░░░░░░░░░░░░░▒░\n" + 
+            "░░░░░░░░░░░░░░░░▒█▓▓███▓▒▒▓██▓▓██░░░░░░░░░░░░░░░▒░\n" + 
+            "░░░░░░░░░░░░░░░░▓█▓▒▒▒▒▒▒▒▒▒▒▒▒█▓░░░░░░░░░░░░░░░▒░\n" + 
+            "░░░░░░░░░░░░░░░░░▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▒░░░░░░░░░░░░▒░░▒░\n" + 
+            "░░░░░░░░░░░░░░░░░░▒▓▒▒▒▒▓▓▒▒▒▓▓░░░░░░░░░░░░░░▒░░▒░\n" + 
+            "░░░░░░░░░░░░░░░░░░░▓▓▒▒▓▓▓▓▒▓▓▒░░░░░░░░░░░░░░▒░░▒░\n" + 
+            "░░░░░░░░░░░░░░░░░░░▓▓▓▒▒▒▒▒▒▓▓░░░░░░░░░░░░░░░▒░░▒░\n" + 
+            "░░░░░░░░░░░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░▒░░▒░\n" + 
+            "░▒░░░░░▒░░░░░░░░▒▓█▒▒▒▓▓▓▓▓▒▒▒▒█▓▒░░░░░░░░░░░▒░░▒░\n" + 
+            "░▒░░▒▓▓▓▒░░░▒▒▓███▓▒░░░▒▓▓░░░▒▒████▓▒▒░░░░░░░▒░░▒░\n" + 
+            "▓▓▒░▒▓▓▓▓▓▓██████▓▓▒░░▒████░░░▒█▓██████▓▓▓▓▓▒▒▒▒▒▒\n" + 
+            "▓▓▓▓██████▓▓▓██▓▓▓▓░░░░▓██░░░░▒█▓▓▓█▓▓▓▓██████▓▓▓▒\n" + 
+            "▓▓████▓▓▓▓▓▓█▓▓▓▓▓█░░░░▓██▒░░░▒█▓▓▓▓▓▓▓▓▓▓▓▓███▓▓▓\n" + 
+            "▒▒▓███▓▓▓▓▓▓▓▓▓▓▓▓█▒░░░███▓░░░▓█▓▓▓▓▓▓▓▓▓▓▓▓▓███▓▓\n" + 
+            "███████▓▓▓▓▓██▓▓▓▓█▓░░░████░░▒██▓▓▓▓█▓▓▓▓▓▓█████▓▓\n" + 
+            "▒▒████████▓▓▓██▓▓▓█▓▓░▒████░░▓████▓██▓▓▓██████████\n" + 
+            "▒▓██████████████████▓▒▒████▒▓▓█████████▓████████▓▓\n" + 
+            "▓▓████████████████████▓████▓████████▓▓▓█████████▓▒\n" + 
+            "▓████████████████████████████████████████████████▒\n" + 
+            "▓████████████████████████████████████████████████▒\n";
+
+    private static final String SMALL_AVATAR = 
+            "░░░░▒▒▒▓▓▓▓▓▓▒▒▒░░░░\n" +
+            "▒░░░░░▓█▓▓▓▓▓▒░░░░▒▒\n" +
+            "░░░░░░▒▓▓▒▒▓█░░░░░░▒\n" +
+            "░░░░░░░▓▒▒▒▒▓░░░░░░▒\n" +
+            "░░░░░░░▒▓▒▒▓░░░░░░░▒\n" +
+            "░░▒░░▒▓▓▒▓▓▒▓▒▒░░░░▒\n" +
+            "▓▓█▓██▓▒░▓▓░▓▓██▓▓▓▒\n" +
+            "▓█▓▓▓▓▓▓░▓▓░▓▓▓▓▓▓█▓\n" +
+            "▓███████▒██▒███▓███▓\n" +
+            "███████████████████▓\n";
+            
     private static final String WELCOME_MESSAGE = "Hello there, I am CLI-nton, your CLI-based " + 
             "personal assistant in event management!";
 
+    private enum AvatarSize {
+        SMALL,
+        MEDIUM,
+        LARGE
+    }
+
+    private static int getAvatarWidth(String avatar) {
+        String[] lines = avatar.split("\n");
+        return lines[0].length();
+    }
+
+    private static AvatarSize getAvatarSize(int terminalWidth) {
+        if (terminalWidth < getAvatarWidth(MEDIUM_AVATAR)) {
+            return AvatarSize.SMALL;
+        } else if (terminalWidth < getAvatarWidth(LARGE_AVATAR)) {
+            return AvatarSize.MEDIUM;
+        } else {
+            return AvatarSize.LARGE;
+        }
+    }
+
     public static void printAvatar() {
-        String[] lines = AVATAR_ASCII_ART.split("\n");
         int terminalWidth = TerminalSize.getTerminalWidth();
+        AvatarSize avatarSize = getAvatarSize(terminalWidth);
+        String avatar = getAvatarImage(avatarSize);
+
+        String[] lines = avatar.split("\n");
         int avatarWidth = lines[0].length();
         int avatarPadding = Math.max((terminalWidth - avatarWidth) / 2, 0);
 
@@ -57,6 +120,21 @@ public class AvatarUi {
             System.out.print(" ".repeat(avatarPadding));
             System.out.println(line);
         }
+    }
+
+    private static String getAvatarImage(AvatarSize avatarSize) {
+        String avatar;
+        switch (avatarSize) {
+        case SMALL:
+            avatar = SMALL_AVATAR;
+            break;
+        case MEDIUM:
+            avatar = MEDIUM_AVATAR;
+            break;
+        default:
+            avatar = LARGE_AVATAR;
+        }
+        return avatar;
     }
 
     public static void printWelcomeMessage() {
