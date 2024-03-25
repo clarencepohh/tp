@@ -9,8 +9,7 @@ import data.TaskManager;
 public class UiRenderer {
     private static final String[] WEEK_DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
-    private static final int SPACE_COUNT = TerminalSize.getTerminalWidth() / 9;
-    private static final int PADDING = SPACE_COUNT;
+    private static final int SPACE_COUNT = 10;
     private static final String SINGLE_HORIZONTAL_DIVIDER = "+" + "-".repeat(SPACE_COUNT);
     private static final String END_HORIZONTAL_DIVIDER = "+";
     private static final String VERTICAL_DIVIDER = "|";
@@ -27,7 +26,6 @@ public class UiRenderer {
     }
 
     private static void printHorizontalDivider() {
-        printPadding();
         for (int i = 0; i < 7; i++) {
             System.out.print(SINGLE_HORIZONTAL_DIVIDER);
         }
@@ -35,7 +33,6 @@ public class UiRenderer {
     }
     
     private static void printHeaderRow() {
-        printPadding();
         for (String day : WEEK_DAYS) {
             System.out.printf(ENTRY_FORMAT, day);
         }
@@ -53,7 +50,6 @@ public class UiRenderer {
     }
 
     private static void printDateRow(DateTimeFormatter dateFormatter, LocalDate date) {
-        printPadding();
         for (int i = 0; i < numberOfDaysInWeek; i++) {
             System.out.printf(ENTRY_FORMAT, dateFormatter.format(date));
             date = date.plusDays(1);
@@ -63,7 +59,6 @@ public class UiRenderer {
 
     public static void printWeeksTasks(LocalDate startOfWeek, int maxTasks, TaskManager taskManager) {
         for (int taskIndex = 0; taskIndex < maxTasks; taskIndex++) {
-            printPadding();
             for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
                 LocalDate currentDate = startOfWeek.plusDays(dayIndex);
                 List<String> dayTasks = taskManager.getTasksForDate(currentDate);
@@ -80,10 +75,6 @@ public class UiRenderer {
         } else {
             System.out.print(EMPTY_TASK_DISPLAY_FORMAT);
         }
-    }
-
-    private static void printPadding() {
-        System.out.print(" ".repeat(PADDING));
     }
 
     public static int getMaxTasks(LocalDate startOfWeek, TaskManager taskManager) {
