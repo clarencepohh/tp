@@ -19,8 +19,8 @@ public class UiRendererTest {
     public static List<Task> emptyTaskList = List.of();
     private static final int SPACE_COUNT = 10;
     private static final String VERTICAL_DIVIDER = "|";
-    private static final String TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " %-" + SPACE_COUNT + "." + SPACE_COUNT + "s ";
-    private static final String EMPTY_TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " ".repeat(SPACE_COUNT+1) + " ";
+    private static final String TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "." + SPACE_COUNT + "s";
+    private static final String EMPTY_TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " ".repeat(SPACE_COUNT);
     
     private final PrintStream originalOut = System.out;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
