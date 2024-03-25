@@ -20,6 +20,10 @@ public class TerminalSize {
         for (String s : signals) {
             System.out.print(s);
         }
+
+        TerminalController terminalController = new TerminalController();
+        terminalController.pressEnter();
+        
         int read = -1;
         StringBuilder sb = new StringBuilder();
         byte[] buff = new byte[1];
@@ -30,6 +34,7 @@ public class TerminalSize {
                 break;
             }
         }
+        
         String size = sb.toString();
         terminalHeight = Integer.parseInt(size.substring(size.indexOf("\u001b[") + 2, size.indexOf(';')));
         terminalWidth = Integer.parseInt(size.substring(size.indexOf(';') + 1, size.indexOf('R')));

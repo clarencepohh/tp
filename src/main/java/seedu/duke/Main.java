@@ -6,6 +6,7 @@ import time.WeekView;
 import data.TaskManager;
 import data.TaskManagerException;
 import ui.AvatarUi;
+import ui.TerminalController;
 import ui.TerminalSize;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class Main {
         LocalDate startOfWeek = DateUtils.getStartOfWeek(today);
         WeekView weekView = new WeekView(startOfWeek, dateFormatter);
         TaskManager taskManager = new TaskManager();
+        TerminalController terminalController = new TerminalController();
 
         boolean printWeek = true; // Flag to control printing of the week view
         boolean inMonthView = false; // Flag to indicate if we are in month view mode
