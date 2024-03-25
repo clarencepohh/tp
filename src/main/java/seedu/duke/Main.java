@@ -6,7 +6,6 @@ import time.WeekView;
 import data.TaskManager;
 import data.TaskManagerException;
 import ui.AvatarUi;
-import ui.TerminalSize;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -26,11 +25,6 @@ public class Main {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(String[] args) throws IOException {
-        try {
-            TerminalSize terminalSize = new TerminalSize();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         Scanner scanner = new Scanner(System.in);
         LocalDate today = LocalDate.now();
@@ -45,11 +39,10 @@ public class Main {
         Map<LocalDate, List<String>> tasksFromFile = 
                 Storage.loadTasksFromFile(Storage.FILE_PATH); //Reads tasks from txt file
         taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
-        AvatarUi.printAvatar();
         AvatarUi.printWelcomeMessage();
-        scanner.nextLine();
-
+        
         while (true) {
+            AvatarUi.printAvatar();
             if (printWeek) {
                 if (!inMonthView) {
                     weekView.printWeekView(taskManager);
