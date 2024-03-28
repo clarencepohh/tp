@@ -1,4 +1,2 @@
-2024-03-31|new task
-2024-03-18|even more stuff
-2024-03-18|old thing
-2024-03-17|stuff
+2024-03-24|T|make bread
+2024-03-24|T|new task
