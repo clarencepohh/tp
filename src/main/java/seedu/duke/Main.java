@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import data.Task;
+import net.fortuna.ical4j.data.ParserException;
 import storage.Storage;
 import time.DateUtils;
 import time.MonthView;
@@ -26,7 +27,7 @@ import static ui.UiRenderer.printHelp;
 public class Main {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static void main(String[] args) throws IOException, TaskManagerException {
+    public static void main(String[] args) throws IOException, TaskManagerException, ParserException {
         FileLogger.setupLogger();
         Scanner scanner = new Scanner(System.in);
         LocalDate today = LocalDate.now();
@@ -45,7 +46,8 @@ public class Main {
         taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
         AvatarUi.printAvatar();
         AvatarUi.printWelcomeMessage();
-        
+        //IcsHandler.generateICS(); //uncomment when developed
+
         while (true) {
             if (printWeek) {
                 if (!inMonthView) {
@@ -55,6 +57,12 @@ public class Main {
                 }
             }
             printWeek = true; // Reset flag for the next iteration
+            System.out.println("Enter 'next' for next week, 'prev' for previous week, " +
+                    "'add' to add a task, " +
+                    "'update' to edit a task, " +
+                    "'delete' to delete a task, " +
+                    "'month' to display the month view, " +
+                    "or 'quit' to quit:");
             System.out.println("Enter help to learn commands");
             String input = scanner.nextLine().trim().toLowerCase();
             String command = input.split(",")[0];
@@ -71,7 +79,7 @@ public class Main {
                     monthView.previous();
                 } else {
                     weekView.previous();
-                } 
+                }
                 break;
             case "update":
                 try {
