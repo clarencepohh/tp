@@ -43,10 +43,10 @@ public class Main {
         Map<LocalDate, List<Task>> tasksFromFile =
                 Storage.loadTasksFromFile(Storage.FILE_PATH); //Reads tasks from txt file
         taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
+        AvatarUi.printAvatar();
         AvatarUi.printWelcomeMessage();
         
         while (true) {
-            AvatarUi.printAvatar();
             if (printWeek) {
                 if (!inMonthView) {
                     weekView.printView(taskManager);
