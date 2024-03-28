@@ -6,7 +6,7 @@
 
 ## Design & implementation
 ## UiRenderer Component
-**API** : [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
+### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
 
 ### Overview: <br> 
 The UiRenderer component is responsible for rendering the user interface. It is used to display messages, week views as well as month views to the user.
@@ -18,64 +18,57 @@ The UiRenderer component is responsible for rendering the user interface. It is 
 4. The UiRenderer component will also display the current date at the top of the week view.
 5. Similarly, when month view is requested, the UiRenderer component will render the month view.
 
-### Week view rendering
+### printWeekHeader Method
 `printWeekHeader` Method
 
 The `printWeekHeader` method is responsible for rendering the header section of the week view, including the names of the days and optionally the dates.
 
-### Method signature:
+#### Method signature:
 ```
 public static void printWeekHeader(LocalDate startOfView, DateTimeFormatter dateFormatter, boolean isMonthView)
 ```
 
-### Parameters
-
+#### Parameters
 - startOfView: The starting date of the week view.
 - dateFormatter: Formatter for displaying dates.
 - isMonthView: A boolean flag indicating if the month view is being rendered.
 
-### Method Functionality
-
+#### Method Functionality
 - Prints a horizontal divider to delineate the start of the header.
 - Displays the names of the days as column headers.
 - If not in month view, prints the dates for the respective week.
 
-## printWeekBody Method
-
+### printWeekBody Method
 The printWeekBody method displays the body of the week view, showing tasks for each day in their respective columns.
 
-### Method Signature
+#### Method Signature
 ```
 public static void printWeekBody(LocalDate startOfWeek, DateTimeFormatter dateFormatter, TaskManager taskManager)
 ```
 
-### Parameters
-
+#### Parameters
 - startOfWeek: The starting date of the week for which tasks are displayed.
 - dateFormatter: Formatter for displaying dates.
 - taskManager: The TaskManager instance managing tasks.
 
-### Method Functionality
-
+#### Method Functionality
 - Determines the maximum number of tasks in any day of the week to set the row count.
 - Iterates through each day, displaying tasks or placeholders if there are fewer tasks on certain days.
 
-## Month View Rendering
-
+### Month View Rendering
 The month view utilizes the printWeekHeader method with the isMonthView parameter set to true, limiting the display to only include week headers without individual tasks.
 
-## Displaying Help and User Commands
+### Displaying Help and User Commands
 `printHelp` Method
 
 The printHelp method provides users with a list of available commands and their descriptions, aiding in navigation and task management.
 
-### Method Signature
+#### Method Signature
 ```
 public static void printHelp()
 ```
 
-### Method Functionality
-
+#### Method Functionality
 - Prints a structured list of commands and their purposes within the user interface.
 - Highlights key functionalities like navigating views, adding, and updating tasks.
 
