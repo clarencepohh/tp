@@ -8,7 +8,6 @@ import time.MonthView;
 import time.WeekView;
 import data.TaskManager;
 import data.TaskManagerException;
-import ui.AvatarUi;
 import log.FileLogger;
 
 import java.io.IOException;
@@ -44,8 +43,9 @@ public class Main {
         Map<LocalDate, List<Task>> tasksFromFile =
                 Storage.loadTasksFromFile(Storage.FILE_PATH); //Reads tasks from txt file
         taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
-        AvatarUi.printAvatar();
-        AvatarUi.printWelcomeMessage();
+
+        // AvatarUi.printAvatar();            //uncomment when fixed display
+        // AvatarUi.printWelcomeMessage();    //uncomment when fixed display
         //IcsHandler.generateICS(); //uncomment when developed
 
         while (true) {
