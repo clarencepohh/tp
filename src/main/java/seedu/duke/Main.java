@@ -44,6 +44,8 @@ public class Main {
                 Storage.loadTasksFromFile(Storage.FILE_PATH); //Reads tasks from txt file
         taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
 
+        // AvatarUi.printAvatar();            //uncomment when fixed display
+        // AvatarUi.printWelcomeMessage();    //uncomment when fixed display
         //IcsHandler.generateICS(); //uncomment when developed
 
         while (true) {

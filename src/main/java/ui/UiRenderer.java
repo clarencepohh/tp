@@ -16,12 +16,12 @@ public class UiRenderer {
         "Wednesday", "Thursday", "Friday", "Saturday"};
 
     private static final int SPACE_COUNT = 10;
-    private static final String SINGLE_HORIZONTAL_DIVIDER = "+" + "-".repeat(SPACE_COUNT + 2);
+    private static final String SINGLE_HORIZONTAL_DIVIDER = "+" + "-".repeat(SPACE_COUNT);
     private static final String END_HORIZONTAL_DIVIDER = "+";
     private static final String VERTICAL_DIVIDER = "|";
-    private static final String ENTRY_FORMAT = VERTICAL_DIVIDER + " %-" + SPACE_COUNT + "s ";
-    private static final String TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " %-" + SPACE_COUNT + "." + SPACE_COUNT + "s ";
-    private static final String EMPTY_TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " ".repeat(SPACE_COUNT+1) + " ";
+    private static final String ENTRY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "s";
+    private static final String TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "." + SPACE_COUNT + "s";
+    private static final String EMPTY_TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " ".repeat(SPACE_COUNT);
 
     private static final int numberOfDaysInWeek = 7;
 
@@ -102,7 +102,7 @@ public class UiRenderer {
         }
         return maxTasks;
     }
-  
+
     public static void printSeparator() {
         for (int i = 0; i < 7; i++) {
             System.out.print("+------------");
