@@ -164,9 +164,6 @@ The `UiRenderer` class contains methods for rendering the calendar views (week a
 ### Error Handling
 The application handles various exceptions, such as `TaskManagerException`, `DateTimeParseException`, and `NumberFormatException`. When an exception occurs, an error message is printed to the console, and the application continues to run.
 
-
-Please note that this is a high-level overview of the design and implementation based on the provided code. You may need to adjust or expand on certain sections based on your specific requirements and additional implementation details.
-
 ## Product scope
 ### Target user profile
 
