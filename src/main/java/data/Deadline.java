@@ -62,7 +62,8 @@ public class Deadline extends Task {
      */
     @Override
     public String getSaveFormat () {
-        return getTaskType() + "|" + getMarkedStatusIcon() + "|" + getName() + "|" + 
+        return getTaskType() + "|" + getMarkedStatusIcon() + "|" + 
+                getPriorityLevelIcon() + "|" + getName() + "|" + 
                 getByDate() + "|" + getByTime();
     }
 }

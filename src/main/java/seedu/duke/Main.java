@@ -147,13 +147,13 @@ public class Main {
             case "priority":
                 try {
                     String[] parts = input.split(",\\s*");
-                    if (parts.length != 3) {
+                    if (parts.length != 4) {
                         throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
                                 "priority, <day>, <taskIndex>, <priorityLevel>");
                     }
                     String day = parts[1].trim();
                     int taskIndex = Integer.parseInt(parts[2].trim());
-                    String priorityLevel = parts[3].trim();
+                    String priorityLevel = parts[3].trim().toUpperCase();
 
                     taskManager.priorityManager(weekView, monthView, inMonthView, day, taskIndex, priorityLevel);
                 } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {

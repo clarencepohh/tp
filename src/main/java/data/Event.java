@@ -88,8 +88,8 @@ public class Event extends Task {
      */
     @Override
     public String getSaveFormat () {
-        return getTaskType() + "|" + getMarkedStatusIcon() + "|" + getName() + "|" + 
-                getStartDate() + "|" + getEndDate() + "|" + getStartTime() + "|"
+        return getTaskType() + "|" + getMarkedStatusIcon() + "|" + getPriorityLevelIcon() + "|" + 
+                getName() + "|" + getStartDate() + "|" + getEndDate() + "|" + getStartTime() + "|"
                 + getEndTime();
     }
 }
