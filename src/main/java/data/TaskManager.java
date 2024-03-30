@@ -377,6 +377,27 @@ public class TaskManager {
         }
     }
 
+    public void priorityManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, 
+            int taskIndex, String priorityLevelString) throws TaskManagerException, DateTimeParseException {
+        LocalDate date;
+        int dayInt = Integer.parseInt(day);
+
+        date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
+        setPriorityLevelOfTask(taskIndex, date, priorityLevelString);
+        saveTasksToFile(tasks, Storage.FILE_PATH);
+    }
+
+    private void setPriorityLevelOfTask(int taskIndex, LocalDate date, String priorityLevelString) {
+        List<Task> dayTasks = tasks.get(date);
+        Task task = dayTasks.get(taskIndex - 1);
+        TaskPriorityLevel priorityLevelToSet = 
+                priorityLevelString.equals("H") ? TaskPriorityLevel.HIGH : 
+                priorityLevelString.equals("M") ? TaskPriorityLevel.MEDIUM : 
+                TaskPriorityLevel.LOW;
+        task.setPriorityLevel(priorityLevelToSet);
+    }
+
+
     /**
      * Method that parses the TaskType to be specified based on the user's input.
      *
