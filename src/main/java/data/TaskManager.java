@@ -106,7 +106,7 @@ public class TaskManager {
     public static void updateTask(LocalDate date, int taskIndex, String newTaskDescription, Scanner scanner)
             throws IndexOutOfBoundsException {
         try {
-            List<Task> dayTasks = tasks.get(date);
+            List<Task> dayTasks = getDayTasks(date);
             boolean dayHasTasks = dayTasks != null;
             boolean taskIndexExists = taskIndex >= 0 && taskIndex < Objects.requireNonNull(dayTasks).size();
             assert dayHasTasks;
@@ -203,6 +203,11 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Task index is out of bounds.");
         }
+    }
+
+    public static List<Task> getDayTasks(LocalDate date) {
+        List<Task> dayTasks = tasks.get(date);
+        return dayTasks;
     }
 
     /**
