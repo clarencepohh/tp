@@ -67,10 +67,17 @@ public class Task {
         return (isCompleted ? "X" : " ");
     }
 
+    /**
+     * Sets the priority level of the task.
+     */
     public void setPriorityLevel(TaskPriorityLevel priorityLevelOfTask) {
         this.priorityLevel = priorityLevelOfTask;
     }
 
+    /**
+     * Gets the icon representation of the priority level of the task.
+     * "H" for high, "M" for medium, "L" for low.
+     */
     public String getPriorityLevelIcon() {
         return (priorityLevel == TaskPriorityLevel.HIGH ? "H" : 
                 (priorityLevel == TaskPriorityLevel.MEDIUM ? "M" :

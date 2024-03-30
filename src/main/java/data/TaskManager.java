@@ -377,6 +377,18 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Performs the setting of priority levels based on the user's input.
+     * 
+     * @param weekView WeekView object for finding the date.
+     * @param monthView MonthView object for finding the date.
+     * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param day The day of the task to be marked.
+     * @param taskIndex The index of the task to be marked.
+     * @param priorityLevelString The priority level to set the task to.
+     * @throws TaskManagerException If there is an error in managing tasks.
+     * @throws DateTimeParseException If there is an error parsing the date.
+     */
     public void priorityManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, 
             int taskIndex, String priorityLevelString) throws TaskManagerException, DateTimeParseException {
         LocalDate date;
@@ -387,6 +399,13 @@ public class TaskManager {
         saveTasksToFile(tasks, Storage.FILE_PATH);
     }
 
+    /**
+     * Sets the priority level of a task.
+     * 
+     * @param taskIndex The index of the task to set the priority level for.
+     * @param date The date of the task to set the priority level for.
+     * @param priorityLevelString The priority level to set the task to.
+     */
     private void setPriorityLevelOfTask(int taskIndex, LocalDate date, String priorityLevelString) {
         List<Task> dayTasks = tasks.get(date);
         Task task = dayTasks.get(taskIndex - 1);
