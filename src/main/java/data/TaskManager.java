@@ -208,8 +208,8 @@ public class TaskManager {
     /**
      * Marks a task as completed.
      * 
-     * @param date
-     * @param taskIndex
+     * @param date The date of the task.
+     * @param taskIndex The index of the task to mark.
      */
     public void markTaskAsCompleted(LocalDate date, int taskIndex) {
         List<Task> dayTasks = tasks.get(date);
@@ -225,8 +225,8 @@ public class TaskManager {
     /**
      * Marks a task as not completed.
      * 
-     * @param date
-     * @param taskIndex
+     * @param date The date of the task.
+     * @param taskIndex The index of the task to mark.
      */
     public void markTaskAsNotCompleted(LocalDate date, int taskIndex) {
         List<Task> dayTasks = tasks.get(date);
@@ -365,8 +365,8 @@ public class TaskManager {
     /**
      * Handles the marking of a task based on the task index and date.
      * 
-     * @param taskIndex
-     * @param date
+     * @param taskIndex The index of the task to be marked.
+     * @param date The date of the task to be marked.
      */
     private void handleMarkingOfTask(int taskIndex, LocalDate date) {
         boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
