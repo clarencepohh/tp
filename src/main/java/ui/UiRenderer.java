@@ -29,6 +29,13 @@ public class UiRenderer {
     private static final String ANSI_CYAN = "\u001B[36m"; // Cyan
 
 
+    /**
+     * Prints the header row with the surrounding horizontal dividers.
+     * 
+     * @param startOfView The date of the start of the week or month view.
+     * @param dateFormatter The date formatter to format the date.
+     * @param isMonthView A boolean to indicate if the view is a month view.
+     */
     public static void printWeekHeader(LocalDate startOfView, DateTimeFormatter dateFormatter, boolean isMonthView) {
         printHorizontalDivider();
         printHeaderRow();
@@ -38,6 +45,9 @@ public class UiRenderer {
         printHorizontalDivider();
     }
 
+    /**
+     * Prints the horizontal divider.
+     */
     private static void printHorizontalDivider() {
         for (int i = 0; i < 7; i++) {
             System.out.print(SINGLE_HORIZONTAL_DIVIDER);
@@ -45,6 +55,9 @@ public class UiRenderer {
         System.out.println(END_HORIZONTAL_DIVIDER);
     }
     
+    /**
+     * Prints the header row with the days of the week.
+     */
     private static void printHeaderRow() {
         for (String day : WEEK_DAYS) {
             System.out.printf(ENTRY_FORMAT, day);
@@ -52,6 +65,13 @@ public class UiRenderer {
         System.out.println(VERTICAL_DIVIDER);
     }
 
+    /**
+     * Prints the body of the week view.
+     * 
+     * @param startOfWeek The date of the start of the week.
+     * @param dateFormatter The date formatter to format the date.
+     * @param taskManager The task manager to get the tasks from.
+     */
     public static void printWeekBody(LocalDate startOfWeek, DateTimeFormatter dateFormatter, TaskManager taskManager) {
         int maxTasks = getMaxTasks(startOfWeek, taskManager);
         assert maxTasks >= 0 : "maxTasks should be non-negative";
@@ -59,6 +79,12 @@ public class UiRenderer {
         printHorizontalDivider();
     }
 
+    /**
+     * Prints the date row with the dates of the week.
+     * 
+     * @param dateFormatter The date formatter to format the date.
+     * @param date The date of the start of the week.
+     */
     private static void printDateRow(DateTimeFormatter dateFormatter, LocalDate date) {
         logger.log(Level.INFO, "Printing dates for week starting from " + date);
         for (int i = 0; i < numberOfDaysInWeek; i++) {
@@ -71,6 +97,13 @@ public class UiRenderer {
     }
 
 
+    /**
+     * Prints the tasks for the week.
+     * 
+     * @param startOfWeek The date of the start of the week.
+     * @param maxTasks The maximum number of tasks of a day in a week.
+     * @param taskManager The task manager to get the tasks from.
+     */
     public static void printWeeksTasks(LocalDate startOfWeek, int maxTasks, TaskManager taskManager) {
         for (int taskIndex = 0; taskIndex < maxTasks; taskIndex++) {
             for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
@@ -82,6 +115,12 @@ public class UiRenderer {
         }
     }
 
+    /**
+     * Prints the task for the day.
+     * 
+     * @param dayTasks The list of tasks for the day.
+     * @param taskIndex The index of the task to print.
+     */
     public static void printTaskForDay(List<Task> dayTasks, int taskIndex) {
         if (taskIndex < dayTasks.size()) {
             Task task = dayTasks.get(taskIndex);
@@ -91,6 +130,13 @@ public class UiRenderer {
         }
     }
 
+    /**
+     * Returns the maximum number of tasks in a day.
+     * 
+     * @param startOfWeek The date of the start of the week.
+     * @param taskManager The task manager to get the tasks from.
+     * @return The maximum number of tasks of a day in a week.
+     */
     public static int getMaxTasks(LocalDate startOfWeek, TaskManager taskManager) {
         int maxTasks = 0;
         for (int i = 0; i < numberOfDaysInWeek; i++) {
@@ -103,6 +149,9 @@ public class UiRenderer {
         return maxTasks;
     }
 
+    /**
+     * Prints the separator for the week view.
+     */
     public static void printSeparator() {
         for (int i = 0; i < 7; i++) {
             System.out.print("+------------");
@@ -110,6 +159,9 @@ public class UiRenderer {
         System.out.println("+");
     }
 
+    /**
+     * Prints the help message for the user.
+     */
     public static void printHelp() {
         String horizontalLine = "+-------------------------------------------------------------------------------+";
         String emptyLine = "|                                                                               |";
