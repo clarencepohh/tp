@@ -129,6 +129,21 @@ public class Main {
                     System.out.println(e.getMessage());
                 }
                 break;
+            case "mark":
+                try {
+                    String[] parts = input.split(",\\s*");
+                    if (parts.length != 3) {
+                        throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                                "mark, <day>, <taskIndex>");
+                    }
+                    String day = parts[1].trim();
+                    LocalDate date = LocalDate.parse(day, dateFormatter);
+                    int taskIndex = Integer.parseInt(parts[2].trim());
+                    taskManager.markTaskAsDone(date, taskIndex);
+                } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
             case "month":
                 monthView.printView(taskManager);
                 inMonthView = !inMonthView; // Toggle month view mode

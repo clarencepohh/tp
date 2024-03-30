@@ -205,8 +205,16 @@ public class TaskManager {
         }
     }
 
+    public void markTaskAsDone(LocalDate date, int taskIndex) {
+        List<Task> dayTasks = tasks.get(date);
 
-
+        try {
+            dayTasks.get(taskIndex).setCompleteness(true);
+            System.out.println("Task marked as done.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("Task index is out of bounds.");
+        }
+    }
 
     /**
      * Retrieves tasks for a specific date.
