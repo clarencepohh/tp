@@ -137,9 +137,9 @@ public class Main {
                                 "mark, <day>, <taskIndex>");
                     }
                     String day = parts[1].trim();
-                    LocalDate date = LocalDate.parse(day, dateFormatter);
                     int taskIndex = Integer.parseInt(parts[2].trim());
-                    taskManager.markTaskAsDone(date, taskIndex);
+
+                    taskManager.markManager(weekView, monthView, inMonthView, day, taskIndex);
                 } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
                     System.out.println(e.getMessage());
                 }

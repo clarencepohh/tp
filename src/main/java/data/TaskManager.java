@@ -205,12 +205,23 @@ public class TaskManager {
         }
     }
 
-    public void markTaskAsDone(LocalDate date, int taskIndex) {
+    public void markTaskAsCompleted(LocalDate date, int taskIndex) {
         List<Task> dayTasks = tasks.get(date);
 
         try {
             dayTasks.get(taskIndex).setCompleteness(true);
             System.out.println("Task marked as done.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("Task index is out of bounds.");
+        }
+    }
+
+    public void markTaskAsNotCompleted(LocalDate date, int taskIndex) {
+        List<Task> dayTasks = tasks.get(date);
+
+        try {
+            dayTasks.get(taskIndex).setCompleteness(false);
+            System.out.println("Unmarked task.");
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Task index is out of bounds.");
         }
@@ -303,6 +314,29 @@ public class TaskManager {
         System.out.println(typeName + " added.");
     }
 
+    public void markManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, int taskIndex)
+            throws TaskManagerException, DateTimeParseException {
+        LocalDate date;
+        int dayInt = Integer.parseInt(day);
+
+        if (inMonthView) {
+            date = monthView.getStartOfMonth().plusDays(dayInt - 1);
+            checkIfDateInCurrentMonth(date);
+
+        } else {
+            date = weekView.getStartOfWeek().plusDays(dayInt - 1);
+            checkIfDateInCurrentWeek(date, weekView);
+        }
+
+        boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
+        if (taskIsCompleted) {
+            markTaskAsNotCompleted(date, taskIndex - 1);
+        } else {
+            markTaskAsCompleted(date, taskIndex - 1);
+        }
+
+        saveTasksToFile(tasks, Storage.FILE_PATH);
+    }
 
     /**
      * Method that parses the TaskType to be specified based on the user's input.
