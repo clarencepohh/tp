@@ -1,8 +1,13 @@
 month
-add, 20, T, new todo
-add, 20, T, new event, 20/03/2024, 22/03/2024
-add, 20, D, new deadline 1
-add, 20, D, new deadline 2
-update, 20, 1, qioncioqnc uion uioqen qwpc
-delete, 20, 4
+add, 30, T, new todo
+add, 30, T, another todo
+add, 30, D, deadline1
+30/03/2024 1800
+mark,30,2
+mark,30,1
+add, 30, D, new deadline 2
+30/03/2024 2100
+priority,30,2,M
+update, 30, 1, qioncioqnc uion uioqen qwpc
+delete, 30, 4
 quit
