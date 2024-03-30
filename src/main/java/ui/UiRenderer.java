@@ -49,7 +49,7 @@ public class UiRenderer {
      * Prints the horizontal divider.
      */
     private static void printHorizontalDivider() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < numberOfDaysInWeek; i++) {
             System.out.print(SINGLE_HORIZONTAL_DIVIDER);
         }
         System.out.println(END_HORIZONTAL_DIVIDER);
@@ -89,7 +89,7 @@ public class UiRenderer {
         logger.log(Level.INFO, "Printing dates for week starting from " + date);
         for (int i = 0; i < numberOfDaysInWeek; i++) {
             String formattedDate = dateFormatter.format(date);
-            System.out.printf(ENTRY_FORMAT, ANSI_CYAN + "\033[2m\033[22m" + dateFormatter.format(date) + ANSI_RESET);
+            System.out.printf(ENTRY_FORMAT, ANSI_CYAN + "\033[2m\033[22m" + formattedDate + ANSI_RESET);
 
             date = date.plusDays(1);
         }
@@ -153,7 +153,7 @@ public class UiRenderer {
      * Prints the separator for the week view.
      */
     public static void printSeparator() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < numberOfDaysInWeek; i++) {
             System.out.print("+------------");
         }
         System.out.println("+");
