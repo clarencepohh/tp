@@ -21,6 +21,13 @@ then
     exit 1
 fi
 
+# run Checkstyle, terminates if error occurred
+if ! ./gradlew checkstyleMain
+then
+    echo "********** CHECKSTYLE FAILURE **********"
+    exit 1
+fi
+
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL-UNIX.TXT
 ./gradlew -q run < ./text-ui-test/input.txt > ./text-ui-test/ACTUAL-UNIX.TXT
 
