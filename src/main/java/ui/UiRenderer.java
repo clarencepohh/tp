@@ -10,24 +10,22 @@ import data.Task;
 import data.TaskManager;
 
 public class UiRenderer {
+
+    public static final int SPACE_COUNT = 12;
+    public static final String VERTICAL_DIVIDER = "|";
+    public static final String ENTRY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "s";
+    public static final String TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "." + SPACE_COUNT + "s";
+    public static final String EMPTY_TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " ".repeat(SPACE_COUNT);
     private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private static final String[] WEEK_DAYS = {"Sunday", "Monday", "Tuesday",
         "Wednesday", "Thursday", "Friday", "Saturday"};
-
-    private static final int SPACE_COUNT = 10;
-    private static final String SINGLE_HORIZONTAL_DIVIDER = "+" + "-".repeat(SPACE_COUNT + 2);
+    private static final String SINGLE_HORIZONTAL_DIVIDER = "+" + "-".repeat(SPACE_COUNT);
     private static final String END_HORIZONTAL_DIVIDER = "+";
-    private static final String VERTICAL_DIVIDER = "|";
-    private static final String ENTRY_FORMAT = VERTICAL_DIVIDER + " %-" + SPACE_COUNT + "s ";
-    private static final String TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " %-" + SPACE_COUNT + "." + SPACE_COUNT + "s ";
-    private static final String EMPTY_TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " ".repeat(SPACE_COUNT + 2);
-
     private static final int numberOfDaysInWeek = 7;
-
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_CYAN = "\u001B[36m"; // Cyan
-
+    private static final String DATE_ENTRY_FORMAT = ANSI_CYAN + "\033[2m\033[22m" + ENTRY_FORMAT + ANSI_RESET;
 
     public static void printWeekHeader(LocalDate startOfView, DateTimeFormatter dateFormatter, boolean isMonthView) {
         printHorizontalDivider();
@@ -63,8 +61,7 @@ public class UiRenderer {
         logger.log(Level.INFO, "Printing dates for week starting from " + date);
         for (int i = 0; i < numberOfDaysInWeek; i++) {
             String formattedDate = dateFormatter.format(date);
-            System.out.printf(ENTRY_FORMAT, ANSI_CYAN + "\033[2m\033[22m" + dateFormatter.format(date) + ANSI_RESET);
-
+            System.out.printf(DATE_ENTRY_FORMAT, formattedDate);
             date = date.plusDays(1);
         }
         System.out.println(VERTICAL_DIVIDER);

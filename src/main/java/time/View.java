@@ -19,7 +19,4 @@ public abstract class View {
 
     public abstract void previous();
 
-    public LocalDate getStartOfView() {
-        return startOfView;
-    }
 }
