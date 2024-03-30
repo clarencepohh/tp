@@ -88,7 +88,8 @@ public class Event extends Task {
      */
     @Override
     public String getSaveFormat () {
-        return getTaskType() + "|" + getName() + "|" + getStartDate() + "|" + getEndDate() + "|" + getStartTime() + "|"
+        return getTaskType() + "|" + getStatusIcon() + "|" + getName() + "|" + 
+                getStartDate() + "|" + getEndDate() + "|" + getStartTime() + "|"
                 + getEndTime();
     }
 }

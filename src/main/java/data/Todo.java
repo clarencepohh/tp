@@ -39,7 +39,7 @@ public class Todo extends Task {
      */
     @Override
     public String getSaveFormat () {
-        return getTaskType() + "|" + getName();
+        return getTaskType() + "|" + getStatusIcon() + "|" + getName();
     }
 
     public VEvent todoToVEvent(Todo todo) {
