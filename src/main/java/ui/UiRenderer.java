@@ -124,7 +124,12 @@ public class UiRenderer {
     public static void printTaskForDay(List<Task> dayTasks, int taskIndex) {
         if (taskIndex < dayTasks.size()) {
             Task task = dayTasks.get(taskIndex);
-            System.out.printf(TASK_DISPLAY_FORMAT, task.getName());
+            String taskDescription = task.getName();
+            String displayString = 
+                    (taskIndex + 1) + "." + 
+                    task.getDisplayFormat() +
+                    taskDescription;
+            System.out.printf(TASK_DISPLAY_FORMAT, displayString);
         } else {
             System.out.print(EMPTY_TASK_DISPLAY_FORMAT);
         }

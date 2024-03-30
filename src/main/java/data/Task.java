@@ -163,4 +163,11 @@ public class Task {
     public String getSaveFormat () {
         return "";
     }
+
+    public String getDisplayFormat() {
+        String displayFormat = String.format(
+                "[%s][%s][%s]", getTaskType(), getMarkedStatusIcon(), getPriorityLevelIcon());
+
+        return displayFormat;
+    }
 }
