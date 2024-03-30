@@ -17,6 +17,12 @@ logs.log
 logs.log.lck
 logs.log.*
 save/tasks.txt
+
+text-ui-test/ACTUAL.TXT
+text-ui-test/EXPECTED.TXT
+text-ui-test/ACTUAL-UNIX.TXT
+text-ui-test/EXPECTED-UNIX.TXT
+
 htmlReport/index.html
 htmlReport/index_SORT_BY_BLOCK.html
 htmlReport/index_SORT_BY_BLOCK_DESC.html
