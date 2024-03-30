@@ -345,11 +345,11 @@ public class TaskManager {
      * @param monthView MonthView object for finding the date.
      * @param inMonthView A boolean indicating whether the view is in month view or not.
      * @param dayInt The day number to find the date for.
-     * @return
+     * @return The date corresponding to the day number.
      * @throws TaskManagerException
      */
-    private static LocalDate findDateFromDayNumber(WeekView weekView, MonthView monthView, boolean inMonthView, int dayInt)
-            throws TaskManagerException {
+    private static LocalDate findDateFromDayNumber(WeekView weekView, MonthView monthView, 
+            boolean inMonthView, int dayInt) throws TaskManagerException {
         LocalDate date;
         if (inMonthView) {
             date = monthView.getStartOfMonth().plusDays(dayInt - 1);
