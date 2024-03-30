@@ -164,6 +164,11 @@ public class Task {
         return "";
     }
 
+    /**
+     * Method that creates the display format for a task.
+     * 
+     * @return The String representation of the display format for this task.
+     */
     public String getDisplayFormat() {
         String displayFormat = String.format(
                 "[%s][%s][%s]", getTaskType(), getMarkedStatusIcon(), getPriorityLevelIcon());
