@@ -13,8 +13,6 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/
-
 logs.log
 save/tasks.txt
 logs.log.lck
