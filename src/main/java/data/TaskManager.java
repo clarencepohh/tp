@@ -205,6 +205,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Marks a task as completed.
+     * 
+     * @param date
+     * @param taskIndex
+     */
     public void markTaskAsCompleted(LocalDate date, int taskIndex) {
         List<Task> dayTasks = tasks.get(date);
 
@@ -216,6 +222,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Marks a task as not completed.
+     * 
+     * @param date
+     * @param taskIndex
+     */
     public void markTaskAsNotCompleted(LocalDate date, int taskIndex) {
         List<Task> dayTasks = tasks.get(date);
 
@@ -306,6 +318,17 @@ public class TaskManager {
         System.out.println(typeName + " added.");
     }
 
+    /**
+     * Marks a task as completed or not completed based its current marked status.
+     * 
+     * @param weekView WeekView object for finding the date.
+     * @param monthView MonthView object for finding the date.
+     * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param day The day of the task to be marked.
+     * @param taskIndex The index of the task to be marked.
+     * @throws TaskManagerException
+     * @throws DateTimeParseException
+     */
     public void markManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, int taskIndex)
             throws TaskManagerException, DateTimeParseException {
         LocalDate date;
@@ -315,6 +338,16 @@ public class TaskManager {
         saveTasksToFile(tasks, Storage.FILE_PATH);
     }
 
+    /**
+     * Finds the date based on the day number.
+     * 
+     * @param weekView WeekView object for finding the date.
+     * @param monthView MonthView object for finding the date.
+     * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param dayInt The day number to find the date for.
+     * @return
+     * @throws TaskManagerException
+     */
     private static LocalDate findDateFromDayNumber(WeekView weekView, MonthView monthView, boolean inMonthView, int dayInt)
             throws TaskManagerException {
         LocalDate date;
@@ -329,6 +362,12 @@ public class TaskManager {
         return date;
     }
 
+    /**
+     * Handles the marking of a task based on the task index and date.
+     * 
+     * @param taskIndex
+     * @param date
+     */
     private void handleMarkingOfTask(int taskIndex, LocalDate date) {
         boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
         if (taskIsCompleted) {
