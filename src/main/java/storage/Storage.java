@@ -121,6 +121,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Configures the statuses of the tasks after they are loaded from the file.
+     * 
+     * @param date Date of the task
+     * @param markedStatus Marked status of the task
+     * @param priorityLevel Priority level of the task
+     */
     private static void configureStatuses(LocalDate date, String markedStatus, String priorityLevel) {
 
         List<Task> allTasks = getDayTasks(date);
@@ -130,6 +137,12 @@ public class Storage {
         setPriorityLevelStatus(priorityLevel, recentlyAddedTask);
     }
 
+    /**
+     * Sets the priority level status of the task.
+     * 
+     * @param priorityLevel Priority level of the task
+     * @param recentlyAddedTask Task that was most recently added
+     */
     private static void setPriorityLevelStatus(String priorityLevel, Task recentlyAddedTask) {
         if (!priorityLevel.equals("H")) {
             recentlyAddedTask.setPriorityLevel(TaskPriorityLevel.MEDIUM);
@@ -140,6 +153,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Sets the marked status of the task.
+     * 
+     * @param markedStatus Marked status of the task
+     * @param recentlyAddedTask Task that was most recently added
+     */
     private static void setMarkedStatus(String markedStatus, Task recentlyAddedTask) {
         if (markedStatus.equals("X")) {
             recentlyAddedTask.setCompleteness(true);
