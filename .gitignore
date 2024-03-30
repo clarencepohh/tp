@@ -14,8 +14,9 @@ src/main/resources/docs/
 bin/
 
 logs.log
-save/tasks.txt
 logs.log.lck
+logs.log.*
+save/tasks.txt
 htmlReport/index.html
 htmlReport/index_SORT_BY_BLOCK.html
 htmlReport/index_SORT_BY_BLOCK_DESC.html
