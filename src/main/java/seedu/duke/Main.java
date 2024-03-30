@@ -129,6 +129,37 @@ public class Main {
                     System.out.println(e.getMessage());
                 }
                 break;
+            case "mark":
+                try {
+                    String[] parts = input.split(",\\s*");
+                    if (parts.length != 3) {
+                        throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                                "mark, <day>, <taskIndex>");
+                    }
+                    String day = parts[1].trim();
+                    int taskIndex = Integer.parseInt(parts[2].trim());
+
+                    taskManager.markManager(weekView, monthView, inMonthView, day, taskIndex);
+                } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "priority":
+                try {
+                    String[] parts = input.split(",\\s*");
+                    if (parts.length != 4) {
+                        throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                                "priority, <day>, <taskIndex>, <priorityLevel>");
+                    }
+                    String day = parts[1].trim();
+                    int taskIndex = Integer.parseInt(parts[2].trim());
+                    String priorityLevel = parts[3].trim().toUpperCase();
+
+                    taskManager.priorityManager(weekView, monthView, inMonthView, day, taskIndex, priorityLevel);
+                } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
             case "month":
                 monthView.printView(taskManager);
                 inMonthView = !inMonthView; // Toggle month view mode

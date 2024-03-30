@@ -2,7 +2,7 @@ package data;
 
 public class Task {
     protected String name;
-
+    protected TaskPriorityLevel priorityLevel;
     protected boolean isCompleted;
 
     /**
@@ -15,6 +15,7 @@ public class Task {
     public Task(String name) {
         this.name = name;
         this.isCompleted = false;
+        this.priorityLevel = TaskPriorityLevel.LOW;
     }
 
     /**
@@ -54,7 +55,6 @@ public class Task {
         isCompleted = completed;
     }
 
-
     /**
      * Checks the completeness status of a task and returns to the
      * caller the status icon of the task.
@@ -62,9 +62,26 @@ public class Task {
      *
      * @return String representation of completeness status icon.
      */
-
-    public String getStatusIcon() {
+    
+    public String getMarkedStatusIcon() {
         return (isCompleted ? "X" : " ");
+    }
+
+    /**
+     * Sets the priority level of the task.
+     */
+    public void setPriorityLevel(TaskPriorityLevel priorityLevelOfTask) {
+        this.priorityLevel = priorityLevelOfTask;
+    }
+
+    /**
+     * Gets the icon representation of the priority level of the task.
+     * "H" for high, "M" for medium, "L" for low.
+     */
+    public String getPriorityLevelIcon() {
+        return (priorityLevel == TaskPriorityLevel.HIGH ? "H" : 
+                (priorityLevel == TaskPriorityLevel.MEDIUM ? "M" :
+                "L"));
     }
 
     /**

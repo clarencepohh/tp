@@ -122,6 +122,7 @@ public class UiRenderer {
         System.out.println("| - 'update, <day>, <taskIndex>, <newDescription>': Update a task description.  |");
         System.out.println("| - 'add, <day>, <taskType>, <taskDescription>': Add a new task.                |");
         System.out.println("| - 'delete, <day>, <taskIndex>': Delete a task.                                |");
+        System.out.println("| - 'mark, <day>, <taskIndex>': Mark a task as complete or not complete.        |");
         System.out.println("| - 'month': Switch to month view.                                              |");
         System.out.println("| - 'week': Switch to week view.                                                |");
         System.out.println("| - 'quit': Exit the calendar application.                                      |");
