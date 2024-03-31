@@ -177,9 +177,8 @@ public class UiRenderer {
             List<List<String>> tasksWrappedLinesForDay = 
                     allWrappedTaskLines.getOrDefault(currentDate, Collections.emptyList());
             
-            boolean hasEnoughTasks = taskIndex < tasksWrappedLinesForDay.size();
-            boolean hasEnoughLines = lineIndex < tasksWrappedLinesForDay.get(taskIndex).size();
-            if (hasEnoughTasks && hasEnoughLines) {
+            if (taskIndex < tasksWrappedLinesForDay.size() && 
+                    lineIndex < tasksWrappedLinesForDay.get(taskIndex).size()) {
                 String taskLine = tasksWrappedLinesForDay.get(taskIndex).get(lineIndex);
                 System.out.printf(TASK_DISPLAY_FORMAT, taskLine);
             } else {
