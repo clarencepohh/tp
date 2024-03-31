@@ -32,10 +32,6 @@ public class UiRenderer {
 
     private static final int numberOfDaysInWeek = 7;
 
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_CYAN = "\u001B[36m"; // Cyan
-
-
     /**
      * Prints the header row with the surrounding horizontal dividers.
      * 
@@ -93,8 +89,7 @@ public class UiRenderer {
         logger.log(Level.INFO, "Printing dates for week starting from " + date);
         for (int i = 0; i < numberOfDaysInWeek; i++) {
             String formattedDate = dateFormatter.format(date);
-            String dateWithColor = ANSI_CYAN + formattedDate + ANSI_RESET;  
-            System.out.printf(ENTRY_FORMAT, dateWithColor);
+            System.out.printf(ENTRY_FORMAT, formattedDate);
 
             date = date.plusDays(1);
         }
