@@ -2,7 +2,11 @@ package ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,12 +14,15 @@ import data.Task;
 import data.TaskManager;
 
 public class UiRenderer {
+
+    private static Map<LocalDate, List<List<String>>> allWrappedTaskLines = new HashMap<>();
+
     private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private static final String[] WEEK_DAYS = {"Sunday", "Monday", "Tuesday",
         "Wednesday", "Thursday", "Friday", "Saturday"};
 
-    private static final int SPACE_COUNT = 10;
+    private static final int SPACE_COUNT = 20;
     private static final String SINGLE_HORIZONTAL_DIVIDER = "+" + "-".repeat(SPACE_COUNT);
     private static final String END_HORIZONTAL_DIVIDER = "+";
     private static final String VERTICAL_DIVIDER = "|";
@@ -75,7 +82,7 @@ public class UiRenderer {
     public static void printWeekBody(LocalDate startOfWeek, DateTimeFormatter dateFormatter, TaskManager taskManager) {
         int maxTasks = getMaxTasks(startOfWeek, taskManager);
         assert maxTasks >= 0 : "maxTasks should be non-negative";
-        printWeeksTasks(startOfWeek, maxTasks, taskManager);
+        printTasksInWeek(startOfWeek, maxTasks, taskManager);
         printHorizontalDivider();
     }
 
@@ -104,16 +111,125 @@ public class UiRenderer {
      * @param maxTasks The maximum number of tasks of a day in a week.
      * @param taskManager The task manager to get the tasks from.
      */
-    public static void printWeeksTasks(LocalDate startOfWeek, int maxTasks, TaskManager taskManager) {
-        for (int taskIndex = 0; taskIndex < maxTasks; taskIndex++) {
-            for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
-                LocalDate currentDate = startOfWeek.plusDays(dayIndex);
-                List<Task> dayTasks = taskManager.getTasksForDate(currentDate);
-                printTaskForDay(dayTasks, taskIndex);
+    // public static void printWeeksTasks(LocalDate startOfWeek, int maxTasks, TaskManager taskManager) {
+    //     for (int taskIndex = 0; taskIndex < maxTasks; taskIndex++) {
+    //         for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
+    //             LocalDate currentDate = startOfWeek.plusDays(dayIndex);
+    //             List<Task> dayTasks = taskManager.getTasksForDate(currentDate);
+    //             printTaskForDay(dayTasks, taskIndex);
+    //         }
+    //         System.out.println(VERTICAL_DIVIDER);
+    //     }
+    // }
+
+    public static void printTasksInWeek(LocalDate startOfWeek, int maxTasks, TaskManager taskManager) {
+        storeWrappedLines(startOfWeek, taskManager);
+        
+        // Once the data structure is populated, find out the max number of tasks in any day.
+        int maxNumberOfTasksInDay = getMaxNumberOfTasksInDay(allWrappedTaskLines);
+        
+        // Find out the maximum number of lines that any task has.
+        int maxNumberOfLinesPerTask = getMaxNumberOfLinesPerTask(allWrappedTaskLines);
+        
+        // Now print the tasks in a grid format.
+        printTasksInGrid(startOfWeek, maxNumberOfTasksInDay, maxNumberOfLinesPerTask);
+    }
+    
+    private static int getMaxNumberOfTasksInDay(Map<LocalDate, List<List<String>>> allWrappedTaskLines) {
+        int maxNumberOfTasksInDay = 0;
+        
+        for (List<List<String>> dayTasks : allWrappedTaskLines.values()) {
+            if (dayTasks.size() > maxNumberOfTasksInDay) {
+                maxNumberOfTasksInDay = dayTasks.size();
             }
-            System.out.println(VERTICAL_DIVIDER);
+        }
+        
+        return maxNumberOfTasksInDay;
+    }
+
+    private static int getMaxNumberOfLinesPerTask(Map<LocalDate, List<List<String>>> allWrappedTaskLines) {
+        int maxNumberOfLinesPerTask = 0;
+        
+        for (List<List<String>> dayTasks : allWrappedTaskLines.values()) {
+            for (List<String> taskLines : dayTasks) {
+                if (taskLines.size() > maxNumberOfLinesPerTask) {
+                    maxNumberOfLinesPerTask = taskLines.size();
+                }
+            }
+        }
+        
+        return maxNumberOfLinesPerTask;
+    }
+    
+    private static void printTasksInGrid(LocalDate startOfWeek, int maxNumberOfTasksInDay, int maxNumberOfLinesPerTask) {
+        // Iterate over the maximum number of tasks that any day has
+        for (int taskIndex = 0; taskIndex < maxNumberOfTasksInDay; taskIndex++) {
+
+            // For each task, iterate over the maximum number of lines that the task can have
+            for (int lineIndex = 0; lineIndex < maxNumberOfLinesPerTask; lineIndex++) {
+                
+                // Iterate over each day of the week
+                for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
+                    LocalDate currentDate = startOfWeek.plusDays(dayIndex);
+                    
+                    // Retrieve the current task's lines for the current day
+                    // Note: You would need to handle the case where there might not be a task at taskIndex
+                    // or a line at lineIndex (e.g., if a task has fewer lines than maxNumberOfLinesPerTask)
+                    List<List<String>> tasksWrappedLinesForDay = allWrappedTaskLines.getOrDefault(currentDate, Collections.emptyList());
+                    
+                    // Check if the current task index and line index are valid for the current day
+                    if (taskIndex < tasksWrappedLinesForDay.size() && lineIndex < tasksWrappedLinesForDay.get(taskIndex).size()) {
+                        // Valid task line, print it in the current cell
+                        String taskLine = tasksWrappedLinesForDay.get(taskIndex).get(lineIndex);
+                        System.out.printf(TASK_DISPLAY_FORMAT, taskLine);
+                    } else {
+                        // No task line, print an empty cell
+                        System.out.print(EMPTY_TASK_DISPLAY_FORMAT);
+                    }
+                }
+            }
+
+        // After printing all days for the current task line, move to the next line
+        System.out.println(VERTICAL_DIVIDER);
         }
     }
+
+    private static void storeWrappedLines(LocalDate startOfWeek, TaskManager taskManager) {
+        for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
+            LocalDate currentDate = startOfWeek.plusDays(dayIndex);
+            List<Task> dayTasks = taskManager.getTasksForDate(currentDate);
+            List<List<String>> wrappedTasksForDay = new ArrayList<>();
+
+            for (Task task : dayTasks) {
+                String taskDescription = task.getName();
+                String displayString = 
+                        (dayTasks.indexOf(task) + 1) + "." + 
+                        task.getDisplayFormat() +
+                        taskDescription;
+                List<String> wrappedLines = wrapText(displayString, SPACE_COUNT);
+                wrappedTasksForDay.add(wrappedLines);
+            }
+
+            allWrappedTaskLines.put(currentDate, wrappedTasksForDay);
+        }
+    }
+
+    private static List<String> wrapText(String text, int maxLengthToOccupy) {
+        List<String> lines = new ArrayList<>();
+        while (text.length() > maxLengthToOccupy) {
+            int breakPointIndex = text.lastIndexOf(' ', maxLengthToOccupy);
+            if (breakPointIndex == -1) {
+                breakPointIndex = maxLengthToOccupy;
+            }
+            lines.add(text.substring(0, breakPointIndex));
+            text = text.substring(breakPointIndex).trim();
+        }
+        if (!text.isEmpty()) {
+            lines.add(text);
+        }
+        return lines;
+    }
+    
 
     /**
      * Prints the task for the day.
