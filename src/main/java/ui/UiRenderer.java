@@ -103,6 +103,13 @@ public class UiRenderer {
         System.out.println(VERTICAL_DIVIDER);
     }
 
+    /**
+     * Prints the tasks in the week.
+     * 
+     * @param startOfWeek The date of the start of the week.
+     * @param maxTasks The maximum number of tasks in a day.
+     * @param taskManager The task manager to get the tasks from.
+     */
     public static void printTasksInWeek(LocalDate startOfWeek, int maxTasks, TaskManager taskManager) {
         storeWrappedLines(startOfWeek, taskManager);
         int maxNumberOfTasksInDay = getMaxNumberOfTasksInDay(allWrappedTaskLines);
@@ -110,6 +117,12 @@ public class UiRenderer {
         printTasksInGrid(startOfWeek, maxNumberOfTasksInDay, maxNumberOfLinesPerTask);
     }
     
+    /**
+     * Returns the maximum number of tasks in a day.
+     * 
+     * @param allWrappedTaskLines The map of wrapped task lines.
+     * @return The maximum number of tasks in a day.
+     */
     private static int getMaxNumberOfTasksInDay(Map<LocalDate, List<List<String>>> allWrappedTaskLines) {
         int maxNumberOfTasksInDay = 0;
         
@@ -122,6 +135,12 @@ public class UiRenderer {
         return maxNumberOfTasksInDay;
     }
 
+    /**
+     * Returns the maximum number of lines per task.
+     * 
+     * @param allWrappedTaskLines The map of wrapped task lines.
+     * @return The maximum number of lines per task.
+     */
     private static int getMaxNumberOfLinesPerTask(Map<LocalDate, List<List<String>>> allWrappedTaskLines) {
         int maxNumberOfLinesPerTask = 0;
         
@@ -136,6 +155,13 @@ public class UiRenderer {
         return maxNumberOfLinesPerTask;
     }
     
+    /**
+     * Prints the tasks in a grid format for the week. The tasks across different days are aligned in the same row.
+     * 
+     * @param startOfWeek The date of the start of the week.
+     * @param maxNumberOfTasksInDay The maximum number of tasks in a day.
+     * @param maxNumberOfLinesPerTask The maximum number of lines per task.
+     */
     private static void printTasksInGrid(LocalDate startOfWeek, int maxNumberOfTasksInDay, int maxNumberOfLinesPerTask) {
         for (int taskIndex = 0; taskIndex < maxNumberOfTasksInDay; taskIndex++) {
             for (int lineIndex = 0; lineIndex < maxNumberOfLinesPerTask; lineIndex++) {
@@ -144,6 +170,13 @@ public class UiRenderer {
         }
     }
 
+    /**
+     * Prints the substring of the task in the row.
+     * 
+     * @param startOfWeek The date of the start of the week.
+     * @param taskIndex The index of the task.
+     * @param lineIndex The index of the line in the task.
+     */
     private static void printTaskSubstringInRow(LocalDate startOfWeek, int taskIndex, int lineIndex) {
         for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
             LocalDate currentDate = startOfWeek.plusDays(dayIndex);
@@ -156,10 +189,16 @@ public class UiRenderer {
                 System.out.print(EMPTY_TASK_DISPLAY_FORMAT);
             }
         }
-        
+
         System.out.println(VERTICAL_DIVIDER);
     }
 
+    /**
+     * Stores the wrapped lines for the tasks in the week.
+     * 
+     * @param startOfWeek The date of the start of the week.
+     * @param taskManager The task manager to get the tasks from.
+     */
     private static void storeWrappedLines(LocalDate startOfWeek, TaskManager taskManager) {
         for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
             LocalDate currentDate = startOfWeek.plusDays(dayIndex);
@@ -180,6 +219,13 @@ public class UiRenderer {
         }
     }
 
+    /**
+     * Wraps the text to fit the given maximum length.
+     * 
+     * @param text The text to wrap.
+     * @param maxLengthToOccupy The maximum length to occupy.
+     * @return The list of wrapped lines.
+     */
     private static List<String> wrapText(String text, int maxLengthToOccupy) {
         List<String> lines = new ArrayList<>();
         while (text.length() > maxLengthToOccupy) {
