@@ -154,7 +154,8 @@ public class UiRenderer {
      * @param maxNumberOfTasksInDay The maximum number of tasks in a day.
      * @param maxNumberOfLinesPerTask The maximum number of lines per task.
      */
-    private static void printTasksInGrid(LocalDate startOfWeek, int maxNumberOfTasksInDay, int maxNumberOfLinesPerTask) {
+    private static void printTasksInGrid(LocalDate startOfWeek, int maxNumberOfTasksInDay, 
+            int maxNumberOfLinesPerTask) {
         for (int taskIndex = 0; taskIndex < maxNumberOfTasksInDay; taskIndex++) {
             for (int lineIndex = 0; lineIndex < maxNumberOfLinesPerTask; lineIndex++) {
                 printTaskSubstringInRow(startOfWeek, taskIndex, lineIndex);
@@ -173,8 +174,12 @@ public class UiRenderer {
         for (int dayIndex = 0; dayIndex < numberOfDaysInWeek; dayIndex++) {
             LocalDate currentDate = startOfWeek.plusDays(dayIndex);
 
-            List<List<String>> tasksWrappedLinesForDay = allWrappedTaskLines.getOrDefault(currentDate, Collections.emptyList());
-            if (taskIndex < tasksWrappedLinesForDay.size() && lineIndex < tasksWrappedLinesForDay.get(taskIndex).size()) {
+            List<List<String>> tasksWrappedLinesForDay = 
+                    allWrappedTaskLines.getOrDefault(currentDate, Collections.emptyList());
+            
+            boolean hasEnoughTasks = taskIndex < tasksWrappedLinesForDay.size();
+            boolean hasEnoughLines = lineIndex < tasksWrappedLinesForDay.get(taskIndex).size();
+            if (hasEnoughTasks && hasEnoughLines) {
                 String taskLine = tasksWrappedLinesForDay.get(taskIndex).get(lineIndex);
                 System.out.printf(TASK_DISPLAY_FORMAT, taskLine);
             } else {
