@@ -76,13 +76,10 @@ public class UiRenderer {
      * Prints the body of the week view.
      * 
      * @param startOfWeek The date of the start of the week.
-     * @param dateFormatter The date formatter to format the date.
      * @param taskManager The task manager to get the tasks from.
      */
-    public static void printWeekBody(LocalDate startOfWeek, DateTimeFormatter dateFormatter, TaskManager taskManager) {
-        int maxTasks = getMaxTasks(startOfWeek, taskManager);
-        assert maxTasks >= 0 : "maxTasks should be non-negative";
-        printTasksInWeek(startOfWeek, maxTasks, taskManager);
+    public static void printWeekBody(LocalDate startOfWeek, TaskManager taskManager) {
+        printTasksInWeek(startOfWeek, taskManager);
         printHorizontalDivider();
     }
 
@@ -107,10 +104,9 @@ public class UiRenderer {
      * Prints the tasks in the week.
      * 
      * @param startOfWeek The date of the start of the week.
-     * @param maxTasks The maximum number of tasks in a day.
      * @param taskManager The task manager to get the tasks from.
      */
-    public static void printTasksInWeek(LocalDate startOfWeek, int maxTasks, TaskManager taskManager) {
+    public static void printTasksInWeek(LocalDate startOfWeek, TaskManager taskManager) {
         storeWrappedLines(startOfWeek, taskManager);
         int maxNumberOfTasksInDay = getMaxNumberOfTasksInDay(allWrappedTaskLines);
         int maxNumberOfLinesPerTask = getMaxNumberOfLinesPerTask(allWrappedTaskLines);
