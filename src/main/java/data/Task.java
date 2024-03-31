@@ -64,7 +64,7 @@ public class Task {
      */
     
     public String getMarkedStatusIcon() {
-        return (isCompleted ? "X" : " ");
+        return (isCompleted ? "X" : "O");
     }
 
     /**
