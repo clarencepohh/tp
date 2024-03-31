@@ -22,7 +22,7 @@ public class UiRenderer {
     private static final String[] WEEK_DAYS = {"Sunday", "Monday", "Tuesday",
         "Wednesday", "Thursday", "Friday", "Saturday"};
 
-    private static final int SPACE_COUNT = 20;
+    private static final int SPACE_COUNT = 15;
     private static final String SINGLE_HORIZONTAL_DIVIDER = "+" + "-".repeat(SPACE_COUNT);
     private static final String END_HORIZONTAL_DIVIDER = "+";
     private static final String VERTICAL_DIVIDER = "|";
@@ -93,7 +93,8 @@ public class UiRenderer {
         logger.log(Level.INFO, "Printing dates for week starting from " + date);
         for (int i = 0; i < numberOfDaysInWeek; i++) {
             String formattedDate = dateFormatter.format(date);
-            System.out.printf(ENTRY_FORMAT, ANSI_CYAN + "\033[2m\033[22m" + formattedDate + ANSI_RESET);
+            String dateWithColor = ANSI_CYAN + formattedDate + ANSI_RESET;  
+            System.out.printf(ENTRY_FORMAT, dateWithColor);
 
             date = date.plusDays(1);
         }
