@@ -6,6 +6,7 @@ import storage.Storage;
 import time.DateUtils;
 import time.MonthView;
 import time.WeekView;
+import ui.AvatarUi;
 import data.TaskManager;
 import data.TaskManagerException;
 import log.FileLogger;
@@ -44,11 +45,11 @@ public class Main {
                 Storage.loadTasksFromFile(Storage.FILE_PATH); //Reads tasks from txt file
         taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
 
-        // AvatarUi.printAvatar();            //uncomment when fixed display
-        // AvatarUi.printWelcomeMessage();    //uncomment when fixed display
+        AvatarUi.printWelcomeMessage();
         //IcsHandler.generateICS(); //uncomment when developed
-
+        
         while (true) {
+            AvatarUi.printAvatar();
             if (printWeek) {
                 if (!inMonthView) {
                     weekView.printView(taskManager);
@@ -125,6 +126,37 @@ public class Main {
                     String day = parts[1].trim();
                     int taskIndex = Integer.parseInt(parts[2].trim());
                     deleteManager(weekView, monthView, inMonthView, taskManager, day, taskIndex);
+                } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "mark":
+                try {
+                    String[] parts = input.split(",\\s*");
+                    if (parts.length != 3) {
+                        throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                                "mark, <day>, <taskIndex>");
+                    }
+                    String day = parts[1].trim();
+                    int taskIndex = Integer.parseInt(parts[2].trim());
+
+                    taskManager.markManager(weekView, monthView, inMonthView, day, taskIndex);
+                } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "priority":
+                try {
+                    String[] parts = input.split(",\\s*");
+                    if (parts.length != 4) {
+                        throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                                "priority, <day>, <taskIndex>, <priorityLevel>");
+                    }
+                    String day = parts[1].trim();
+                    int taskIndex = Integer.parseInt(parts[2].trim());
+                    String priorityLevel = parts[3].trim().toUpperCase();
+
+                    taskManager.priorityManager(weekView, monthView, inMonthView, day, taskIndex, priorityLevel);
                 } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
                     System.out.println(e.getMessage());
                 }

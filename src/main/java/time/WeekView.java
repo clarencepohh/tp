@@ -22,7 +22,7 @@ public class WeekView extends View {
                 " - " + dateFormatter.format(endOfWeek));
 
         printWeekHeader(startOfView, dateFormatter, false);
-        printWeekBody(startOfView, dateFormatter, taskManager);
+        printWeekBody(startOfView, taskManager);
     }
 
     @Override
