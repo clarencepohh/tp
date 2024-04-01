@@ -30,10 +30,10 @@ public class Storage {
     private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
-     * Creates directory and tasks.txt if it does not exist
+     * Creates directory and tasks.txt if it does not exist.
      *
-     * @param path File Path of tests.txt file
-     * @throws IOException If an I/O exception occurs during file handling
+     * @param path File Path of tests.txt file.
+     * @throws IOException If an I/O exception occurs during file handling.
      */
     public static void createNewFile(Path path) throws IOException {
         if (!Files.isDirectory(path.getParent())) {

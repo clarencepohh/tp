@@ -44,10 +44,8 @@ public class Deadline extends Task {
      * Returns the task type of the specified task.
      * Override function of superclass Task.
      *
-     * @return D which represents a Deadline task.
+     * @return "D" which represents a Deadline task.
      */
-
-
 
     @Override
     public String getTaskType () {

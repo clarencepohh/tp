@@ -87,7 +87,7 @@ public class Task {
     /**
      * Returns the task type of the specified task.
      *
-     * @return ? which represents an unclassified task.
+     * @return "?" which represents an unclassified task.
      */
 
     public String getTaskType() {

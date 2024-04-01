@@ -489,9 +489,9 @@ public class TaskManager {
     public void addTasksFromFile(Map<LocalDate, List<Task>> tasksFromFile) throws TaskManagerException {
         for (Map.Entry<LocalDate, List<Task>> entry : tasksFromFile.entrySet()) {
             LocalDate date = entry.getKey();
-            List<Task> taskList = entry.getValue();
+            List<Task> tasksList = entry.getValue();
 
-            for (Task task : taskList) {
+            for (Task task : tasksList) {
                 String taskDescription = task.getName();
                 TaskType taskType = parseTaskType(task.getTaskType());
                 String[] dates = new String[]{null, null};
