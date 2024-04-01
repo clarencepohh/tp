@@ -10,7 +10,6 @@ public class Todo extends Task {
     /**
      * Constructor for new tasks given its name.
      * Tasks are initialized as incomplete.
-     * Increments the class-level element totalNumTasks by 1.
      * Todos are also considered as tasks.
      *
      * @param name The name of the task to be created.
@@ -20,10 +19,22 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructor for new tasks given its name and subtask status.
+     * Tasks are initialized as incomplete.
+     * Todos are also considered as tasks.
+     *
+     * @param name The name of the task to be created.
+     * @param subtaskStatus Whether the deadline is a subtask or not.
+     */
+    public Todo(String name, boolean subtaskStatus) {
+        super(name, subtaskStatus);
+    }
+
+    /**
      * Returns the task type of the specified task.
      * Override function of superclass Task.
      *
-     * @return T which represents a Todo task.
+     * @return "?" which represents a Todo task.
      */
 
     @Override
