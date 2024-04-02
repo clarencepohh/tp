@@ -80,16 +80,16 @@ Example of usage:
 
 ```
 //deletes task 2 on day 3
-delete, 3, 2
+delete,3,2
 
 //deletes task 1 on day 5
-delete, 5, 1
+delete,5,1
 ```
 - Shows error message if task does not exist
 
 ```
 //attempts to delete task 1 on day 5, but the task does not exist
-delete, 5, 1
+delete,5,1
 ```
 Output: 
 ![img.png](img.png)
@@ -159,6 +159,23 @@ Example of usage:
 
 ```
 quit
+```
+
+### ICS Exporting and Importing: `ics` `[coming in v2.1]`
+Exporting and importing tasks to and from an ICS file.
+
+Format: `ics <export> <filename>` or `ics <import> <filename>`
+- Exporting tasks to an ICS file will create a new ICS file with the specified filename
+- Importing tasks from an ICS file will add the tasks from the ICS file to the current task list
+
+Example of usage:
+
+```
+// exports tasks to an ICS file named "tasks.ics" into the current working directory
+ics,export,tasks.ics
+
+// imports tasks from an ICS file named "tasks.ics" in the current working directory
+ics,import,tasks.ics
 ```
 
 ## FAQ
