@@ -363,12 +363,12 @@ public class TaskManager {
             boolean inMonthView, int dayInt) throws TaskManagerException {
         LocalDate date;
         if (inMonthView) {
-//            date = monthView.getStartOfMonth().plusDays(dayInt - 1);
+            // date = monthView.getStartOfMonth().plusDays(dayInt - 1);
             date = monthView.getStartOfMonth().plusDays(dayInt);
             checkIfDateInCurrentMonth(date);
 
         } else {
-//            date = weekView.getStartOfWeek().plusDays(dayInt - 1);
+            // date = weekView.getStartOfWeek().plusDays(dayInt - 1);
             date = weekView.getStartOfWeek().plusDays(dayInt);
             checkIfDateInCurrentWeek(date, weekView);
         }

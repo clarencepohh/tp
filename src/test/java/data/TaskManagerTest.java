@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static data.TaskManager.addTask;
 import static data.TaskManager.updateTask;
