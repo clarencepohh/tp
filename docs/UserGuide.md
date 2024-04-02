@@ -349,7 +349,7 @@ delete,5,1
 delete,5,1
 ```
 Output: 
-![img.png](img.png)
+![Invalid Delete Example Console Inputs and Outputs](images/Invalid-Delete-Example.png)
 
 ### Marking a Task as Complete or Incomplete: `mark`
 
