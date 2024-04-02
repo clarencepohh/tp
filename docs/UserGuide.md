@@ -2,7 +2,11 @@
 
 ## Introduction
 
-Welcome to CLI-nton, a task management application designed to help you stay organized and productive.
+Welcome to CLI-nton, a powerful task management application designed to help you stay organized and productive. With a simple command-line interface, CLI-nton makes it easy to manage your tasks, whether they're todos, deadlines, or events.
+
+This user guide provides comprehensive instructions on how to use CLI-nton, from getting started to using advanced features. Whether you're a new user or an experienced one, this guide is designed to help you get the most out of CLI-nton.
+
+Read on to learn how to manage your tasks efficiently with CLI-nton!
 
 ## Quick Start
 
