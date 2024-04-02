@@ -15,16 +15,17 @@ import data.TaskManager;
 
 public class UiRenderer {
 
+    public static final String END_HORIZONTAL_DIVIDER = "+";
+    public static final String VERTICAL_DIVIDER = "|";
+    public static final int SPACE_COUNT = 15;
+    public static final String ENTRY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "s";
+    public static final String TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "." + SPACE_COUNT + "s";
+    public static final String EMPTY_TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " ".repeat(SPACE_COUNT);
     private static Map<LocalDate, List<List<String>>> allWrappedTaskLines = new HashMap<>();
-
     private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
     private static final String[] WEEK_DAYS = {"Sunday", "Monday", "Tuesday",
         "Wednesday", "Thursday", "Friday", "Saturday"};
-
-    private static final int SPACE_COUNT = 15;
     private static final String SINGLE_HORIZONTAL_DIVIDER = "+" + "-".repeat(SPACE_COUNT);
-    private static final String END_HORIZONTAL_DIVIDER = "+";
     private static final int numberOfDaysInWeek = 7;
 
     /**
