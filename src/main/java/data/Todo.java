@@ -18,25 +18,6 @@ public class Todo extends Task {
         super(name);
     }
 
-    /**
-     * Constructor for new tasks given its name and subtask status.
-     * Tasks are initialized as incomplete.
-     * Todos are also considered as tasks.
-     *
-     * @param name The name of the task to be created.
-     * @param subtaskStatus Whether the deadline is a subtask or not.
-     */
-    public Todo(String name, boolean subtaskStatus) {
-        super(name, subtaskStatus);
-    }
-
-    /**
-     * Returns the task type of the specified task.
-     * Override function of superclass Task.
-     *
-     * @return "?" which represents a Todo task.
-     */
-
     @Override
     public String getTaskType () {
         return "T";
