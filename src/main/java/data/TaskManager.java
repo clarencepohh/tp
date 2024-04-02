@@ -268,7 +268,7 @@ public class TaskManager {
      * @throws TaskManagerException If there is an error in managing tasks.
      * @throws DateTimeParseException If there is an error parsing the date.
      */
-    public void addManager(Scanner scanner, WeekView weekView, MonthView monthView,boolean inMonthView, String action,
+    public void addManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView, String action,
                            String day, String taskTypeString, String taskDescription)
             throws TaskManagerException,DateTimeParseException {
 
