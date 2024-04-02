@@ -596,9 +596,11 @@ public class TaskManager {
 
     public static void deleteAllTasksOnDate (TaskManager taskManager, LocalDate specifiedDate) {
         List<Task> dayTasks = tasks.get(specifiedDate);
-        int numOfTasks = dayTasks.size();
-        for (int i = numOfTasks; i >= 0; i--) {
-            taskManager.deleteTask(specifiedDate, i - 1, true);
+        if (dayTasks != null) {
+            int numOfTasks = dayTasks.size();
+            for (int i = numOfTasks; i >= 0; i--) {
+                taskManager.deleteTask(specifiedDate, i - 1, true);
+            }
         }
     }
 
