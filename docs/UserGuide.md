@@ -68,10 +68,13 @@ How to add a `Todo`: `add, 4, T, Sample Todo Task`
 
 Your Todo Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
 
+Here's what that would look like:
+![Todo Adding Example Console Inputs and Outputs](Todo-Example.png)
+
 #### Adding a `Deadline` 
 > Deadlines are tasks with an additional date/time of completion!
 
-How to add a `Deadline`: `add, 4, D, Sample Deadline Task`
+How to add a `Deadline`: `add, 3, D, Sample Deadline Task`
 
 You will then be asked to provide the deadline (date and time) for this task.
 
@@ -79,7 +82,10 @@ You will then be asked to provide the deadline (date and time) for this task.
 
 Example format: `06/04/2024 1800`  
 
-Your Deadline Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
+Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
+
+Here's what that would look like: 
+![Deadline Adding Example Console Inputs and Outputs](Deadline-Example.png)
 
 #### Adding an `Event`
 > Events are tasks with a start and end date/time!
@@ -97,6 +103,9 @@ Example format: `05/04/2024 1200`
 Example format: `07/05/2024 2000`
 
 Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
+
+Here's what that would look like: 
+![Event Adding Example Console Inputs and Outputs](Event-Example.png)
 
 #### **Notes to users**
 > Commas `,` and pipes `|` are used in our application as command delimiters as well as for file storage purposes.
