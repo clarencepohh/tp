@@ -361,7 +361,8 @@ public class TaskManager {
             checkIfDateInCurrentMonth(date);
 
         } else {
-            date = weekView.getStartOfWeek().plusDays(dayInt - 1);
+            LocalDate startOfMonthForWeekView = weekView.getStartOfMonth();
+            date = startOfMonthForWeekView.plusDays(dayInt - 1);
             checkIfDateInCurrentWeek(date, weekView);
         }
         return date;
