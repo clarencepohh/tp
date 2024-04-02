@@ -18,6 +18,13 @@ public class Todo extends Task {
         super(name);
     }
 
+    /**
+     * Returns the task type of the specified task.
+     * Override function of superclass Task.
+     *
+     * @return "T" which represents a Todo task.
+     */
+
     @Override
     public String getTaskType () {
         return "T";

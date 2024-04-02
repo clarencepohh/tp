@@ -181,15 +181,15 @@ public class TaskManager {
                 String deadlineResponse = scanner.nextLine().trim().toLowerCase();
                 if (deadlineResponse.equals("yes")) {
                     System.out.println("Enter the new deadline date and time, separated by a space:");
-                    String[] newDateAndTime = scanner.nextLine().trim().split(" ");
-                    task = new Deadline(newTaskDescription, newDateAndTime[0], newDateAndTime[1]);
+                    String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
+                    task = new Deadline(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1]);
 
                     logger.log(Level.INFO, "Updating task description from " +
                             oldDescription + " to: " + newTaskDescription);
                     logger.log(Level.INFO, "Updating task deadline date from " + oldDeadline.getByDate() + " to: "
-                            + newDateAndTime[0]);
+                            + newDatesAndTimes[0]);
                     logger.log(Level.INFO, "Updating task deadline time from " + oldDeadline.getByTime() + " to: "
-                            + newDateAndTime[1]);
+                            + newDatesAndTimes[1]);
                 } else {
                     task = new Deadline(newTaskDescription, oldDeadline.getByDate(), oldDeadline.getByTime());
 
@@ -209,6 +209,13 @@ public class TaskManager {
             throw new IndexOutOfBoundsException("Task index is out of bounds.");
         }
     }
+
+    /**
+     * Method to get the tasks for a specified date.
+     *
+     * @param date The date to be checked.
+     * @return An ArrayList of Tasks containing the tasks on the specified date.
+     */
 
     public static List<Task> getDayTasks(LocalDate date) {
         List<Task> dayTasks = tasks.get(date);
@@ -262,8 +269,13 @@ public class TaskManager {
     /**
      * Adds a task from user input along with the date.
      *
+     * @param scanner The scanner object used to read user input.
      * @param weekView WeekView object to validate the date.
+     * @param monthView MonthView object to validate the date.
      * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param day The String representing the date to add the task in.
+     * @param taskTypeString The String representing the taskType of the task to be added.
+     * @param taskDescription The String representing the description of the task to be added.
      * @throws TaskManagerException If there is an error in managing tasks.
      * @throws DateTimeParseException If there is an error parsing the date.
      */
@@ -336,8 +348,8 @@ public class TaskManager {
      * @param inMonthView A boolean indicating whether the view is in month view or not.
      * @param day The day of the task to be marked.
      * @param taskIndex The index of the task to be marked.
-     * @throws TaskManagerException
-     * @throws DateTimeParseException
+     * @throws TaskManagerException If the date given is not in the current month or week being viewed.
+     * @throws DateTimeParseException If there is an error parsing the date.
      */
     public void markManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, int taskIndex)
             throws TaskManagerException, DateTimeParseException {
@@ -356,13 +368,12 @@ public class TaskManager {
      * @param inMonthView A boolean indicating whether the view is in month view or not.
      * @param dayInt The day number to find the date for.
      * @return The date corresponding to the day number.
-     * @throws TaskManagerException
+     * @throws TaskManagerException If the date is not in the current month or week being viewed.
      */
     private static LocalDate findDateFromDayNumber(WeekView weekView, MonthView monthView, 
             boolean inMonthView, int dayInt) throws TaskManagerException {
         LocalDate date;
         if (inMonthView) {
-            // date = monthView.getStartOfMonth().plusDays(dayInt - 1);
             date = monthView.getStartOfMonth().plusDays(dayInt);
             checkIfDateInCurrentMonth(date);
 
@@ -480,8 +491,12 @@ public class TaskManager {
      *
      * @param scanner User input.
      * @param weekView Current week being viewed.
+     * @param monthView Current month being viewed.
      * @param inMonthView Whether month is being viewed.
      * @param taskManager The taskManager class being used.
+     * @param day The int representing the day containing the task to be updated.
+     * @param taskIndex The int representing the task index to be updated.
+     * @param newDescription The String with the new task description.
      * @throws TaskManagerException If not in correct week/month view.
      * @throws DateTimeParseException If there is an error parsing the date.
      */
@@ -489,6 +504,7 @@ public class TaskManager {
     public void updateManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView,
                               TaskManager taskManager,int day, int taskIndex, String newDescription)
             throws TaskManagerException, DateTimeParseException {
+
         // Convert the day to a LocalDate
         LocalDate date;
 
@@ -512,9 +528,9 @@ public class TaskManager {
     public void addTasksFromFile(Map<LocalDate, List<Task>> tasksFromFile) throws TaskManagerException {
         for (Map.Entry<LocalDate, List<Task>> entry : tasksFromFile.entrySet()) {
             LocalDate date = entry.getKey();
-            List<Task> taskList = entry.getValue();
+            List<Task> tasksList = entry.getValue();
 
-            for (Task task : taskList) {
+            for (Task task : tasksList) {
                 String taskDescription = task.getName();
                 TaskType taskType = parseTaskType(task.getTaskType());
                 String[] dates = new String[]{null, null};
@@ -581,12 +597,15 @@ public class TaskManager {
      * @param weekView Current week being viewed.
      * @param inMonthView Whether month is being viewed.
      * @param taskManager The taskManager class being used.
+     * @param day The String containing the day being viewed.
+     * @param monthView The MonthView instance being used.
+     * @param taskIndex The int representing the task index.
      * @throws TaskManagerException If not in correct week/month view
      * @throws DateTimeParseException If there is an error parsing the date.
      */
     public static void deleteManager(WeekView weekView,MonthView monthView, boolean inMonthView,
-                                     TaskManager taskManager,String day, int taskIndex) throws TaskManagerException,
-            DateTimeParseException {
+                                     TaskManager taskManager,String day, int taskIndex)
+            throws TaskManagerException, DateTimeParseException {
 
         // Convert the day to a LocalDate
         LocalDate date;

@@ -13,10 +13,10 @@ public class TaskManagerException extends Exception {
             "The date must be within the current month. Please try again.";
 
     /**
-     * Constructor for TaskManagerException class
-     * Uses constructor from Exception superclass
+     * Constructor for TaskManagerException class.
+     * Uses constructor from Exception superclass.
      *
-     * @param errorMessage The error message to be printed to the console
+     * @param errorMessage The error message to be printed to the console.
      */
 
     public TaskManagerException(String errorMessage) {
