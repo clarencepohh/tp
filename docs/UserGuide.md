@@ -42,7 +42,7 @@ Week View: 31/03/2024 - 06/04/2024
 +---------------+---------------+---------------+---------------+---------------+---------------+---------------+
 +---------------+---------------+---------------+---------------+---------------+---------------+---------------+
 ```
-The application will move to the following week view, displaying the following weekz.
+The application will move to the following week view, displaying the following week.
 
 ```dtd
 Week View: 07/04/2024 - 13/04/2024
