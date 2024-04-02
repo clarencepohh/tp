@@ -1,8 +1,62 @@
+add,1,T,Read a book
+add,2,T,Write a report
+add,3,T,Plan weekend getaway
+add,4,T,Organize desk
+add,5,T,Call grandma
+add,6,T,Workout
+add,7,T,Research new project
+add,31,T,Pay bills
+add,2,T,Buy groceries
+add,2,T,Prepare presentation
+add,3,E,Lunch with team
+02/04/2024 1200
+03/04/2024 1300
+add,2,E,Doctor's appointment
+02/04/2024 1000
+03/04/2024 1100
+add,3,E,Client meeting
+03/04/2024 0900
+03/04/2024 1030
+add,4,E,Coffee with friend
+04/04/2024 1500
+04/04/2024 1600
+add,5,E,Team building activity
+05/04/2024 0900
+05/04/2024 1700
+add,6,E,Dinner date
+06/04/2024 1900
+06/04/2024 2100
+add,7,E,Networking event
+07/04/2024 1800
+07/04/2024 2000
+add,2,D,Submit assignment
+02/04/2024 2359
+add,2,D,Finish project proposal
+02/04/2024 1800
+add,3,D,Email final report
+03/04/2024 1700
+add,4,D,Complete online course
+04/04/2024 2359
+add,5,D,File taxes
+05/04/2024 2359
+add,6,D,Return library books
+06/04/2024 2000
+priority,1,1,H
+priority,2,1,M
+priority,3,2,H
+mark,3,1
+mark,5,1
+mark,7,1
 month
-add, 20, T, new todo
-add, 20, T, new event, 20/03/2024, 22/03/2024
-add, 20, D, new deadline 1
-add, 20, D, new deadline 2
-update, 20, 1, qioncioqnc uion uioqen qwpc
-delete, 20, 4
+add, 30, T, new todo
+add, 30, T, another todo
+add, 30, D, deadline1
+30/03/2024 1800
+mark,30,2
+mark,30,1
+add, 30, D, new deadline 2
+30/03/2024 2100
+priority,30,2,M
+update, 30, 1, qioncioqnc uion uioqen qwpc
+delete, 30, 4
 quit

@@ -2,6 +2,7 @@ package storage;
 
 import data.Task;
 import data.TaskManagerException;
+import data.TaskPriorityLevel;
 import data.TaskType;
 
 import java.io.BufferedReader;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static data.TaskManager.addTask;
+import static data.TaskManager.getDayTasks;
 import static data.TaskManager.parseTaskType;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
@@ -25,7 +27,7 @@ import static data.TaskType.EVENT;
 public class Storage {
 
     public static final Path FILE_PATH = Path.of("./save/tasks.txt");
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Creates directory and tasks.txt if it does not exist
@@ -88,19 +90,22 @@ public class Storage {
                 String[] parts = line.split("\\|");
                 LocalDate date = LocalDate.parse(parts[0]);
                 TaskType taskType = parseTaskType(parts[1]);
-                String taskDescription = parts[2];
+                String markedStatus = parts[2];
+                String priorityLevel = parts[3];
+                String taskDescription = parts[4];
                 String[] dates = {null, null};
                 String[] times = {null, null};
                 if (taskType == DEADLINE) {
-                    dates[0] = parts[3];
-                    times[0] = parts[4];
+                    dates[0] = parts[5];
+                    times[0] = parts[6];
                 } else if (taskType == EVENT) {
-                    dates[0] = parts[3];
-                    dates[1] = parts[4];
-                    times[0] = parts[5];
-                    times[1] = parts[6];
+                    dates[0] = parts[5];
+                    dates[1] = parts[6];
+                    times[0] = parts[7];
+                    times[1] = parts[8];
                 }
                 addTask(date, taskDescription, taskType, dates, times);
+                configureStatuses(date, markedStatus, priorityLevel);
             }
         } catch (IOException e) {
             System.out.println("I/O exception occurred during file handling");
@@ -113,6 +118,50 @@ public class Storage {
         }
         logger.log(Level.INFO, "tasks returned");
         return tasks;
+    }
+
+    /**
+     * Configures the statuses of the tasks after they are loaded from the file.
+     * 
+     * @param date Date of the task
+     * @param markedStatus Marked status of the task
+     * @param priorityLevel Priority level of the task
+     */
+    private static void configureStatuses(LocalDate date, String markedStatus, String priorityLevel) {
+
+        List<Task> allTasks = getDayTasks(date);
+        Task recentlyAddedTask = allTasks.get(allTasks.size() - 1);
+
+        setMarkedStatus(markedStatus, recentlyAddedTask);
+        setPriorityLevelStatus(priorityLevel, recentlyAddedTask);
+    }
+
+    /**
+     * Sets the priority level status of the task.
+     * 
+     * @param priorityLevel Priority level of the task
+     * @param recentlyAddedTask Task that was most recently added
+     */
+    private static void setPriorityLevelStatus(String priorityLevel, Task recentlyAddedTask) {
+        if (!priorityLevel.equals("H")) {
+            recentlyAddedTask.setPriorityLevel(TaskPriorityLevel.MEDIUM);
+        } else if (!priorityLevel.equals("M")) {
+            recentlyAddedTask.setPriorityLevel(TaskPriorityLevel.MEDIUM);
+        } else {
+            recentlyAddedTask.setPriorityLevel(TaskPriorityLevel.LOW);
+        }
+    }
+
+    /**
+     * Sets the marked status of the task.
+     * 
+     * @param markedStatus Marked status of the task
+     * @param recentlyAddedTask Task that was most recently added
+     */
+    private static void setMarkedStatus(String markedStatus, Task recentlyAddedTask) {
+        if (markedStatus.equals("X")) {
+            recentlyAddedTask.setCompleteness(true);
+        }
     }
 
     public static boolean checkFileFormat(String line) {

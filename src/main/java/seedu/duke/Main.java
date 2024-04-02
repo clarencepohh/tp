@@ -1,10 +1,12 @@
 package seedu.duke;
 
 import data.Task;
+import net.fortuna.ical4j.data.ParserException;
 import storage.Storage;
 import time.DateUtils;
 import time.MonthView;
 import time.WeekView;
+import ui.AvatarUi;
 import data.TaskManager;
 import data.TaskManagerException;
 import log.FileLogger;
@@ -25,7 +27,7 @@ import static ui.UiRenderer.printHelp;
 public class Main {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static void main(String[] args) throws IOException, TaskManagerException {
+    public static void main(String[] args) throws IOException, TaskManagerException, ParserException {
         FileLogger.setupLogger();
         Scanner scanner = new Scanner(System.in);
         LocalDate today = LocalDate.now();
@@ -43,7 +45,11 @@ public class Main {
                 Storage.loadTasksFromFile(Storage.FILE_PATH); //Reads tasks from txt file
         taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
 
+        AvatarUi.printWelcomeMessage();
+        //IcsHandler.generateICS(); //uncomment when developed
+        
         while (true) {
+            AvatarUi.printAvatar();
             if (printWeek) {
                 if (!inMonthView) {
                     weekView.printView(taskManager);
@@ -52,6 +58,12 @@ public class Main {
                 }
             }
             printWeek = true; // Reset flag for the next iteration
+            System.out.println("Enter 'next' for next week, 'prev' for previous week, " +
+                    "'add' to add a task, " +
+                    "'update' to edit a task, " +
+                    "'delete' to delete a task, " +
+                    "'month' to display the month view, " +
+                    "or 'quit' to quit:");
             System.out.println("Enter help to learn commands");
             String input = scanner.nextLine().trim().toLowerCase();
             String command = input.split(",")[0];
@@ -68,7 +80,7 @@ public class Main {
                     monthView.previous();
                 } else {
                     weekView.previous();
-                } 
+                }
                 break;
             case "update":
                 try {
@@ -114,6 +126,37 @@ public class Main {
                     String day = parts[1].trim();
                     int taskIndex = Integer.parseInt(parts[2].trim());
                     deleteManager(weekView, monthView, inMonthView, taskManager, day, taskIndex);
+                } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "mark":
+                try {
+                    String[] parts = input.split(",\\s*");
+                    if (parts.length != 3) {
+                        throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                                "mark, <day>, <taskIndex>");
+                    }
+                    String day = parts[1].trim();
+                    int taskIndex = Integer.parseInt(parts[2].trim());
+
+                    taskManager.markManager(weekView, monthView, inMonthView, day, taskIndex);
+                } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "priority":
+                try {
+                    String[] parts = input.split(",\\s*");
+                    if (parts.length != 4) {
+                        throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                                "priority, <day>, <taskIndex>, <priorityLevel>");
+                    }
+                    String day = parts[1].trim();
+                    int taskIndex = Integer.parseInt(parts[2].trim());
+                    String priorityLevel = parts[3].trim().toUpperCase();
+
+                    taskManager.priorityManager(weekView, monthView, inMonthView, day, taskIndex, priorityLevel);
                 } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
                     System.out.println(e.getMessage());
                 }
