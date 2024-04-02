@@ -13,18 +13,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
-
-import static data.TaskManagerException.checkIfDateHasTasks;
-import static data.TaskManagerException.checkIfDateInCurrentWeek;
-import static data.TaskManagerException.checkIfDateInCurrentMonth;
-import static data.TaskType.DEADLINE;
-import static data.TaskType.TODO;
-import static data.TaskType.EVENT;
-import static storage.Storage.saveTasksToFile;
-
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static data.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
+import static data.TaskManagerException.checkIfDateHasTasks;
+import static data.TaskManagerException.checkIfDateInCurrentMonth;
+import static data.TaskManagerException.checkIfDateInCurrentWeek;
+import static data.TaskType.DEADLINE;
+import static data.TaskType.EVENT;
+import static data.TaskType.TODO;
+import static storage.Storage.saveTasksToFile;
 
 /**
  * Manages tasks by providing functionalities to add, delete, and update tasks.
@@ -77,20 +76,26 @@ public class TaskManager {
 
     /**
      * Deletes a task for a specific date and task index.
+     * Adds an option to mute system outputs (Used for testing only).
      *
      * @param date The date of the task.
      * @param taskIndex The index of the task to delete.
+     * @param isMuted Whether system outputs are muted.
      */
-    public void deleteTask(LocalDate date, int taskIndex) {
+    public void deleteTask(LocalDate date, int taskIndex, boolean isMuted) {
         List<Task> dayTasks = tasks.get(date);
         if (dayTasks != null && taskIndex >= 0 && taskIndex < dayTasks.size()) {
             dayTasks.remove(taskIndex);
             if (dayTasks.isEmpty()) {
                 tasks.remove(date);
             }
-            System.out.println("Task deleted.");
+            if (!isMuted) {
+                System.out.println("Task deleted.");
+            }
         } else {
-            System.out.println("The task you are trying to delete does not exist.");
+            if (!isMuted) {
+                System.out.println("The task you are trying to delete does not exist.");
+            }
         }
     }
 
@@ -106,7 +111,7 @@ public class TaskManager {
     public static void updateTask(LocalDate date, int taskIndex, String newTaskDescription, Scanner scanner)
             throws IndexOutOfBoundsException {
         try {
-            List<Task> dayTasks = tasks.get(date);
+            List<Task> dayTasks = getDayTasks(date);
             boolean dayHasTasks = dayTasks != null;
             boolean taskIndexExists = taskIndex >= 0 && taskIndex < Objects.requireNonNull(dayTasks).size();
             assert dayHasTasks;
@@ -205,8 +210,44 @@ public class TaskManager {
         }
     }
 
+    public static List<Task> getDayTasks(LocalDate date) {
+        List<Task> dayTasks = tasks.get(date);
+        return dayTasks;
+    }
 
+    /**
+     * Marks a task as completed.
+     * 
+     * @param date The date of the task.
+     * @param taskIndex The index of the task to mark.
+     */
+    public void markTaskAsCompleted(LocalDate date, int taskIndex) {
+        List<Task> dayTasks = tasks.get(date);
 
+        try {
+            dayTasks.get(taskIndex).setCompleteness(true);
+            System.out.println("Task marked as done.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("Task index is out of bounds.");
+        }
+    }
+
+    /**
+     * Marks a task as not completed.
+     * 
+     * @param date The date of the task.
+     * @param taskIndex The index of the task to mark.
+     */
+    public void markTaskAsNotCompleted(LocalDate date, int taskIndex) {
+        List<Task> dayTasks = tasks.get(date);
+
+        try {
+            dayTasks.get(taskIndex).setCompleteness(false);
+            System.out.println("Unmarked task.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("Task index is out of bounds.");
+        }
+    }
 
     /**
      * Retrieves tasks for a specific date.
@@ -226,7 +267,7 @@ public class TaskManager {
      * @throws TaskManagerException If there is an error in managing tasks.
      * @throws DateTimeParseException If there is an error parsing the date.
      */
-    public void addManager(Scanner scanner, WeekView weekView, MonthView monthView,boolean inMonthView, String action,
+    public void addManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView, String action,
                            String day, String taskTypeString, String taskDescription)
             throws TaskManagerException,DateTimeParseException {
 
@@ -243,15 +284,7 @@ public class TaskManager {
         // Convert dayString to int
         int dayInt = Integer.parseInt(day);
 
-        // Check if the date is in the current week/month view
-        if (inMonthView) {
-            date = monthView.getStartOfMonth().plusDays(dayInt - 1);
-            checkIfDateInCurrentMonth(date);
-
-        } else {
-            date = weekView.getStartOfWeek().plusDays(dayInt - 1);
-            checkIfDateInCurrentWeek(date, weekView);
-        }
+        date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
 
         // Parse the task type
         TaskType taskType = parseTaskType(taskTypeString.toUpperCase());
@@ -293,6 +326,123 @@ public class TaskManager {
         // Save tasks to file
         saveTasksToFile(tasks, Storage.FILE_PATH); // Update tasks.txt file
         System.out.println(typeName + " added.");
+    }
+
+    /**
+     * Marks a task as completed or not completed based its current marked status.
+     * 
+     * @param weekView WeekView object for finding the date.
+     * @param monthView MonthView object for finding the date.
+     * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param day The day of the task to be marked.
+     * @param taskIndex The index of the task to be marked.
+     * @throws TaskManagerException
+     * @throws DateTimeParseException
+     */
+    public void markManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, int taskIndex)
+            throws TaskManagerException, DateTimeParseException {
+        LocalDate date;
+        int dayInt = Integer.parseInt(day);
+        date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
+        handleMarkingOfTask(taskIndex, date);
+        saveTasksToFile(tasks, Storage.FILE_PATH);
+    }
+
+    /**
+     * Finds the date based on the day number.
+     * 
+     * @param weekView WeekView object for finding the date.
+     * @param monthView MonthView object for finding the date.
+     * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param dayInt The day number to find the date for.
+     * @return The date corresponding to the day number.
+     * @throws TaskManagerException
+     */
+    private static LocalDate findDateFromDayNumber(WeekView weekView, MonthView monthView, 
+            boolean inMonthView, int dayInt) throws TaskManagerException {
+        LocalDate date;
+        if (inMonthView) {
+            // date = monthView.getStartOfMonth().plusDays(dayInt - 1);
+            date = monthView.getStartOfMonth().plusDays(dayInt);
+            checkIfDateInCurrentMonth(date);
+
+        } else {
+            LocalDate startOfWeek = weekView.getStartOfWeek();
+            LocalDate endOfWeek = startOfWeek.plusDays(6);
+            LocalDate startOfMonth = startOfWeek.withDayOfMonth(1);
+            LocalDate possibleDate = startOfMonth.plusDays(dayInt - 1);
+            
+            boolean isBeforeStartOfWeek = possibleDate.isBefore(startOfWeek);
+            boolean isNotInSameMonth = possibleDate.getMonth() != startOfWeek.getMonth();
+            boolean dayIntRefersToNextMonth = isBeforeStartOfWeek || isNotInSameMonth;
+
+            if (dayIntRefersToNextMonth) {
+                LocalDate startOfNextMonth = startOfMonth.plusMonths(1).withDayOfMonth(dayInt);
+                if (startOfNextMonth.isAfter(endOfWeek)) {
+                    throw new TaskManagerException(NOT_CURRENT_WEEK_MESSAGE);
+                }
+                date = startOfNextMonth;
+            } else {
+                date = possibleDate;
+            }
+
+            checkIfDateInCurrentWeek(date, weekView);
+        }
+        return date;
+    }
+
+    /**
+     * Handles the marking of a task based on the task index and date.
+     * 
+     * @param taskIndex The index of the task to be marked.
+     * @param date The date of the task to be marked.
+     */
+    private void handleMarkingOfTask(int taskIndex, LocalDate date) {
+        boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
+        if (taskIsCompleted) {
+            markTaskAsNotCompleted(date, taskIndex - 1);
+        } else {
+            markTaskAsCompleted(date, taskIndex - 1);
+        }
+    }
+
+    /**
+     * Performs the setting of priority levels based on the user's input.
+     * 
+     * @param weekView WeekView object for finding the date.
+     * @param monthView MonthView object for finding the date.
+     * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param day The day of the task to be marked.
+     * @param taskIndex The index of the task to be marked.
+     * @param priorityLevelString The priority level to set the task to.
+     * @throws TaskManagerException If there is an error in managing tasks.
+     * @throws DateTimeParseException If there is an error parsing the date.
+     */
+    public void priorityManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, 
+            int taskIndex, String priorityLevelString) throws TaskManagerException, DateTimeParseException {
+        LocalDate date;
+        int dayInt = Integer.parseInt(day);
+
+        date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
+        setPriorityLevelOfTask(taskIndex, date, priorityLevelString);
+        saveTasksToFile(tasks, Storage.FILE_PATH);
+    }
+
+    /**
+     * Sets the priority level of a task.
+     * 
+     * @param taskIndex The index of the task to set the priority level for.
+     * @param date The date of the task to set the priority level for.
+     * @param priorityLevelString The priority level to set the task to.
+     */
+    private void setPriorityLevelOfTask(int taskIndex, LocalDate date, String priorityLevelString) {
+        List<Task> dayTasks = tasks.get(date);
+        Task task = dayTasks.get(taskIndex - 1);
+        TaskPriorityLevel priorityLevelToSet = 
+                priorityLevelString.equals("H") ? TaskPriorityLevel.HIGH : 
+                priorityLevelString.equals("M") ? TaskPriorityLevel.MEDIUM : 
+                TaskPriorityLevel.LOW;
+        task.setPriorityLevel(priorityLevelToSet);
     }
 
 
@@ -342,14 +492,7 @@ public class TaskManager {
         // Convert the day to a LocalDate
         LocalDate date;
 
-        // Check if the date is in the current week/month view
-        if (inMonthView) {
-            date = monthView.getStartOfMonth().plusDays(day - 1);
-            checkIfDateInCurrentMonth(date);
-        } else {
-            date = weekView.getStartOfWeek().plusDays(day - 1);
-            checkIfDateInCurrentWeek(date, weekView);
-        }
+        date = findDateFromDayNumber(weekView, monthView, inMonthView, day);
 
         String currentTaskType = taskManager.getTasksForDate(date).get(taskIndex - 1).getTaskType();
         String typeName = currentTaskType.equals("T") ? "Todo" : currentTaskType.equals("D") ? "Deadline" : "Event";
@@ -359,7 +502,6 @@ public class TaskManager {
         System.out.println(typeName + " updated.");
 
     }
-
 
     /**
      * Adds tasks from a file to the TaskManager.
@@ -450,18 +592,10 @@ public class TaskManager {
         LocalDate date;
 
         int dayInt = Integer.parseInt(day);
-        // Check if the date is in the current week/month view
-        if (inMonthView) {
-            date = monthView.getStartOfMonth().plusDays(dayInt - 1);
-            checkIfDateInCurrentMonth(date);
-
-        } else {
-            date = weekView.getStartOfWeek().plusDays(dayInt - 1);
-            checkIfDateInCurrentWeek(date, weekView);
-        }
+        date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
 
         // Delete the task based on the parsed inputs
-        taskManager.deleteTask(date, taskIndex - 1); // Subtract 1 to convert to zero-based index
+        taskManager.deleteTask(date, taskIndex - 1, false); // Subtract 1 to convert to zero-based index
         //System.out.println("Task deleted.");
 
         // Save tasks to file
@@ -478,9 +612,11 @@ public class TaskManager {
 
     public static void deleteAllTasksOnDate (TaskManager taskManager, LocalDate specifiedDate) {
         List<Task> dayTasks = tasks.get(specifiedDate);
-        int numOfTasks = dayTasks.size();
-        for (int i = numOfTasks; i >= 0; i--) {
-            taskManager.deleteTask(specifiedDate, i - 1);
+        if (dayTasks != null) {
+            int numOfTasks = dayTasks.size();
+            for (int i = numOfTasks; i >= 0; i--) {
+                taskManager.deleteTask(specifiedDate, i - 1, true);
+            }
         }
     }
 
