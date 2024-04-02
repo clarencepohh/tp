@@ -75,6 +75,7 @@ public class Main {
                     weekView.next();
                 }
                 break;
+
             case "prev":
                 if (inMonthView) {
                     monthView.previous();
@@ -82,6 +83,7 @@ public class Main {
                     weekView.previous();
                 }
                 break;
+
             case "update":
                 try {
                     String[] parts = input.split(",\\s*");
@@ -98,6 +100,7 @@ public class Main {
                     System.out.println(e.getMessage());
                 }
                 break;
+
             case "add":
                 try {
                     String[] parts = input.split(",\\s*");
@@ -106,16 +109,16 @@ public class Main {
                                 "add, <day>, <taskType>, <taskDescription>");
                     }
                     String action = parts[0];
-                    //int day = Integer.parseInt(parts[1].trim());
                     String day = parts[1].trim();
                     String taskTypeString = parts[2].trim();
                     String taskDescription = parts[3].trim();
-                    taskManager.addManager(scanner, weekView,monthView, inMonthView, action, day,
+                    taskManager.addManager(scanner, weekView, monthView, inMonthView, action, day,
                             taskTypeString, taskDescription);
                 } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
+
             case "delete":
                 try {
                     String[] parts = input.split(",\\s*");
@@ -130,6 +133,7 @@ public class Main {
                     System.out.println(e.getMessage());
                 }
                 break;
+
             case "mark":
                 try {
                     String[] parts = input.split(",\\s*");
@@ -145,6 +149,7 @@ public class Main {
                     System.out.println(e.getMessage());
                 }
                 break;
+
             case "priority":
                 try {
                     String[] parts = input.split(",\\s*");
@@ -161,21 +166,25 @@ public class Main {
                     System.out.println(e.getMessage());
                 }
                 break;
+
             case "month":
                 monthView.printView(taskManager);
                 inMonthView = !inMonthView; // Toggle month view mode
                 printWeek = false;
                 break;
+
             case "week":
                 inMonthView = false;
                 break;
             case "help":
                 printHelp();
                 break;
+
             case "quit":
                 System.out.println("Exiting Calendar...");
                 System.exit(0);
                 break;
+
             default:
                 System.out.println("Invalid input. Please try again.");
             }
