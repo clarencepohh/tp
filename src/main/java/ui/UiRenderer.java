@@ -47,7 +47,7 @@ public class UiRenderer {
     /**
      * Prints the horizontal divider.
      */
-    private static void printHorizontalDivider() {
+    public static void printHorizontalDivider() {
         for (int i = 0; i < numberOfDaysInWeek; i++) {
             System.out.print(SINGLE_HORIZONTAL_DIVIDER);
         }
@@ -279,9 +279,9 @@ public class UiRenderer {
      */
     public static void printSeparator() {
         for (int i = 0; i < numberOfDaysInWeek; i++) {
-            System.out.print("+------------");
+            System.out.print(SINGLE_HORIZONTAL_DIVIDER);
         }
-        System.out.println("+");
+        System.out.println(END_HORIZONTAL_DIVIDER);
     }
 
     /**
