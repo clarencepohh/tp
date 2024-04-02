@@ -2,7 +2,11 @@
 
 ## Introduction
 
-Welcome to CLI-nton, a task management application designed to help you stay organized and productive.
+Welcome to CLI-nton, a powerful task management application designed to help you stay organized and productive. With a simple command-line interface, CLI-nton makes it easy to manage your tasks, whether they're todos, deadlines, or events.
+
+This user guide provides comprehensive instructions on how to use CLI-nton, from getting started to using advanced features. Whether you're a new user or an experienced one, this guide is designed to help you get the most out of CLI-nton.
+
+Read on to learn how to manage your tasks efficiently with CLI-nton!
 
 ## Quick Start
 
@@ -324,13 +328,28 @@ Here's what that would look like:
 
 Deletes a task.
 
-Format: `delete <day> <taskIndex>`
+Format: `delete, <day>, <taskIndex>`
+- Deletes the task at the specified index on the given day
+- Shows an error message if the task index does not exist
 
 Example of usage:
+- Deletes task 2 on Wednesday
 
 ```
-delete Wednesday 2
+//deletes task 2 on day 3
+delete,3,2
+
+//deletes task 1 on day 5
+delete,5,1
 ```
+- Shows error message if task does not exist
+
+```
+//attempts to delete task 1 on day 5, but the task does not exist
+delete,5,1
+```
+Output: 
+![img.png](img.png)
 
 ### Marking a Task as Complete or Incomplete: `mark`
 
@@ -393,6 +412,23 @@ quit
 Exiting Calendar...
 ```
 The application will exit after displaying a goodbye message.
+
+### ICS Exporting and Importing: `ics` `[coming in v2.1]`
+Exporting and importing tasks to and from an ICS file.
+
+Format: `ics <export> <filename>` or `ics <import> <filename>`
+- Exporting tasks to an ICS file will create a new ICS file with the specified filename
+- Importing tasks from an ICS file will add the tasks from the ICS file to the current task list
+
+Example of usage:
+
+```
+// exports tasks to an ICS file named "tasks.ics" into the current working directory
+ics,export,tasks.ics
+
+// imports tasks from an ICS file named "tasks.ics" in the current working directory
+ics,import,tasks.ics
+```
 
 ## FAQ
 
