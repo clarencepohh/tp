@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static data.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
 import static data.TaskManagerException.checkIfDateHasTasks;
 import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.TaskManagerException.checkIfDateInCurrentMonth;
@@ -361,7 +362,25 @@ public class TaskManager {
             checkIfDateInCurrentMonth(date);
 
         } else {
-            date = weekView.getStartOfWeek().plusDays(dayInt - 1);
+            LocalDate startOfWeek = weekView.getStartOfWeek();
+            LocalDate endOfWeek = startOfWeek.plusDays(6);
+            LocalDate startOfMonth = startOfWeek.withDayOfMonth(1);
+            LocalDate possibleDate = startOfMonth.plusDays(dayInt - 1);
+            
+            boolean isBeforeStartOfWeek = possibleDate.isBefore(startOfWeek);
+            boolean isNotInSameMonth = possibleDate.getMonth() != startOfWeek.getMonth();
+            boolean dayIntRefersToNextMonth = isBeforeStartOfWeek || isNotInSameMonth;
+
+            if (dayIntRefersToNextMonth) {
+                LocalDate startOfNextMonth = startOfMonth.plusMonths(1).withDayOfMonth(dayInt);
+                if (startOfNextMonth.isAfter(endOfWeek)) {
+                    throw new TaskManagerException(NOT_CURRENT_WEEK_MESSAGE);
+                }
+                date = startOfNextMonth;
+            } else {
+                date = possibleDate;
+            }
+
             checkIfDateInCurrentWeek(date, weekView);
         }
         return date;
