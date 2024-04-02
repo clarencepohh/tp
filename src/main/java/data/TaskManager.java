@@ -77,20 +77,26 @@ public class TaskManager {
 
     /**
      * Deletes a task for a specific date and task index.
+     * Adds an option to mute system outputs (Used for testing only).
      *
      * @param date The date of the task.
      * @param taskIndex The index of the task to delete.
+     * @param isMuted Whether system outputs are muted.
      */
-    public void deleteTask(LocalDate date, int taskIndex) {
+    public void deleteTask(LocalDate date, int taskIndex, boolean isMuted) {
         List<Task> dayTasks = tasks.get(date);
         if (dayTasks != null && taskIndex >= 0 && taskIndex < dayTasks.size()) {
             dayTasks.remove(taskIndex);
             if (dayTasks.isEmpty()) {
                 tasks.remove(date);
             }
-            System.out.println("Task deleted.");
+            if (!isMuted) {
+                System.out.println("Task deleted.");
+            }
         } else {
-            System.out.println("The task you are trying to delete does not exist.");
+            if (!isMuted) {
+                System.out.println("The task you are trying to delete does not exist.");
+            }
         }
     }
 
@@ -573,7 +579,7 @@ public class TaskManager {
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
 
         // Delete the task based on the parsed inputs
-        taskManager.deleteTask(date, taskIndex - 1); // Subtract 1 to convert to zero-based index
+        taskManager.deleteTask(date, taskIndex - 1, false); // Subtract 1 to convert to zero-based index
         //System.out.println("Task deleted.");
 
         // Save tasks to file
@@ -592,7 +598,7 @@ public class TaskManager {
         List<Task> dayTasks = tasks.get(specifiedDate);
         int numOfTasks = dayTasks.size();
         for (int i = numOfTasks; i >= 0; i--) {
-            taskManager.deleteTask(specifiedDate, i - 1);
+            taskManager.deleteTask(specifiedDate, i - 1, true);
         }
     }
 

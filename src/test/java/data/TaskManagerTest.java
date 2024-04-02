@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static data.TaskManager.addTask;
 import static data.TaskManager.updateTask;
@@ -102,6 +103,84 @@ class TaskManagerTest {
         taskManager.addTasksFromFile(tasksFromFile);
 
         // Assert
-        assertEquals(testTodoTask.getName() ,taskManager.getTasksForDate(date).get(0).getName());
+        assertEquals(testTodoTask.getName(), taskManager.getTasksForDate(date).get(0).getName());
+    }
+
+    @Test
+    void addDeadline_validInput_addsTask() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String taskDescription = "Test Deadline";
+        String byDate = "05/04/2024";
+        String byTime = "1800";
+
+        // Act
+        Task testTask = new Deadline(taskDescription, byDate, byTime);
+        TaskType testTaskType = TaskType.DEADLINE;
+        String[] dummyTestDates = new String[]{byDate};
+        String[] dummyTestTimes = new String[]{byTime};
+
+        addTask(date, taskDescription, testTaskType, dummyTestDates,dummyTestTimes);
+        Task addedTask = taskManager.getTasksForDate(date).get(0);
+        String addedTaskByDate = addedTask.getByDate();
+        String addedTaskByTime = addedTask.getByTime();
+
+        // Assert
+        assertEquals(testTask.getName(), addedTask.getName());
+        assertEquals(testTask.getByDate(), addedTaskByDate);
+        assertEquals(testTask.getByTime(), addedTaskByTime);
+    }
+
+    @Test
+    void updateDeadlineDescriptionOnly_validInput_updatesTask() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String initialTaskDescription = "Initial Deadline";
+        String updatedTaskDescription = "Updated Deadline";
+        String byDate = "05/04/2024";
+        String byTime = "1800";
+        TaskType testTaskType = TaskType.DEADLINE;
+        String[] dummyTestDates = new String[]{byDate};
+        String[] dummyTestTimes = new String[]{byTime};
+        String simulatedUserInput = "no";
+
+        Scanner scanner = new Scanner(simulatedUserInput);
+
+        addTask(date, initialTaskDescription, testTaskType, dummyTestDates, dummyTestTimes);
+
+        // Act
+        updateTask(date, 0, updatedTaskDescription, scanner);
+
+        // Assert
+        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(date).get(0).getName());
+    }
+
+    @Test
+    void updateDeadlineDescriptionAndByDateTime_validInput_updatesTask() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String initialTaskDescription = "Initial Deadline";
+        String updatedTaskDescription = "Updated Deadline";
+        String byDate = "05/04/2024";
+        String byTime = "1800";
+
+        TaskType testTaskType = TaskType.DEADLINE;
+        String[] dummyTestDates = new String[]{byDate};
+        String[] dummyTestTimes = new String[]{byTime};
+        String simulatedUserInput = "yes\n06/04/2024 1500\n";
+        String updatedByDate = "06/04/2024";
+        String updatedByTime = "1500";
+
+        Scanner scanner = new Scanner(simulatedUserInput);
+
+        addTask(date, initialTaskDescription, testTaskType, dummyTestDates, dummyTestTimes);
+
+        // Act
+        updateTask(date, 0, updatedTaskDescription, scanner);
+
+        // Assert
+        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(date).get(0).getName());
+        assertEquals(updatedByTime, taskManager.getTasksForDate(date).get(0).getByTime());
+        assertEquals(updatedByDate, taskManager.getTasksForDate(date).get(0).getByDate());
     }
 }
