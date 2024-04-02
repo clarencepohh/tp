@@ -5,7 +5,7 @@ add,4,T,Organize desk
 add,5,T,Call grandma
 add,6,T,Workout
 add,7,T,Research new project
-add,1,T,Pay bills
+add,31,T,Pay bills
 add,2,T,Buy groceries
 add,2,T,Prepare presentation
 add,3,E,Lunch with team
