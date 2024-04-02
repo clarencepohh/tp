@@ -71,13 +71,28 @@ add Tuesday meeting Discuss project progress
 
 Deletes a task.
 
-Format: `delete <day> <taskIndex>`
+Format: `delete, <day>, <taskIndex>`
+- Deletes the task at the specified index on the given day
+- Shows an error message if the task index does not exist
 
 Example of usage:
+- Deletes task 2 on Wednesday
 
 ```
-delete Wednesday 2
+//deletes task 2 on day 3
+delete, 3, 2
+
+//deletes task 1 on day 5
+delete, 5, 1
 ```
+- Shows error message if task does not exist
+
+```
+//attempts to delete task 1 on day 5, but the task does not exist
+delete, 5, 1
+```
+Output: 
+![img.png](img.png)
 
 ### Marking a Task as Complete or Incomplete: `mark`
 
