@@ -19,4 +19,11 @@ public abstract class View {
 
     public abstract void previous();
 
+    public LocalDate getStartOfView() {
+        return startOfView;
+    }
+
+    public LocalDate getStartOfMonth() {
+        return startOfView.withDayOfMonth(1);
+    }
 }
