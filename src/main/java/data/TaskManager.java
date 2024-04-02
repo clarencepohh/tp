@@ -13,19 +13,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static data.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
 import static data.TaskManagerException.checkIfDateHasTasks;
-import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.TaskManagerException.checkIfDateInCurrentMonth;
+import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.TaskType.DEADLINE;
-import static data.TaskType.TODO;
 import static data.TaskType.EVENT;
+import static data.TaskType.TODO;
 import static storage.Storage.saveTasksToFile;
-
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Manages tasks by providing functionalities to add, delete, and update tasks.
