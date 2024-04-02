@@ -52,16 +52,66 @@ update Monday 1 Review User Guide and make edits
 ```
 
 ### Adding a New Task: `add`
+> Note that there are 3 different types of tasks: Todos, Events and Deadlines.
+> This section details how to add all 3 types of tasks to your calendar. 
 
-Adds a new task.
+Adds a new task to the calendar. 
 
-Format: `add <day> <taskType> <taskDescription>`
+Format: `add, <day>, <taskType>, <taskDescription>`
 
-Example of usage:
+You will be prompted on further inputs based on your desired task type.
 
-```
-add Tuesday meeting Discuss project progress
-```
+#### Adding a `Todo`
+> Todos are regular tasks with no time limit!
+
+How to add a `Todo`: `add, 4, T, Sample Todo Task`
+
+Your Todo Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
+
+Here's what that would look like:
+![Todo Adding Example Console Inputs and Outputs](images/Todo-Example.png)
+
+#### Adding a `Deadline` 
+> Deadlines are tasks with an additional date/time of completion!
+
+How to add a `Deadline`: `add, 3, D, Sample Deadline Task`
+
+You will then be asked to provide the deadline (date and time) for this task.
+
+`Enter the deadline date and time of this task, separated by a space: `
+
+Example format: `06/04/2024 1800`  
+
+Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
+
+Here's what that would look like: 
+![Deadline Adding Example Console Inputs and Outputs](images/Deadline-Example.png)
+
+#### Adding an `Event`
+> Events are tasks with a start and end date/time!
+
+How to add an `Event`: `add, 5, E, Sample Event Task`
+
+You will then be asked to provide the start and end dates/times for this task.
+
+`Enter the start date of this task, along with the start time separated by a space: `
+
+Example format: `05/04/2024 1200`
+
+`Enter the end date of this task, along with the end time separated by a space: `
+
+Example format: `07/05/2024 2000`
+
+Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
+
+Here's what that would look like: 
+![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
+
+#### **Notes to users**
+> Commas `,` and pipes `|` are used in our application as command delimiters as well as for file storage purposes.
+> Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues.
+> 
+> You have been **informed**!
 
 ### Deleting a Task: `delete`
 
