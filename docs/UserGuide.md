@@ -83,24 +83,37 @@ delete Wednesday 2
 
 Marks a task as complete or not complete.
 
-Format: `mark <day> <taskIndex>`
+Format: `mark, <day>, <taskIndex>`
+- Marks task as complete if it is incomplete
+- Marks task as incomplete if it is complete
 
 Example of usage:
 
 ```
-mark Thursday 3
+// marks task 3 on day 2 as complete
+mark,2,3
+
+// marks task 1 on day 4 as incomplete
+mark,4,1
 ```
 
 ### Setting Priority Level for a Task: `priority`
 
 Sets priority level for a task.
 
-Format: `priority <day> <taskIndex> <priority>`
+Format: `priority, <day>, <taskIndex>, <priority>`
+- Priority levels: `H` (high), `M` (medium), `L` (low)
+- Default priority level: `L`
+- Setting priority level will update any existing priority level for the task to the new level
 
 Example of usage:
 
 ```
-priority Friday 1 High
+// sets priority level HIGH for task 1 on day 5
+priority,5,1,H
+
+// sets priority level MEDIUM for task 2 on day 3
+priority,3,2,M
 ```
 
 ### Switching to Month View: `month`
