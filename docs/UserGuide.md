@@ -23,24 +23,231 @@ To quickly get started with CLI-nton, follow these simple steps:
 CLI-nton offers a variety of features to streamline your task management process:
 
 
+Here are the sections for the User Guide covering the `next`, `prev`, `month`, `week`, and `quit` commands:
+
 ### Moving to Next Week or Month: `next`
 
-Moves to the next week or month view.
+The `next` command allows you to move to the next week or next month, depending on whether you are currently in the week or month view.
 
-Example of usage:
+**Usage:**
 
 ```
 next
 ```
 
+**Examples:**
+
+If you are currently in the **Week view:**
+```
+Week View: 31/03/2024 - 06/04/2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
+|31/03/2024     |01/04/2024     |02/04/2024     |03/04/2024     |04/04/2024     |05/04/2024     |06/04/2024     |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+The application will move to the following week view, displaying the following week.
+
+```dtd
+Week View: 07/04/2024 - 13/04/2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
+|07/04/2024     |08/04/2024     |09/04/2024     |10/04/2024     |11/04/2024     |12/04/2024     |13/04/2024     |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+
+If you are currently in the **Month view:**
+```dtd
+Month View: APRIL 2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|               |1              |2              |3              |4              |5              |6              |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|7              |8              |9              |10             |11             |12             |13             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|14             |15             |16             |17             |18             |19             |20             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|21             |22             |23             |24             |25             |26             |27             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|28             |29             |30             |               |               |               |               |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+The application will move to the next month view, displaying the following month.
+
+```dtd
+Month View: MAY 2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|               |               |               |1              |2              |3              |4              |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|5              |6              |7              |8              |9              |10             |11             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|12             |13             |14             |15             |16             |17             |18             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|19             |20             |21             |22             |23             |24             |25             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|26             |27             |28             |29             |30             |31             |               |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+
 ### Moving to Previous Week or Month: `prev`
 
-Moves to the previous week or month view.
+The `prev` command allows you to move to the previous week or previous month, depending on whether you are currently in the week or month view.
 
-Example of usage:
+**Usage:**
 
 ```
 prev
+```
+
+**Example:**
+
+If you are currently in the **Week view:**
+```
+Week View: 21/04/2024 - 27/04/2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
+|21/04/2024     |22/04/2024     |23/04/2024     |24/04/2024     |25/04/2024     |26/04/2024     |27/04/2024     |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+The application will move to the previous week view, displaying the week prior.
+
+```
+Week View: 14/04/2024 - 20/04/2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
+|14/04/2024     |15/04/2024     |16/04/2024     |17/04/2024     |18/04/2024     |19/04/2024     |20/04/2024     |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+
+If you are currently in the **Month view:**
+```dtd
+Month View: APRIL 2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|               |1              |2              |3              |4              |5              |6              |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|7              |8              |9              |10             |11             |12             |13             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|14             |15             |16             |17             |18             |19             |20             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|21             |22             |23             |24             |25             |26             |27             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|28             |29             |30             |               |               |               |               |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+The application will move to the previous month view, displaying the month prior.
+
+```dtd
+
+Month View: MARCH 2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|               |               |               |               |               |1              |2              |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|3              |4              |5              |6              |7              |8              |9              |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|10             |11             |12             |13             |14             |15             |16             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|17             |18             |19             |20             |21             |22             |23             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|24             |25             |26             |27             |28             |29             |30             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|               |               |               |meeting        |               |               |               |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|31             |               |               |               |               |               |               |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+
+### Switching to Month View: `month`
+
+The `month` command allows you to switch to the month view from any other view.
+
+**Usage:**
+
+```
+month
+```
+
+**Example:**
+
+If you are currently in the week view:
+```
+Week View: 14/04/2024 - 20/04/2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
+|14/04/2024     |15/04/2024     |16/04/2024     |17/04/2024     |18/04/2024     |19/04/2024     |20/04/2024     |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+
+month
+```
+The application will switch to the month view from week view and current month will be displayed.
+
+```dtd
+Month View: APRIL 2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|               |1              |2              |3              |4              |5              |6              |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|7              |8              |9              |10             |11             |12             |13             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|14             |15             |16             |17             |18             |19             |20             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|21             |22             |23             |24             |25             |26             |27             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|28             |29             |30             |               |               |               |               |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+
+### Switching to Week View: `week`
+
+The `week` command allows you to switch to the week view from any other view.
+
+**Usage:**
+
+```
+week
+```
+
+**Example:**
+
+If you are currently in the **Month view:**
+
+```dtd
+Month View: APRIL 2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|               |1              |2              |3              |4              |5              |6              |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|7              |8              |9              |10             |11             |12             |13             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|14             |15             |16             |17             |18             |19             |20             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|21             |22             |23             |24             |25             |26             |27             |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|28             |29             |30             |               |               |               |               |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+```
+
+The application will switch to the **Week view.**
+
+```
+Week View: 21/04/2024 - 27/04/2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
+|21/04/2024     |22/04/2024     |23/04/2024     |24/04/2024     |25/04/2024     |26/04/2024     |27/04/2024     |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
 ```
 
 ### Updating a Task Description: `update`
@@ -56,16 +263,66 @@ update Monday 1 Review User Guide and make edits
 ```
 
 ### Adding a New Task: `add`
+> Note that there are 3 different types of tasks: Todos, Events and Deadlines.
+> This section details how to add all 3 types of tasks to your calendar. 
 
-Adds a new task.
+Adds a new task to the calendar. 
 
-Format: `add <day> <taskType> <taskDescription>`
+Format: `add, <day>, <taskType>, <taskDescription>`
 
-Example of usage:
+You will be prompted on further inputs based on your desired task type.
 
-```
-add Tuesday meeting Discuss project progress
-```
+#### Adding a `Todo`
+> Todos are regular tasks with no time limit!
+
+How to add a `Todo`: `add, 4, T, Sample Todo Task`
+
+Your Todo Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
+
+Here's what that would look like:
+![Todo Adding Example Console Inputs and Outputs](images/Todo-Example.png)
+
+#### Adding a `Deadline` 
+> Deadlines are tasks with an additional date/time of completion!
+
+How to add a `Deadline`: `add, 3, D, Sample Deadline Task`
+
+You will then be asked to provide the deadline (date and time) for this task.
+
+`Enter the deadline date and time of this task, separated by a space: `
+
+Example format: `06/04/2024 1800`  
+
+Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
+
+Here's what that would look like: 
+![Deadline Adding Example Console Inputs and Outputs](images/Deadline-Example.png)
+
+#### Adding an `Event`
+> Events are tasks with a start and end date/time!
+
+How to add an `Event`: `add, 5, E, Sample Event Task`
+
+You will then be asked to provide the start and end dates/times for this task.
+
+`Enter the start date of this task, along with the start time separated by a space: `
+
+Example format: `05/04/2024 1200`
+
+`Enter the end date of this task, along with the end time separated by a space: `
+
+Example format: `07/05/2024 2000`
+
+Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
+
+Here's what that would look like: 
+![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
+
+#### **Notes to users**
+> Commas `,` and pipes `|` are used in our application as command delimiters as well as for file storage purposes.
+> Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues.
+> 
+> You have been **informed**!
 
 ### Deleting a Task: `delete`
 
@@ -131,35 +388,30 @@ priority,5,1,H
 priority,3,2,M
 ```
 
-### Switching to Month View: `month`
-
-Switches to the month view.
-
-Example of usage:
-
-```
-month
-```
-
-### Switching to Week View: `week`
-
-Switches to the week view.
-
-Example of usage:
-
-```
-week
-```
-
 ### Quitting the Application: `quit`
 
-Exits the calendar application.
+The `quit` command allows you to exit the CLI-nton application.
 
-Example of usage:
+**Usage:**
 
 ```
 quit
 ```
+
+**Example:**
+
+```
+Week View: 21/04/2024 - 27/04/2024
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
+|21/04/2024     |22/04/2024     |23/04/2024     |24/04/2024     |25/04/2024     |26/04/2024     |27/04/2024     |
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
++---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+
+quit
+Exiting Calendar...
+```
+The application will exit after displaying a goodbye message.
 
 ### ICS Exporting and Importing: `ics` `[coming in v2.1]`
 Exporting and importing tasks to and from an ICS file.

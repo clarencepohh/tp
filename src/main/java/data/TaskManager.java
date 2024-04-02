@@ -13,19 +13,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static data.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
 import static data.TaskManagerException.checkIfDateHasTasks;
-import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.TaskManagerException.checkIfDateInCurrentMonth;
+import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.TaskType.DEADLINE;
-import static data.TaskType.TODO;
 import static data.TaskType.EVENT;
+import static data.TaskType.TODO;
 import static storage.Storage.saveTasksToFile;
-
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Manages tasks by providing functionalities to add, delete, and update tasks.
@@ -78,20 +76,26 @@ public class TaskManager {
 
     /**
      * Deletes a task for a specific date and task index.
+     * Adds an option to mute system outputs (Used for testing only).
      *
      * @param date The date of the task.
      * @param taskIndex The index of the task to delete.
+     * @param isMuted Whether system outputs are muted.
      */
-    public void deleteTask(LocalDate date, int taskIndex) {
+    public void deleteTask(LocalDate date, int taskIndex, boolean isMuted) {
         List<Task> dayTasks = tasks.get(date);
         if (dayTasks != null && taskIndex >= 0 && taskIndex < dayTasks.size()) {
             dayTasks.remove(taskIndex);
             if (dayTasks.isEmpty()) {
                 tasks.remove(date);
             }
-            System.out.println("Task deleted.");
+            if (!isMuted) {
+                System.out.println("Task deleted.");
+            }
         } else {
-            System.out.println("The task you are trying to delete does not exist.");
+            if (!isMuted) {
+                System.out.println("The task you are trying to delete does not exist.");
+            }
         }
     }
 
@@ -263,7 +267,7 @@ public class TaskManager {
      * @throws TaskManagerException If there is an error in managing tasks.
      * @throws DateTimeParseException If there is an error parsing the date.
      */
-    public void addManager(Scanner scanner, WeekView weekView, MonthView monthView,boolean inMonthView, String action,
+    public void addManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView, String action,
                            String day, String taskTypeString, String taskDescription)
             throws TaskManagerException,DateTimeParseException {
 
@@ -358,7 +362,8 @@ public class TaskManager {
             boolean inMonthView, int dayInt) throws TaskManagerException {
         LocalDate date;
         if (inMonthView) {
-            date = monthView.getStartOfMonth().plusDays(dayInt - 1);
+            // date = monthView.getStartOfMonth().plusDays(dayInt - 1);
+            date = monthView.getStartOfMonth().plusDays(dayInt);
             checkIfDateInCurrentMonth(date);
 
         } else {
@@ -498,7 +503,6 @@ public class TaskManager {
 
     }
 
-
     /**
      * Adds tasks from a file to the TaskManager.
      *
@@ -591,7 +595,7 @@ public class TaskManager {
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
 
         // Delete the task based on the parsed inputs
-        taskManager.deleteTask(date, taskIndex - 1); // Subtract 1 to convert to zero-based index
+        taskManager.deleteTask(date, taskIndex - 1, false); // Subtract 1 to convert to zero-based index
         //System.out.println("Task deleted.");
 
         // Save tasks to file
@@ -608,9 +612,11 @@ public class TaskManager {
 
     public static void deleteAllTasksOnDate (TaskManager taskManager, LocalDate specifiedDate) {
         List<Task> dayTasks = tasks.get(specifiedDate);
-        int numOfTasks = dayTasks.size();
-        for (int i = numOfTasks; i >= 0; i--) {
-            taskManager.deleteTask(specifiedDate, i - 1);
+        if (dayTasks != null) {
+            int numOfTasks = dayTasks.size();
+            for (int i = numOfTasks; i >= 0; i--) {
+                taskManager.deleteTask(specifiedDate, i - 1, true);
+            }
         }
     }
 
