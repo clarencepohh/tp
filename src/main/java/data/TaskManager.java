@@ -214,7 +214,7 @@ public class TaskManager {
      * Method to get the tasks for a specified date.
      *
      * @param date The date to be checked.
-     * @return A List<Task> containing the tasks on the specified date.
+     * @return An ArrayList of Tasks containing the tasks on the specified date.
      */
 
     public static List<Task> getDayTasks(LocalDate date) {
