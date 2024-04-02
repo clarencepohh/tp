@@ -30,14 +30,13 @@ public class Storage {
     private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
-     * Creates directory and tasks.txt if it does not exist
+     * Creates directory and tasks.txt if it does not exist.
      *
-     * @param path File Path of tests.txt file
-     * @throws IOException If an I/O exception occurs during file handling
+     * @param path File Path of tests.txt file.
+     * @throws IOException If an I/O exception occurs during file handling.
      */
     public static void createNewFile(Path path) throws IOException {
         if (!Files.isDirectory(path.getParent())) {
-            //  System.out.println("Directory not found, creating new one");
             Files.createDirectories(path.getParent());
             logger.log(Level.INFO, "new directory created");
         }
@@ -123,9 +122,9 @@ public class Storage {
     /**
      * Configures the statuses of the tasks after they are loaded from the file.
      * 
-     * @param date Date of the task
-     * @param markedStatus Marked status of the task
-     * @param priorityLevel Priority level of the task
+     * @param date Date of the task.
+     * @param markedStatus Marked status of the task.
+     * @param priorityLevel Priority level of the task.
      */
     private static void configureStatuses(LocalDate date, String markedStatus, String priorityLevel) {
 
@@ -139,8 +138,8 @@ public class Storage {
     /**
      * Sets the priority level status of the task.
      * 
-     * @param priorityLevel Priority level of the task
-     * @param recentlyAddedTask Task that was most recently added
+     * @param priorityLevel Priority level of the task.
+     * @param recentlyAddedTask Task that was most recently added.
      */
     private static void setPriorityLevelStatus(String priorityLevel, Task recentlyAddedTask) {
         if (!priorityLevel.equals("H")) {
@@ -155,14 +154,21 @@ public class Storage {
     /**
      * Sets the marked status of the task.
      * 
-     * @param markedStatus Marked status of the task
-     * @param recentlyAddedTask Task that was most recently added
+     * @param markedStatus Marked status of the task.
+     * @param recentlyAddedTask Task that was most recently added.
      */
     private static void setMarkedStatus(String markedStatus, Task recentlyAddedTask) {
         if (markedStatus.equals("X")) {
             recentlyAddedTask.setCompleteness(true);
         }
     }
+
+    /**
+     * Checks if the file format is correct.
+     *
+     * @param line The string in the save file to be checked.
+     * @return True if the format is correct, false otherwise.
+     */
 
     public static boolean checkFileFormat(String line) {
         String regex = "\\d{4}-\\d{2}-\\d{2}\\|.+";

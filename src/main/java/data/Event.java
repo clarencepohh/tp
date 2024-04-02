@@ -72,7 +72,7 @@ public class Event extends Task {
      * Returns the task type of the specified task.
      * Override function of superclass Task.
      *
-     * @return E which represents an Event task.
+     * @return "E" which represents an Event task.
      */
 
     @Override
