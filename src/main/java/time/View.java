@@ -22,4 +22,8 @@ public abstract class View {
     public LocalDate getStartOfView() {
         return startOfView;
     }
+
+    public LocalDate getStartOfMonth() {
+        return startOfView.withDayOfMonth(1);
+    }
 }
