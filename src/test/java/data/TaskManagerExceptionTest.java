@@ -22,9 +22,9 @@ public class TaskManagerExceptionTest {
 
     @Test
     public void checkIfDateInCurrentMonth_pastDateGiven_exceptionThrown () {
-        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () -> {
-            checkIfDateInCurrentMonth(LocalDate.parse("1111-11-11"));
-        }, "TaskManagerException was expected");
+        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
+                checkIfDateInCurrentMonth(LocalDate.parse("1111-11-11")),
+                "TaskManagerException was expected");
 
         Assertions.assertEquals("The date must be within the current month. " + "Please try again.",
                 thrown.getMessage());
@@ -32,9 +32,9 @@ public class TaskManagerExceptionTest {
 
     @Test
     public void checkIfDateInCurrentMonth_futureDateGiven_exceptionThrown () {
-        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () -> {
-            checkIfDateInCurrentMonth(LocalDate.parse("2222-11-11"));
-        }, "TaskManagerException was expected");
+        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
+            checkIfDateInCurrentMonth(LocalDate.parse("2222-11-11")),
+                "TaskManagerException was expected");
 
         Assertions.assertEquals("The date must be within the current month. " + "Please try again.",
                 thrown.getMessage());
@@ -42,9 +42,9 @@ public class TaskManagerExceptionTest {
 
     @Test
     public void checkIfDateInCurrentWeek_pastDateGiven_exceptionThrown () {
-        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () -> {
-            checkIfDateInCurrentWeek(LocalDate.parse("1111-11-11"), weekView);
-        }, "TaskManagerException was expected");
+        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
+            checkIfDateInCurrentWeek(LocalDate.parse("1111-11-11"), weekView),
+                "TaskManagerException was expected");
 
         Assertions.assertEquals("The date must be within the current week. Please try again.",
                 thrown.getMessage());
@@ -52,9 +52,9 @@ public class TaskManagerExceptionTest {
 
     @Test
     public void checkIfDateInCurrentWeek_futureDateGiven_exceptionThrown () {
-        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () -> {
-            checkIfDateInCurrentWeek(LocalDate.parse("2222-11-11"), weekView);
-        }, "TaskManagerException was expected");
+        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
+                checkIfDateInCurrentWeek(LocalDate.parse("2222-11-11"), weekView),
+                "TaskManagerException was expected");
 
         Assertions.assertEquals("The date must be within the current week. Please try again.",
                 thrown.getMessage());
@@ -62,7 +62,7 @@ public class TaskManagerExceptionTest {
 
     @Test
     public void checkIfDateHasTasks_noTasksOnDate_exceptionThrown () {
-        List<Task> dayWithNoTasks = new ArrayList<Task>();
+        List<Task> dayWithNoTasks = new ArrayList<>();
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateHasTasks(dayWithNoTasks));
 
