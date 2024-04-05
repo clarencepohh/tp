@@ -1,0 +1,55 @@
+@startuml
+
+participant WeekView as WV
+participant UiRenderer as UR
+
+title Sequence Diagram for printWeekView()
+
+' Printing of Week Header
+WV -> UR: printWeekHeader()
+
+activate UR
+UR -> UR: printHorizontalDivider()
+activate UR
+UR --> UR
+deactivate UR
+
+UR -> UR: printHeaderRow()
+activate UR
+UR --> UR
+deactivate UR
+
+opt !isMonthView
+    UR -> UR: printDateRow()
+    activate UR
+    UR --> UR
+    deactivate UR
+end
+
+UR -> UR: printHorizontalDivider()
+activate UR
+UR --> UR
+deactivate UR
+
+UR --> WV
+deactivate UR
+
+
+' Printing of Week Body
+WV -> UR: printWeekBody()
+activate UR
+
+UR -> UR: printTasksInWeek()
+activate UR
+UR --> UR
+deactivate UR
+
+UR -> UR: printHorizontalDivider()
+activate UR
+UR --> UR
+deactivate UR
+
+UR --> WV
+deactivate UR
+
+@enduml
