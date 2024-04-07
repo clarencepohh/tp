@@ -37,6 +37,7 @@ application {
 shadowJar {
     archiveBaseName.set("duke")
     archiveClassifier.set("")
+    archiveFileName = 'clinton.jar'
 }
 
 checkstyle {
