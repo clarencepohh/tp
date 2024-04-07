@@ -1,5 +1,7 @@
 package data;
 
+import java.util.List;
+
 public class MarkTaskException extends TaskManagerException {
 
     public static final String TASK_INDEX_OUT_OF_RANGE_FOR_DAY_WITH_TASKS_MESSAGE = 
@@ -11,13 +13,15 @@ public class MarkTaskException extends TaskManagerException {
         super(errorMessage);
     }
 
-    public static void checkIfTaskIndexIsValid(int taskListSize, int taskIndex) throws MarkTaskException {
-
-        boolean dayHasNoTasks = (taskListSize == 0);
+    public static void checkIfTaskIndexIsValid(List<Task> dayTasks, int taskIndex) 
+            throws MarkTaskException {
+        
+        boolean dayHasNoTasks = (dayTasks == null);
         if (dayHasNoTasks) {
             throw new MarkTaskException(TASK_INDEX_WITH_NO_TASKS_MESSAGE);
         }
-
+        
+        int taskListSize = dayTasks.size();
         boolean taskIndexOutOfRange = taskIndex < 0 || taskIndex >= taskListSize;
         if (taskIndexOutOfRange) {
             throw new MarkTaskException(TASK_INDEX_OUT_OF_RANGE_FOR_DAY_WITH_TASKS_MESSAGE);

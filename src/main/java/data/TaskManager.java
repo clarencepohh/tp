@@ -20,6 +20,7 @@ import static data.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
 import static data.TaskManagerException.checkIfDateHasTasks;
 import static data.TaskManagerException.checkIfDateInCurrentMonth;
 import static data.TaskManagerException.checkIfDateInCurrentWeek;
+import static data.MarkTaskException.checkIfTaskIndexIsValid;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
@@ -352,7 +353,7 @@ public class TaskManager {
      * @throws DateTimeParseException If there is an error parsing the date.
      */
     public void markManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, int taskIndex)
-            throws TaskManagerException, DateTimeParseException {
+            throws TaskManagerException, DateTimeParseException, MarkTaskException {
         LocalDate date;
         int dayInt = Integer.parseInt(day);
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
@@ -408,7 +409,12 @@ public class TaskManager {
      * @param taskIndex The index of the task to be marked.
      * @param date The date of the task to be marked.
      */
-    private void handleMarkingOfTask(int taskIndex, LocalDate date) {
+    private void handleMarkingOfTask(int taskIndex, LocalDate date) 
+            throws MarkTaskException {
+
+        List<Task> dayTasks = tasks.get(date);
+        checkIfTaskIndexIsValid(dayTasks, taskIndex);
+        
         boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
         if (taskIsCompleted) {
             markTaskAsNotCompleted(date, taskIndex - 1);
