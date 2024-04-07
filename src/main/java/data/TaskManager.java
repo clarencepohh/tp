@@ -357,6 +357,10 @@ public class TaskManager {
         LocalDate date;
         int dayInt = Integer.parseInt(day);
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
+
+        List<Task> dayTasks = tasks.get(date);
+        checkIfTaskIndexIsValid(dayTasks, taskIndex);
+
         handleMarkingOfTask(taskIndex, date);
         saveTasksToFile(tasks, Storage.FILE_PATH);
     }
@@ -409,12 +413,8 @@ public class TaskManager {
      * @param taskIndex The index of the task to be marked.
      * @param date The date of the task to be marked.
      */
-    private void handleMarkingOfTask(int taskIndex, LocalDate date) 
-            throws MarkTaskException {
+    private void handleMarkingOfTask(int taskIndex, LocalDate date) {
 
-        List<Task> dayTasks = tasks.get(date);
-        checkIfTaskIndexIsValid(dayTasks, taskIndex);
-        
         boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
         if (taskIsCompleted) {
             markTaskAsNotCompleted(date, taskIndex - 1);
