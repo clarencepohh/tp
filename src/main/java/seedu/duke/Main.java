@@ -58,12 +58,7 @@ public class Main {
                 }
             }
             printWeek = true; // Reset flag for the next iteration
-            System.out.println("Enter 'next' for next week, 'prev' for previous week, " +
-                    "'add' to add a task, " +
-                    "'update' to edit a task, " +
-                    "'delete' to delete a task, " +
-                    "'month' to display the month view, " +
-                    "or 'quit' to quit:");
+
             System.out.println("Enter help to learn commands");
             String input = scanner.nextLine().trim().toLowerCase();
             String command = input.split(",")[0];
