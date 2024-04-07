@@ -39,7 +39,7 @@ public class MarkTaskException extends TaskManagerException {
         }
         
         int taskListSize = dayTasks.size();
-        boolean taskIndexOutOfRange = taskIndex < 0 || taskIndex >= taskListSize;
+        boolean taskIndexOutOfRange = taskIndex < 0 || taskIndex > taskListSize;
         if (taskIndexOutOfRange) {
             throw new MarkTaskException(TASK_INDEX_OUT_OF_RANGE_FOR_DAY_WITH_TASKS_MESSAGE);
         }
