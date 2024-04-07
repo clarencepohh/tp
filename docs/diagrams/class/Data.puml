@@ -1,5 +1,8 @@
 @startuml
 
+skinparam classAttributeIconSize 0
+skinparam groupInheritance 3
+
 class TaskManager {
 - {static} logger: Logger
 - {static} tasks: HashMap <LocalDate, List<Task>>
@@ -62,7 +65,7 @@ class Event extends Task {
 + getSaveFormat ()
 }
 
-class TaskManagerException extends Exception {
+class TaskManagerException {
 + NOT_CURRENT_WEEK_MESSAGE: String
 + NOT_CURRENT_MONTH_MESSAGE: String
 + {static} checkIfDateInCurrentWeek (date: LocalDate, weekView: WeekView)
@@ -82,5 +85,10 @@ HIGH
 MEDIUM
 LOW
 }
+
+TaskManager --> "*" Task
+TaskManagerException --|> Exception
+note right of Exception : Java standard Exception class
+hide circle
 
 @enduml
