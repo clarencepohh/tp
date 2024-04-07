@@ -21,6 +21,7 @@ import static data.TaskManagerException.checkIfDateHasTasks;
 import static data.TaskManagerException.checkIfDateInCurrentMonth;
 import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.MarkTaskException.checkIfTaskIndexIsValid;
+import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
@@ -436,11 +437,16 @@ public class TaskManager {
      * @throws DateTimeParseException If there is an error parsing the date.
      */
     public void priorityManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, 
-            int taskIndex, String priorityLevelString) throws TaskManagerException, DateTimeParseException {
+            int taskIndex, String priorityLevelString) 
+            throws TaskManagerException, DateTimeParseException, SetPriorityException {
         LocalDate date;
         int dayInt = Integer.parseInt(day);
 
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
+
+        List<Task> dayTasks = tasks.get(date);
+        checkIfTaskIndexIsValidForPriority(dayTasks, taskIndex);
+
         setPriorityLevelOfTask(taskIndex, date, priorityLevelString);
         saveTasksToFile(tasks, Storage.FILE_PATH);
     }
