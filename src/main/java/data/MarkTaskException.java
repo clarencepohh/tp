@@ -30,7 +30,7 @@ public class MarkTaskException extends TaskManagerException {
      * @param taskIndex The index of the task to be marked.
      * @throws MarkTaskException if the task index is invalid.
      */
-    public static void checkIfTaskIndexIsValid(List<Task> dayTasks, int taskIndex) 
+    public static void checkIfTaskIndexIsValidForMarkingTask(List<Task> dayTasks, int taskIndex) 
             throws MarkTaskException {
         
         boolean dayHasNoTasks = (dayTasks == null);

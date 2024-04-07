@@ -20,7 +20,7 @@ import static data.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
 import static data.TaskManagerException.checkIfDateHasTasks;
 import static data.TaskManagerException.checkIfDateInCurrentMonth;
 import static data.TaskManagerException.checkIfDateInCurrentWeek;
-import static data.MarkTaskException.checkIfTaskIndexIsValid;
+import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
@@ -360,7 +360,7 @@ public class TaskManager {
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
 
         List<Task> dayTasks = tasks.get(date);
-        checkIfTaskIndexIsValid(dayTasks, taskIndex);
+        checkIfTaskIndexIsValidForMarkingTask(dayTasks, taskIndex);
 
         handleMarkingOfTask(taskIndex, date);
         saveTasksToFile(tasks, Storage.FILE_PATH);
