@@ -93,10 +93,23 @@ public class MonthView extends View {
         }
     }
 
+
     private void printTaskForDay(List<Task> dayTasks, int taskIndex) {
         if (taskIndex < dayTasks.size()) {
             Task task = dayTasks.get(taskIndex);
-            System.out.printf(uiRenderer.TASK_DISPLAY_FORMAT, task.getName());
+            switch (task.getTaskType()) {
+            case "E":
+                System.out.printf(uiRenderer.TASK_DISPLAY_FORMAT, "*");
+                break;
+            case "D":
+                System.out.printf(uiRenderer.TASK_DISPLAY_FORMAT, "#");
+                break;
+            case "T":
+                System.out.printf(uiRenderer.TASK_DISPLAY_FORMAT, "+");
+                break;
+            default:
+                break;
+            }
         } else {
             System.out.print(uiRenderer.EMPTY_TASK_DISPLAY_FORMAT);
         }
@@ -111,8 +124,4 @@ public class MonthView extends View {
     public void previous() {
         startOfView = startOfView.minusMonths(1);
     }
-
-    // public LocalDate getStartOfMonth() {
-    //     return startOfView.withDayOfMonth(1);
-    // }
 }
