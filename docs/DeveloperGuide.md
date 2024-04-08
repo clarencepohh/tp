@@ -476,10 +476,22 @@ in their calendar.
 
 ## User Stories
 
-| Version | As a ... | I want to ...             | So that I can ...                                           |
-|---------|----------|---------------------------|-------------------------------------------------------------|
-| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
-| v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
+| Version | As a ...     | I want to ...                                                                | So that I ...                                                               |
+|---------|--------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| v1.0    | new user     | be able to save my tasks                                                     | can still see my tasks even after I exit out of the program                 |
+| v1.0    | user         | to create events in a calendar                                               | can plan my day-to-day routine                                              |
+| v1.0    | user         | view the calendar with all my appointments                                   | do not miss out on any important commitments                                |
+| v1.0    | user         | be able to edit and update any tasks I may have already added                | can correct any mistakes or update them to reflect changes in my priorities |
+| v1.0    | user         | add tasks to be displayed                                                    | can keep track of them easily and not forget them                           |
+| v1.0    | user         | remove/delete tasks that I've completed                                      | keep my tasks as up-to-date as possible                                     |
+| v2.0    | new user     | have a quick tutorial/help page                                              | can find out how to use the program clearly                                 |
+| v2.0    | user         | be able to tag and categorize tasks and events                               | can organize my schedule more effectively                                   |
+| v2.0    | user         | add, remove and edit tasks with fewer keystrokes                             | manage my busy schedule more efficiently                                    |
+| v2.0    | user         | set priority levels for tasks and events                                     | can easily identify what requires immediate attention                       |
+| v2.0    | user         | have a deeper connection with the application with the addition of an avatar | feel more engaged when using the application.                               |
+| v2.0    | user         | be able to mark tasks as complete                                            | can keep track of what I have left to do.                                   |
+| v2.0    | user         | have the application look neat                                               | will be more motivated to use the application                               |
+| v2.0    | busy student | be able to see different views (week/month) on the calendar                  | can see my week/month at a glance                                           |
 
 ## Non-Functional Requirements
 
