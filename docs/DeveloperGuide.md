@@ -471,6 +471,10 @@ busy and want to keep on top of their tasks, so this application will serve thei
 ### Value proposition
 
 {Describe the value proposition: what problem does it solve?}
+CLI-nton takes the pros of a GUI based calendar and integrates it with the efficiency of CLI-based inputs to achieve fast data entry while still maintaining the visual clarity that is expected
+of a calendar application. Most calendar applications require users to navigate their interface using both mouse and keyboard inputs, which can feel clunky and troublesome - especially when they 
+have to navigate through many windows just to add one event to their calendar. This application is made to benefit those who type quickly and accurately, allowing them to quickly create entries
+in their calendar. 
 
 ## User Stories
 
