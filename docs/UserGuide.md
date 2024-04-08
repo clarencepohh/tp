@@ -250,23 +250,11 @@ Week View: 21/04/2024 - 27/04/2024
 +---------------+---------------+---------------+---------------+---------------+---------------+---------------+
 ```
 
-### Updating a Task Description: `update`
-
-Updates a task description.
-
-Format: `update <day> <taskIndex> <newDescription>`
-
-Example of usage:
-
-```
-update Monday 1 Review User Guide and make edits
-```
-
 ### Adding a New Task: `add`
 > Note that there are 3 different types of tasks: Todos, Events and Deadlines.
-> This section details how to add all 3 types of tasks to your calendar. 
+> This section details how to add all 3 types of tasks to your calendar.
 
-Adds a new task to the calendar. 
+Adds a new task to the calendar.
 
 Format: `add, <day>, <taskType>, <taskDescription>`
 
@@ -282,7 +270,8 @@ Your Todo Task is now added to your calendar on the 4th (of whichever week/month
 Here's what that would look like:
 ![Todo Adding Example Console Inputs and Outputs](images/Todo-Example.png)
 
-#### Adding a `Deadline` 
+
+#### Adding a `Deadline`
 > Deadlines are tasks with an additional date/time of completion!
 
 How to add a `Deadline`: `add, 3, D, Sample Deadline Task`
@@ -291,12 +280,13 @@ You will then be asked to provide the deadline (date and time) for this task.
 
 `Enter the deadline date and time of this task, separated by a space: `
 
-Example format: `06/04/2024 1800`  
+Example format: `06/04/2024 1800`
 
 Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
 
-Here's what that would look like: 
+Here's what that would look like:
 ![Deadline Adding Example Console Inputs and Outputs](images/Deadline-Example.png)
+
 
 #### Adding an `Event`
 > Events are tasks with a start and end date/time!
@@ -315,14 +305,101 @@ Example format: `07/05/2024 2000`
 
 Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
 
-Here's what that would look like: 
+Here's what that would look like:
 ![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
 
 #### **Notes to users**
 > Commas `,` and pipes `|` are used in our application as command delimiters as well as for file storage purposes.
 > Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues.
-> 
+>
 > You have been **informed**!
+
+### Updating a Task Description: `update`
+
+You can update the description of a task using the `update` command. This command allows you to change the description 
+of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
+
+Format: `update, <day>, <taskIndex>, <newDescription>`
+
+You will be prompted on further inputs based on the task type you seek to update.
+
+#### Updating a `Todo`:
+
+```
+update, 31, 1, bye
+```
+
+Your Todo will now be updated to `bye` on the 31st (of whichever week/month you are viewing)!
+Here's a sample of what that would look like:
+
+![img.png](images/Update-Todo-Example.png)
+
+After updating the todo, the task will be displayed as follows:
+
+![img.png](images/Update-Todo-Example-After.png)
+
+### Updating a Task Description: `update`
+
+>You can update the description of a task using the `update` command. This command allows you to change the description of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
+
+Format: `update, <day>, <taskIndex>, <newDescription>`
+
+You will be prompted on further inputs based on the task type you seek to update.
+
+#### Updating a `Todo`:
+
+```
+update, 31, 1, bye
+```
+
+Your Todo will now be updated to `bye` on the 31st (of whichever week/month you are viewing)!
+Here's a sample of what that would look like:
+
+![Todo Update Example](images/Update-Todo-Example.png)
+
+After updating the todo, the task will be displayed as follows:
+
+![Todo Updated Example](images/Update-Todo-Example-After.png)
+
+#### Updating a `Deadline`:
+
+To update a Deadline, follow this format:
+```
+update, 31, 2, Updated Deadline Task
+```
+
+Your Deadline Task will be updated to `Updated Deadline Task` on the 31st! You will then be prompted to provide the 
+updated deadline date and time, if desired.
+
+Here's a visual representation of the update process:
+
+![img.png](images/Update-Deadline-Example.png)
+
+After the update, the task will be displayed as follows:
+
+![img_1.png](images/Update-Deadline-Example_After.png)
+
+#### Updating an `Event`:
+
+To update an Event, use the following format:
+```
+update, 1, 3, Updated Event Task
+```
+
+Your Event Task will be updated to `Updated Event Task` on the 1st! You will then be prompted to provide the updated 
+start and end dates/times for the event.
+
+Here's an example illustrating the update process:
+
+![img.png](images/Updated-Event-Example.png)
+
+After the update, the task will be displayed as follows:
+
+![img_1.png](images/Updated-Event-Example-After.png)
+
+By following these instructions, you can efficiently update task descriptions in your calendar, ensuring accurate and 
+up-to-date scheduling.
+
 
 ### Deleting a Task: `delete`
 
@@ -440,14 +517,13 @@ ics,import,tasks.ics
 
 For a quick reference, here's a summary of available commands:
 
-- Add todo `todo n/TODO_NAME d/DEADLINE`
 - Move to next week or month `next`
 - Move to previous week or month `prev`
-- Update task description `update <day> <taskIndex> <newDescription>`
-- Add new task `add <day> <taskType> <taskDescription>`
-- Delete task `delete <day> <taskIndex>`
-- Mark task as complete or not complete `mark <day> <taskIndex>`
-- Set priority level for task `priority <day> <taskIndex> <priority>`
+- Update task description `update, <day>, <taskIndex>, <newDescription>`
+- Add new task `add, <day>, <taskType>, <taskDescription>`
+- Delete task `delete, <day>, <taskIndex>`
+- Mark task as complete or not complete `mark, <day>, <taskIndex>`
+- Set priority level for task `priority, <day>, <taskIndex>, <priority>`
 - Switch to month view `month`
 - Switch to week view `week`
 - Quit the application `quit`

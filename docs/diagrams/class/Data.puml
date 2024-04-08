@@ -1,7 +1,6 @@
 @startuml
 
 skinparam classAttributeIconSize 0
-skinparam groupInheritance 3
 
 class TaskManager {
 - {static} logger: Logger
@@ -85,6 +84,7 @@ HIGH
 MEDIUM
 LOW
 }
+
 
 TaskManager --> "*" Task
 TaskManagerException --|> Exception

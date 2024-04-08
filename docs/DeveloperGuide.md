@@ -47,6 +47,9 @@ The UiRenderer component is responsible for rendering the user interface. It is 
 4. The UiRenderer component will also display the current date at the top of the week view.
 5. Similarly, when month view is requested, the UiRenderer component will render the month view.
 
+### printWeekView Method
+![Sequence Diagram for printWeekView()](images/sequence/PrintWeekViewSequenceDiagram.png)
+
 ### printWeekHeader Method
 `printWeekHeader` Method
 
