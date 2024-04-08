@@ -20,6 +20,9 @@ import static data.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
 import static data.TaskManagerException.checkIfDateHasTasks;
 import static data.TaskManagerException.checkIfDateInCurrentMonth;
 import static data.TaskManagerException.checkIfDateInCurrentWeek;
+import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
+import static data.SetPriorityException.checkIfPriorityIsValid;
+import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
@@ -352,10 +355,14 @@ public class TaskManager {
      * @throws DateTimeParseException If there is an error parsing the date.
      */
     public void markManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, int taskIndex)
-            throws TaskManagerException, DateTimeParseException {
+            throws TaskManagerException, DateTimeParseException, MarkTaskException {
         LocalDate date;
         int dayInt = Integer.parseInt(day);
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
+
+        List<Task> dayTasks = tasks.get(date);
+        checkIfTaskIndexIsValidForMarkingTask(dayTasks, taskIndex);
+
         handleMarkingOfTask(taskIndex, date);
         saveTasksToFile(tasks, Storage.FILE_PATH);
     }
@@ -409,6 +416,7 @@ public class TaskManager {
      * @param date The date of the task to be marked.
      */
     private void handleMarkingOfTask(int taskIndex, LocalDate date) {
+
         boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
         if (taskIsCompleted) {
             markTaskAsNotCompleted(date, taskIndex - 1);
@@ -430,11 +438,17 @@ public class TaskManager {
      * @throws DateTimeParseException If there is an error parsing the date.
      */
     public void priorityManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, 
-            int taskIndex, String priorityLevelString) throws TaskManagerException, DateTimeParseException {
+            int taskIndex, String priorityLevelString) 
+            throws TaskManagerException, DateTimeParseException, SetPriorityException {
         LocalDate date;
         int dayInt = Integer.parseInt(day);
 
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
+
+        List<Task> dayTasks = tasks.get(date);
+        checkIfTaskIndexIsValidForPriority(dayTasks, taskIndex);
+        checkIfPriorityIsValid(priorityLevelString);
+
         setPriorityLevelOfTask(taskIndex, date, priorityLevelString);
         saveTasksToFile(tasks, Storage.FILE_PATH);
     }
