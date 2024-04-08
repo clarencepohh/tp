@@ -14,6 +14,7 @@ To quickly get started with CLI-nton, follow these simple steps:
 
 1. Ensure that you have Java 11 or above installed on your system.
 2. Download the latest version of `CLI-nton` from [here](http://link.to/clinton).
+2. Download the latest version of `CLI-nton` from [here](https://github.com/AY2324S2-CS2113-W13-2/tp/releases).
 3. Open a command terminal and navigate to the directory where you downloaded CLI-nton.
 4. Run the application using the command `java -jar clinton.jar`.
 5. You're all set to start managing your tasks efficiently!
@@ -22,8 +23,8 @@ To quickly get started with CLI-nton, follow these simple steps:
 
 CLI-nton offers a variety of features to streamline your task management process:
 
+Here are the sections for the User Guide covering the `next`, `prev`, `month`, `week`, `add`, `update`, `delete`, `priority` and `quit` commands:
 
-Here are the sections for the User Guide covering the `next`, `prev`, `month`, `week`, and `quit` commands:
 
 ### Moving to Next Week or Month: `next`
 
@@ -263,20 +264,21 @@ You will be prompted on further inputs based on your desired task type.
 #### Adding a `Todo`
 > Todos are regular tasks with no time limit!
 
-How to add a `Todo`: `add, 4, T, Sample Todo Task`
+Format to add a `Todo`: `add, <day index>, T, <todo description>`
 
 Your Todo Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
 
 Here's what that would look like:
+
 ![Todo Adding Example Console Inputs and Outputs](images/Todo-Example.png)
 
 
 #### Adding a `Deadline`
 > Deadlines are tasks with an additional date/time of completion!
 
-How to add a `Deadline`: `add, 3, D, Sample Deadline Task`
+Format to add a `Deadline`: `add, <day index>, D, <deadline description>`
 
-You will then be asked to provide the deadline (date and time) for this task.
+You will then be asked to provide the deadline (date and time) for this task in the format `<DD/MM/YYYY> <HHMM>`.
 
 `Enter the deadline date and time of this task, separated by a space: `
 
@@ -285,15 +287,16 @@ Example format: `06/04/2024 1800`
 Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
 
 Here's what that would look like:
+
 ![Deadline Adding Example Console Inputs and Outputs](images/Deadline-Example.png)
 
 
 #### Adding an `Event`
 > Events are tasks with a start and end date/time!
 
-How to add an `Event`: `add, 5, E, Sample Event Task`
+Format to add an `Event`: `add, <day index>, E, <event description here>`
 
-You will then be asked to provide the start and end dates/times for this task.
+You will then be asked to provide the start and end dates/times for this task in the format `<DD/MM/YYYY> <HHMM>`.
 
 `Enter the start date of this task, along with the start time separated by a space: `
 
@@ -365,37 +368,37 @@ After updating the todo, the task will be displayed as follows:
 
 To update a Deadline, follow this format:
 ```
-update, 31, 2, Updated Deadline Task
+update, <day>, <task index>, <new deadline description>
 ```
 
-Your Deadline Task will be updated to `Updated Deadline Task` on the 31st! You will then be prompted to provide the 
+Your Deadline Task will be updated to `"<new deadline description>"` on the 31st! You will then be prompted to provide the 
 updated deadline date and time, if desired.
 
 Here's a visual representation of the update process:
 
-![img.png](images/Update-Deadline-Example.png)
+![Example console inputs for updating a Deadline Task](images/Update-Deadline-Example.png)
 
 After the update, the task will be displayed as follows:
 
-![img_1.png](images/Update-Deadline-Example_After.png)
+![Example calendar display after updating a Deadline Task](images/Update-Deadline-Example_After.png)
 
 #### Updating an `Event`:
 
 To update an Event, use the following format:
 ```
-update, 1, 3, Updated Event Task
+update, <day>, <task index>, <new event description>
 ```
 
-Your Event Task will be updated to `Updated Event Task` on the 1st! You will then be prompted to provide the updated 
+Your Event Task will be updated to `"<new event description>"` on the 1st! You will then be prompted to provide the updated 
 start and end dates/times for the event.
 
 Here's an example illustrating the update process:
 
-![img.png](images/Updated-Event-Example.png)
+![Example console inputs for updating an Event Task](images/Updated-Event-Example.png)
 
 After the update, the task will be displayed as follows:
 
-![img_1.png](images/Updated-Event-Example-After.png)
+![Example calendar display after updating an Event Task](images/Updated-Event-Example-After.png)
 
 By following these instructions, you can efficiently update task descriptions in your calendar, ensuring accurate and 
 up-to-date scheduling.
@@ -414,16 +417,16 @@ Example of usage:
 
 ```
 //deletes task 2 on day 3
-delete,3,2
+delete, 3, 2
 
 //deletes task 1 on day 5
-delete,5,1
+delete, 5, 1
 ```
 - Shows error message if task does not exist
 
 ```
 //attempts to delete task 1 on day 5, but the task does not exist
-delete,5,1
+delete, 5, 1
 ```
 Output: 
 ![Invalid Delete Example Console Inputs and Outputs](images/Invalid-Delete-Example.png)
@@ -440,10 +443,10 @@ Example of usage:
 
 ```
 // marks task 3 on day 2 as complete
-mark,2,3
+mark, 2, 3
 
 // marks task 1 on day 4 as incomplete
-mark,4,1
+mark, 4, 1
 ```
 
 ### Setting Priority Level for a Task: `priority`
@@ -459,10 +462,10 @@ Example of usage:
 
 ```
 // sets priority level HIGH for task 1 on day 5
-priority,5,1,H
+priority, 5, 1, H
 
 // sets priority level MEDIUM for task 2 on day 3
-priority,3,2,M
+priority, 3, 2, M
 ```
 
 ### Quitting the Application: `quit`
@@ -501,10 +504,10 @@ Example of usage:
 
 ```
 // exports tasks to an ICS file named "tasks.ics" into the current working directory
-ics,export,tasks.ics
+ics, export, tasks.ics
 
 // imports tasks from an ICS file named "tasks.ics" in the current working directory
-ics,import,tasks.ics
+ics, import, tasks.ics
 ```
 
 ## FAQ
