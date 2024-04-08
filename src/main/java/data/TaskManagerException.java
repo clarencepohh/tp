@@ -39,6 +39,13 @@ public class TaskManagerException extends Exception {
         }
     }
 
+    public static void checkIfTimeInFormat(String time) throws TaskManagerException {
+        if (!time.matches("(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]")) {
+            throw new TaskManagerException("Invalid time format." +
+                    " Please use the format HHmm");
+        }
+    }
+
     /**
      * Method that checks if the date is in the current week shown by the calendar.
      *

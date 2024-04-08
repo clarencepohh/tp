@@ -24,6 +24,7 @@ import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static data.SetPriorityException.checkIfPriorityIsValid;
 import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static data.TaskManagerException.checkIfDateTimeInFormat;
+import static data.TaskManagerException.checkIfTimeInFormat;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
@@ -45,8 +46,8 @@ public class TaskManager {
      * @param taskType The TaskType of the task to be added.
      * @param dates A String array that contains the relevant dates for the task to be added.
      */
-    public static void addTask(LocalDate date, String taskDescription, TaskType taskType, String[] dates,
-                               String[] times)
+    public static void addTask(LocalDate date, String taskDescription, TaskType taskType,
+                               String[] dates, String[] times)
             throws TaskManagerException {
         Task taskToAdd;
 
@@ -60,7 +61,9 @@ public class TaskManager {
             String endDate = dates[1];
 
             String startTime = times[0];
+            checkIfTimeInFormat(startTime);
             String endTime = times[1];
+            checkIfTimeInFormat(endTime);
 
             taskToAdd = new Event(taskDescription, startDate, endDate, startTime, endTime);
             break;
@@ -68,6 +71,7 @@ public class TaskManager {
         case DEADLINE:
             String deadlineDate = dates[0];
             String deadlineTime = times[0];
+            checkIfTimeInFormat(deadlineTime);
             taskToAdd = new Deadline(taskDescription, deadlineDate, deadlineTime);
             break;
 
@@ -312,6 +316,7 @@ public class TaskManager {
         } else if (taskType == DEADLINE) {
             System.out.println("Enter the deadline date and time of this task, separated by a space:");
             String inputDeadlineDateAndTime = scanner.nextLine().trim();
+            checkIfDateTimeInFormat(inputDeadlineDateAndTime);
             String[] deadlineDateAndTime = inputDeadlineDateAndTime.split(" ");
             String[] deadlineDate = new String[]{deadlineDateAndTime[0]};
             String[] deadlineTime = new String[]{deadlineDateAndTime[1]};
