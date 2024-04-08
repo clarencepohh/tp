@@ -23,7 +23,7 @@ import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static data.SetPriorityException.checkIfPriorityIsValid;
 import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
-import static data.TaskManagerException.checkIfDatesInFormat;
+import static data.TaskManagerException.checkIfDateTimeInFormat;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
@@ -306,13 +306,13 @@ public class TaskManager {
         TaskType taskType = parseTaskType(taskTypeString.toUpperCase());
         String typeName = taskType.equals(TODO) ? "Todo" : taskType.equals(DEADLINE) ? "Deadline" : "Event";
 
-        // vvv Below methods should be recreated when console inputs are streamlined
         if (taskType == null) {
             throw new TaskManagerException("Invalid task type. Please provide valid task type: " +
                     "T for Todo, E for event, D for deadline.");
         } else if (taskType == DEADLINE) {
             System.out.println("Enter the deadline date and time of this task, separated by a space:");
-            String[] deadlineDateAndTime = scanner.nextLine().trim().split(" ");
+            String inputDeadlineDateAndTime = scanner.nextLine().trim();
+            String[] deadlineDateAndTime = inputDeadlineDateAndTime.split(" ");
             String[] deadlineDate = new String[]{deadlineDateAndTime[0]};
             String[] deadlineTime = new String[]{deadlineDateAndTime[1]};
 
@@ -320,13 +320,15 @@ public class TaskManager {
         } else if (taskType == EVENT) {
             System.out.println("Enter the start date of this task, along with the start time separated by a space:");
             String inputStartDateAndTime = scanner.nextLine().trim();
-            checkIfDatesInFormat(inputStartDateAndTime);
+            checkIfDateTimeInFormat(inputStartDateAndTime);
             String[] startDateAndTime = inputStartDateAndTime.split(" ");
             String startDate = startDateAndTime[0];
             String startTime = startDateAndTime[1];
 
             System.out.println("Enter the end date of this task, along with the end time separated by a space:");
-            String[] endDateAndTime = scanner.nextLine().trim().split(" ");
+            String inputEndDateAndTime = scanner.nextLine().trim();
+            checkIfDateTimeInFormat(inputEndDateAndTime);
+            String[] endDateAndTime = inputEndDateAndTime.split(" ");
             String endDate = endDateAndTime[0];
             String endTime = endDateAndTime[1];
 
