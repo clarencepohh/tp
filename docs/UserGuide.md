@@ -180,53 +180,30 @@ Example format: `07/05/2024 2000`
 Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
 
 Here's what that would look like:
+
 ![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
 
 #### **Notes to users**
-> Commas `,` and pipes `|` are used in our application as command delimiters as well as for file storage purposes.
+> Commas`,` and pipes`|` are used in our application as command delimiters as well as for file storage purposes.
 > Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues.
 >
 > You have been **informed**!
 
 ### Updating a Task Description: `update`
 
-You can update the description of a task using the `update` command. This command allows you to change the description 
-of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
-
-Format: `update, <day>, <taskIndex>, <newDescription>`
-
-You will be prompted on further inputs based on the task type you seek to update.
-
-#### Updating a `Todo`:
-
-```
-update, 31, 1, bye
-```
-
-Your Todo will now be updated to `bye` on the 31st (of whichever week/month you are viewing)!
-Here's a sample of what that would look like:
-
-![img.png](images/Update-Todo-Example.png)
-
-After updating the todo, the task will be displayed as follows:
-
-![img.png](images/Update-Todo-Example-After.png)
-
-### Updating a Task Description: `update`
-
 >You can update the description of a task using the `update` command. This command allows you to change the description of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
 
-Format: `update, <day>, <taskIndex>, <newDescription>`
+Format to update a task Description: `update, <day>, <task index>, <new description>`
 
 You will be prompted on further inputs based on the task type you seek to update.
 
 #### Updating a `Todo`:
 
 ```
-update, 31, 1, bye
+update, <day>, <task index>, <new todo description>
 ```
 
-Your Todo will now be updated to `bye` on the 31st (of whichever week/month you are viewing)!
+Your Todo will now be updated to `"<new todo description>"` on the 31st (of whichever week/month you are viewing)!
 Here's a sample of what that would look like:
 
 ![Todo Update Example](images/Update-Todo-Example.png)
