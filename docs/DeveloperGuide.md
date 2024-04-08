@@ -463,14 +463,12 @@ The 'ics' component:
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
 Our target users are those require a calendar or task-management application but do not like clicking through multiple window prompts just to do so.
 These are people who know their way around a keyboard *well* and can swiftly type their required commands accurately. We expect these individuals to be 
 busy and want to keep on top of their tasks, so this application will serve their needs of quick data entry and task-management functions. 
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
 CLI-nton takes the pros of a GUI based calendar and integrates it with the efficiency of CLI-based inputs to achieve fast data entry while still maintaining the visual clarity that is expected
 of a calendar application. Most calendar applications require users to navigate their interface using both mouse and keyboard inputs, which can feel clunky and troublesome - especially when they 
 have to navigate through many windows just to add one event to their calendar. This application is made to benefit those who type quickly and accurately, allowing them to quickly create entries
@@ -485,11 +483,13 @@ in their calendar.
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Should work on Linux, macOS, Unix and Windows as long as Java `11` is installed.
 
 ## Glossary
 
-* *glossary item* - Definition
+* *.ics file* - The Internet Calendaring and Scheduling Core Object Specification (iCalendar) is a media type which allows users to store and exchange calendaring and scheduling information 
+such as events, to-dos, journal entries, and free/busy information, and together with its associated standards has been a cornerstone of the standardization and interoperability of digital 
+calendars across different vendors. Files formatted according to this specification usually have an extension of .ics. [(1)](https://en.wikipedia.org/wiki/ICalendar)
 
 ## Instructions for manual testing
 
