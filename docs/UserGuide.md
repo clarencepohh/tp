@@ -379,4 +379,14 @@ For a quick reference, here's a summary of available commands:
 - Switch to week view `week`
 - Quit the application `quit`
 
-Start managing your tasks efficiently with CLI-nton!
+Here's a summary of task types:
+
+- `Todo`: A basic task with no start or end date / times.
+- `Deadline`: A task that has a date / time to complete by.
+- `Event`: A task that has a start and end date / time.
+
+Tasks can be classified in the following ways:
+- marked as `HIGH`, `MEDIUM` or `LOW` priority. Default level is `LOW`.
+- marked as `COMPLETE` or `INCOMPLETE`. Default is `INCOMPLETE`.
+
+Start managing your tasks efficiently with CLI-nton today!
