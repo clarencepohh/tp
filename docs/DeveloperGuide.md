@@ -464,6 +464,9 @@ The 'ics' component:
 ### Target user profile
 
 {Describe the target user profile}
+Our target users are those require a calendar or task-management application but do not like clicking through multiple window prompts just to do so.
+These are people who know their way around a keyboard *well* and can swiftly type their required commands accurately. We expect these individuals to be 
+busy and want to keep on top of their tasks, so this application will serve their needs of quick data entry and task-management functions. 
 
 ### Value proposition
 
