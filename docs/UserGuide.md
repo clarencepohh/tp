@@ -171,7 +171,9 @@ Here's what that would look like:
 
 Format to add a `Deadline`: `add, <day index>, D, <deadline description>`
 
-You will then be asked to provide the deadline (date and time) for this task in the format `<DD/MM/YYYY> <HHMM>`.
+You will then be asked to provide the deadline (date and time) for this task.
+
+> Note that the time and date are saved as plaintext, so that users are not bounded to purely date/time inputs and can use inputs such as "sunday bedtime"
 
 `Enter the deadline date and time of this task, separated by a space: `
 
@@ -189,7 +191,9 @@ Here's what that would look like:
 
 Format to add an `Event`: `add, <day index>, E, <event description here>`
 
-You will then be asked to provide the start and end dates/times for this task in the format `<DD/MM/YYYY> <HHMM>`.
+You will then be asked to provide the start and end dates/times for this task.
+
+> Similar to Deadlines, note that the time and date are saved as plaintext, so that users are not bounded to purely date/time inputs and can use inputs such as "sunday bedtime"
 
 `Enter the start date of this task, along with the start time separated by a space: `
 
