@@ -47,6 +47,12 @@ public class SetPriorityException extends TaskManagerException {
         }
     }
 
+    /**
+     * Method that checks if the priority entered is a valid string.
+     * 
+     * @param priority The priority to be checked.
+     * @throws SetPriorityException if the priority is invalid.
+     */
     public static void checkIfPriorityIsValid(String priority) throws SetPriorityException {
         boolean priorityIsInvalid = 
                 !priority.equals("L") && !priority.equals("M") && !priority.equals("H");
