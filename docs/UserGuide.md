@@ -8,12 +8,34 @@ This user guide provides comprehensive instructions on how to use CLI-nton, from
 
 Read on to learn how to manage your tasks efficiently with CLI-nton!
 
+### Table of Contents
+- [Quick Start](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#quick-start)
+- [Features](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#features)
+  - [Moving to the next Week or Month](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#moving-to-next-week-or-month-next)
+  - [Moving to the previous Week or Month](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#moving-to-previous-week-or-month-prev)
+  - [Switching to Month View](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#switching-to-month-view-month)
+  - [Switching to Week View](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#switching-to-week-view-week)
+  - [Adding a new Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-new-task-add)
+    - [Adding a Todo](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-todo)
+    - [Adding a Deadline](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-deadline)
+    - [Adding an Event](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-an-event)
+  - [Updating a Task Description](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-task-description-update)
+    - [Updating a Todo](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-todo-1)
+    - [Updating a Deadline](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-deadline)
+    - [Updating an Event](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-an-event)
+  - [Deleting a Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#deleting-a-task-delete)
+  - [Marking a Task as Complete or Incomplete](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#marking-a-task-as-complete-or-incomplete-mark)
+  - [Setting a Priority Level for a Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#setting-priority-level-for-a-task-priority)
+  - [Quitting the Application](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#quitting-the-application-quit)
+  - [ICS Importing and Exporting](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#ics-exporting-and-importing-ics-coming-in-v21)
+- [FAQ](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#faq)
+- [Command Summary](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#command-summary)
+
 ## Quick Start
 
 To quickly get started with CLI-nton, follow these simple steps:
 
 1. Ensure that you have Java 11 or above installed on your system.
-2. Download the latest version of `CLI-nton` from [here](http://link.to/clinton).
 2. Download the latest version of `CLI-nton` from [here](https://github.com/AY2324S2-CS2113-W13-2/tp/releases).
 3. Open a command terminal and navigate to the directory where you downloaded CLI-nton.
 4. Run the application using the command `java -jar clinton.jar`.
