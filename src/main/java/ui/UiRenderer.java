@@ -151,7 +151,7 @@ public class UiRenderer {
      * @param maxNumberOfLinesPerTask The maximum number of lines per task.
      */
     private static void printTasksInGrid(LocalDate startOfWeek, int maxNumberOfTasksInDay,
-                                         int maxNumberOfLinesPerTask) {
+            int maxNumberOfLinesPerTask) {
         for (int taskIndex = 0; taskIndex < maxNumberOfTasksInDay; taskIndex++) {
             for (int lineIndex = 0; lineIndex < maxNumberOfLinesPerTask; lineIndex++) {
                 printTaskSubstringInRow(startOfWeek, taskIndex, lineIndex);
@@ -201,8 +201,8 @@ public class UiRenderer {
                 String taskDescription = task.getName();
                 String displayString =
                         (dayTasks.indexOf(task) + 1) + "." +
-                                task.getDisplayFormat() +
-                                taskDescription;
+                        task.getDisplayFormat() +
+                        taskDescription;
                 List<String> wrappedLines = wrapText(displayString, SPACE_COUNT);
                 wrappedTasksForDay.add(wrappedLines);
             }
@@ -247,8 +247,8 @@ public class UiRenderer {
             String taskDescription = task.getName();
             String displayString =
                     (taskIndex + 1) + "." +
-                            task.getDisplayFormat() +
-                            taskDescription;
+                    task.getDisplayFormat() +
+                    taskDescription;
             System.out.printf(TASK_DISPLAY_FORMAT, displayString);
         } else {
             System.out.print(EMPTY_TASK_DISPLAY_FORMAT);
