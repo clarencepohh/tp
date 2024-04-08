@@ -13,6 +13,8 @@ public class SetPriorityException extends TaskManagerException {
             "The task index you attempted to set a priority to is out of range!";
     public static final String TASK_INDEX_WITH_NO_TASKS_MESSAGE = 
             "There are no tasks to set a priority to on this day!";
+    public static final String INVALID_PRIORITY_MESSAGE = 
+            "The priority you entered is invalid! Please enter a valid priority (L, M, H)!";
 
     /**
      * Constructor for SetPriorityException class.
@@ -42,6 +44,14 @@ public class SetPriorityException extends TaskManagerException {
         boolean taskIndexOutOfRange = taskIndex < 0 || taskIndex > taskListSize;
         if (taskIndexOutOfRange) {
             throw new SetPriorityException(TASK_INDEX_OUT_OF_RANGE_FOR_DAY_WITH_TASKS_MESSAGE);
+        }
+    }
+
+    public static void checkIfPriorityIsValid(String priority) throws SetPriorityException {
+        boolean priorityIsInvalid = 
+                !priority.equals("L") && !priority.equals("M") && !priority.equals("H");
+        if (priorityIsInvalid) {
+            throw new SetPriorityException(INVALID_PRIORITY_MESSAGE);
         }
     }
 

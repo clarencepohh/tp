@@ -21,6 +21,7 @@ import static data.TaskManagerException.checkIfDateHasTasks;
 import static data.TaskManagerException.checkIfDateInCurrentMonth;
 import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
+import static data.SetPriorityException.checkIfPriorityIsValid;
 import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
@@ -446,6 +447,7 @@ public class TaskManager {
 
         List<Task> dayTasks = tasks.get(date);
         checkIfTaskIndexIsValidForPriority(dayTasks, taskIndex);
+        checkIfPriorityIsValid(priorityLevelString);
 
         setPriorityLevelOfTask(taskIndex, date, priorityLevelString);
         saveTasksToFile(tasks, Storage.FILE_PATH);
