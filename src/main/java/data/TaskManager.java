@@ -23,6 +23,7 @@ import static data.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static data.SetPriorityException.checkIfPriorityIsValid;
 import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
+import static data.TaskManagerException.checkIfDatesInFormat;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
@@ -318,7 +319,9 @@ public class TaskManager {
             addTask(date, taskDescription, taskType, deadlineDate, deadlineTime);
         } else if (taskType == EVENT) {
             System.out.println("Enter the start date of this task, along with the start time separated by a space:");
-            String[] startDateAndTime = scanner.nextLine().trim().split(" ");
+            String inputStartDateAndTime = scanner.nextLine().trim();
+            checkIfDatesInFormat(inputStartDateAndTime);
+            String[] startDateAndTime = inputStartDateAndTime.split(" ");
             String startDate = startDateAndTime[0];
             String startTime = startDateAndTime[1];
 

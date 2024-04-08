@@ -23,6 +23,14 @@ public class TaskManagerException extends Exception {
         super(errorMessage);
     }
 
+    public static void checkIfDatesInFormat(String dateTime) throws TaskManagerException {
+        // Validate start date and time format
+        if (!dateTime.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            throw new TaskManagerException("Invalid start date and time format. " +
+                    "Please use the format dd/MM/yyyy HHmm");
+        }
+    }
+
     /**
      * Method that checks if the date is in the current week shown by the calendar.
      *
