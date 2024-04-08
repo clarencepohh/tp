@@ -517,14 +517,13 @@ ics,import,tasks.ics
 
 For a quick reference, here's a summary of available commands:
 
-- Add todo `todo n/TODO_NAME d/DEADLINE`
 - Move to next week or month `next`
 - Move to previous week or month `prev`
-- Update task description `update <day> <taskIndex> <newDescription>`
-- Add new task `add <day> <taskType> <taskDescription>`
-- Delete task `delete <day> <taskIndex>`
-- Mark task as complete or not complete `mark <day> <taskIndex>`
-- Set priority level for task `priority <day> <taskIndex> <priority>`
+- Update task description `update, <day>, <taskIndex>, <newDescription>`
+- Add new task `add, <day>, <taskType>, <taskDescription>`
+- Delete task `delete, <day>, <taskIndex>`
+- Mark task as complete or not complete `mark, <day>, <taskIndex>`
+- Set priority level for task `priority, <day>, <taskIndex>, <priority>`
 - Switch to month view `month`
 - Switch to week view `week`
 - Quit the application `quit`
