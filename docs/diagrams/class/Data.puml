@@ -64,7 +64,7 @@ class Event extends Task {
 + getSaveFormat ()
 }
 
-class TaskManagerException {
+class TaskManagerException extends Exception {
 + NOT_CURRENT_WEEK_MESSAGE: String
 + NOT_CURRENT_MONTH_MESSAGE: String
 + {static} checkIfDateInCurrentWeek (date: LocalDate, weekView: WeekView)
@@ -85,10 +85,6 @@ MEDIUM
 LOW
 }
 
-
-TaskManager --> "*" Task
-TaskManagerException --|> Exception
-note right of Exception : Java standard Exception class
 hide circle
 
 @enduml
