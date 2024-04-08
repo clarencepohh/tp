@@ -9,8 +9,14 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static ui.UiRenderer.TODO_ICON_COLOR;
+import static ui.UiRenderer.DEADLINE_ICON_COLOR;
+import static ui.UiRenderer.EVENT_ICON_COLOR;
+import static ui.UiRenderer.ESCAPE_COLOR;
 
 public class MonthView extends View {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -97,22 +103,44 @@ public class MonthView extends View {
     private void printTaskForDay(List<Task> dayTasks, int taskIndex) {
         if (taskIndex < dayTasks.size()) {
             Task task = dayTasks.get(taskIndex);
-            switch (task.getTaskType()) {
-            case "E":
-                System.out.printf(uiRenderer.TASK_DISPLAY_FORMAT, "*");
-                break;
-            case "D":
-                System.out.printf(uiRenderer.TASK_DISPLAY_FORMAT, "#");
-                break;
-            case "T":
-                System.out.printf(uiRenderer.TASK_DISPLAY_FORMAT, "+");
-                break;
-            default:
-                break;
-            }
+            printTaskIcon(task);
         } else {
             System.out.print(uiRenderer.EMPTY_TASK_DISPLAY_FORMAT);
         }
+    }
+
+    private void printTaskIcon(Task task) {
+        String taskIcon = getTaskIcon(task);
+        System.out.printf(uiRenderer.ICON_DISPLAY_FORMAT, taskIcon);
+    }
+
+    private String getTaskIcon(Task task) {
+        String taskIcon;
+        switch (task.getTaskType()) {
+        case "E":
+            taskIcon = getColoredTaskIcon(task, EVENT_ICON_COLOR);
+            break;
+        case "D":
+            taskIcon = getColoredTaskIcon(task, DEADLINE_ICON_COLOR);
+            break;
+        case "T":
+            taskIcon = getColoredTaskIcon(task, TODO_ICON_COLOR);
+            break;
+        default:
+            taskIcon = "";
+            break;
+        }
+        return taskIcon;
+    }
+
+    private String getColoredTaskIcon(Task task, String color) {
+        String taskIcon;
+        if (Objects.equals(task.getMarkedStatusIcon(), "X")) {
+            taskIcon = color + "■" + ESCAPE_COLOR;
+        } else {
+            taskIcon = color + "□" + ESCAPE_COLOR;
+        }
+        return taskIcon;
     }
 
     @Override
