@@ -1,7 +1,7 @@
 package storage;
 
 import data.Task;
-import data.TaskManagerException;
+import data.Exceptions.TaskManagerException;
 import data.TaskPriorityLevel;
 import data.TaskType;
 
