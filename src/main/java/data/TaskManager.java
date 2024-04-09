@@ -1,5 +1,8 @@
 package data;
 
+import data.Exceptions.MarkTaskException;
+import data.Exceptions.SetPriorityException;
+import data.Exceptions.TaskManagerException;
 import storage.Storage;
 import time.MonthView;
 import time.WeekView;
@@ -16,15 +19,15 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static data.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
-import static data.TaskManagerException.checkIfDateHasTasks;
-import static data.TaskManagerException.checkIfDateInCurrentMonth;
-import static data.TaskManagerException.checkIfDateInCurrentWeek;
-import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
-import static data.SetPriorityException.checkIfPriorityIsValid;
-import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
-import static data.TaskManagerException.checkIfDateTimeInFormat;
-import static data.TaskManagerException.checkIfTimeInFormat;
+import static data.Exceptions.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
+import static data.Exceptions.TaskManagerException.checkIfDateHasTasks;
+import static data.Exceptions.TaskManagerException.checkIfDateInCurrentMonth;
+import static data.Exceptions.TaskManagerException.checkIfDateInCurrentWeek;
+import static data.Exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
+import static data.Exceptions.SetPriorityException.checkIfPriorityIsValid;
+import static data.Exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
+import static data.Exceptions.TaskManagerException.checkIfDateTimeInFormat;
+import static data.Exceptions.TaskManagerException.checkIfTimeInFormat;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;

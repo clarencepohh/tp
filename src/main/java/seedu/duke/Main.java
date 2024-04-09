@@ -8,7 +8,7 @@ import time.MonthView;
 import time.WeekView;
 import ui.AvatarUi;
 import data.TaskManager;
-import data.TaskManagerException;
+import data.Exceptions.TaskManagerException;
 import log.FileLogger;
 
 import java.io.IOException;
