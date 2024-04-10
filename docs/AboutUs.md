@@ -1,10 +1,9 @@
 # About us
 
-
-Display |     Name     | Github Profile | Portfolio 
---------|:------------:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) |   Aakash Ramaswamy   | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) |   Nicholas Tan Yun Yu   | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) |   Sivagnanam Maheshwarn   | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) |   Jonathan Kuek   | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Clarence Poh | [Github](https://github.com/clarencepohh) | [Portfolio](docs/team/johndoe.md)
+|          Name          |                         Github Profile                         |             Portfolio              |
+|:----------------------:|:--------------------------------------------------------------:|:----------------------------------:|
+|    Aakash Ramaswamy    |     [See Aakash's Github Here!](https://github.com/Aak242)     |    [Portfolio](team/aak242.md)     |
+|  Nicholas Tan Yun Yu   | [See Nicholas' Github Here!](https://github.com/NicholasTanYY) | [Portfolio](team/nicholastanyy.md) |
+| Sivagnanam Maheshwaran |   [See Mahesh's Github Here!](https://github.com/Mahesh1772)   |  [Portfolio](team/mahesh1772.md)   |
+|     Jonathan Kuek      | [See Jonathan's Github Here!](https://github.com/kyhjonathan)  |  [Portfolio](team/kyhjonathan.md)  |
+|      Clarence Poh      | [See Clarence's Github Here!](https://github.com/clarencepohh) | [Portfolio](team/clarencepohh.md)  |
