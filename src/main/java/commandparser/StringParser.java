@@ -71,7 +71,7 @@ public class StringParser {
      * @throws TaskManagerException if the command format is invalid
      */
     public static void validateAddCommand(String[] parts) throws TaskManagerException {
-        if (parts.length < 4) {
+        if (parts.length != 4) {
             throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
                     "add, <day>, <taskType>, <taskDescription>");
         }
@@ -84,7 +84,7 @@ public class StringParser {
      * @throws TaskManagerException if the command format is invalid
      */
     public static void validateUpdateCommand(String[] parts) throws TaskManagerException {
-        if (parts.length < 4) {
+        if (parts.length != 4) {
             throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
                     "update, <day>, <taskIndex>, <newDescription>");
         }
