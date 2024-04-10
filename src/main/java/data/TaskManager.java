@@ -140,73 +140,10 @@ public class TaskManager {
                         oldDescription + " to: " + newTaskDescription);
                 break;
             case "E":
-                Event oldEvent = (Event) dayTasks.get(taskIndex);
-                System.out.println("Do you want to update the start and end dates and times? (yes/no)");
-                String eventResponse = scanner.nextLine().trim().toLowerCase();
-                if (eventResponse.equals("yes")) {
-                    System.out.println("Enter the new start date, end date, start time and end time, " +
-                            "separated by spaces:");
-                    String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
-                    String oldStartDate = oldEvent.getStartDate();
-
-                    task = new Event(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1], newDatesAndTimes[2],
-                            newDatesAndTimes[3]);
-
-                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    LocalDate newEventStartDate;
-                    try {
-                        newEventStartDate = LocalDate.parse(newDatesAndTimes[0], dateFormatter);
-                    } catch (DateTimeParseException e) {
-                        throw new DateTimeParseException("Invalid date format. Please use the format dd/MM/yyyy.",
-                                newDatesAndTimes[0], 0);
-                    }
-
-                    if (!newDatesAndTimes[0].equals(oldStartDate)) {
-                        startDateChanged = true;
-                        tasks.computeIfAbsent(newEventStartDate, k -> new ArrayList<>()).add(task);
-                        tasks.get(LocalDate.parse(oldStartDate, dateFormatter)).remove(taskIndex);
-                    }
-
-                    logger.log(Level.INFO, "Updating task description from " +
-                            oldDescription + " to: " + newTaskDescription);
-                    logger.log(Level.INFO, "Updating task start date from " +
-                            oldEvent.getStartDate() + " to: " + newDatesAndTimes[0]);
-                    logger.log(Level.INFO, "Updating task end date from " + oldEvent.getEndDate() + " to: "
-                            + newDatesAndTimes[1]);
-                    logger.log(Level.INFO, "Updating task start time from " + oldEvent.getStartTime() + " to: "
-                            + newDatesAndTimes[2]);
-                    logger.log(Level.INFO, "Updating task end time from " + oldEvent.getEndTime() + " to: "
-                            + newDatesAndTimes[3]);
-                } else {
-                    task = new Event(newTaskDescription, oldEvent.getStartDate(), oldEvent.getEndDate(),
-                            oldEvent.getStartTime(), oldEvent.getEndTime());
-
-                    logger.log(Level.INFO, "Updating task description from " +
-                            oldDescription + " to: " + newTaskDescription);
-                }
-
+                task = updateEventTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
                 break;
             case "D":
-                Deadline oldDeadline = (Deadline) dayTasks.get(taskIndex);
-                System.out.println("Do you want to update the deadline date and time? (yes/no)");
-                String deadlineResponse = scanner.nextLine().trim().toLowerCase();
-                if (deadlineResponse.equals("yes")) {
-                    System.out.println("Enter the new deadline date and time, separated by a space:");
-                    String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
-                    task = new Deadline(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1]);
-
-                    logger.log(Level.INFO, "Updating task description from " +
-                            oldDescription + " to: " + newTaskDescription);
-                    logger.log(Level.INFO, "Updating task deadline date from " + oldDeadline.getByDate() + " to: "
-                            + newDatesAndTimes[0]);
-                    logger.log(Level.INFO, "Updating task deadline time from " + oldDeadline.getByTime() + " to: "
-                            + newDatesAndTimes[1]);
-                } else {
-                    task = new Deadline(newTaskDescription, oldDeadline.getByDate(), oldDeadline.getByTime());
-
-                    logger.log(Level.INFO, "Updating task description from " +
-                            oldDescription + " to: " + newTaskDescription);
-                }
+                task = updateDeadlineTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid task type");
@@ -219,6 +156,69 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Task index is out of bounds.");
         }
+    }
+
+    private static Task updateEventTask(Scanner scanner, List<Task> dayTasks, int taskIndex, String newTaskDescription, String oldDescription) {
+        Event oldEvent = (Event) dayTasks.get(taskIndex);
+        System.out.println("Do you want to update the start and end dates and times? (yes/no)");
+        String eventResponse = scanner.nextLine().trim().toLowerCase();
+        if (eventResponse.equals("yes")) {
+            System.out.println("Enter the new start date, end date, start time and end time, " +
+                    "separated by spaces:");
+            String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
+            String oldStartDate = oldEvent.getStartDate();
+
+            Task task = new Event(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1], newDatesAndTimes[2],
+                    newDatesAndTimes[3]);
+
+            updateEventLogging(newTaskDescription, oldDescription, oldEvent, newDatesAndTimes);
+            return task;
+        } else {
+            Task task = new Event(newTaskDescription, oldEvent.getStartDate(), oldEvent.getEndDate(),
+                    oldEvent.getStartTime(), oldEvent.getEndTime());
+
+            logger.log(Level.INFO, "Updating task description from " +
+                    oldDescription + " to: " + newTaskDescription);
+            return task;
+        }
+    }
+
+    private static Task updateDeadlineTask(Scanner scanner, List<Task> dayTasks, int taskIndex, String newTaskDescription, String oldDescription) {
+        Deadline oldDeadline = (Deadline) dayTasks.get(taskIndex);
+        System.out.println("Do you want to update the deadline date and time? (yes/no)");
+        String deadlineResponse = scanner.nextLine().trim().toLowerCase();
+        if (deadlineResponse.equals("yes")) {
+            System.out.println("Enter the new deadline date and time, separated by a space:");
+            String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
+            Task task = new Deadline(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1]);
+
+            logger.log(Level.INFO, "Updating task description from " +
+                    oldDescription + " to: " + newTaskDescription);
+            logger.log(Level.INFO, "Updating task deadline date from " + oldDeadline.getByDate() + " to: "
+                    + newDatesAndTimes[0]);
+            logger.log(Level.INFO, "Updating task deadline time from " + oldDeadline.getByTime() + " to: "
+                    + newDatesAndTimes[1]);
+            return task;
+        } else {
+            Task task = new Deadline(newTaskDescription, oldDeadline.getByDate(), oldDeadline.getByTime());
+
+            logger.log(Level.INFO, "Updating task description from " +
+                    oldDescription + " to: " + newTaskDescription);
+            return task;
+        }
+    }
+
+    private static void updateEventLogging(String newTaskDescription, String oldDescription, Event oldEvent, String[] newDatesAndTimes) {
+        logger.log(Level.INFO, "Updating task description from " +
+                oldDescription + " to: " + newTaskDescription);
+        logger.log(Level.INFO, "Updating task start date from " +
+                oldEvent.getStartDate() + " to: " + newDatesAndTimes[0]);
+        logger.log(Level.INFO, "Updating task end date from " + oldEvent.getEndDate() + " to: "
+                + newDatesAndTimes[1]);
+        logger.log(Level.INFO, "Updating task start time from " + oldEvent.getStartTime() + " to: "
+                + newDatesAndTimes[2]);
+        logger.log(Level.INFO, "Updating task end time from " + oldEvent.getEndTime() + " to: "
+                + newDatesAndTimes[3]);
     }
 
     /**
