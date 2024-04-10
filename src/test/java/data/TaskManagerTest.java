@@ -137,7 +137,7 @@ class TaskManagerTest {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Deadline";
-        String byDate = "05/04/2024";
+        String byDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String byTime = "1800";
 
         // Act
@@ -162,7 +162,7 @@ class TaskManagerTest {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Deadline";
-        String byDate = "05/04/2024";
+        String byDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String byTime = "1800";
 
         // Act
@@ -182,7 +182,7 @@ class TaskManagerTest {
         LocalDate date = LocalDate.now();
         String initialTaskDescription = "Initial Deadline";
         String updatedTaskDescription = "Updated Deadline";
-        String byDate = "05/04/2024";
+        String byDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String byTime = "1800";
         TaskType testTaskType = TaskType.DEADLINE;
         String[] dummyTestDates = new String[]{byDate};
@@ -209,7 +209,7 @@ class TaskManagerTest {
         LocalDate date = LocalDate.now();
         String initialTaskDescription = "Initial Deadline";
         String updatedTaskDescription = "Updated Deadline";
-        String byDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String byDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String byTime = "18:00";
 
         TaskType testTaskType = TaskType.DEADLINE;
@@ -242,8 +242,8 @@ class TaskManagerTest {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Event";
-        String startDate = "05/04/2024";
-        String endDate = "06/04/2024";
+        String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String endDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String startTime = "1800";
         String endTime = "2000";
 
@@ -327,10 +327,10 @@ class TaskManagerTest {
     @Test
     void getEventsForDate_validDate_returnsEvents() throws TaskManagerException {
         // Arrange
-        LocalDate date = LocalDate.of(2024, 4, 7);
+        LocalDate date = LocalDate.now();
         String taskDescription = "Test Event";
-        String startDate = "07/04/2024";
-        String endDate = "07/04/2024";
+        String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String endDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String startTime = "12:00";
         String endTime = "13:00";
         TaskType testTaskType = TaskType.EVENT;
@@ -353,7 +353,7 @@ class TaskManagerTest {
     @Test
     void getEventsForDate_invalidDate_returnsNoEvents() {
         // Arrange
-        LocalDate date = LocalDate.of(2024, 4, 7); // No events added for this date
+        LocalDate date = LocalDate.now(); // No events added for this date
 
         // Act
         List<Task> eventsForDate = TaskManager.getEventsForDate(date);

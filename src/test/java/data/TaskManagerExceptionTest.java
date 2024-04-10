@@ -66,6 +66,6 @@ public class TaskManagerExceptionTest {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateHasTasks(dayWithNoTasks));
 
-        Assertions.assertEquals("No tasks to delete on this date.", thrown.getMessage());
+        Assertions.assertEquals("There are no tasks on this date. Please try again.", thrown.getMessage());
     }
 }
