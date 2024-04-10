@@ -1,4 +1,4 @@
-package data.Exceptions;
+package data.exceptions;
 
 import data.Task;
 import time.WeekView;
