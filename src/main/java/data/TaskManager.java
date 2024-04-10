@@ -313,48 +313,62 @@ public class TaskManager {
         TaskType taskType = parseTaskType(taskTypeString.toUpperCase());
         String typeName = taskType.equals(TODO) ? "Todo" : taskType.equals(DEADLINE) ? "Deadline" : "Event";
 
+        //Add task based on type
+        addTaskBasedOnType(scanner, taskDescription, taskType, date);
+
+        // Save tasks to file
+        saveTasksToFile(tasks, Storage.FILE_PATH); // Update tasks.txt file
+        System.out.println(typeName + " added.");
+    }
+
+    private static void addTaskBasedOnType(Scanner scanner, String taskDescription, TaskType taskType, LocalDate date) throws TaskManagerException {
         if (taskType == null) {
             throw new TaskManagerException("Invalid task type. Please provide valid task type: " +
                     "T for Todo, E for event, D for deadline.");
         } else if (taskType == DEADLINE) {
-            System.out.println("Enter the deadline date and time of this task, separated by a space:");
-            String inputDeadlineDateAndTime = scanner.nextLine().trim();
-            checkIfDateTimeInFormat(inputDeadlineDateAndTime);
-            String[] deadlineDateAndTime = inputDeadlineDateAndTime.split(" ");
-            String[] deadlineDate = new String[]{deadlineDateAndTime[0]};
-            String[] deadlineTime = new String[]{deadlineDateAndTime[1]};
-
-            addTask(date, taskDescription, taskType, deadlineDate, deadlineTime);
+            parseAndAddDeadline(scanner, taskDescription, taskType, date);
         } else if (taskType == EVENT) {
-            System.out.println("Enter the start date of this task, along with the start time separated by a space:");
-            String inputStartDateAndTime = scanner.nextLine().trim();
-            checkIfDateTimeInFormat(inputStartDateAndTime);
-            String[] startDateAndTime = inputStartDateAndTime.split(" ");
-            String startDate = startDateAndTime[0];
-            String startTime = startDateAndTime[1];
-
-            System.out.println("Enter the end date of this task, along with the end time separated by a space:");
-            String inputEndDateAndTime = scanner.nextLine().trim();
-            checkIfDateTimeInFormat(inputEndDateAndTime);
-            String[] endDateAndTime = inputEndDateAndTime.split(" ");
-            String endDate = endDateAndTime[0];
-            String endTime = endDateAndTime[1];
-
-            String [] startAndEndDates = new String[]{startDate, endDate};
-            String [] startAndEndTimes = new String[]{startTime, endTime};
-
-            addTask(date, taskDescription, taskType, startAndEndDates, startAndEndTimes);
+            parseAndAddEvent(scanner, taskDescription, taskType, date);
         } else {
             String[] dummyDates = {null}; // dummy String array to pass into function call
             String[] dummyTimes = {null}; // dummy String array to pass into function call
 
             addTask(date, taskDescription, taskType, dummyDates, dummyTimes);
         }
-
-        // Save tasks to file
-        saveTasksToFile(tasks, Storage.FILE_PATH); // Update tasks.txt file
-        System.out.println(typeName + " added.");
     }
+
+    private static void parseAndAddEvent(Scanner scanner, String taskDescription, TaskType taskType, LocalDate date) throws TaskManagerException {
+        System.out.println("Enter the start date of this task, along with the start time separated by a space:");
+        String inputStartDateAndTime = scanner.nextLine().trim();
+        checkIfDateTimeInFormat(inputStartDateAndTime);
+        String[] startDateAndTime = inputStartDateAndTime.split(" ");
+        String startDate = startDateAndTime[0];
+        String startTime = startDateAndTime[1];
+
+        System.out.println("Enter the end date of this task, along with the end time separated by a space:");
+        String inputEndDateAndTime = scanner.nextLine().trim();
+        checkIfDateTimeInFormat(inputEndDateAndTime);
+        String[] endDateAndTime = inputEndDateAndTime.split(" ");
+        String endDate = endDateAndTime[0];
+        String endTime = endDateAndTime[1];
+
+        String [] startAndEndDates = new String[]{startDate, endDate};
+        String [] startAndEndTimes = new String[]{startTime, endTime};
+
+        addTask(date, taskDescription, taskType, startAndEndDates, startAndEndTimes);
+    }
+
+    private static void parseAndAddDeadline(Scanner scanner, String taskDescription, TaskType taskType, LocalDate date) throws TaskManagerException {
+        System.out.println("Enter the deadline date and time of this task, separated by a space:");
+        String inputDeadlineDateAndTime = scanner.nextLine().trim();
+        checkIfDateTimeInFormat(inputDeadlineDateAndTime);
+        String[] deadlineDateAndTime = inputDeadlineDateAndTime.split(" ");
+        String[] deadlineDate = new String[]{deadlineDateAndTime[0]};
+        String[] deadlineTime = new String[]{deadlineDateAndTime[1]};
+
+        addTask(date, taskDescription, taskType, deadlineDate, deadlineTime);
+    }
+
 
     /**
      * Marks a task as completed or not completed based its current marked status.

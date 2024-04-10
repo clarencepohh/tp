@@ -91,7 +91,6 @@ public class Storage {
                 String[] parts = line.split("\\|");
                 checkStorageTextDateFormat(parts[0]);
                 LocalDate date = LocalDate.parse(parts[0]);
-                System.out.println(date);
                 TaskType taskType = parseTaskType(parts[1]);
                 String markedStatus = parts[2];
                 String priorityLevel = parts[3];
