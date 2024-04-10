@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static data.Exceptions.StorageFileException.checkStorageTextDateFormat;
 import static data.TaskManager.addTask;
 import static data.TaskManager.getDayTasks;
 import static data.TaskManager.parseTaskType;
@@ -88,7 +89,9 @@ public class Storage {
                     throw new StorageFileException("Error in file format.");
                 }
                 String[] parts = line.split("\\|");
+                checkStorageTextDateFormat(parts[0]);
                 LocalDate date = LocalDate.parse(parts[0]);
+                System.out.println(date);
                 TaskType taskType = parseTaskType(parts[1]);
                 String markedStatus = parts[2];
                 String priorityLevel = parts[3];
