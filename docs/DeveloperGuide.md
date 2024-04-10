@@ -463,26 +463,45 @@ The 'ics' component:
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+Our target users are those require a calendar or task-management application but do not like clicking through multiple window prompts just to do so.
+These are people who know their way around a keyboard *well* and can swiftly type their required commands accurately. We expect these individuals to be 
+busy and want to keep on top of their tasks, so this application will serve their needs of quick data entry and task-management functions. 
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+CLI-nton takes the pros of a GUI based calendar and integrates it with the efficiency of CLI-based inputs to achieve fast data entry while still maintaining the visual clarity that is expected
+of a calendar application. Most calendar applications require users to navigate their interface using both mouse and keyboard inputs, which can feel clunky and troublesome - especially when they 
+have to navigate through many windows just to add one event to their calendar. This application is made to benefit those who type quickly and accurately, allowing them to quickly create entries
+in their calendar. 
 
 ## User Stories
 
-| Version | As a ... | I want to ...             | So that I can ...                                           |
-|---------|----------|---------------------------|-------------------------------------------------------------|
-| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
-| v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
+| Version | As a ...     | I want to ...                                                                | So that I ...                                                               |
+|---------|--------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| v1.0    | new user     | be able to save my tasks                                                     | can still see my tasks even after I exit out of the program                 |
+| v1.0    | user         | to create events in a calendar                                               | can plan my day-to-day routine                                              |
+| v1.0    | user         | view the calendar with all my appointments                                   | do not miss out on any important commitments                                |
+| v1.0    | user         | be able to edit and update any tasks I may have already added                | can correct any mistakes or update them to reflect changes in my priorities |
+| v1.0    | user         | add tasks to be displayed                                                    | can keep track of them easily and not forget them                           |
+| v1.0    | user         | remove/delete tasks that I've completed                                      | keep my tasks as up-to-date as possible                                     |
+| v2.0    | new user     | have a quick tutorial/help page                                              | can find out how to use the program clearly                                 |
+| v2.0    | user         | be able to tag and categorize tasks and events                               | can organize my schedule more effectively                                   |
+| v2.0    | user         | add, remove and edit tasks with fewer keystrokes                             | manage my busy schedule more efficiently                                    |
+| v2.0    | user         | set priority levels for tasks and events                                     | can easily identify what requires immediate attention                       |
+| v2.0    | user         | have a deeper connection with the application with the addition of an avatar | feel more engaged when using the application.                               |
+| v2.0    | user         | be able to mark tasks as complete                                            | can keep track of what I have left to do.                                   |
+| v2.0    | user         | have the application look neat                                               | will be more motivated to use the application                               |
+| v2.0    | busy student | be able to see different views (week/month) on the calendar                  | can see my week/month at a glance                                           |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Should work on Linux, macOS, Unix and Windows as long as Java `11` is installed.
 
 ## Glossary
 
-* *glossary item* - Definition
+* *.ics file* - The Internet Calendaring and Scheduling Core Object Specification (iCalendar) is a media type which allows users to store and exchange calendaring and scheduling information 
+such as events, to-dos, journal entries, and free/busy information, and together with its associated standards has been a cornerstone of the standardization and interoperability of digital 
+calendars across different vendors. Files formatted according to this specification usually have an extension of .ics. [(1)](https://en.wikipedia.org/wiki/ICalendar)
 
 ## Instructions for manual testing
 
