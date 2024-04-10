@@ -145,6 +145,22 @@ public class Main {
                 }
                 break;
 
+            case "free":
+                try {
+                    String[] parts = input.split(",\\s*");
+                    if (parts.length < 2) {
+                        throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                                "free, <day>");
+                    }
+
+                    String day = parts[1].trim();
+                    taskManager.freeTimesManager(weekView, monthView, inMonthView, day);
+
+                } catch (TaskManagerException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+
             case "priority":
                 try {
                     String[] parts = input.split(",\\s*");
