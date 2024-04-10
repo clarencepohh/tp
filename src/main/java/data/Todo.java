@@ -1,10 +1,5 @@
 package data;
 
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.component.VEvent;
-
-import java.util.GregorianCalendar;
-
 public class Todo extends Task {
 
     /**
