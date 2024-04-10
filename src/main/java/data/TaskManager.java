@@ -8,7 +8,6 @@ import time.MonthView;
 import time.WeekView;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -158,7 +157,8 @@ public class TaskManager {
         }
     }
 
-    private static Task updateEventTask(Scanner scanner, List<Task> dayTasks, int taskIndex, String newTaskDescription, String oldDescription) {
+    private static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
+                                        int taskIndex, String newTaskDescription, String oldDescription) {
         Event oldEvent = (Event) dayTasks.get(taskIndex);
         System.out.println("Do you want to update the start and end dates and times? (yes/no)");
         String eventResponse = scanner.nextLine().trim().toLowerCase();
@@ -183,7 +183,8 @@ public class TaskManager {
         }
     }
 
-    private static Task updateDeadlineTask(Scanner scanner, List<Task> dayTasks, int taskIndex, String newTaskDescription, String oldDescription) {
+    private static Task updateDeadlineTask(Scanner scanner, List<Task> dayTasks,
+                                           int taskIndex, String newTaskDescription, String oldDescription) {
         Deadline oldDeadline = (Deadline) dayTasks.get(taskIndex);
         System.out.println("Do you want to update the deadline date and time? (yes/no)");
         String deadlineResponse = scanner.nextLine().trim().toLowerCase();
@@ -208,7 +209,8 @@ public class TaskManager {
         }
     }
 
-    private static void updateEventLogging(String newTaskDescription, String oldDescription, Event oldEvent, String[] newDatesAndTimes) {
+    private static void updateEventLogging(String newTaskDescription,
+                                           String oldDescription, Event oldEvent, String[] newDatesAndTimes) {
         logger.log(Level.INFO, "Updating task description from " +
                 oldDescription + " to: " + newTaskDescription);
         logger.log(Level.INFO, "Updating task start date from " +
@@ -321,7 +323,8 @@ public class TaskManager {
         System.out.println(typeName + " added.");
     }
 
-    private static void addTaskBasedOnType(Scanner scanner, String taskDescription, TaskType taskType, LocalDate date) throws TaskManagerException {
+    private static void addTaskBasedOnType(Scanner scanner, String taskDescription,
+                                           TaskType taskType, LocalDate date) throws TaskManagerException {
         if (taskType == null) {
             throw new TaskManagerException("Invalid task type. Please provide valid task type: " +
                     "T for Todo, E for event, D for deadline.");
@@ -337,7 +340,8 @@ public class TaskManager {
         }
     }
 
-    private static void parseAndAddEvent(Scanner scanner, String taskDescription, TaskType taskType, LocalDate date) throws TaskManagerException {
+    private static void parseAndAddEvent(Scanner scanner, String taskDescription,
+                                         TaskType taskType, LocalDate date) throws TaskManagerException {
         System.out.println("Enter the start date of this task, along with the start time separated by a space:");
         String inputStartDateAndTime = scanner.nextLine().trim();
         checkIfDateTimeInFormat(inputStartDateAndTime);
@@ -358,7 +362,8 @@ public class TaskManager {
         addTask(date, taskDescription, taskType, startAndEndDates, startAndEndTimes);
     }
 
-    private static void parseAndAddDeadline(Scanner scanner, String taskDescription, TaskType taskType, LocalDate date) throws TaskManagerException {
+    private static void parseAndAddDeadline(Scanner scanner, String taskDescription,
+                                            TaskType taskType, LocalDate date) throws TaskManagerException {
         System.out.println("Enter the deadline date and time of this task, separated by a space:");
         String inputDeadlineDateAndTime = scanner.nextLine().trim();
         checkIfDateTimeInFormat(inputDeadlineDateAndTime);
