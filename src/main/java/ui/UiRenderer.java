@@ -18,10 +18,10 @@ public class UiRenderer {
     public static final String END_HORIZONTAL_DIVIDER = "+";
     public static final String VERTICAL_DIVIDER = "|";
     public static final int SPACE_COUNT = 15;
-    public static final int ICON_COUNT = 25;
+    public static final int ICON_COUNT = 24;
     public static final String ENTRY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "s";
     public static final String TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + "%-" + SPACE_COUNT + "." + SPACE_COUNT + "s";
-    public static final String ICON_DISPLAY_FORMAT = VERTICAL_DIVIDER + "%-" + ICON_COUNT + "." + ICON_COUNT + "s ";
+    public static final String ICON_DISPLAY_FORMAT = VERTICAL_DIVIDER + "%-" + ICON_COUNT + "." + ICON_COUNT + "s";
     public static final String EMPTY_TASK_DISPLAY_FORMAT = VERTICAL_DIVIDER + " ".repeat(SPACE_COUNT);
     public static final String EVENT_ICON_COLOR = "\u001B[31m";
     public static final String DEADLINE_ICON_COLOR = "\u001B[33m";

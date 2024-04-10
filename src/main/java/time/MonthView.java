@@ -136,9 +136,9 @@ public class MonthView extends View {
     private String getColoredTaskIcon(Task task, String color) {
         String taskIcon;
         if (Objects.equals(task.getMarkedStatusIcon(), "X")) {
-            taskIcon = color + "■" + ESCAPE_COLOR;
+            taskIcon = color + "{*}" + ESCAPE_COLOR;
         } else {
-            taskIcon = color + "□" + ESCAPE_COLOR;
+            taskIcon = color + "{ }" + ESCAPE_COLOR;
         }
         return taskIcon;
     }
