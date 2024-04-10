@@ -142,9 +142,9 @@ public class Storage {
      * @param recentlyAddedTask Task that was most recently added.
      */
     private static void setPriorityLevelStatus(String priorityLevel, Task recentlyAddedTask) {
-        if (!priorityLevel.equals("H")) {
-            recentlyAddedTask.setPriorityLevel(TaskPriorityLevel.MEDIUM);
-        } else if (!priorityLevel.equals("M")) {
+        if (priorityLevel.equals("H")) {
+            recentlyAddedTask.setPriorityLevel(TaskPriorityLevel.HIGH);
+        } else if (priorityLevel.equals("M")) {
             recentlyAddedTask.setPriorityLevel(TaskPriorityLevel.MEDIUM);
         } else {
             recentlyAddedTask.setPriorityLevel(TaskPriorityLevel.LOW);
