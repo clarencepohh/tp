@@ -12,5 +12,13 @@ Given below are my contributions to the project.
 * Justification: This feature allows users to share their tasks with others and import tasks from other applications.
 * Highlights: This feature is implemented using the 'icshandler' class, however it is still in development and not yet implemented into the main application.
 
+**Enhancements to existing features**:
+* Updated the `TaskList` class to include the ability to add tasks from a list of tasks.
+* Refactored taskManager methods to be more modular and easier to read.
+* Handled exception handling for parsing of DateTime
+
+**Tools**
+* Used ical4j library to handle ical file format.
+* Update build.gradle file to include relevant dependencies for ical4j library.
 
 ### Summary of Contributions
