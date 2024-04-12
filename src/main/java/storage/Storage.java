@@ -171,7 +171,6 @@ public class Storage {
      * @param line The string in the save file to be checked.
      * @return True if the format is correct, false otherwise.
      */
-
     public static boolean checkFileFormat(String line) {
         String regex = "\\d{4}-\\d{2}-\\d{2}\\|.+";
         return line.matches(regex);
