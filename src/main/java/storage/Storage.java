@@ -1,7 +1,8 @@
 package storage;
 
+import data.exceptions.StorageFileException;
 import data.Task;
-import data.TaskManagerException;
+import data.exceptions.TaskManagerException;
 import data.TaskPriorityLevel;
 import data.TaskType;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static data.exceptions.StorageFileException.checkStorageTextDateFormat;
 import static data.TaskManager.addTask;
 import static data.TaskManager.getDayTasks;
 import static data.TaskManager.parseTaskType;
@@ -84,9 +86,10 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (!checkFileFormat(line)) {
-                    throw new StorageFileException();
+                    throw new StorageFileException("Error in file format.");
                 }
                 String[] parts = line.split("\\|");
+                checkStorageTextDateFormat(parts[0]);
                 LocalDate date = LocalDate.parse(parts[0]);
                 TaskType taskType = parseTaskType(parts[1]);
                 String markedStatus = parts[2];
@@ -110,7 +113,6 @@ public class Storage {
             System.out.println("I/O exception occurred during file handling");
             logger.log(Level.WARNING, "I/O exception occurred");
         } catch (StorageFileException e) {
-            System.out.println("tasks.txt is in wrong format.");
             logger.log(Level.WARNING, "Wrong tasks.txt format");
         } catch (TaskManagerException e) {
             logger.log(Level.WARNING, "Invalid task type for task.");
