@@ -1,4 +1,6 @@
-package data;
+package data.exceptions;
+
+import data.Task;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class SetPriorityException extends TaskManagerException {
      * @param taskIndex The index of the task to set a priority to.
      * @throws SetPriorityException if the task index is invalid.
      */
-    public static void checkIfTaskIndexIsValidForPriority(List<Task> dayTasks, int taskIndex) 
+    public static void checkIfTaskIndexIsValidForPriority(List<Task> dayTasks, int taskIndex)
             throws SetPriorityException {
         
         boolean dayHasNoTasks = (dayTasks == null);

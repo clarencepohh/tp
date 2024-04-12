@@ -1,5 +1,6 @@
-package data;
+package data.exceptions;
 
+import data.Task;
 import time.WeekView;
 
 import java.time.LocalDate;
@@ -33,6 +34,29 @@ public class TaskManagerException extends Exception {
      */
     public TaskManagerException(String errorMessage) {
         super(errorMessage);
+    }
+
+    public static void checkIfDateTimeInFormat(String dateTime) throws TaskManagerException {
+        // Validate start date and time format
+        if (!dateTime.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}")) {
+            throw new TaskManagerException("Invalid start date and time format. " +
+                    "Please use the format dd/MM/yyyy HHmm");
+        }
+    }
+
+    public static void checkIfDateInFormat(String date) throws TaskManagerException {
+        // Validate start date format
+        if (!date.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            throw new TaskManagerException("Invalid start date format. " +
+                    "Please use the format dd/MM/yyyy");
+        }
+    }
+
+    public static void checkIfTimeInFormat(String time) throws TaskManagerException {
+        if (!time.matches("(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]")) {
+            throw new TaskManagerException("Invalid time format." +
+                    " Please use the format HHmm");
+        }
     }
 
     /**
