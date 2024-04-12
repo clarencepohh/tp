@@ -781,6 +781,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Retrieves all Event tasks for a specific date.
+     *
+     * @param date The date to retrieve Event tasks for.
+     * @return A list of Event tasks for the given date.
+     */
     public static List<Task> getEventsForDate(LocalDate date) {
         List<Task> events = new ArrayList<>();
         List<Task> taskList = tasks.get(date);
@@ -794,6 +800,13 @@ public class TaskManager {
         return events;
     }
 
+    /**
+     * Retrieves all free time slots for a specific date.
+     *
+     * @param events A list of Event tasks for the date.
+     * @param currentDate The date to show free times for.
+     * @return A list of free time slots for the given date.
+     */
     public List<String> getFreeTimeSlots(List<Task> events, LocalDate currentDate) {
         List<String> freeTimeSlots = new ArrayList<>();
         LocalTime startOfDay = LocalTime.of(0, 0);
@@ -844,6 +857,12 @@ public class TaskManager {
         return freeTimeSlots;
     }
 
+    /**
+     * Prints the free time slots for a specific date.
+     *
+     * @param freeTimeSlots A list of free time slots for the date.
+     * @param startDate The date to show free times for.
+     */
     public void printFreeTimeSlots(List<String> freeTimeSlots, LocalDate startDate) {
 
         System.out.println("Free time slots for " + startDate + ":");
