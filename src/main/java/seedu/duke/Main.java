@@ -34,13 +34,15 @@ public class Main {
         LocalDate startOfMonth = today.withDayOfMonth(1);
         MonthView monthView = new MonthView(startOfMonth, dateFormatter);
 
-        createNewFile(Storage.FILE_PATH); //Creates directory and tasks.txt file if it does not exist
+        //Creates directory and tasks.txt file if it does not exist
+        createNewFile(Storage.FILE_PATH);
+        //Reads tasks from txt file
         Map<LocalDate, List<Task>> tasksFromFile =
-                Storage.loadTasksFromFile(Storage.FILE_PATH); //Reads tasks from txt file
-        taskManager.addTasksFromFile(tasksFromFile); //Loads tasks from txt file
+                Storage.loadTasksFromFile(Storage.FILE_PATH);
+        //Loads tasks from txt file
+        taskManager.addTasksFromFile(tasksFromFile);
 
         AvatarUi.printWelcomeMessage();
-        //IcsHandler.generateICS(); //uncomment when developed
 
         CommandHandler commandHandler = new CommandHandler(scanner, taskManager, weekView, monthView);
 
