@@ -3,7 +3,7 @@ package seedu.duke;
 import commandparser.CommandHandler;
 import data.Task;
 import data.TaskManager;
-import data.TaskManagerException;
+import data.exceptions.TaskManagerException;
 import log.FileLogger;
 import net.fortuna.ical4j.data.ParserException;
 import storage.Storage;
@@ -11,9 +11,6 @@ import time.DateUtils;
 import time.MonthView;
 import time.WeekView;
 import ui.AvatarUi;
-import data.TaskManager;
-import data.exceptions.TaskManagerException;
-import log.FileLogger;
 
 import java.io.IOException;
 import java.time.LocalDate;
