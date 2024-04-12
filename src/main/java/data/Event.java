@@ -100,6 +100,7 @@ public class Event extends Task {
                 + getEndTime();
     }
 
+    //@@author kyhjonathan-unused
     public static VEvent eventToVEvent(Event event) {
         java.util.Calendar startDate = new GregorianCalendar();
         int intStartDate = parseInt(event.getStartDate().substring(2,5)) - 1;

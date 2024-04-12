@@ -26,6 +26,13 @@ import static data.TaskManager.parseTaskType;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 
+
+/**
+ * The Storage class handles all operations related to storing and retrieving tasks from a file.
+ * It provides methods to create a new file, save tasks to a file, load tasks from a file, and check the file format.
+ * It also provides methods to configure the statuses of tasks after they are loaded from the file.
+ * The class uses a Logger to log information and warnings related to file handling and task management.
+ */
 public class Storage {
 
     public static final Path FILE_PATH = Path.of("./save/tasks.txt");
@@ -48,6 +55,7 @@ public class Storage {
         }
     }
 
+    //@@author kyhjonathan
     /**
      * Reads tasks in hashmap and writes it in formatted form to tests.txt.
      *
@@ -120,6 +128,7 @@ public class Storage {
         logger.log(Level.INFO, "tasks returned");
         return tasks;
     }
+    //@@author
 
     /**
      * Configures the statuses of the tasks after they are loaded from the file.
@@ -168,8 +177,8 @@ public class Storage {
     /**
      * Checks if the file format is correct.
      *
-     * @param line The string in the save file to be checked.
-     * @return True if the format is correct, false otherwise.
+     * @param line Line to be checked.
+     * @return True if the file format is correct, false otherwise.
      */
     public static boolean checkFileFormat(String line) {
         String regex = "\\d{4}-\\d{2}-\\d{2}\\|.+";

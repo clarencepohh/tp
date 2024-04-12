@@ -37,7 +37,11 @@ import static data.TaskType.TODO;
 import static storage.Storage.saveTasksToFile;
 
 /**
- * Manages tasks by providing functionalities to add, delete, and update tasks.
+ * The TaskManager class manages tasks by providing functionalities to add, delete, and update tasks.
+ * It provides methods to add tasks based on their type (Todo, Event, Deadline), delete tasks, update tasks,
+ * mark tasks as completed or not completed, set priority levels for tasks, and retrieve tasks for a specific date.
+ * It also provides methods to add tasks from a file and print free time slots for a specific date.
+ * The class uses a Logger to log information and warnings related to task management.
  */
 public class TaskManager {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -374,9 +378,11 @@ public class TaskManager {
         } else if (taskType == EVENT) {
             parseAndAddEvent(scanner, taskDescription, taskType, date);
         } else {
-            String[] dummyDates = {null}; // dummy String array to pass into function call
-            String[] dummyTimes = {null}; // dummy String array to pass into function call
-
+            // dummy String array to pass into function call
+            String[] dummyDates = {null};
+            // dummy String array to pass into function call
+            String[] dummyTimes = {null};
+            // Call function to add tasks
             addTask(date, taskDescription, taskType, dummyDates, dummyTimes);
         }
     }
@@ -612,21 +618,6 @@ public class TaskManager {
     }
 
     /**
-     * Prompts user for updated task description.
-     *
-     * @param scanner User input.
-     * @param weekView Current week being viewed.
-     * @param monthView Current month being viewed.
-     * @param inMonthView Whether month is being viewed.
-     * @param taskManager The taskManager class being used.
-     * @param day The int representing the day containing the task to be updated.
-     * @param taskIndex The int representing the task index to be updated.
-     * @param newDescription The String with the new task description.
-     * @throws TaskManagerException If not in correct week/month view.
-     * @throws DateTimeParseException If there is an error parsing the date.
-     */
-
-    /**
      * Prompts user for updated task description and updates task in the task list and tasks.txt file.
      *
      * @param scanner Scanner object to read user input for task details.
@@ -660,6 +651,8 @@ public class TaskManager {
 
     }
 
+
+    //@@author kyhjonathan
     /**
      * Adds tasks from a file to the TaskManager.
      *
@@ -713,6 +706,7 @@ public class TaskManager {
         }
     }
 
+    //@@author
     /**
      * Lists task of the input date.
      *
@@ -822,6 +816,7 @@ public class TaskManager {
             }
         });
 
+        // Initialize the last end time to the start of the day for the first day
         // Initialize the last end time to the start of the day for the first day
         LocalTime lastEndTime = startOfDay;
 

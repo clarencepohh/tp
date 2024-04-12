@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 
+//@@author kyhjonathan-unused
 public class IcsHandler {
 
     private static final String filePath = "./src/main/java/icshandler/icstest.ics";
