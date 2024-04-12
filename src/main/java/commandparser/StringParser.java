@@ -116,6 +116,13 @@ public class StringParser {
         }
     }
 
+    public static void validateFreeCommand(String[] parts) throws TaskManagerException {
+        if (parts.length != 2) {
+            throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
+                    "free, <day>");
+        }
+    }
+
     /**
      * Validates the format of a command setting priority.
      *
