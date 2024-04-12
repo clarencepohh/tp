@@ -211,15 +211,15 @@ class TaskManagerTest {
         String initialTaskDescription = "Initial Deadline";
         String updatedTaskDescription = "Updated Deadline";
         String byDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        String byTime = "18:00";
+        String byTime = "1800";
 
         TaskType testTaskType = TaskType.DEADLINE;
         String[] dummyTestDates = new String[]{byDate};
         String[] dummyTestTimes = new String[]{byTime};
         String simulatedUserInput = "yes\n" +
-                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +  " 15:00\n";
+                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +  " 1500\n";
         String updatedByDate = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        String updatedByTime = "15:00";
+        String updatedByTime = "1500";
 
         Scanner scanner = new Scanner(simulatedUserInput);
 
@@ -297,8 +297,8 @@ class TaskManagerTest {
         String taskDescription = "Test Event";
         String startDate = "07/04/2024";
         String endDate = "07/04/2024";
-        String startTime = "12:00";
-        String endTime = "13:00";
+        String startTime = "1200";
+        String endTime = "1300";
         TaskType testTaskType = TaskType.EVENT;
         String[] testDates = new String[]{startDate, endDate};
         String[] testTimes = new String[]{startTime, endTime};
@@ -332,8 +332,8 @@ class TaskManagerTest {
         String taskDescription = "Test Event";
         String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String endDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        String startTime = "12:00";
-        String endTime = "13:00";
+        String startTime = "1200";
+        String endTime = "1300";
         TaskType testTaskType = TaskType.EVENT;
         String[] testDates = new String[]{startDate, endDate};
         String[] testTimes = new String[]{startTime, endTime};

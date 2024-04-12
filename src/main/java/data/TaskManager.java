@@ -734,8 +734,8 @@ public class TaskManager {
         // Sort events by start time and date
         events.sort((e1, e2) -> {
             if (e1.getStartDate().equals(e2.getStartDate())) {
-                return LocalTime.parse(e1.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"))
-                        .compareTo(LocalTime.parse(e2.getStartTime(), DateTimeFormatter.ofPattern("HH:mm")));
+                return LocalTime.parse(e1.getStartTime(), DateTimeFormatter.ofPattern("HHmm"))
+                        .compareTo(LocalTime.parse(e2.getStartTime(), DateTimeFormatter.ofPattern("HHmm")));
             } else {
                 return e1.getStartDate().compareTo(e2.getStartDate());
             }
@@ -748,8 +748,8 @@ public class TaskManager {
             // Parse the start and end dates and times of the event as LocalDate and LocalTime
             LocalDate eventStartDate = LocalDate.parse(event.getStartDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             LocalDate eventEndDate = LocalDate.parse(event.getEndDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            LocalTime eventStartTime = LocalTime.parse(event.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
-            LocalTime eventEndTime = LocalTime.parse(event.getEndTime(), DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime eventStartTime = LocalTime.parse(event.getStartTime(), DateTimeFormatter.ofPattern("HHmm"));
+            LocalTime eventEndTime = LocalTime.parse(event.getEndTime(), DateTimeFormatter.ofPattern("HHmm"));
 
             // Only process events that start on the current date
             if (eventStartDate.isEqual(currentDate)) {
