@@ -7,3 +7,6 @@
 
 
 ### Summary of Contributions
+#### Drawing of the Avatar
+#### Handling logic for printing table lines
+#### Handling logic for printing tasks in week view
