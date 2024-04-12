@@ -2,18 +2,39 @@
 
 ## Introduction
 
-Welcome to CLI-nton, a powerful task management application designed to help you stay organized and productive. With a simple command-line interface, CLI-nton makes it easy to manage your tasks, whether they're todos, deadlines, or events.
-
 This user guide provides comprehensive instructions on how to use CLI-nton, from getting started to using advanced features. Whether you're a new user or an experienced one, this guide is designed to help you get the most out of CLI-nton.
 
 Read on to learn how to manage your tasks efficiently with CLI-nton!
+
+### Table of Contents
+- [Quick Start](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#quick-start)
+- [Features](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#features)
+  - [Moving to the next Week or Month](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#moving-to-next-week-or-month-next)
+  - [Moving to the previous Week or Month](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#moving-to-previous-week-or-month-prev)
+  - [Switching to Month View](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#switching-to-month-view-month)
+  - [Switching to Week View](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#switching-to-week-view-week)
+  - [Adding a new Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-new-task-add)
+    - [Adding a Todo](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-todo)
+    - [Adding a Deadline](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-deadline)
+    - [Adding an Event](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-an-event)
+  - [Updating a Task Description](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-task-description-update)
+    - [Updating a Todo](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-todo-1)
+    - [Updating a Deadline](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-deadline)
+    - [Updating an Event](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-an-event)
+  - [Deleting a Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#deleting-a-task-delete)
+  - [Marking a Task as Complete or Incomplete](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#marking-a-task-as-complete-or-incomplete-mark)
+  - [Setting a Priority Level for a Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#setting-priority-level-for-a-task-priority)
+  - [Quitting the Application](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#quitting-the-application-quit)
+  - [ICS Importing and Exporting](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#ics-exporting-and-importing-ics-coming-in-v21)
+- [FAQ](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#faq)
+- [Command Summary](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#command-summary)
 
 ## Quick Start
 
 To quickly get started with CLI-nton, follow these simple steps:
 
 1. Ensure that you have Java 11 or above installed on your system.
-2. Download the latest version of `CLI-nton` from [here](http://link.to/clinton).
+2. Download the latest version of `CLI-nton` from [here](https://github.com/AY2324S2-CS2113-W13-2/tp/releases).
 3. Open a command terminal and navigate to the directory where you downloaded CLI-nton.
 4. Run the application using the command `java -jar clinton.jar`.
 5. You're all set to start managing your tasks efficiently!
@@ -22,8 +43,8 @@ To quickly get started with CLI-nton, follow these simple steps:
 
 CLI-nton offers a variety of features to streamline your task management process:
 
+Here are the sections for the User Guide covering the `next`, `prev`, `month`, `week`, `add`, `update`, `delete`, `priority` and `quit` commands:
 
-Here are the sections for the User Guide covering the `next`, `prev`, `month`, `week`, and `quit` commands:
 
 ### Moving to Next Week or Month: `next`
 
@@ -38,60 +59,20 @@ next
 **Examples:**
 
 If you are currently in the **Week view:**
-```
-Week View: 31/03/2024 - 06/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|31/03/2024     |01/04/2024     |02/04/2024     |03/04/2024     |04/04/2024     |05/04/2024     |06/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+
+![Example console outputs before using next command for WeekView](images/WeekView-Next-Before-Example.png)
+
 The application will move to the following week view, displaying the following week.
 
-```dtd
-Week View: 07/04/2024 - 13/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|07/04/2024     |08/04/2024     |09/04/2024     |10/04/2024     |11/04/2024     |12/04/2024     |13/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+![Example console outputs after using next command for WeekView](images/WeekView-Next-After-Example.png)
 
 If you are currently in the **Month view:**
-```dtd
-Month View: APRIL 2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|               |1              |2              |3              |4              |5              |6              |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|7              |8              |9              |10             |11             |12             |13             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|14             |15             |16             |17             |18             |19             |20             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|21             |22             |23             |24             |25             |26             |27             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|28             |29             |30             |               |               |               |               |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+
+![Example console outputs before using next command for MonthView](images/MonthView-Next-Before-Example.png)
+
 The application will move to the next month view, displaying the following month.
 
-```dtd
-Month View: MAY 2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|               |               |               |1              |2              |3              |4              |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|5              |6              |7              |8              |9              |10             |11             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|12             |13             |14             |15             |16             |17             |18             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|19             |20             |21             |22             |23             |24             |25             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|26             |27             |28             |29             |30             |31             |               |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+![Example console outputs after using next command for MonthView](images/MonthView-Next-After-Example.png)
 
 ### Moving to Previous Week or Month: `prev`
 
@@ -106,65 +87,20 @@ prev
 **Example:**
 
 If you are currently in the **Week view:**
-```
-Week View: 21/04/2024 - 27/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|21/04/2024     |22/04/2024     |23/04/2024     |24/04/2024     |25/04/2024     |26/04/2024     |27/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+
+![Example console outputs before using prev command for WeekView](images/WeekView-Next-After-Example.png)
+
 The application will move to the previous week view, displaying the week prior.
 
-```
-Week View: 14/04/2024 - 20/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|14/04/2024     |15/04/2024     |16/04/2024     |17/04/2024     |18/04/2024     |19/04/2024     |20/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+![Example console outputs after using prev command for WeekView](images/WeekView-Next-Before-Example.png)
 
 If you are currently in the **Month view:**
-```dtd
-Month View: APRIL 2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|               |1              |2              |3              |4              |5              |6              |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|7              |8              |9              |10             |11             |12             |13             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|14             |15             |16             |17             |18             |19             |20             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|21             |22             |23             |24             |25             |26             |27             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|28             |29             |30             |               |               |               |               |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+
+![Example console outputs before using prev command for MonthView](images/MonthView-Next-After-Example.png)
+
 The application will move to the previous month view, displaying the month prior.
 
-```dtd
-
-Month View: MARCH 2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|               |               |               |               |               |1              |2              |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|3              |4              |5              |6              |7              |8              |9              |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|10             |11             |12             |13             |14             |15             |16             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|17             |18             |19             |20             |21             |22             |23             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|24             |25             |26             |27             |28             |29             |30             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|               |               |               |meeting        |               |               |               |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|31             |               |               |               |               |               |               |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+![Example console outputs after using prev command for MonthView](images/MonthView-Next-Before-Example.png)
 
 ### Switching to Month View: `month`
 
@@ -179,34 +115,12 @@ month
 **Example:**
 
 If you are currently in the week view:
-```
-Week View: 14/04/2024 - 20/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|14/04/2024     |15/04/2024     |16/04/2024     |17/04/2024     |18/04/2024     |19/04/2024     |20/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
 
-month
-```
+![Example console outputs before changing WeekView to MonthView](images/Week-To-Month-View-Before-Example.png)
+
 The application will switch to the month view from week view and current month will be displayed.
 
-```dtd
-Month View: APRIL 2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|               |1              |2              |3              |4              |5              |6              |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|7              |8              |9              |10             |11             |12             |13             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|14             |15             |16             |17             |18             |19             |20             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|21             |22             |23             |24             |25             |26             |27             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|28             |29             |30             |               |               |               |               |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+![Example console outputs after changing WeekView to MonthView](images/Week-To-Month-View-After-Example.png)
 
 ### Switching to Week View: `week`
 
@@ -222,33 +136,11 @@ week
 
 If you are currently in the **Month view:**
 
-```dtd
-Month View: APRIL 2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|               |1              |2              |3              |4              |5              |6              |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|7              |8              |9              |10             |11             |12             |13             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|14             |15             |16             |17             |18             |19             |20             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|21             |22             |23             |24             |25             |26             |27             |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|28             |29             |30             |               |               |               |               |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+![MonthView Display](images/Week-To-Month-View-After-Example.png)
 
 The application will switch to the **Week view.**
 
-```
-Week View: 21/04/2024 - 27/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|21/04/2024     |22/04/2024     |23/04/2024     |24/04/2024     |25/04/2024     |26/04/2024     |27/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-```
+![Example console outputs after changing MonthView to WeekView](images/Month-To-Week-View-After-Example.png)
 
 ### Adding a New Task: `add`
 > Note that there are 3 different types of tasks: Todos, Events and Deadlines.
@@ -263,20 +155,21 @@ You will be prompted on further inputs based on your desired task type.
 #### Adding a `Todo`
 > Todos are regular tasks with no time limit!
 
-How to add a `Todo`: `add, 4, T, Sample Todo Task`
+Format to add a `Todo`: `add, <day index>, T, <todo description>`
 
 Your Todo Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
 
 Here's what that would look like:
+
 ![Todo Adding Example Console Inputs and Outputs](images/Todo-Example.png)
 
 
 #### Adding a `Deadline`
 > Deadlines are tasks with an additional date/time of completion!
 
-How to add a `Deadline`: `add, 3, D, Sample Deadline Task`
+Format to add a `Deadline`: `add, <day index>, D, <deadline description>`
 
-You will then be asked to provide the deadline (date and time) for this task.
+You will then be asked to provide the deadline (date and time) for this task in the format `"DD/MM/YYYY HHMM"`.
 
 `Enter the deadline date and time of this task, separated by a space: `
 
@@ -285,15 +178,16 @@ Example format: `06/04/2024 1800`
 Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
 
 Here's what that would look like:
+
 ![Deadline Adding Example Console Inputs and Outputs](images/Deadline-Example.png)
 
 
 #### Adding an `Event`
 > Events are tasks with a start and end date/time!
 
-How to add an `Event`: `add, 5, E, Sample Event Task`
+Format to add an `Event`: `add, <day index>, E, <event description here>`
 
-You will then be asked to provide the start and end dates/times for this task.
+You will then be asked to provide the start and end dates/times for this task in the format `"DD/MM/YYYY HHMM"`.
 
 `Enter the start date of this task, along with the start time separated by a space: `
 
@@ -306,53 +200,30 @@ Example format: `07/05/2024 2000`
 Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
 
 Here's what that would look like:
+
 ![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
 
 #### **Notes to users**
-> Commas `,` and pipes `|` are used in our application as command delimiters as well as for file storage purposes.
+> Commas`,` and pipes`|` are used in our application as command delimiters as well as for file storage purposes.
 > Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues.
 >
 > You have been **informed**!
 
 ### Updating a Task Description: `update`
 
-You can update the description of a task using the `update` command. This command allows you to change the description 
-of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
-
-Format: `update, <day>, <taskIndex>, <newDescription>`
-
-You will be prompted on further inputs based on the task type you seek to update.
-
-#### Updating a `Todo`:
-
-```
-update, 31, 1, bye
-```
-
-Your Todo will now be updated to `bye` on the 31st (of whichever week/month you are viewing)!
-Here's a sample of what that would look like:
-
-![img.png](images/Update-Todo-Example.png)
-
-After updating the todo, the task will be displayed as follows:
-
-![img.png](images/Update-Todo-Example-After.png)
-
-### Updating a Task Description: `update`
-
 >You can update the description of a task using the `update` command. This command allows you to change the description of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
 
-Format: `update, <day>, <taskIndex>, <newDescription>`
+Format to update a task Description: `update, <day>, <task index>, <new description>`
 
 You will be prompted on further inputs based on the task type you seek to update.
 
 #### Updating a `Todo`:
 
 ```
-update, 31, 1, bye
+update, <day>, <task index>, <new todo description>
 ```
 
-Your Todo will now be updated to `bye` on the 31st (of whichever week/month you are viewing)!
+Your Todo will now be updated to `"<new todo description>"` on the 31st (of whichever week/month you are viewing)!
 Here's a sample of what that would look like:
 
 ![Todo Update Example](images/Update-Todo-Example.png)
@@ -365,37 +236,37 @@ After updating the todo, the task will be displayed as follows:
 
 To update a Deadline, follow this format:
 ```
-update, 31, 2, Updated Deadline Task
+update, <day>, <task index>, <new deadline description>
 ```
 
-Your Deadline Task will be updated to `Updated Deadline Task` on the 31st! You will then be prompted to provide the 
+Your Deadline Task will be updated to `"<new deadline description>"` on the 31st! You will then be prompted to provide the 
 updated deadline date and time, if desired.
 
 Here's a visual representation of the update process:
 
-![img.png](images/Update-Deadline-Example.png)
+![Example console inputs for updating a Deadline Task](images/Update-Deadline-Example.png)
 
 After the update, the task will be displayed as follows:
 
-![img_1.png](images/Update-Deadline-Example_After.png)
+![Example calendar display after updating a Deadline Task](images/Update-Deadline-Example_After.png)
 
 #### Updating an `Event`:
 
 To update an Event, use the following format:
 ```
-update, 1, 3, Updated Event Task
+update, <day>, <task index>, <new event description>
 ```
 
-Your Event Task will be updated to `Updated Event Task` on the 1st! You will then be prompted to provide the updated 
+Your Event Task will be updated to `"<new event description>"` on the 1st! You will then be prompted to provide the updated 
 start and end dates/times for the event.
 
 Here's an example illustrating the update process:
 
-![img.png](images/Updated-Event-Example.png)
+![Example console inputs for updating an Event Task](images/Updated-Event-Example.png)
 
 After the update, the task will be displayed as follows:
 
-![img_1.png](images/Updated-Event-Example-After.png)
+![Example calendar display after updating an Event Task](images/Updated-Event-Example-After.png)
 
 By following these instructions, you can efficiently update task descriptions in your calendar, ensuring accurate and 
 up-to-date scheduling.
@@ -414,16 +285,16 @@ Example of usage:
 
 ```
 //deletes task 2 on day 3
-delete,3,2
+delete, 3, 2
 
 //deletes task 1 on day 5
-delete,5,1
+delete, 5, 1
 ```
 - Shows error message if task does not exist
 
 ```
 //attempts to delete task 1 on day 5, but the task does not exist
-delete,5,1
+delete, 5, 1
 ```
 Output: 
 ![Invalid Delete Example Console Inputs and Outputs](images/Invalid-Delete-Example.png)
@@ -440,10 +311,10 @@ Example of usage:
 
 ```
 // marks task 3 on day 2 as complete
-mark,2,3
+mark, 2, 3
 
 // marks task 1 on day 4 as incomplete
-mark,4,1
+mark, 4, 1
 ```
 
 ### Setting Priority Level for a Task: `priority`
@@ -459,10 +330,10 @@ Example of usage:
 
 ```
 // sets priority level HIGH for task 1 on day 5
-priority,5,1,H
+priority, 5, 1, H
 
 // sets priority level MEDIUM for task 2 on day 3
-priority,3,2,M
+priority, 3, 2, M
 ```
 
 ### Quitting the Application: `quit`
@@ -501,10 +372,10 @@ Example of usage:
 
 ```
 // exports tasks to an ICS file named "tasks.ics" into the current working directory
-ics,export,tasks.ics
+ics, export, tasks.ics
 
 // imports tasks from an ICS file named "tasks.ics" in the current working directory
-ics,import,tasks.ics
+ics, import, tasks.ics
 ```
 
 ## FAQ
@@ -528,4 +399,14 @@ For a quick reference, here's a summary of available commands:
 - Switch to week view `week`
 - Quit the application `quit`
 
-Start managing your tasks efficiently with CLI-nton!
+Here's a summary of task types:
+
+- `Todo`: A basic task with no start or end date / times.
+- `Deadline`: A task that has a date / time to complete by.
+- `Event`: A task that has a start and end date / time.
+
+Tasks can be classified in the following ways:
+- marked as `HIGH`, `MEDIUM` or `LOW` priority. Default level is `LOW`.
+- marked as `COMPLETE` or `INCOMPLETE`. Default is `INCOMPLETE`.
+
+Start managing your tasks efficiently with CLI-nton today!

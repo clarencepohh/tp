@@ -20,5 +20,3 @@ Given below are my contributions to the project.
 **Tools**
 * Used ical4j library to handle ical file format.
 * Update build.gradle file to include relevant dependencies for ical4j library.
-
-### Summary of Contributions
