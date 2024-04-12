@@ -11,6 +11,9 @@ import time.DateUtils;
 import time.MonthView;
 import time.WeekView;
 import ui.AvatarUi;
+import data.TaskManager;
+import data.exceptions.TaskManagerException;
+import log.FileLogger;
 
 import java.io.IOException;
 import java.time.LocalDate;

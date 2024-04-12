@@ -1,5 +1,7 @@
 @startuml
 
+skinparam classAttributeIconSize 0
+
 class TaskManager {
 - {static} logger: Logger
 - {static} tasks: HashMap <LocalDate, List<Task>>
@@ -82,5 +84,7 @@ HIGH
 MEDIUM
 LOW
 }
+
+hide circle
 
 @enduml

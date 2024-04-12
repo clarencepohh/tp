@@ -1,5 +1,6 @@
 package data;
 
+import data.exceptions.TaskManagerException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import time.DateUtils;
@@ -10,9 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static data.TaskManagerException.checkIfDateHasTasks;
-import static data.TaskManagerException.checkIfDateInCurrentMonth;
-import static data.TaskManagerException.checkIfDateInCurrentWeek;
+import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
+import static data.exceptions.TaskManagerException.checkIfDateInCurrentMonth;
+import static data.exceptions.TaskManagerException.checkIfDateInCurrentWeek;
 
 public class TaskManagerExceptionTest {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
