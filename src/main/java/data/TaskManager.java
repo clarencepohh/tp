@@ -474,6 +474,7 @@ public class TaskManager {
      */
     private void handleMarkingOfTask(int taskIndex, LocalDate date) {
         logger.log(Level.INFO, "Marking task at index " + taskIndex + " for date " + date);
+        assert tasks.get(date) != null;
         boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
         if (taskIsCompleted) {
             markTaskAsNotCompleted(date, taskIndex - 1);
@@ -519,6 +520,7 @@ public class TaskManager {
      */
     private void setPriorityLevelOfTask(int taskIndex, LocalDate date, String priorityLevelString) {
         logger.log(Level.INFO, "Setting priority level of task at index " + taskIndex + " for date " + date);
+        assert tasks.get(date) != null;
         List<Task> dayTasks = tasks.get(date);
         Task task = dayTasks.get(taskIndex - 1);
         TaskPriorityLevel priorityLevelToSet =
