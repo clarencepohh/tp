@@ -18,7 +18,7 @@ Read on to learn how to manage your tasks efficiently with CLI-nton!
     * [Adding a `Todo`](#adding-a-todo)
     * [Adding a `Deadline`](#adding-a-deadline)
     * [Adding an `Event`](#adding-an-event)
-    * [**Notes to users**](#notes-to-users)
+    * [Notes to users](#notes-to-users)
   * [Updating a Task Description: `update`](#updating-a-task-description-update)
     * [Updating a `Todo`:](#updating-a-todo)
     * [Updating a `Deadline`:](#updating-a-deadline)
