@@ -68,7 +68,7 @@ public class WeekView extends View {
      * @return the date corresponding to the given day of the week
      */
     public LocalDate getDateForDay(int dayOfWeek) {
-        return startOfView.plusDays(dayOfWeek - 1);
+        return startOfView.plusDays(Math.abs(startOfView.getDayOfWeek().getValue() - dayOfWeek));
     }
 
 }

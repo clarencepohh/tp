@@ -11,8 +11,8 @@ public abstract class View {
     /**
      * Constructs a View with the specified start date and date formatter.
      *
-     * @param startOfView   the start date of the view
-     * @param dateFormatter the date formatter for formatting dates
+     * @param startOfView   the start date of the view.
+     * @param dateFormatter the date formatter for formatting dates.
      */
     public View(LocalDate startOfView, DateTimeFormatter dateFormatter) {
         this.startOfView = startOfView;
@@ -22,7 +22,7 @@ public abstract class View {
     /**
      * Prints the view with tasks from the task manager.
      *
-     * @param taskManager the TaskManager object containing tasks
+     * @param taskManager the TaskManager object containing tasks.
      */
     public abstract void printView(TaskManager taskManager);
 

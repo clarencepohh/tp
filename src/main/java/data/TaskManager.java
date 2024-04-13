@@ -413,7 +413,7 @@ public class TaskManager {
             boolean inMonthView, int dayInt) throws TaskManagerException {
         LocalDate date;
         if (inMonthView) {
-            date = monthView.getStartOfMonth().plusDays(dayInt);
+            date = monthView.getStartOfMonth().plusDays(dayInt - 1);
             checkIfDateInCurrentMonth(date);
 
         } else {

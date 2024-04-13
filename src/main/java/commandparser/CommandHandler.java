@@ -17,10 +17,10 @@ public class CommandHandler {
     /**
      * Constructs a CommandHandler with the specified dependencies.
      *
-     * @param scanner    the Scanner object for user input
-     * @param taskManager the TaskManager object for managing tasks
-     * @param weekView   the WeekView object for displaying weekly tasks
-     * @param monthView  the MonthView object for displaying monthly tasks
+     * @param scanner    the Scanner object for user input.
+     * @param taskManager the TaskManager object for managing tasks.
+     * @param weekView   the WeekView object for displaying weekly tasks.
+     * @param monthView  the MonthView object for displaying monthly tasks.
      */
     public CommandHandler(Scanner scanner, TaskManager taskManager, WeekView weekView, MonthView monthView) {
         this.scanner = scanner;
@@ -110,7 +110,7 @@ public class CommandHandler {
     /**
      * Handles the "update" command to update task descriptions.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handleUpdateCommand(String[] parts) {
         try {
@@ -128,11 +128,11 @@ public class CommandHandler {
     /**
      * Handles the "add" command to add new tasks.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handleAddCommand(String[] parts) {
         try {
-            StringParser.validateAddCommand(parts);
+            StringParser.validateAddCommand(parts, weekView, monthView, inMonthView);
             String day = parts[1].trim();
             String taskTypeString = parts[2].trim();
             String taskDescription = StringParser.parseTaskDescription(parts[3]);
@@ -146,7 +146,7 @@ public class CommandHandler {
     /**
      * Handles the "delete" command to delete tasks.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handleDeleteCommand(String[] parts) {
         try {
@@ -162,7 +162,7 @@ public class CommandHandler {
     /**
      * Handles the "mark" command to mark tasks as completed.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handleMarkCommand(String[] parts) {
         try {
@@ -178,7 +178,7 @@ public class CommandHandler {
     /**
      * Handles the "priority" command to set task priorities.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handlePriorityCommand(String[] parts) {
         try {

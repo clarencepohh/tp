@@ -16,10 +16,10 @@ import static data.exceptions.TaskManagerException.checkIfDateInCurrentMonth;
 import static data.exceptions.TaskManagerException.checkIfDateInCurrentWeek;
 
 public class TaskManagerExceptionTest {
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate today = LocalDate.now();
     LocalDate startOfWeek = DateUtils.getStartOfWeek(today);
-    WeekView weekView = new WeekView(startOfWeek, dateFormatter);
+    WeekView weekView = new WeekView(startOfWeek, DATE_TIME_FORMATTER);
 
     @Test
     public void checkIfDateInCurrentMonth_pastDateGiven_exceptionThrown () {
