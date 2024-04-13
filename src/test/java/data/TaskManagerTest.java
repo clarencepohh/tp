@@ -362,4 +362,39 @@ class TaskManagerTest {
         // Assert
         assertTrue(eventsForDate.isEmpty());
     }
+
+    @Test
+    void markTaskAsCompleted_validIndex_marksTask() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Complete project report", TaskType.TODO, 
+                new String[]{null}, new String[]{null});
+
+        // Act
+        taskManager.markTaskAsCompleted(date, 0);
+        Task completedTask = taskManager.getTasksForDate(date).get(0);
+
+        // Assert
+        assertTrue(completedTask.isCompleted(), "Task should be marked as completed.");
+    }
+
+    @Test
+    void markTaskAsCompleted_invalidIndex_throwsException() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Write unit test", TaskType.TODO, 
+                new String[]{null}, new String[]{null});
+
+        // Act & Assert
+        IndexOutOfBoundsException exceptionThrown = assertThrows(
+                IndexOutOfBoundsException.class, 
+                () -> taskManager.markTaskAsCompleted(date, 1), 
+                "Should throw IndexOutOfBoundsException");
+
+        assertEquals(
+                "Task index is out of bounds.", 
+                exceptionThrown.getMessage(), 
+                "Exception message should match expected.");
+    }
+    
 }
