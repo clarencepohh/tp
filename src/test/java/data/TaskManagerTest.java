@@ -433,4 +433,19 @@ class TaskManagerTest {
                 "Exception message should match expected.");
     }
     
+    @Test
+    void getDayTasks_withMultipleTasks_returnsAllTasks() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Task 1", TaskType.TODO, new String[]{null}, new String[]{null});
+        addTask(date, "Task 2", TaskType.TODO, new String[]{null}, new String[]{null});
+
+        // Act
+        List<Task> tasksForDay = TaskManager.getDayTasks(date);
+
+        // Assert
+        assertEquals(2, tasksForDay.size(), "Should return all tasks for the day.");
+    }
+
+
 }
