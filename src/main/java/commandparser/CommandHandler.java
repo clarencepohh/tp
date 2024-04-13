@@ -212,7 +212,7 @@ public class CommandHandler {
      */
     private void handleMonthCommand() {
         monthView.printView(taskManager);
-        inMonthView = !inMonthView; // Toggle month view mode
+        inMonthView = true;
     }
 
     /**
