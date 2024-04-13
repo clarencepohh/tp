@@ -97,11 +97,21 @@ public class AvatarUi {
         LARGE
     }
 
+    /**
+     * Calculates the width of the avatar based on the avatar string.
+     * @param avatar The avatar string.
+     * @return The width of the avatar in characters.
+     */
     private static int getAvatarWidth(String avatar) {
         String[] lines = avatar.split("\n");
         return lines[0].length();
     }
 
+    /**
+     * Determines the size of the avatar to use.
+     * @param terminalWidth Width of the terminal.
+     * @return The appropriate avatar to use.
+     */
     private static AvatarSize getAvatarSize(int terminalWidth) {
         if (terminalWidth < getAvatarWidth(MEDIUM_AVATAR)) {
             return AvatarSize.SMALL;
@@ -112,6 +122,9 @@ public class AvatarUi {
         }
     }
 
+    /**
+     * Prints the avatar to the terminal.
+     */
     public static void printAvatar() {
         int terminalWidth = TerminalSize.getTerminalWidth();
         AvatarSize avatarSize = getAvatarSize(terminalWidth);
@@ -127,6 +140,11 @@ public class AvatarUi {
         }
     }
 
+    /**
+     * Retrieves the avatar string to use based on the required size.
+     * @param avatarSize The size of the avatar.
+     * @return The avatar string corresponding to the avatar size.
+     */
     private static String getAvatarImage(AvatarSize avatarSize) {
         String avatar;
         switch (avatarSize) {
@@ -142,6 +160,9 @@ public class AvatarUi {
         return avatar;
     }
 
+    /**
+     * Prints a welcome message to the user.
+     */
     public static void printWelcomeMessage() {
         int terminalWidth = TerminalSize.getTerminalWidth();
         int messagePadding = Math.max((terminalWidth - WELCOME_MESSAGE.length()) / 2, 0);
