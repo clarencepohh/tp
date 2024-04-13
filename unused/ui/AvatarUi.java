@@ -162,6 +162,7 @@ public class AvatarUi {
 
     /**
      * Prints a welcome message to the user.
+     * It is centralized based on the width of the terminal.
      */
     public static void printWelcomeMessage() {
         int terminalWidth = TerminalSize.getTerminalWidth();
