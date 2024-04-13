@@ -20,6 +20,7 @@ import static data.TaskManager.updateTask;
 import static data.TaskManager.deleteAllTasksOnDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -389,6 +390,41 @@ class TaskManagerTest {
         IndexOutOfBoundsException exceptionThrown = assertThrows(
                 IndexOutOfBoundsException.class, 
                 () -> taskManager.markTaskAsCompleted(date, 1), 
+                "Should throw IndexOutOfBoundsException");
+
+        assertEquals(
+                "Task index is out of bounds.", 
+                exceptionThrown.getMessage(), 
+                "Exception message should match expected.");
+    }
+
+    @Test
+    void markTaskAsNotCompleted_validIndex_marksTaskNotCompleted() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Complete project report", TaskType.TODO, 
+                new String[]{null}, new String[]{null});
+        taskManager.markTaskAsCompleted(date, 0); 
+
+        // Act
+        taskManager.markTaskAsNotCompleted(date, 0);
+        Task unmarkedTask = taskManager.getTasksForDate(date).get(0);
+
+        // Assert
+        assertFalse(unmarkedTask.isCompleted(), "Task should be marked as not completed.");
+    }
+
+    @Test
+    void markTaskAsNotCompleted_invalidIndex_throwsException() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Write unit test", TaskType.TODO, 
+                new String[]{null}, new String[]{null});
+
+        // Act & Assert
+        IndexOutOfBoundsException exceptionThrown = assertThrows(
+                IndexOutOfBoundsException.class, 
+                () -> taskManager.markTaskAsNotCompleted(date, 1), 
                 "Should throw IndexOutOfBoundsException");
 
         assertEquals(
