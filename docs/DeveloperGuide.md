@@ -19,6 +19,7 @@ The Calendar application is designed with a modular architecture, consisting of 
 - **Storage**: The `Storage` class handles the persistence of tasks by reading from and writing to a file.
 - **Time**: The `View` class and its subclasses (`WeekView` and `MonthView`) manage the rendering and navigation of the week and month views.
 
+# Design & Implementation
 
 ## Data Component
 ### API: [Data](https://github.com/AY2324S2-CS2113-W13-2/tp/tree/master/src/main/java/data)
@@ -29,10 +30,8 @@ Below is a summary of the classes found in the Data package:
 - `Task` is the superclass of all created tasks, namely: `Todo`, `Deadline`, and `Event`.
 - When an operation is requested by the user, the `TaskManager` instance calls its own methods to create/read/update/delete the tasks.
 - `TaskManagerException` extends the Java class `Exception`, and used when there are exceptions to be handled.
-- `TaskType` is an enumeration used in classifying the types of `Task` created. 
+- `TaskType` is an enumeration used in classifying the types of `Task` created.
 - `TaskPriorityLevel` is an enumeration used in classifying the priority level of a `Task`.
-
-# Design & Implementation
 
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
