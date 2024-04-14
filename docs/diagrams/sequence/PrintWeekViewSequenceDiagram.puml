@@ -1,55 +1,55 @@
 @startuml
 
-participant WeekView as WV
-participant UiRenderer as UR
+participant ":WeekView" as WeekView
+participant ":UiRenderer" as UiRenderer
 
 title Sequence Diagram for printWeekView()
 
 ' Printing of Week Header
-WV -> UR: printWeekHeader()
+WeekView -> UiRenderer: printWeekHeader()
 
-activate UR
-UR -> UR: printHorizontalDivider()
-activate UR
-UR --> UR
-deactivate UR
+activate UiRenderer
+UiRenderer -> UiRenderer: printHorizontalDivider()
+activate UiRenderer
+UiRenderer --> UiRenderer
+deactivate UiRenderer
 
-UR -> UR: printHeaderRow()
-activate UR
-UR --> UR
-deactivate UR
+UiRenderer -> UiRenderer: printHeaderRow()
+activate UiRenderer
+UiRenderer --> UiRenderer
+deactivate UiRenderer
 
 opt !isMonthView
-    UR -> UR: printDateRow()
-    activate UR
-    UR --> UR
-    deactivate UR
+    UiRenderer -> UiRenderer: printDateRow()
+    activate UiRenderer
+    UiRenderer --> UiRenderer
+    deactivate UiRenderer
 end
 
-UR -> UR: printHorizontalDivider()
-activate UR
-UR --> UR
-deactivate UR
+UiRenderer -> UiRenderer: printHorizontalDivider()
+activate UiRenderer
+UiRenderer --> UiRenderer
+deactivate UiRenderer
 
-UR --> WV
-deactivate UR
+UiRenderer --> WeekView
+deactivate UiRenderer
 
 
 ' Printing of Week Body
-WV -> UR: printWeekBody()
-activate UR
+WeekView -> UiRenderer: printWeekBody()
+activate UiRenderer
 
-UR -> UR: printTasksInWeek()
-activate UR
-UR --> UR
-deactivate UR
+UiRenderer -> UiRenderer: printTasksInWeek()
+activate UiRenderer
+UiRenderer --> UiRenderer
+deactivate UiRenderer
 
-UR -> UR: printHorizontalDivider()
-activate UR
-UR --> UR
-deactivate UR
+UiRenderer -> UiRenderer: printHorizontalDivider()
+activate UiRenderer
+UiRenderer --> UiRenderer
+deactivate UiRenderer
 
-UR --> WV
-deactivate UR
+UiRenderer --> WeekView
+deactivate UiRenderer
 
 @enduml
