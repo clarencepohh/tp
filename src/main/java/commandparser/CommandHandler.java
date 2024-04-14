@@ -7,6 +7,13 @@ import time.WeekView;
 import ui.AvatarUi;
 import java.util.Scanner;
 
+/**
+ * The CommandHandler class handles user commands by delegating to appropriate methods based on the command type.
+ * It provides methods to handle various commands such as "next", "prev", "update", "add", "delete", "mark", "free",
+ * "priority", "month", "week", "help", and "quit".
+ * The class uses a Scanner object for user input, a TaskManager object for managing tasks, a WeekView object for
+ * displaying weekly tasks, and a MonthView object for displaying monthly tasks.
+ */
 public class CommandHandler {
     private final Scanner scanner;
     private final TaskManager taskManager;

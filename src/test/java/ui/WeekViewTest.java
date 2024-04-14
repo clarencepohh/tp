@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 
-import static data.TaskManagerExceptionTest.DATE_TIME_FORMATTER;
+import static data.exceptions.TaskManagerExceptionTest.DATE_TIME_FORMATTER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WeekViewTest {

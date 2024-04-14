@@ -1,11 +1,43 @@
 # Developer Guide
 
+### Table of Contents
+* [Acknowledgements](#acknowledgements)
+* [Architecture](#architecture)
+    * [Main Components](#main-components)
+* [Design & Implementation](#design--implementation)
+  * [Data Component](#data-component)
+  * [UiRenderer Component](#uirenderer-component)
+  * [View Switching](#view-switching)
+    * [View Hierarchy](#view-hierarchy)
+    * [WeekView](#weekview)
+    * [MonthView](#monthview)
+    * [View Switching in Main](#view-switching-in-main)
+    * [Logging](#logging)
+    * [Utilities](#utilities)
+    * [Task Types](#task-types)
+    * [Error Handling <br>](#error-handling-br)
+  * [TaskManager Component](#taskmanager-component)
+  * [Retrieving tasks from the TaskManager](#retrieving-tasks-from-the-taskmanager)
+  * [Updating a Task](#updating-a-task)
+  * [Adding Tasks](#adding-tasks)
+  * [Deleting Tasks](#deleting-tasks)
+  * [Interfacing with Storage class](#interfacing-with-storage-class)
+  * [Storage component](#storage-component)
+  * [Exporting .ics File Component](#exporting-ics-file-component)
+* [Appendix: Requirements](#appendix-requirements)
+  * [Product scope](#product-scope)
+  * [Target user profile](#target-user-profile)
+  * [Value proposition](#value-proposition)
+  * [User Stories](#user-stories)
+  * [Non-Functional Requirements](#non-functional-requirements)
+* [Glossary](#glossary)
+* [Instructions for manual testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-ical4J Library: https://www.ical4j.org/
-
+ical4J Library: [https://www.ical4j.org/](https://www.ical4j.org/)
 
 
 ## Architecture
@@ -19,20 +51,19 @@ The Calendar application is designed with a modular architecture, consisting of 
 - **Storage**: The `Storage` class handles the persistence of tasks by reading from and writing to a file.
 - **Time**: The `View` class and its subclasses (`WeekView` and `MonthView`) manage the rendering and navigation of the week and month views.
 
+# Design & Implementation
 
 ## Data Component
 ### API: [Data](https://github.com/AY2324S2-CS2113-W13-2/tp/tree/master/src/main/java/data)
-![Data Class Diagram](images/class/Data.png)
+![Data Class Diagram](images/class/Data.jpg)
 The 'Data' package consists of all the classes that the commands interact with to perform various functions.
 Below is a summary of the classes found in the Data package:
 - The `TaskManager` class is created that contains all local copies of `Task`, creating a many-to-one relationship with `Task`.
 - `Task` is the superclass of all created tasks, namely: `Todo`, `Deadline`, and `Event`.
 - When an operation is requested by the user, the `TaskManager` instance calls its own methods to create/read/update/delete the tasks.
 - `TaskManagerException` extends the Java class `Exception`, and used when there are exceptions to be handled.
-- `TaskType` is an enumeration used in classifying the types of `Task` created. 
+- `TaskType` is an enumeration used in classifying the types of `Task` created.
 - `TaskPriorityLevel` is an enumeration used in classifying the priority level of a `Task`.
-
-# Design & Implementation
 
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
@@ -298,11 +329,11 @@ public static void updateTask(LocalDate date, int taskIndex, String newTaskDescr
 4. Updates the task description accordingly.
 5. Logs the changes if applicable.
 
-## Adding a Task/Event/Deadline
+## Adding Tasks
 
 ### Overview
 
-The Add Task/Event/Deadline feature enhances the TaskManager application by enabling users to create various types of tasks such as Todo, Event, and Deadline. This section elaborates on the implementation details of this feature, encompassing methods for task creation, user input handling, and task addition management.
+The Add Task feature enhances the TaskManager application by enabling users to create various types of tasks such as Todo, Event, and Deadline. This section elaborates on the implementation details of this feature, encompassing methods for task creation, user input handling, and task addition management.
 
 ### `addTask` Method
 
@@ -374,7 +405,8 @@ Upon task creation, the `addTask` method guarantees the preservation of the upda
 4. Updates the task description accordingly.
 5. Logs the changes if applicable.
 
-## Deleting a Task/Event/Deadline
+## Deleting Tasks
+
 ### deleteTask Method
 The `deleteTask` method is responsible for deleting a task specified by the user, on a specified date.
 
@@ -579,7 +611,7 @@ The 'ics' component:
 * Exports the tasks in the task hashmap to a .ics file that can be imported into calendar applications
 * Import tasks from external .ics file into the task hashmap
 
-
+## Appendix: Requirements
 ## Product scope
 ### Target user profile
 

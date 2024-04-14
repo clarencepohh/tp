@@ -45,7 +45,7 @@ class TaskManagerTest {
         String taskDescription = "Test Todo";
 
         // Act
-        Task testTask = new Task(taskDescription);
+        Task testTask = new Todo(taskDescription);
         TaskType testTaskType = TaskType.TODO;
         String[] dummyTestDates = new String[]{null};
         String[] dummyTestTimes = new String[]{null};
@@ -58,7 +58,7 @@ class TaskManagerTest {
     }
 
     @Test
-    void addTodo_invalidInput_addsTask() {
+    void addTodo_invalidInput_throwsException() {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Todo";
@@ -160,7 +160,7 @@ class TaskManagerTest {
     }
 
     @Test
-    void addDeadline_invalidInput_addsTask() {
+    void addDeadline_invalidInput_throwsException() {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Deadline";
@@ -271,7 +271,7 @@ class TaskManagerTest {
     }
 
     @Test
-    void addEvent_invalidInput_addsTask() {
+    void addEvent_invalidInput_throwsException() {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Event";
@@ -289,6 +289,79 @@ class TaskManagerTest {
         TaskManagerException thrown = assertThrows(TaskManagerException.class, () ->
                 addTask(date, taskDescription, testTaskType, dummyTestDates,dummyTestTimes));
         assertEquals("Invalid task type given. T for Todo, E for event, D for deadline.", thrown.getMessage());
+    }
+
+    @Test
+    void updateEventDescriptionOnly_validInput_updatesTask() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String initialTaskDescription = "Initial Event";
+        String updatedTaskDescription = "Updated Event";
+        String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String endDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String startTime = "1800";
+        String endTime = "2000";
+
+        TaskType testTaskType = TaskType.EVENT;
+        String[] dummyTestDates = new String[]{startDate, endDate};
+        String[] dummyTestTimes = new String[]{startTime, endTime};
+        String simulatedUserInput = "no";
+
+        Scanner scanner = new Scanner(simulatedUserInput);
+
+        boolean inMonthView = false;
+
+        WeekView weekView = new WeekView(LocalDate.now(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        addTask(date, initialTaskDescription, testTaskType, dummyTestDates, dummyTestTimes);
+
+        // Act
+        updateTask(date, 0, updatedTaskDescription, scanner, inMonthView, weekView);
+
+        // Assert
+        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(date).get(0).getName());
+    }
+
+    @Test
+    void updateEventDescriptionDescriptionAndDateTime_validInput_updatesTask() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String initialTaskDescription = "Initial Event";
+        String updatedTaskDescription = "Updated Event";
+        String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String endDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String startTime = "1800";
+        String endTime = "2000";
+
+        TaskType testTaskType = TaskType.EVENT;
+        String[] dummyTestDates = new String[]{startDate, endDate};
+        String[] dummyTestTimes = new String[]{startTime, endTime};
+        String simulatedUserInput = "yes\n" +
+                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " " +
+                LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
+                " 1500" + " 1600 ";
+        String updatedStartDate = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String updatedStartTime = "1500";
+        String updatedEndDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String updatedEndTime = "1600";
+
+        Scanner scanner = new Scanner(simulatedUserInput);
+
+        boolean inMonthView = false;
+
+        WeekView weekView = new WeekView(LocalDate.now(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        addTask(date, initialTaskDescription, testTaskType, dummyTestDates, dummyTestTimes);
+
+        // Act
+        updateTask(date, 0, updatedTaskDescription, scanner, inMonthView, weekView);
+
+        // Assert
+        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(date).get(0).getName());
+        assertEquals(updatedStartDate, taskManager.getTasksForDate(date).get(0).getStartDate());
+        assertEquals(updatedStartTime, taskManager.getTasksForDate(date).get(0).getStartTime());
+        assertEquals(updatedEndDate, taskManager.getTasksForDate(date).get(0).getEndDate());
+        assertEquals(updatedEndTime, taskManager.getTasksForDate(date).get(0).getEndTime());
     }
 
     @Test
