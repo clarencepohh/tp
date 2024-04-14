@@ -56,9 +56,9 @@ public class TaskManagerException extends Exception {
      * need to debug this method
      */
     public static void checkIfTaskExistsInCurrentDate(List<Task> dayTasks, int index) throws TaskManagerException {
-        if (index + 1 <= 0) {
+        if (index <= 0) {
             throw new TaskManagerException("Invalid task number. Please try again.");
-        } else if (index + 1> dayTasks.size()) {
+        } else if (index > dayTasks.size()) {
             throw new TaskManagerException("Task number does not exist. Please try again.");
         }
     }

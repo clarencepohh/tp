@@ -30,6 +30,7 @@ import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
 import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
+import static data.exceptions.TaskManagerException.checkIfTaskExistsInCurrentDate;
 import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
 import static storage.Storage.saveTasksToFile;
 
@@ -130,6 +131,7 @@ public class TaskManager {
             List<Task> dayTasks = getDayTasks(date);
             boolean dayHasTasks = dayTasks != null;
             boolean taskIndexExists = taskIndex >= 0 && taskIndex < Objects.requireNonNull(dayTasks).size();
+//            checkIfTaskExistsInCurrentDate(dayTasks, taskIndex);
             assert dayHasTasks;
             assert taskIndexExists;
 
@@ -648,6 +650,8 @@ public class TaskManager {
         LocalDate date;
 
         date = findDateFromDayNumber(weekView, monthView, inMonthView, day);
+
+        checkIfTaskExistsInCurrentDate(taskManager.getTasksForDate(date), taskIndex);
 
         checkIfDateHasTasks(taskManager.getTasksForDate(date));
 
