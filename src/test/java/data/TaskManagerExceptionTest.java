@@ -91,6 +91,29 @@ public class TaskManagerExceptionTest {
     }
 
     @Test
+    void checkIfValidTime_invalidFormat_throwsException() {
+        String invalidTime = "25:00";
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfValidTime(invalidTime));
+    }
+
+    @Test
+    void checkIfValidTime_validFormat_noExceptionThrown() {
+        String validTime = "23:59";
+        try {
+            TaskManagerException.checkIfValidTime(validTime);
+        } catch (TaskManagerException e) {
+            // This line should not be reached, if it is, the test will fail.
+            assert false;
+        }
+    }
+
+    @Test
+    void checkIfValidTime_invalidMinute_throwsException() {
+        String invalidTime = "23:60";
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfValidTime(invalidTime));
+    }
+
+    @Test
     public void checkIfDateInCurrentMonth_futureDateGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
             checkIfDateInCurrentMonth(LocalDate.parse("2222-11-11")),
