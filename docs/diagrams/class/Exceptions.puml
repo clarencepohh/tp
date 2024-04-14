@@ -1,0 +1,51 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+
+class TaskManagerException extends Exception {
+    + NOT_CURRENT_WEEK_MESSAGE : String
+    + NOT_CURRENT_MONTH_MESSAGE : String
+    + INVALID_DATE_FORMAT_MESSAGE : String
+    + INVALID_TIME_FORMAT_MESSAGE : String
+    + NO_TASKS_MESSAGE : String
+    + START_DATE_AFTER_END_DATE_MESSAGE : String
+    - START_TIME_AFTER_END_TIME_MESSAGE : String
+    + TaskManagerException(errorMessage : String)
+    + checkIfDateTimeInFormat(dateTime : String) : void
+    + checkIfDateInFormat(date : String) : void
+    + checkIfTimeInFormat(time : String) : void
+    + checkIfDateInCurrentWeek(date : LocalDate, weekView : WeekView) : void
+    + checkIfValidDate(date : String) : void
+    + checkIfValidTime(time : String) : void
+    + checkIfDateInCurrentMonth(date : LocalDate) : void
+    + checkIfDateHasTasks(dayTasks : List<Task>) : void
+    + checkIfStartDateBeforeEndDate(startDate : String, endDate : String) : void
+    + checkIfStartTimeBeforeEndTime(startTime : String, endTime : String) : void
+    + checkDateAndTimeValidity(weekView : WeekView, inMonthView : boolean, startDate : String, startTime : String) : void
+}
+
+class MarkTaskException extends TaskManagerException {
+    + TASK_INDEX_OUT_OF_RANGE_FOR_DAY_WITH_TASKS_MESSAGE : String
+    + TASK_INDEX_WITH_NO_TASKS_MESSAGE : String
+    + MarkTaskException(errorMessage : String)
+    + checkIfTaskIndexIsValidForMarkingTask(dayTasks : List<Task>, taskIndex : int) : void
+}
+
+class SetPriorityException extends TaskManagerException {
+    + TASK_INDEX_OUT_OF_RANGE_FOR_DAY_WITH_TASKS_MESSAGE : String
+    + TASK_INDEX_WITH_NO_TASKS_MESSAGE : String
+    + INVALID_PRIORITY_MESSAGE : String
+    + SetPriorityException(errorMessage : String)
+    + checkIfTaskIndexIsValidForPriority(dayTasks : List<Task>, taskIndex : int) : void
+    + checkIfPriorityIsValid(priority : String) : void
+}
+
+class StorageFileException extends Exception {
+    + StorageFileException(errorMessage : String)
+    + checkStorageTextDateFormat(date : String) : void
+}
+
+hide circle
+
+@enduml
