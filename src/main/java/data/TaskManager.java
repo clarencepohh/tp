@@ -126,13 +126,8 @@ public class TaskManager {
             throws IndexOutOfBoundsException, TaskManagerException {
         try {
             List<Task> dayTasks = getDayTasks(date);
-            // Check if there are tasks for the day
             boolean dayHasTasks = dayTasks != null;
             boolean taskIndexExists = taskIndex >= 0 && taskIndex < Objects.requireNonNull(dayTasks).size();
-            if (taskIndex < dayTasks.size()) {
-                throw new TaskManagerException("Task number does not exist. Please try again.");
-            }
-//            checkIfTaskExistsInCurrentDate(dayTasks, taskIndex);
             assert dayHasTasks;
             assert taskIndexExists;
 
@@ -142,19 +137,19 @@ public class TaskManager {
 
             Task task;
             switch (currentTaskType) {
-            case "T":
-                task = new Todo(newTaskDescription);
-                logger.log(Level.INFO, "Updating task description from " +
-                        oldDescription + " to: " + newTaskDescription);
-                break;
-            case "E":
-                task = updateEventTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
-                break;
-            case "D":
-                task = updateDeadlineTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid task type");
+                case "T":
+                    task = new Todo(newTaskDescription);
+                    logger.log(Level.INFO, "Updating task description from " +
+                            oldDescription + " to: " + newTaskDescription);
+                    break;
+                case "E":
+                    task = updateEventTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
+                    break;
+                case "D":
+                    task = updateDeadlineTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid task type");
             }
 
             if (!startDateChanged) {

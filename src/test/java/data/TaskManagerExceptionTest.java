@@ -62,6 +62,35 @@ public class TaskManagerExceptionTest {
     }
 
     @Test
+    void checkIfValidDate_invalidFormat_throwsException() {
+        String invalidDate = "25/13/2022";
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfValidDate(invalidDate));
+    }
+
+    @Test
+    void checkIfValidDate_validFormat_noExceptionThrown() {
+        String validDate = "25/12/2022";
+        try {
+            TaskManagerException.checkIfValidDate(validDate);
+        } catch (TaskManagerException e) {
+            // This line should not be reached
+            assert false;
+        }
+    }
+
+    @Test
+    void checkIfValidDate_invalidDay_throwsException() {
+        String invalidDate = "32/12/2022";
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfValidDate(invalidDate));
+    }
+
+    @Test
+    void checkIfValidDate_invalidMonth_throwsException() {
+        String invalidDate = "12/13/2022";
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfValidDate(invalidDate));
+    }
+
+    @Test
     public void checkIfDateInCurrentMonth_futureDateGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
             checkIfDateInCurrentMonth(LocalDate.parse("2222-11-11")),
