@@ -38,19 +38,10 @@ class UiRenderer {
     + {static} printHelp()
 }
 
-
-class Task {
-# name: String
-# priorityLevel: TaskPriorityLevel
-# isCompleted: boolean
-+ isCompleted ()
-+ setCompleteness (completed: boolean)
-+ getMarkedStatusIcon ()
-+ setPriorityLevel (priorityLevelOfTask: TaskPriorityLevel)
-+ getPriorityLevelIcon ()
-+ getDisplayFormat ()
+class TaskManager {
 }
 
+UiRenderer ..> TaskManager
 
 hide circle
 
