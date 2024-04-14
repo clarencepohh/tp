@@ -28,7 +28,12 @@ import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPri
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
-import static data.exceptions.TaskManagerException.*;
+import static data.exceptions.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
+import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
+import static data.exceptions.TaskManagerException.checkIfDateInCurrentMonth;
+import static data.exceptions.TaskManagerException.checkIfDateInCurrentWeek;
+import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
+import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
 import static storage.Storage.saveTasksToFile;
 
 /**
@@ -137,19 +142,19 @@ public class TaskManager {
 
             Task task;
             switch (currentTaskType) {
-                case "T":
-                    task = new Todo(newTaskDescription);
-                    logger.log(Level.INFO, "Updating task description from " +
-                            oldDescription + " to: " + newTaskDescription);
-                    break;
-                case "E":
-                    task = updateEventTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
-                    break;
-                case "D":
-                    task = updateDeadlineTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid task type");
+            case "T":
+                task = new Todo(newTaskDescription);
+                logger.log(Level.INFO, "Updating task description from " +
+                        oldDescription + " to: " + newTaskDescription);
+                break;
+            case "E":
+                task = updateEventTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
+                break;
+            case "D":
+                task = updateDeadlineTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid task type");
             }
 
             if (!startDateChanged) {

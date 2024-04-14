@@ -11,7 +11,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static data.exceptions.TaskManagerException.*;
+import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
+import static data.exceptions.TaskManagerException.checkIfDateInCurrentMonth;
+import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
+import static data.exceptions.TaskManagerException.checkIfDateInCurrentWeek;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -127,19 +130,19 @@ public class TaskManagerExceptionTest {
     @Test
     void checkIfDateInCurrentMonth_sameMonthDifferentYear_throwsException() {
         LocalDate date = LocalDate.now().withYear(2023);
-        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfDateInCurrentMonth(date));
+        assertThrows(TaskManagerException.class, () -> checkIfDateInCurrentMonth(date));
     }
 
     @Test
     void checkIfDateInCurrentMonth_sameYearDifferentMonth_throwsException() {
         LocalDate date = LocalDate.now().withMonth(1);
-        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfDateInCurrentMonth(date));
+        assertThrows(TaskManagerException.class, () -> checkIfDateInCurrentMonth(date));
     }
 
     @Test
     void checkIfDateInCurrentMonth_sameMonthAndYear_noExceptionThrown() {
         LocalDate date = LocalDate.now();
-        assertDoesNotThrow(() -> TaskManagerException.checkIfDateInCurrentMonth(date));
+        assertDoesNotThrow(() -> checkIfDateInCurrentMonth(date));
     }
 
     @Test
