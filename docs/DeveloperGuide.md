@@ -55,7 +55,7 @@ The Calendar application is designed with a modular architecture, consisting of 
 
 ## Data Component
 ### API: [Data](https://github.com/AY2324S2-CS2113-W13-2/tp/tree/master/src/main/java/data)
-![Data Class Diagram](images/class/Data.png)
+![Data Class Diagram](images/class/Data.jpg)
 The 'Data' package consists of all the classes that the commands interact with to perform various functions.
 Below is a summary of the classes found in the Data package:
 - The `TaskManager` class is created that contains all local copies of `Task`, creating a many-to-one relationship with `Task`.
