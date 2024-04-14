@@ -65,6 +65,9 @@ public class CommandHandler {
         case "mark":
             handleMarkCommand(parts);
             break;
+        case "free":
+            handleFreeCommand(parts);
+            break;
         case "priority":
             handlePriorityCommand(parts);
             break;
@@ -173,6 +176,18 @@ public class CommandHandler {
             int taskIndex = StringParser.parseTaskIndex(parts[2]);
             int dayIndex = StringParser.parseTaskIndex(day);
             taskManager.markManager(weekView, monthView, inMonthView, day, taskIndex);
+        } catch (TaskManagerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void handleFreeCommand(String[] parts) {
+        try {
+            StringParser.validateFreeCommand(parts);
+
+            String day = parts[1].trim();
+            taskManager.freeTimesManager(weekView, monthView, inMonthView, day);
+
         } catch (TaskManagerException e) {
             System.out.println(e.getMessage());
         }
