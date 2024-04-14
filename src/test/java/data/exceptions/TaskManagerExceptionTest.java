@@ -80,7 +80,7 @@ public class TaskManagerExceptionTest {
     }
 
     @Test
-    public void checkIfDateTimeInFormat_invalidDateTimeDelimitersGiven_ExceptionThrown () {
+    public void checkIfDateTimeInFormat_invalidDateTimeDelimitersGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateTimeInFormat("15-04-2024 1600"));
         Assertions.assertEquals("Invalid start date and time format. " +
@@ -88,7 +88,7 @@ public class TaskManagerExceptionTest {
     }
 
     @Test
-    public void checkIfDateTimeInFormat_invalidDateGiven_ExceptionThrown () {
+    public void checkIfDateTimeInFormat_invalidDateGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateTimeInFormat("15042024 1600"));
         Assertions.assertEquals("Invalid start date and time format. " +
@@ -96,7 +96,7 @@ public class TaskManagerExceptionTest {
     }
 
     @Test
-    public void checkIfDateTimeInFormat_invalidTimeGiven_ExceptionThrown () {
+    public void checkIfDateTimeInFormat_invalidTimeGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateTimeInFormat("15/04/2024 16:00"));
         Assertions.assertEquals("Invalid start date and time format. " +
@@ -104,7 +104,7 @@ public class TaskManagerExceptionTest {
     }
 
     @Test
-    public void checkIfDateTimeInFormat_dateTimeNotSeparatedWithWhiteSpace_ExceptionThrown () {
+    public void checkIfDateTimeInFormat_dateTimeNotSeparatedWithWhiteSpace_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateTimeInFormat("15/04/2024-16:00"));
         Assertions.assertEquals("Invalid start date and time format. " +
