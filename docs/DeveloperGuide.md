@@ -1,11 +1,43 @@
 # Developer Guide
 
+### Table of Contents
+* [Acknowledgements](#acknowledgements)
+* [Architecture](#architecture)
+    * [Main Components](#main-components)
+* [Design & Implementation](#design--implementation)
+  * [Data Component](#data-component)
+  * [UiRenderer Component](#uirenderer-component)
+  * [View Switching](#view-switching)
+    * [View Hierarchy](#view-hierarchy)
+    * [WeekView](#weekview)
+    * [MonthView](#monthview)
+    * [View Switching in Main](#view-switching-in-main)
+    * [Logging](#logging)
+    * [Utilities](#utilities)
+    * [Task Types](#task-types)
+    * [Error Handling <br>](#error-handling-br)
+  * [TaskManager Component](#taskmanager-component)
+  * [Retrieving tasks from the TaskManager](#retrieving-tasks-from-the-taskmanager)
+  * [Updating a Task](#updating-a-task)
+  * [Adding Tasks](#adding-tasks)
+  * [Deleting Tasks](#deleting-tasks)
+  * [Interfacing with Storage class](#interfacing-with-storage-class)
+  * [Storage component](#storage-component)
+  * [Exporting .ics File Component](#exporting-ics-file-component)
+* [Appendix: Requirements](#appendix-requirements)
+  * [Product scope](#product-scope)
+  * [Target user profile](#target-user-profile)
+  * [Value proposition](#value-proposition)
+  * [User Stories](#user-stories)
+  * [Non-Functional Requirements](#non-functional-requirements)
+* [Glossary](#glossary)
+* [Instructions for manual testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-ical4J Library: https://www.ical4j.org/
-
+ical4J Library: [https://www.ical4j.org/](https://www.ical4j.org/)
 
 
 ## Architecture
@@ -19,20 +51,19 @@ The Calendar application is designed with a modular architecture, consisting of 
 - **Storage**: The `Storage` class handles the persistence of tasks by reading from and writing to a file.
 - **Time**: The `View` class and its subclasses (`WeekView` and `MonthView`) manage the rendering and navigation of the week and month views.
 
+# Design & Implementation
 
 ## Data Component
 ### API: [Data](https://github.com/AY2324S2-CS2113-W13-2/tp/tree/master/src/main/java/data)
-![Data Class Diagram](images/class/Data.png)
+![Data Class Diagram](images/class/Data.jpg)
 The 'Data' package consists of all the classes that the commands interact with to perform various functions.
 Below is a summary of the classes found in the Data package:
 - The `TaskManager` class is created that contains all local copies of `Task`, creating a many-to-one relationship with `Task`.
 - `Task` is the superclass of all created tasks, namely: `Todo`, `Deadline`, and `Event`.
 - When an operation is requested by the user, the `TaskManager` instance calls its own methods to create/read/update/delete the tasks.
 - `TaskManagerException` extends the Java class `Exception`, and used when there are exceptions to be handled.
-- `TaskType` is an enumeration used in classifying the types of `Task` created. 
+- `TaskType` is an enumeration used in classifying the types of `Task` created.
 - `TaskPriorityLevel` is an enumeration used in classifying the priority level of a `Task`.
-
-# Design & Implementation
 
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
@@ -298,11 +329,11 @@ public static void updateTask(LocalDate date, int taskIndex, String newTaskDescr
 4. Updates the task description accordingly.
 5. Logs the changes if applicable.
 
-## Adding a Task/Event/Deadline
+## Adding Tasks
 
 ### Overview
 
-The Add Task/Event/Deadline feature enhances the TaskManager application by enabling users to create various types of tasks such as Todo, Event, and Deadline. This section elaborates on the implementation details of this feature, encompassing methods for task creation, user input handling, and task addition management.
+The Add Task feature enhances the TaskManager application by enabling users to create various types of tasks such as Todo, Event, and Deadline. This section elaborates on the implementation details of this feature, encompassing methods for task creation, user input handling, and task addition management.
 
 ### `addTask` Method
 
@@ -374,7 +405,8 @@ Upon task creation, the `addTask` method guarantees the preservation of the upda
 4. Updates the task description accordingly.
 5. Logs the changes if applicable.
 
-## Deleting a Task/Event/Deadline
+## Deleting Tasks
+
 ### deleteTask Method
 The `deleteTask` method is responsible for deleting a task specified by the user, on a specified date.
 
@@ -453,26 +485,150 @@ For example:
 
 The `loadTasksFromFile` method reads the tasks from the file and populates the `TaskManager` with the loaded tasks.
 
+## Exceptions and Logging
+
+### Exceptions
+
+![Exceptions.png](images%2Fclass%2FExceptions.png)
+
+The project utilizes centralized exception handling through the `TaskManagerException` class and its subclasses, 
+`MarkTaskException` and `SetPriorityException`.
+
+The `TaskManagerException` class serves as the base exception class, providing common functionality for handling 
+exceptions related to the Task Manager. It includes methods to check the validity of dates, times, and task lists, 
+and throws appropriate exceptions with corresponding error messages.
+
+```java
+public class TaskManagerException extends Exception {
+    public static final String NOT_CURRENT_WEEK_MESSAGE = "The date must be within the current week. Please try again.";
+    public static final String NOT_CURRENT_MONTH_MESSAGE = "The date must be within the current month. " +
+            "Please try again.";
+    // Other error message constants
+
+    public TaskManagerException(String errorMessage) {
+        super(errorMessage);
+    }
+
+    public static void checkIfDateInCurrentWeek(LocalDate date, WeekView weekView) throws TaskManagerException {
+        // Implementation to check if date is in current week
+    }
+
+    // Other utility methods to check date, time, and task list validity
+}
+```
+
+The `MarkTaskException` and `SetPriorityException` classes inherit from `TaskManagerException` and represent exceptions 
+that occur when marking a task or setting the priority of a task, respectively. These classes define specific error 
+messages and validation methods tailored to their respective use cases.
+
+```java
+public class MarkTaskException extends TaskManagerException {
+    public static final String TASK_INDEX_OUT_OF_RANGE_FOR_DAY_WITH_TASKS_MESSAGE = "The task index you attempted to " +
+            "mark is out of range!";
+    public static final String TASK_INDEX_WITH_NO_TASKS_MESSAGE = "There are no tasks to mark on this day!";
+
+    public MarkTaskException(String errorMessage) {
+        super(errorMessage);
+    }
+
+    public static void checkIfTaskIndexIsValidForMarkingTask(List<Task> dayTasks, int taskIndex)
+            throws MarkTaskException {
+        // Implementation to check if task index is valid for marking
+    }
+}
+```
+
+The `StorageFileException` class is another exception class that is used to handle issues related to the storage of 
+task data, such as invalid date formats in the task file.
+
+```java
+public class StorageFileException extends Exception {
+    public StorageFileException(String errorMessage) {
+        super(errorMessage);
+    }
+
+    public static void checkStorageTextDateFormat(String date) throws StorageFileException {
+        // Implementation to check if date format in storage file is valid
+    }
+}
+```
+
+All exceptions thrown in the project are caught and handled appropriately, ensuring a consistent user experience and 
+providing meaningful error messages to the user.
+
+### Logging
+
+The project also utilizes a centralized logging mechanism through the `FileLogger` class. This class sets up a global 
+logger that writes logs to a file located at `./logs.log`.
+
+```java
+public class FileLogger {
+    private static final Path LOG_FILE_PATH = Path.of("./logs.log");
+
+    public static void setupLogger() {
+        try {
+            Logger fileLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+            FileHandler fileHandler = new FileHandler(LOG_FILE_PATH.toString(), true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            fileLogger.setUseParentHandlers(false);
+            fileLogger.addHandler(fileHandler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+The logging is performed using the standard Java `java.util.logging.Logger` API. The `FileLogger` class sets up a 
+`FileHandler` to write the logs to the specified file, and a `SimpleFormatter` is used to format the log entries.
+
+Logging is used throughout the codebase to record relevant events, such as when tasks are added, updated, or deleted, 
+and when exceptions are thrown. For example, the `updateEventLogging` method demonstrates how logging is used to record 
+changes to an event task's description, start date, end date, start time, and end time.
+
+```java
+private static void updateEventLogging(String newTaskDescription,
+                                       String oldDescription, Event oldEvent, String[] newDatesAndTimes) {
+    logger.log(Level.INFO, "Updating task description from " +
+            oldDescription + " to: " + newTaskDescription);
+    logger.log(Level.INFO, "Updating task start date from " +
+            oldEvent.getStartDate() + " to: " + newDatesAndTimes[0]);
+    logger.log(Level.INFO, "Updating task end date from " + oldEvent.getEndDate() + " to: "
+            + newDatesAndTimes[1]);
+    logger.log(Level.INFO, "Updating task start time from " + oldEvent.getStartTime() + " to: "
+            + newDatesAndTimes[2]);
+    logger.log(Level.INFO, "Updating task end time from " + oldEvent.getEndTime() + " to: "
+            + newDatesAndTimes[3]);
+}
+```
+
+The use of centralized logging allows for easy monitoring and analysis of the application's behavior, which can be 
+helpful during development and for troubleshooting issues in the production environment.
+
 ## Exporting .ics File Component
 
 The 'ics' component:
 * Exports the tasks in the task hashmap to a .ics file that can be imported into calendar applications
 * Import tasks from external .ics file into the task hashmap
 
-
+## Appendix: Requirements
 ## Product scope
 ### Target user profile
 
-Our target users are those require a calendar or task-management application but do not like clicking through multiple window prompts just to do so.
-These are people who know their way around a keyboard *well* and can swiftly type their required commands accurately. We expect these individuals to be 
-busy and want to keep on top of their tasks, so this application will serve their needs of quick data entry and task-management functions. 
+Our target users are those require a calendar or task-management application but do not like clicking through multiple 
+window prompts just to do so.
+These are people who know their way around a keyboard *well* and can swiftly type their required commands accurately. 
+We expect these individuals to be busy and want to keep on top of their tasks, so this application will serve their 
+needs of quick data entry and task-management functions. 
 
 ### Value proposition
 
-CLI-nton takes the pros of a GUI based calendar and integrates it with the efficiency of CLI-based inputs to achieve fast data entry while still maintaining the visual clarity that is expected
-of a calendar application. Most calendar applications require users to navigate their interface using both mouse and keyboard inputs, which can feel clunky and troublesome - especially when they 
-have to navigate through many windows just to add one event to their calendar. This application is made to benefit those who type quickly and accurately, allowing them to quickly create entries
-in their calendar. 
+CLI-nton takes the pros of a GUI based calendar and integrates it with the efficiency of CLI-based inputs to achieve 
+fast data entry while still maintaining the visual clarity that is expected of a calendar application. 
+Most calendar applications require users to navigate their interface using both mouse and keyboard inputs, 
+which can feel clunky and troublesome - especially when they have to navigate through many windows just to add one event
+to their calendar. This application is made to benefit those who type quickly and accurately, allowing them to 
+quickly create entries in their calendar. 
 
 ## User Stories
 

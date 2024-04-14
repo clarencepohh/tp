@@ -22,22 +22,24 @@ import java.util.logging.Logger;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static data.exceptions.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
 import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
-import static data.exceptions.TaskManagerException.checkIfDateInCurrentMonth;
-import static data.exceptions.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
 import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
-import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
-import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
+import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
+import static data.exceptions.TaskManagerException.checkIfTaskExistsInCurrentDate;
+import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
 import static storage.Storage.saveTasksToFile;
 
 /**
- * Manages tasks by providing functionalities to add, delete, and update tasks.
+ * The TaskManager class manages tasks by providing functionalities to add, delete, and update tasks.
+ * It provides methods to add tasks based on their type (Todo, Event, Deadline), delete tasks, update tasks,
+ * mark tasks as completed or not completed, set priority levels for tasks, and retrieve tasks for a specific date.
+ * It also provides methods to add tasks from a file and print free time slots for a specific date.
+ * The class uses a Logger to log information and warnings related to task management.
  */
 public class TaskManager {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -162,6 +164,16 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Updates the details of an Event task.
+     *
+     * @param scanner Scanner object to read user input for updating task details.
+     * @param dayTasks List of tasks for the day.
+     * @param taskIndex Index of the task to be updated.
+     * @param newTaskDescription New description for the task.
+     * @param oldDescription Old description of the task.
+     * @return Updated Task object.
+     */
     private static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
             int taskIndex, String newTaskDescription, String oldDescription) {
         Event oldEvent = (Event) dayTasks.get(taskIndex);
@@ -171,7 +183,6 @@ public class TaskManager {
             System.out.println("Enter the new start date, end date, start time and end time, " +
                     "separated by spaces:");
             String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
-            String oldStartDate = oldEvent.getStartDate();
 
             Task task = new Event(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1], newDatesAndTimes[2],
                     newDatesAndTimes[3]);
@@ -188,6 +199,16 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Updates the details of a Deadline task.
+     *
+     * @param scanner Scanner object to read user input for updating task details.
+     * @param dayTasks List of tasks for the day.
+     * @param taskIndex Index of the task to be updated.
+     * @param newTaskDescription New description for the task.
+     * @param oldDescription Old description of the task.
+     * @return Updated Task object.
+     */
     private static Task updateDeadlineTask(Scanner scanner, List<Task> dayTasks,
             int taskIndex, String newTaskDescription, String oldDescription) {
         Deadline oldDeadline = (Deadline) dayTasks.get(taskIndex);
@@ -214,6 +235,14 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Logs the updates made to an Event task.
+     *
+     * @param newTaskDescription New description for the task.
+     * @param oldDescription Old description of the task.
+     * @param oldEvent The old Event task that is being updated.
+     * @param newDatesAndTimes Array containing the new start and end dates and times for the task.
+     */
     private static void updateEventLogging(String newTaskDescription,
             String oldDescription, Event oldEvent, String[] newDatesAndTimes) {
         logger.log(Level.INFO, "Updating task description from " +
@@ -236,8 +265,7 @@ public class TaskManager {
      */
 
     public static List<Task> getDayTasks(LocalDate date) {
-        List<Task> dayTasks = tasks.get(date);
-        return dayTasks;
+        return tasks.get(date);
     }
 
     /**
@@ -328,6 +356,15 @@ public class TaskManager {
         System.out.println(typeName + " added.");
     }
 
+    /**
+     * Adds a task based on its type.
+     *
+     * @param scanner Scanner object to read user input for task details.
+     * @param taskDescription Description of the task.
+     * @param taskType Type of the task (TODO, EVENT, DEADLINE).
+     * @param date Date for the task.
+     * @throws TaskManagerException If an invalid task type is provided.
+     */
     private static void addTaskBasedOnType(Scanner scanner, String taskDescription,
             TaskType taskType, LocalDate date) throws TaskManagerException {
         if (taskType == null) {
@@ -338,13 +375,24 @@ public class TaskManager {
         } else if (taskType == EVENT) {
             parseAndAddEvent(scanner, taskDescription, taskType, date);
         } else {
-            String[] dummyDates = {null}; // dummy String array to pass into function call
-            String[] dummyTimes = {null}; // dummy String array to pass into function call
-
+            // dummy String array to pass into function call
+            String[] dummyDates = {null};
+            // dummy String array to pass into function call
+            String[] dummyTimes = {null};
+            // Call function to add tasks
             addTask(date, taskDescription, taskType, dummyDates, dummyTimes);
         }
     }
 
+    /**
+     * Parses and adds an Event task.
+     *
+     * @param scanner Scanner object to read user input for task details.
+     * @param taskDescription Description of the task.
+     * @param taskType Type of the task (EVENT).
+     * @param date Date for the task.
+     * @throws TaskManagerException If an invalid task type is provided or if there is an error in date/time format.
+     */
     private static void parseAndAddEvent(Scanner scanner, String taskDescription,
             TaskType taskType, LocalDate date) throws TaskManagerException {
         System.out.println("Enter the start date of this task, along with the start time separated by a space:");
@@ -367,6 +415,15 @@ public class TaskManager {
         addTask(date, taskDescription, taskType, startAndEndDates, startAndEndTimes);
     }
 
+    /**
+     * Parses and adds a Deadline task.
+     *
+     * @param scanner Scanner object to read user input for task details.
+     * @param taskDescription Description of the task.
+     * @param taskType Type of the task (DEADLINE).
+     * @param date Date for the task.
+     * @throws TaskManagerException If an invalid task type is provided or if there is an error in date/time format.
+     */
     private static void parseAndAddDeadline(Scanner scanner, String taskDescription,
             TaskType taskType, LocalDate date) throws TaskManagerException {
         System.out.println("Enter the deadline date and time of this task, separated by a space:");
@@ -436,11 +493,19 @@ public class TaskManager {
      */
     private static LocalDate findDateFromDayNumber(WeekView weekView, MonthView monthView,
             boolean inMonthView, int dayInt) throws TaskManagerException {
-        LocalDate date;
-        if (inMonthView) {
-            date = monthView.getStartOfMonth().plusDays(dayInt);
-            checkIfDateInCurrentMonth(date);
+      
+        if (dayInt < 1 || dayInt > 31) {
+            throw new TaskManagerException("Invalid day number. Day must be between 1 and 31.");
+        }
 
+        if (inMonthView) {
+            LocalDate startOfMonth = monthView.getStartOfMonth();
+            int daysInMonth = startOfMonth.lengthOfMonth();
+            if (dayInt > daysInMonth) {
+                throw new TaskManagerException("Invalid day for month view. Please enter a day between 1 and "
+                        + daysInMonth + ".");
+            }
+            return startOfMonth.withDayOfMonth(dayInt);
         } else {
             LocalDate startOfWeek = weekView.getStartOfWeek();
             LocalDate endOfWeek = startOfWeek.plusDays(6);
@@ -454,16 +519,18 @@ public class TaskManager {
             if (dayIntRefersToNextMonth) {
                 LocalDate startOfNextMonth = startOfMonth.plusMonths(1).withDayOfMonth(dayInt);
                 if (startOfNextMonth.isAfter(endOfWeek)) {
-                    throw new TaskManagerException(NOT_CURRENT_WEEK_MESSAGE);
+                    throw new TaskManagerException("Invalid day for week view." +
+                            " Please enter a day that falls within the current week.");
                 }
-                date = startOfNextMonth;
+                return startOfNextMonth;
             } else {
-                date = possibleDate;
+                if (possibleDate.isBefore(startOfWeek) || possibleDate.isAfter(endOfWeek)) {
+                    throw new TaskManagerException("Invalid day for week view." +
+                            " Please enter a day that falls within the current week.");
+                }
+                return possibleDate;
             }
-
-            checkIfDateInCurrentWeek(date, weekView);
         }
-        return date;
     }
 
     /**
@@ -561,20 +628,19 @@ public class TaskManager {
     }
 
     /**
-     * Prompts user for updated task description.
+     * Prompts user for updated task description and updates task in the task list and tasks.txt file.
      *
-     * @param scanner User input.
-     * @param weekView Current week being viewed.
-     * @param monthView Current month being viewed.
-     * @param inMonthView Whether month is being viewed.
-     * @param taskManager The taskManager class being used.
+     * @param scanner Scanner object to read user input for task details.
+     * @param weekView WeekView object for finding the date.
+     * @param monthView MonthView object for finding the date.
+     * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param taskManager The TaskManager instance being used.
      * @param day The int representing the day containing the task to be updated.
      * @param taskIndex The int representing the task index to be updated.
      * @param newDescription The String with the new task description.
      * @throws TaskManagerException If not in correct week/month view.
      * @throws DateTimeParseException If there is an error parsing the date.
      */
-
     public void updateManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView,
             TaskManager taskManager,int day, int taskIndex, String newDescription)
             throws TaskManagerException, DateTimeParseException {
@@ -583,6 +649,8 @@ public class TaskManager {
         LocalDate date;
 
         date = findDateFromDayNumber(weekView, monthView, inMonthView, day);
+
+        checkIfTaskExistsInCurrentDate(taskManager.getTasksForDate(date), taskIndex);
 
         checkIfDateHasTasks(taskManager.getTasksForDate(date));
 
@@ -595,6 +663,8 @@ public class TaskManager {
 
     }
 
+
+    //@@author kyhjonathan
     /**
      * Adds tasks from a file to the TaskManager.
      *
@@ -648,6 +718,7 @@ public class TaskManager {
         }
     }
 
+    //@@author
     /**
      * Lists task of the input date.
      *
@@ -716,6 +787,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Retrieves all Event tasks for a specific date.
+     *
+     * @param date The date to retrieve Event tasks for.
+     * @return A list of Event tasks for the given date.
+     */
     public static List<Task> getEventsForDate(LocalDate date) {
         List<Task> events = new ArrayList<>();
         List<Task> taskList = tasks.get(date);
@@ -729,6 +806,13 @@ public class TaskManager {
         return events;
     }
 
+    /**
+     * Retrieves all free time slots for a specific date.
+     *
+     * @param events A list of Event tasks for the date.
+     * @param currentDate The date to show free times for.
+     * @return A list of free time slots for the given date.
+     */
     public List<String> getFreeTimeSlots(List<Task> events, LocalDate currentDate) {
         List<String> freeTimeSlots = new ArrayList<>();
         LocalTime startOfDay = LocalTime.of(0, 0);
@@ -744,6 +828,7 @@ public class TaskManager {
             }
         });
 
+        // Initialize the last end time to the start of the day for the first day
         // Initialize the last end time to the start of the day for the first day
         LocalTime lastEndTime = startOfDay;
 
@@ -779,6 +864,12 @@ public class TaskManager {
         return freeTimeSlots;
     }
 
+    /**
+     * Prints the free time slots for a specific date.
+     *
+     * @param freeTimeSlots A list of free time slots for the date.
+     * @param startDate The date to show free times for.
+     */
     public void printFreeTimeSlots(List<String> freeTimeSlots, LocalDate startDate) {
 
         System.out.println("Free time slots for " + startDate + ":");
