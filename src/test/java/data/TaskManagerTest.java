@@ -58,7 +58,7 @@ class TaskManagerTest {
     }
 
     @Test
-    void addTodo_invalidInput_addsTask() {
+    void addTodo_invalidInput_throwsException() {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Todo";
@@ -160,7 +160,7 @@ class TaskManagerTest {
     }
 
     @Test
-    void addDeadline_invalidInput_addsTask() {
+    void addDeadline_invalidInput_throwsException() {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Deadline";
@@ -271,7 +271,7 @@ class TaskManagerTest {
     }
 
     @Test
-    void addEvent_invalidInput_addsTask() {
+    void addEvent_invalidInput_throwsException() {
         // Arrange
         LocalDate date = LocalDate.now();
         String taskDescription = "Test Event";
