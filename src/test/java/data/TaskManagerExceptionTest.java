@@ -11,9 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
-import static data.exceptions.TaskManagerException.checkIfDateInCurrentMonth;
-import static data.exceptions.TaskManagerException.checkIfDateInCurrentWeek;
+import static data.exceptions.TaskManagerException.*;
 
 public class TaskManagerExceptionTest {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -29,6 +27,15 @@ public class TaskManagerExceptionTest {
 
         Assertions.assertEquals("The date must be within the current month. " + "Please try again.",
                 thrown.getMessage());
+    }
+
+    @Test
+    public void checkIfTimeInFormat_invalidTimeGiven_exceptionThrown () {
+        TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
+                checkIfTimeInFormat("1111"),
+                "TaskManagerException was expected");
+
+        Assertions.assertEquals("Invalid time format. Please use the format HH:mm", thrown.getMessage());
     }
 
     @Test

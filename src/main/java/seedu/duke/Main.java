@@ -24,7 +24,7 @@ import static storage.Storage.createNewFile;
 public class Main {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static void main(String[] args) throws IOException, TaskManagerException, ParserException {
+    public static void main(String[] args) throws IOException, TaskManagerException{
         FileLogger.setupLogger();
         Scanner scanner = new Scanner(System.in);
         LocalDate today = LocalDate.now();

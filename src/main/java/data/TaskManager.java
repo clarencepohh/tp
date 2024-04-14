@@ -131,6 +131,7 @@ public class TaskManager {
             throws IndexOutOfBoundsException, TaskManagerException {
         try {
             List<Task> dayTasks = getDayTasks(date);
+            // Check if there are tasks for the day
             boolean dayHasTasks = dayTasks != null;
             boolean taskIndexExists = taskIndex >= 0 && taskIndex < Objects.requireNonNull(dayTasks).size();
             assert dayHasTasks;
