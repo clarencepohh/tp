@@ -45,7 +45,7 @@ class TaskManagerTest {
         String taskDescription = "Test Todo";
 
         // Act
-        Task testTask = new Task(taskDescription);
+        Task testTask = new Todo(taskDescription);
         TaskType testTaskType = TaskType.TODO;
         String[] dummyTestDates = new String[]{null};
         String[] dummyTestTimes = new String[]{null};
