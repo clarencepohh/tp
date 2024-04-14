@@ -107,7 +107,7 @@ The application will move to the previous month view, displaying the month prior
 
 ### Switching to Month View: `month`
 
-The `month` command allows you to switch to the month view from any other view.
+The `month` command allows you to switch to the month view from week view.
 
 **Usage:**
 
@@ -127,7 +127,7 @@ The application will switch to the month view from week view and current month w
 
 ### Switching to Week View: `week`
 
-The `week` command allows you to switch to the week view from any other view.
+The `week` command allows you to switch to the week view from month view.
 
 **Usage:**
 
