@@ -453,6 +453,126 @@ For example:
 
 The `loadTasksFromFile` method reads the tasks from the file and populates the `TaskManager` with the loaded tasks.
 
+## Exceptions and Logging
+
+### Exceptions
+
+![Exceptions.png](images%2Fclass%2FExceptions.png)
+
+The project utilizes centralized exception handling through the `TaskManagerException` class and its subclasses, 
+`MarkTaskException` and `SetPriorityException`.
+
+The `TaskManagerException` class serves as the base exception class, providing common functionality for handling 
+exceptions related to the Task Manager. It includes methods to check the validity of dates, times, and task lists, 
+and throws appropriate exceptions with corresponding error messages.
+
+```java
+public class TaskManagerException extends Exception {
+    public static final String NOT_CURRENT_WEEK_MESSAGE = "The date must be within the current week. Please try again.";
+    public static final String NOT_CURRENT_MONTH_MESSAGE = "The date must be within the current month. " +
+            "Please try again.";
+    // Other error message constants
+
+    public TaskManagerException(String errorMessage) {
+        super(errorMessage);
+    }
+
+    public static void checkIfDateInCurrentWeek(LocalDate date, WeekView weekView) throws TaskManagerException {
+        // Implementation to check if date is in current week
+    }
+
+    // Other utility methods to check date, time, and task list validity
+}
+```
+
+The `MarkTaskException` and `SetPriorityException` classes inherit from `TaskManagerException` and represent exceptions 
+that occur when marking a task or setting the priority of a task, respectively. These classes define specific error 
+messages and validation methods tailored to their respective use cases.
+
+```java
+public class MarkTaskException extends TaskManagerException {
+    public static final String TASK_INDEX_OUT_OF_RANGE_FOR_DAY_WITH_TASKS_MESSAGE = "The task index you attempted to " +
+            "mark is out of range!";
+    public static final String TASK_INDEX_WITH_NO_TASKS_MESSAGE = "There are no tasks to mark on this day!";
+
+    public MarkTaskException(String errorMessage) {
+        super(errorMessage);
+    }
+
+    public static void checkIfTaskIndexIsValidForMarkingTask(List<Task> dayTasks, int taskIndex)
+            throws MarkTaskException {
+        // Implementation to check if task index is valid for marking
+    }
+}
+```
+
+The `StorageFileException` class is another exception class that is used to handle issues related to the storage of 
+task data, such as invalid date formats in the task file.
+
+```java
+public class StorageFileException extends Exception {
+    public StorageFileException(String errorMessage) {
+        super(errorMessage);
+    }
+
+    public static void checkStorageTextDateFormat(String date) throws StorageFileException {
+        // Implementation to check if date format in storage file is valid
+    }
+}
+```
+
+All exceptions thrown in the project are caught and handled appropriately, ensuring a consistent user experience and 
+providing meaningful error messages to the user.
+
+### Logging
+
+The project also utilizes a centralized logging mechanism through the `FileLogger` class. This class sets up a global 
+logger that writes logs to a file located at `./logs.log`.
+
+```java
+public class FileLogger {
+    private static final Path LOG_FILE_PATH = Path.of("./logs.log");
+
+    public static void setupLogger() {
+        try {
+            Logger fileLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+            FileHandler fileHandler = new FileHandler(LOG_FILE_PATH.toString(), true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            fileLogger.setUseParentHandlers(false);
+            fileLogger.addHandler(fileHandler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+The logging is performed using the standard Java `java.util.logging.Logger` API. The `FileLogger` class sets up a 
+`FileHandler` to write the logs to the specified file, and a `SimpleFormatter` is used to format the log entries.
+
+Logging is used throughout the codebase to record relevant events, such as when tasks are added, updated, or deleted, 
+and when exceptions are thrown. For example, the `updateEventLogging` method demonstrates how logging is used to record 
+changes to an event task's description, start date, end date, start time, and end time.
+
+```java
+private static void updateEventLogging(String newTaskDescription,
+                                       String oldDescription, Event oldEvent, String[] newDatesAndTimes) {
+    logger.log(Level.INFO, "Updating task description from " +
+            oldDescription + " to: " + newTaskDescription);
+    logger.log(Level.INFO, "Updating task start date from " +
+            oldEvent.getStartDate() + " to: " + newDatesAndTimes[0]);
+    logger.log(Level.INFO, "Updating task end date from " + oldEvent.getEndDate() + " to: "
+            + newDatesAndTimes[1]);
+    logger.log(Level.INFO, "Updating task start time from " + oldEvent.getStartTime() + " to: "
+            + newDatesAndTimes[2]);
+    logger.log(Level.INFO, "Updating task end time from " + oldEvent.getEndTime() + " to: "
+            + newDatesAndTimes[3]);
+}
+```
+
+The use of centralized logging allows for easy monitoring and analysis of the application's behavior, which can be 
+helpful during development and for troubleshooting issues in the production environment.
+
 ## Exporting .ics File Component
 
 The 'ics' component:
@@ -463,16 +583,20 @@ The 'ics' component:
 ## Product scope
 ### Target user profile
 
-Our target users are those require a calendar or task-management application but do not like clicking through multiple window prompts just to do so.
-These are people who know their way around a keyboard *well* and can swiftly type their required commands accurately. We expect these individuals to be 
-busy and want to keep on top of their tasks, so this application will serve their needs of quick data entry and task-management functions. 
+Our target users are those require a calendar or task-management application but do not like clicking through multiple 
+window prompts just to do so.
+These are people who know their way around a keyboard *well* and can swiftly type their required commands accurately. 
+We expect these individuals to be busy and want to keep on top of their tasks, so this application will serve their 
+needs of quick data entry and task-management functions. 
 
 ### Value proposition
 
-CLI-nton takes the pros of a GUI based calendar and integrates it with the efficiency of CLI-based inputs to achieve fast data entry while still maintaining the visual clarity that is expected
-of a calendar application. Most calendar applications require users to navigate their interface using both mouse and keyboard inputs, which can feel clunky and troublesome - especially when they 
-have to navigate through many windows just to add one event to their calendar. This application is made to benefit those who type quickly and accurately, allowing them to quickly create entries
-in their calendar. 
+CLI-nton takes the pros of a GUI based calendar and integrates it with the efficiency of CLI-based inputs to achieve 
+fast data entry while still maintaining the visual clarity that is expected of a calendar application. 
+Most calendar applications require users to navigate their interface using both mouse and keyboard inputs, 
+which can feel clunky and troublesome - especially when they have to navigate through many windows just to add one event
+to their calendar. This application is made to benefit those who type quickly and accurately, allowing them to 
+quickly create entries in their calendar. 
 
 ## User Stories
 
