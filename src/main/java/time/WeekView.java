@@ -68,7 +68,16 @@ public class WeekView extends View {
      * @return the date corresponding to the given day of the week
      */
     public LocalDate getDateForDay(int dayOfWeek) {
-        return startOfView.plusDays(Math.abs(startOfView.getDayOfWeek().getValue() - dayOfWeek));
+        // Assuming dayOfWeek is 1 for Monday, 2 for Tuesday, ..., 7 for Sunday
+        // Adjust the value to match ISO-8601 (1 for Monday, ..., 7 for Sunday)
+        int currentDayOfWeek = startOfView.getDayOfWeek().getValue();
+        int daysDiff = dayOfWeek - currentDayOfWeek;
+
+        // If the dayOfWeek is before the currentDayOfWeek, we need to adjust the daysDiff
+        if (daysDiff < 0) {
+            daysDiff += 7;
+        }
+        return startOfView.plusDays(daysDiff);
     }
 
 }

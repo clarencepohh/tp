@@ -132,10 +132,11 @@ public class CommandHandler {
      */
     private void handleAddCommand(String[] parts) {
         try {
-            StringParser.validateAddCommand(parts, weekView, monthView, inMonthView);
+            StringParser.validateAddCommand(parts);
             String day = parts[1].trim();
             String taskTypeString = parts[2].trim();
             String taskDescription = StringParser.parseTaskDescription(parts[3]);
+            int dayIndex = StringParser.parseTaskIndex(day);
             taskManager.addManager(scanner, weekView, monthView, inMonthView, "add", day,
                     taskTypeString, taskDescription);
         } catch (TaskManagerException e) {
@@ -153,6 +154,7 @@ public class CommandHandler {
             StringParser.validateDeleteCommand(parts);
             String day = parts[1].trim();
             int taskIndex = StringParser.parseTaskIndex(parts[2]);
+            int dayIndex = StringParser.parseTaskIndex(day);
             TaskManager.deleteManager(weekView, monthView, inMonthView, taskManager, day, taskIndex);
         } catch (TaskManagerException e) {
             System.out.println(e.getMessage());
@@ -169,6 +171,7 @@ public class CommandHandler {
             StringParser.validateMarkCommand(parts);
             String day = parts[1].trim();
             int taskIndex = StringParser.parseTaskIndex(parts[2]);
+            int dayIndex = StringParser.parseTaskIndex(day);
             taskManager.markManager(weekView, monthView, inMonthView, day, taskIndex);
         } catch (TaskManagerException e) {
             System.out.println(e.getMessage());
@@ -186,6 +189,7 @@ public class CommandHandler {
             String day = parts[1].trim();
             int taskIndex = StringParser.parseTaskIndex(parts[2]);
             String priorityLevel = StringParser.parsePriorityLevel(parts[3]);
+            int dayIndex = StringParser.parseTaskIndex(day);
             taskManager.priorityManager(weekView, monthView, inMonthView, day, taskIndex, priorityLevel);
         } catch (TaskManagerException e) {
             System.out.println(e.getMessage());

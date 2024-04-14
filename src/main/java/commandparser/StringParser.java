@@ -1,8 +1,6 @@
 package commandparser;
 
 import data.exceptions.TaskManagerException;
-import time.MonthView;
-import time.WeekView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -73,28 +71,11 @@ public class StringParser {
      * @param parts the array of command parts.
      * @throws TaskManagerException if the command format is invalid.
      */
-    public static void validateAddCommand(String[] parts, WeekView weekView, MonthView monthView, boolean inMonthView)
+    public static void validateAddCommand(String[] parts)
             throws TaskManagerException {
         if (parts.length != 4) {
             throw new TaskManagerException("Invalid input format. Please provide input in the format: " +
                     "add, <day>, <taskType>, <taskDescription>");
-        }
-        int day = parseTaskIndex(parts[1]);
-        if (inMonthView) {
-            LocalDate startOfMonth = monthView.getStartOfMonth();
-            LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
-            if (day < 1 || day > endOfMonth.getDayOfMonth()) {
-                throw new TaskManagerException("Invalid day for month view. Please enter a day between 1 and " +
-                        endOfMonth.getDayOfMonth() + ".");
-            }
-        } else {
-            LocalDate startOfWeek = weekView.getStartOfWeek();
-            LocalDate endOfWeek = startOfWeek.plusDays(6);
-            LocalDate dateForDay = weekView.getDateForDay(day);
-            if (dateForDay.isBefore(startOfWeek) || dateForDay.isAfter(endOfWeek)) {
-                throw new TaskManagerException("Invalid day for week view. Please enter a day between " +
-                        startOfWeek.getDayOfMonth() + " and " + endOfWeek.getDayOfMonth() + ".");
-            }
         }
     }
 

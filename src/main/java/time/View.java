@@ -1,6 +1,8 @@
 package time;
 
 import data.TaskManager;
+import data.exceptions.TaskManagerException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -52,5 +54,23 @@ public abstract class View {
      */
     public LocalDate getStartOfMonth() {
         return startOfView.withDayOfMonth(1);
+    }
+    /**
+     * Finds the date corresponding to a given day number within the same month
+     * and year as the start of the view.
+     *
+     * @param dayInt the day number to find the date for.
+     * @return the corresponding date.
+     * @throws TaskManagerException if the day number is invalid.
+     */
+    public LocalDate findDateFromNumber(int dayInt) throws TaskManagerException {
+        if (dayInt < 1 || dayInt > 31) {
+            throw new TaskManagerException("Invalid day number. Day must be between 1 and 31.");
+        }
+        LocalDate targetDate = getStartOfMonth().withDayOfMonth(dayInt);
+        if (targetDate.getMonth() != getStartOfMonth().getMonth()) {
+            throw new TaskManagerException("Invalid day number for the current month.");
+        }
+        return targetDate;
     }
 }

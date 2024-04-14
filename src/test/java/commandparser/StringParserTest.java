@@ -100,7 +100,7 @@ class StringParserTest {
         MonthView monthView = new MonthView(startOfWeek, dateFormatter);
         boolean inMonthView = false;
 
-        assertDoesNotThrow(() -> StringParser.validateAddCommand(validParts, weekView, monthView, inMonthView));
+        assertDoesNotThrow(() -> StringParser.validateAddCommand(validParts));
     }
 
     @Test
@@ -112,7 +112,7 @@ class StringParserTest {
         MonthView monthView = new MonthView(startOfWeek, dateFormatter);
         boolean inMonthView = false;
         assertThrows(TaskManagerException.class, () ->
-                StringParser.validateAddCommand(invalidParts, weekView, monthView, inMonthView));
+                StringParser.validateAddCommand(invalidParts));
     }
 
     @Test
