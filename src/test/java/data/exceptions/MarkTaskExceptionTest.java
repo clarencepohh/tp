@@ -3,7 +3,6 @@ package data.exceptions;
 import data.Task;
 import data.TaskManager;
 import data.TaskType;
-import data.Todo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,6 @@ public class MarkTaskExceptionTest {
         String taskDescription = "Test Todo";
 
         // Act
-        Task testTask = new Todo(taskDescription);
         TaskType testTaskType = TaskType.TODO;
         String[] dummyTestDates = new String[]{null};
         String[] dummyTestTimes = new String[]{null};
@@ -64,7 +62,6 @@ public class MarkTaskExceptionTest {
         String taskDescription = "Test Todo";
 
         // Act
-        Task testTask = new Todo(taskDescription);
         TaskType testTaskType = TaskType.TODO;
         String[] dummyTestDates = new String[]{null};
         String[] dummyTestTimes = new String[]{null};
