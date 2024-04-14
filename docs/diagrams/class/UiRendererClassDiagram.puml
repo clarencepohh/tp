@@ -1,0 +1,57 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class UiRenderer {
+    + {static} END_HORIZONTAL_DIVIDER: String
+    + {static} VERTICAL_DIVIDER: String
+    + {static} SPACE_COUNT: String
+    + {static} ICON_COUNT: String
+    + {static} ENTRY_FORMAT: String
+    + {static} TASK_DISPLAY_FORMAT: String
+    + {static} ICON_DISPLAY_FORMAT: String
+    + {static} EMPTY_TASK_DISPLAY_FORMAT: String
+    + {static} EVENT_ICON_COLOR: String
+    + {static} DEADLINE_ICON_COLOR: String
+    + {static} TODO_ICON_COLOR: String
+    + {static} ESCAPE_COLOR: String
+    - {static} allWrappedTaskLines: HashMap <LocalDate, List<List<String>>>
+    - {static} logger: Logger
+    - {static} WEEK_DAYS: String[]
+    - {static} SINGLE_HORIZONTAL_DIVIDER: String
+    - {static} numberOfDaysInWeek: int
+    + {static} printWeekHeader(startOfView: LocalDate, dateFormatter: DateTimeFormatter, isMonthView: boolean)
+    + {static} printHorizontalDivider()
+    + {static} printHeaderRow()
+    + {static} printWeekBody(startOfWeek: LocalDate, taskManager: TaskManager)
+    - {static} printDateRow(dateFormatter: DateTimeFormatter, date: LocalDate)
+    + {static} printTasksInWeek(startOfWeek: LocalDate, taskManager: TaskManager)
+    - {static} getMaxNumberOfTasksInDay(allWrappedTaskLines: Map<LocalDate, List<List<String>>>): int
+    - {static} getMaxNumberOfLinesPerTask(allWrappedTaskLines: Map<LocalDate, List<List<String>>>): int
+    - {static} printTasksInGrid(startOfWeek: LocalDate, maxNumberOfTasksInDay: int, maxNumberOfLinesPerTask: int)
+    - {static} printTaskSubstringInRow(startOfWeek: LocalDate, taskIndex: int, lineIndex: int)
+    - {static} storeWrappedLines(startOfWeek: LocalDate, taskManager: TaskManager)
+    - {static} wrapText(text: String, maxLengthToOccupy: int): List<String>
+    + {static} printTaskForDay(dayTasks: List<Task>, taskIndex: int)
+    + {static} getMaxTasks(startOfWeek: LocalDate, taskManager: TaskManager)
+    + {static} printSeparator()
+    + {static} printHelp()
+}
+
+
+class Task {
+# name: String
+# priorityLevel: TaskPriorityLevel
+# isCompleted: boolean
++ isCompleted ()
++ setCompleteness (completed: boolean)
++ getMarkedStatusIcon ()
++ setPriorityLevel (priorityLevelOfTask: TaskPriorityLevel)
++ getPriorityLevelIcon ()
++ getDisplayFormat ()
+}
+
+
+hide circle
+
+@enduml
