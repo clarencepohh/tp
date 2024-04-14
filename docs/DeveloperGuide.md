@@ -213,9 +213,6 @@ while (true) {
 
 ```
 
-### Logging
-The `FileLogger` class sets up a logger that writes log messages to the `logs.log` file in the project directory. The logger is configured to use the `SimpleFormatter` and to write to the file instead of the console.
-
 ### Utilities
 The `DateUtils` class provides a utility method `getStartOfWeek` that returns the start date of the week for a given date.
 
