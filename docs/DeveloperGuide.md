@@ -219,9 +219,6 @@ The `DateUtils` class provides a utility method `getStartOfWeek` that returns th
 ### Task Types
 The `TaskType` enum defines the different types of tasks supported by the application: `TODO`, `EVENT`, and `DEADLINE`.
 
-### Error Handling <br>
-The application handles various exceptions, such as `TaskManagerException`, `DateTimeParseException`, and `NumberFormatException`. When an exception occurs, an error message is printed to the console, and the application continues to run.
-
 ## TaskManager Component
 
 ### Overview: 
