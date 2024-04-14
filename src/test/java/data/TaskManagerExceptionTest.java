@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static data.exceptions.TaskManagerException.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TaskManagerExceptionTest {
@@ -121,6 +122,24 @@ public class TaskManagerExceptionTest {
 
         Assertions.assertEquals("The date must be within the current month. " + "Please try again.",
                 thrown.getMessage());
+    }
+
+    @Test
+    void checkIfDateInCurrentMonth_sameMonthDifferentYear_throwsException() {
+        LocalDate date = LocalDate.now().withYear(2023);
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfDateInCurrentMonth(date));
+    }
+
+    @Test
+    void checkIfDateInCurrentMonth_sameYearDifferentMonth_throwsException() {
+        LocalDate date = LocalDate.now().withMonth(1);
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfDateInCurrentMonth(date));
+    }
+
+    @Test
+    void checkIfDateInCurrentMonth_sameMonthAndYear_noExceptionThrown() {
+        LocalDate date = LocalDate.now();
+        assertDoesNotThrow(() -> TaskManagerException.checkIfDateInCurrentMonth(date));
     }
 
     @Test
