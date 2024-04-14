@@ -7,16 +7,20 @@ import storage.Storage;
 import time.MonthView;
 import time.WeekView;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Objects;
 
 import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
 import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
@@ -46,7 +50,7 @@ public class TaskManager {
      * @param dates A String array that contains the relevant dates for the task to be added.
      */
     public static void addTask(LocalDate date, String taskDescription, TaskType taskType,
-                               String[] dates, String[] times)
+            String[] dates, String[] times)
             throws TaskManagerException {
         Task taskToAdd;
 
@@ -115,8 +119,9 @@ public class TaskManager {
      * @param newTaskDescription The updated description of the task.
      * @throws IndexOutOfBoundsException If the task index is out of bounds.
      */
-    public static void updateTask(LocalDate date, int taskIndex, String newTaskDescription, Scanner scanner)
-            throws IndexOutOfBoundsException {
+    public static void updateTask(LocalDate date, int taskIndex, String newTaskDescription, Scanner scanner,
+            boolean inMonthView, WeekView weekView)
+            throws IndexOutOfBoundsException, TaskManagerException {
         try {
             List<Task> dayTasks = getDayTasks(date);
             boolean dayHasTasks = dayTasks != null;
@@ -155,7 +160,7 @@ public class TaskManager {
     }
 
     private static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
-                                        int taskIndex, String newTaskDescription, String oldDescription) {
+            int taskIndex, String newTaskDescription, String oldDescription) {
         Event oldEvent = (Event) dayTasks.get(taskIndex);
         System.out.println("Do you want to update the start and end dates and times? (yes/no)");
         String eventResponse = scanner.nextLine().trim().toLowerCase();
@@ -181,7 +186,7 @@ public class TaskManager {
     }
 
     private static Task updateDeadlineTask(Scanner scanner, List<Task> dayTasks,
-                                           int taskIndex, String newTaskDescription, String oldDescription) {
+            int taskIndex, String newTaskDescription, String oldDescription) {
         Deadline oldDeadline = (Deadline) dayTasks.get(taskIndex);
         System.out.println("Do you want to update the deadline date and time? (yes/no)");
         String deadlineResponse = scanner.nextLine().trim().toLowerCase();
@@ -207,7 +212,7 @@ public class TaskManager {
     }
 
     private static void updateEventLogging(String newTaskDescription,
-                                           String oldDescription, Event oldEvent, String[] newDatesAndTimes) {
+            String oldDescription, Event oldEvent, String[] newDatesAndTimes) {
         logger.log(Level.INFO, "Updating task description from " +
                 oldDescription + " to: " + newTaskDescription);
         logger.log(Level.INFO, "Updating task start date from " +
@@ -234,7 +239,7 @@ public class TaskManager {
 
     /**
      * Marks a task as completed.
-     * 
+     *
      * @param date The date of the task.
      * @param taskIndex The index of the task to mark.
      */
@@ -251,7 +256,7 @@ public class TaskManager {
 
     /**
      * Marks a task as not completed.
-     * 
+     *
      * @param date The date of the task.
      * @param taskIndex The index of the task to mark.
      */
@@ -290,7 +295,7 @@ public class TaskManager {
      * @throws DateTimeParseException If there is an error parsing the date.
      */
     public void addManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView, String action,
-                           String day, String taskTypeString, String taskDescription)
+            String day, String taskTypeString, String taskDescription)
             throws TaskManagerException,DateTimeParseException {
 
         // Convert the day to a LocalDate
@@ -321,7 +326,7 @@ public class TaskManager {
     }
 
     private static void addTaskBasedOnType(Scanner scanner, String taskDescription,
-                                           TaskType taskType, LocalDate date) throws TaskManagerException {
+            TaskType taskType, LocalDate date) throws TaskManagerException {
         if (taskType == null) {
             throw new TaskManagerException("Invalid task type. Please provide valid task type: " +
                     "T for Todo, E for event, D for deadline.");
@@ -338,7 +343,7 @@ public class TaskManager {
     }
 
     private static void parseAndAddEvent(Scanner scanner, String taskDescription,
-                                         TaskType taskType, LocalDate date) throws TaskManagerException {
+            TaskType taskType, LocalDate date) throws TaskManagerException {
         System.out.println("Enter the start date of this task, along with the start time separated by a space:");
         String inputStartDateAndTime = scanner.nextLine().trim();
         checkIfDateTimeInFormat(inputStartDateAndTime);
@@ -360,7 +365,7 @@ public class TaskManager {
     }
 
     private static void parseAndAddDeadline(Scanner scanner, String taskDescription,
-                                            TaskType taskType, LocalDate date) throws TaskManagerException {
+            TaskType taskType, LocalDate date) throws TaskManagerException {
         System.out.println("Enter the deadline date and time of this task, separated by a space:");
         String inputDeadlineDateAndTime = scanner.nextLine().trim();
         checkIfDateTimeInFormat(inputDeadlineDateAndTime);
@@ -373,8 +378,28 @@ public class TaskManager {
 
 
     /**
+     * @param weekView The WeekView object for finding the date.
+     * @param monthView The MonthView object for finding the date.
+     * @param inMonthView A boolean indicating whether the view is in month view or not.
+     * @param day The day of the task to show free times for.
+     * @throws TaskManagerException If there is an error in managing tasks.
+     * @throws DateTimeParseException If there is an error parsing the date.
+     */
+    public void freeTimesManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day)
+            throws TaskManagerException, DateTimeParseException {
+        LocalDate date;
+        int dayInt = Integer.parseInt(day);
+        date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
+
+        List<Task> eventsForDate = getEventsForDate(date);
+        List<String> freeTimes = getFreeTimeSlots(eventsForDate, date);
+
+        printFreeTimeSlots(freeTimes, date);
+    }
+
+    /**
      * Marks a task as completed or not completed based its current marked status.
-     * 
+     *
      * @param weekView WeekView object for finding the date.
      * @param monthView MonthView object for finding the date.
      * @param inMonthView A boolean indicating whether the view is in month view or not.
@@ -398,7 +423,7 @@ public class TaskManager {
 
     /**
      * Finds the date based on the day number.
-     * 
+     *
      * @param weekView WeekView object for finding the date.
      * @param monthView MonthView object for finding the date.
      * @param inMonthView A boolean indicating whether the view is in month view or not.
@@ -407,8 +432,8 @@ public class TaskManager {
      * @throws TaskManagerException If the date is not in the current month or week being viewed.
      */
     private static LocalDate findDateFromDayNumber(WeekView weekView, MonthView monthView,
-                                                   boolean inMonthView, int dayInt)
-            throws TaskManagerException {
+            boolean inMonthView, int dayInt) throws TaskManagerException {
+      
         if (dayInt < 1 || dayInt > 31) {
             throw new TaskManagerException("Invalid day number. Day must be between 1 and 31.");
         }
@@ -450,12 +475,13 @@ public class TaskManager {
 
     /**
      * Handles the marking of a task based on the task index and date.
-     * 
+     *
      * @param taskIndex The index of the task to be marked.
      * @param date The date of the task to be marked.
      */
     private void handleMarkingOfTask(int taskIndex, LocalDate date) {
-
+        logger.log(Level.INFO, "Marking task at index " + taskIndex + " for date " + date);
+        assert tasks.get(date) != null;
         boolean taskIsCompleted = tasks.get(date).get(taskIndex - 1).isCompleted();
         if (taskIsCompleted) {
             markTaskAsNotCompleted(date, taskIndex - 1);
@@ -466,7 +492,7 @@ public class TaskManager {
 
     /**
      * Performs the setting of priority levels based on the user's input.
-     * 
+     *
      * @param weekView WeekView object for finding the date.
      * @param monthView MonthView object for finding the date.
      * @param inMonthView A boolean indicating whether the view is in month view or not.
@@ -476,8 +502,8 @@ public class TaskManager {
      * @throws TaskManagerException If there is an error in managing tasks.
      * @throws DateTimeParseException If there is an error parsing the date.
      */
-    public void priorityManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day, 
-            int taskIndex, String priorityLevelString) 
+    public void priorityManager(WeekView weekView, MonthView monthView, boolean inMonthView, String day,
+            int taskIndex, String priorityLevelString)
             throws TaskManagerException, DateTimeParseException, SetPriorityException {
         LocalDate date;
         int dayInt = Integer.parseInt(day);
@@ -494,17 +520,19 @@ public class TaskManager {
 
     /**
      * Sets the priority level of a task.
-     * 
+     *
      * @param taskIndex The index of the task to set the priority level for.
      * @param date The date of the task to set the priority level for.
      * @param priorityLevelString The priority level to set the task to.
      */
     private void setPriorityLevelOfTask(int taskIndex, LocalDate date, String priorityLevelString) {
+        logger.log(Level.INFO, "Setting priority level of task at index " + taskIndex + " for date " + date);
+        assert tasks.get(date) != null;
         List<Task> dayTasks = tasks.get(date);
         Task task = dayTasks.get(taskIndex - 1);
-        TaskPriorityLevel priorityLevelToSet = 
-                priorityLevelString.equals("H") ? TaskPriorityLevel.HIGH : 
-                priorityLevelString.equals("M") ? TaskPriorityLevel.MEDIUM : 
+        TaskPriorityLevel priorityLevelToSet =
+                priorityLevelString.equals("H") ? TaskPriorityLevel.HIGH :
+                priorityLevelString.equals("M") ? TaskPriorityLevel.MEDIUM :
                 TaskPriorityLevel.LOW;
         task.setPriorityLevel(priorityLevelToSet);
     }
@@ -555,7 +583,7 @@ public class TaskManager {
      */
 
     public void updateManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView,
-                              TaskManager taskManager,int day, int taskIndex, String newDescription)
+            TaskManager taskManager,int day, int taskIndex, String newDescription)
             throws TaskManagerException, DateTimeParseException {
 
         // Convert the day to a LocalDate
@@ -563,10 +591,12 @@ public class TaskManager {
 
         date = findDateFromDayNumber(weekView, monthView, inMonthView, day);
 
+        checkIfDateHasTasks(taskManager.getTasksForDate(date));
+
         String currentTaskType = taskManager.getTasksForDate(date).get(taskIndex - 1).getTaskType();
         String typeName = currentTaskType.equals("T") ? "Todo" : currentTaskType.equals("D") ? "Deadline" : "Event";
 
-        updateTask(date, taskIndex - 1, newDescription, scanner);
+        updateTask(date, taskIndex - 1, newDescription, scanner, inMonthView, weekView);
         saveTasksToFile(tasks,Storage.FILE_PATH); //Update tasks.txt file
         System.out.println(typeName + " updated.");
 
@@ -657,7 +687,7 @@ public class TaskManager {
      * @throws DateTimeParseException If there is an error parsing the date.
      */
     public static void deleteManager(WeekView weekView,MonthView monthView, boolean inMonthView,
-                                     TaskManager taskManager,String day, int taskIndex)
+            TaskManager taskManager,String day, int taskIndex)
             throws TaskManagerException, DateTimeParseException {
 
         // Convert the day to a LocalDate
@@ -667,7 +697,8 @@ public class TaskManager {
         date = findDateFromDayNumber(weekView, monthView, inMonthView, dayInt);
 
         // Delete the task based on the parsed inputs
-        taskManager.deleteTask(date, taskIndex - 1, false); // Subtract 1 to convert to zero-based index
+        taskManager.deleteTask(date, taskIndex - 1, false);
+        // Subtract 1 to convert to zero-based index
         //System.out.println("Task deleted.");
 
         // Save tasks to file
@@ -692,5 +723,75 @@ public class TaskManager {
         }
     }
 
-}
+    public static List<Task> getEventsForDate(LocalDate date) {
+        List<Task> events = new ArrayList<>();
+        List<Task> taskList = tasks.get(date);
+        if (taskList != null) {
+            for (Task task : taskList) {
+                if (task.getTaskType().equals("E")) {
+                    events.add(task);
+                }
+            }
+        }
+        return events;
+    }
 
+    public List<String> getFreeTimeSlots(List<Task> events, LocalDate currentDate) {
+        List<String> freeTimeSlots = new ArrayList<>();
+        LocalTime startOfDay = LocalTime.of(0, 0);
+        LocalTime endOfDay = LocalTime.of(23, 59);
+
+        // Sort events by start time and date
+        events.sort((e1, e2) -> {
+            if (e1.getStartDate().equals(e2.getStartDate())) {
+                return LocalTime.parse(e1.getStartTime(), DateTimeFormatter.ofPattern("HHmm"))
+                        .compareTo(LocalTime.parse(e2.getStartTime(), DateTimeFormatter.ofPattern("HHmm")));
+            } else {
+                return e1.getStartDate().compareTo(e2.getStartDate());
+            }
+        });
+
+        // Initialize the last end time to the start of the day for the first day
+        LocalTime lastEndTime = startOfDay;
+
+        for (Task event : events) {
+            // Parse the start and end dates and times of the event as LocalDate and LocalTime
+            LocalDate eventStartDate = LocalDate.parse(event.getStartDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate eventEndDate = LocalDate.parse(event.getEndDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalTime eventStartTime = LocalTime.parse(event.getStartTime(), DateTimeFormatter.ofPattern("HHmm"));
+            LocalTime eventEndTime = LocalTime.parse(event.getEndTime(), DateTimeFormatter.ofPattern("HHmm"));
+
+            // Only process events that start on the current date
+            if (eventStartDate.isEqual(currentDate)) {
+                // If the event ends on a different day, adjust the end time to the end of the current day
+                if (!eventEndDate.isEqual(currentDate)) {
+                    eventEndTime = endOfDay;
+                }
+
+                // Add free time slot before the event
+                if (Duration.between(lastEndTime, eventStartTime).toMinutes() > 0) {
+                    freeTimeSlots.add(lastEndTime.toString() + " - " + eventStartTime.toString());
+                }
+
+                // Update the last end time
+                lastEndTime = eventEndTime;
+            }
+        }
+
+        // Add remaining time of the day to free slots only if lastEndTime is not endOfDay
+        if (!lastEndTime.equals(endOfDay) && Duration.between(lastEndTime, endOfDay).toMinutes() > 0) {
+            freeTimeSlots.add(lastEndTime.toString() + " - " + endOfDay.toString());
+        }
+
+        return freeTimeSlots;
+    }
+
+    public void printFreeTimeSlots(List<String> freeTimeSlots, LocalDate startDate) {
+
+        System.out.println("Free time slots for " + startDate + ":");
+
+        for (String slot : freeTimeSlots) {
+            System.out.println(slot);
+        }
+    }
+}

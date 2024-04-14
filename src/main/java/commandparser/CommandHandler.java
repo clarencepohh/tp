@@ -66,6 +66,9 @@ public class CommandHandler {
         case "mark":
             handleMarkCommand(parts);
             break;
+        case "free":
+            handleFreeCommand(parts);
+            break;
         case "priority":
             handlePriorityCommand(parts);
             break;
@@ -179,6 +182,18 @@ public class CommandHandler {
         }
     }
 
+    private void handleFreeCommand(String[] parts) {
+        try {
+            StringParser.validateFreeCommand(parts);
+
+            String day = parts[1].trim();
+            taskManager.freeTimesManager(weekView, monthView, inMonthView, day);
+
+        } catch (TaskManagerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * Handles the "priority" command to set task priorities.
      *
@@ -201,8 +216,7 @@ public class CommandHandler {
      * Handles the "month" command to switch to the month view.
      */
     private void handleMonthCommand() {
-        monthView.printView(taskManager);
-        inMonthView = !inMonthView; // Toggle month view mode
+        inMonthView = true;
     }
 
     /**
