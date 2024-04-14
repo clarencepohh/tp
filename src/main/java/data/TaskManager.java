@@ -131,7 +131,6 @@ public class TaskManager {
             List<Task> dayTasks = getDayTasks(date);
             boolean dayHasTasks = dayTasks != null;
             boolean taskIndexExists = taskIndex >= 0 && taskIndex < Objects.requireNonNull(dayTasks).size();
-//            checkIfTaskExistsInCurrentDate(dayTasks, taskIndex);
             assert dayHasTasks;
             assert taskIndexExists;
 
