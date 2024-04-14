@@ -364,7 +364,7 @@ Exiting Calendar...
 ```
 The application will exit after displaying a goodbye message.
 
-### ICS Exporting and Importing: `ics` `[coming in v2.1]`
+### ICS Exporting and Importing: `ics` `[coming in future versions]`
 Exporting and importing tasks to and from an ICS file.
 
 Format: `ics <export> <filename>` or `ics <import> <filename>`
