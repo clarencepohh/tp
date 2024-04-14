@@ -41,7 +41,7 @@ public class Storage {
     /**
      * Creates directory and tasks.txt if it does not exist.
      *
-     * @param path File Path of tests.txt file.
+     * @param path File Path of clintonData.txt file.
      * @throws IOException If an I/O exception occurs during file handling.
      */
     public static void createNewFile(Path path) throws IOException {
@@ -51,16 +51,16 @@ public class Storage {
         }
         if (!Files.exists(path)) {
             Files.createFile(path);
-            logger.log(Level.INFO, "new tests.txt file created");
+            logger.log(Level.INFO, "new clintonData.txt file created");
         }
     }
 
     //@@author kyhjonathan
     /**
-     * Reads tasks in hashmap and writes it in formatted form to tests.txt.
+     * Reads tasks in hashmap and writes it in formatted form to clintonData.txt.
      *
      * @param tasks Hashmap of tasks.
-     * @param path File Path of tests.txt file.
+     * @param path File Path of clintonData.txt file.
      */
     public static void saveTasksToFile(Map<LocalDate, List<Task>> tasks, Path path) {
         try (FileWriter writer = new FileWriter(path.toFile())) {
@@ -85,7 +85,7 @@ public class Storage {
     /**
      * Loads tasks from test.txt to hashmap.
      *
-     * @param path File Path of tests.txt file.
+     * @param path File Path of clintonData.txt file.
      * @return tasks hashmap of tasks read from test.txt.
      */
     public static Map<LocalDate, List<Task>> loadTasksFromFile(Path path) {
