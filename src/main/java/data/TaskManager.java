@@ -22,10 +22,7 @@ import java.util.logging.Logger;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static data.exceptions.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
 import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
-import static data.exceptions.TaskManagerException.checkIfDateInCurrentMonth;
-import static data.exceptions.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
 import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
@@ -436,11 +433,19 @@ public class TaskManager {
      */
     private static LocalDate findDateFromDayNumber(WeekView weekView, MonthView monthView,
             boolean inMonthView, int dayInt) throws TaskManagerException {
-        LocalDate date;
-        if (inMonthView) {
-            date = monthView.getStartOfMonth().plusDays(dayInt);
-            checkIfDateInCurrentMonth(date);
+      
+        if (dayInt < 1 || dayInt > 31) {
+            throw new TaskManagerException("Invalid day number. Day must be between 1 and 31.");
+        }
 
+        if (inMonthView) {
+            LocalDate startOfMonth = monthView.getStartOfMonth();
+            int daysInMonth = startOfMonth.lengthOfMonth();
+            if (dayInt > daysInMonth) {
+                throw new TaskManagerException("Invalid day for month view. Please enter a day between 1 and "
+                        + daysInMonth + ".");
+            }
+            return startOfMonth.withDayOfMonth(dayInt);
         } else {
             LocalDate startOfWeek = weekView.getStartOfWeek();
             LocalDate endOfWeek = startOfWeek.plusDays(6);
@@ -454,16 +459,18 @@ public class TaskManager {
             if (dayIntRefersToNextMonth) {
                 LocalDate startOfNextMonth = startOfMonth.plusMonths(1).withDayOfMonth(dayInt);
                 if (startOfNextMonth.isAfter(endOfWeek)) {
-                    throw new TaskManagerException(NOT_CURRENT_WEEK_MESSAGE);
+                    throw new TaskManagerException("Invalid day for week view." +
+                            " Please enter a day that falls within the current week.");
                 }
-                date = startOfNextMonth;
+                return startOfNextMonth;
             } else {
-                date = possibleDate;
+                if (possibleDate.isBefore(startOfWeek) || possibleDate.isAfter(endOfWeek)) {
+                    throw new TaskManagerException("Invalid day for week view." +
+                            " Please enter a day that falls within the current week.");
+                }
+                return possibleDate;
             }
-
-            checkIfDateInCurrentWeek(date, weekView);
         }
-        return date;
     }
 
     /**
