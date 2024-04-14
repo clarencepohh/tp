@@ -52,6 +52,14 @@ public class TaskManagerException extends Exception {
         }
     }
 
+    public static void checkIfTaskExistsInCurrentDate(List<Task> dayTasks, int index) throws TaskManagerException {
+        if (index + 1 <= 0) {
+            throw new TaskManagerException("Invalid task number. Please try again.");
+        } else if (index + 1> dayTasks.size()) {
+            throw new TaskManagerException("Task number does not exist. Please try again.");
+        }
+    }
+
     public static void checkIfTimeInFormat(String time) throws TaskManagerException {
         if (!time.matches("(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]")) {
             throw new TaskManagerException("Invalid time format." +

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static data.exceptions.TaskManagerException.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TaskManagerExceptionTest {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -32,10 +33,32 @@ public class TaskManagerExceptionTest {
     @Test
     public void checkIfTimeInFormat_invalidTimeGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
-                checkIfTimeInFormat("1111"),
+                checkIfTimeInFormat("abcde"),
                 "TaskManagerException was expected");
 
-        Assertions.assertEquals("Invalid time format. Please use the format HH:mm", thrown.getMessage());
+        Assertions.assertEquals("Invalid time format. Please use the format HHmm", thrown.getMessage());
+    }
+
+    @Test
+    void checkIfTimeInFormat_invalidFormat_throwsException() {
+        String invalidTime = "25:00";
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfValidTime(invalidTime));
+    }
+
+    @Test
+    void checkIfTimeInFormat_validFormat_noExceptionThrown() {
+        String validTime = "23:59";
+        try {
+            TaskManagerException.checkIfValidTime(validTime);
+        } catch (TaskManagerException e) {
+            assert false;
+        }
+    }
+
+    @Test
+    void checkIfTimeInFormat_invalidMinute_throwsException() {
+        String invalidTime = "23:60";
+        assertThrows(TaskManagerException.class, () -> TaskManagerException.checkIfValidTime(invalidTime));
     }
 
     @Test

@@ -22,18 +22,13 @@ import java.util.logging.Logger;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static data.exceptions.TaskManagerException.NOT_CURRENT_WEEK_MESSAGE;
-import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
-import static data.exceptions.TaskManagerException.checkIfDateInCurrentMonth;
-import static data.exceptions.TaskManagerException.checkIfDateInCurrentWeek;
 import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
 import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
-import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
-import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
+import static data.exceptions.TaskManagerException.*;
 import static storage.Storage.saveTasksToFile;
 
 /**
@@ -134,6 +129,10 @@ public class TaskManager {
             // Check if there are tasks for the day
             boolean dayHasTasks = dayTasks != null;
             boolean taskIndexExists = taskIndex >= 0 && taskIndex < Objects.requireNonNull(dayTasks).size();
+            if (taskIndex < dayTasks.size()) {
+                throw new TaskManagerException("Task number does not exist. Please try again.");
+            }
+//            checkIfTaskExistsInCurrentDate(dayTasks, taskIndex);
             assert dayHasTasks;
             assert taskIndexExists;
 
@@ -268,8 +267,7 @@ public class TaskManager {
      */
 
     public static List<Task> getDayTasks(LocalDate date) {
-        List<Task> dayTasks = tasks.get(date);
-        return dayTasks;
+        return tasks.get(date);
     }
 
     /**
