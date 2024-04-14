@@ -5,7 +5,6 @@ import data.Task;
 import data.TaskManager;
 import data.exceptions.TaskManagerException;
 import log.FileLogger;
-import net.fortuna.ical4j.data.ParserException;
 import storage.Storage;
 import time.DateUtils;
 import time.MonthView;
