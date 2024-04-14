@@ -215,8 +215,7 @@ public class CommandHandler {
      * Handles the "month" command to switch to the month view.
      */
     private void handleMonthCommand() {
-        monthView.printView(taskManager);
-        inMonthView = !inMonthView; // Toggle month view mode
+        inMonthView = true;
     }
 
     /**
