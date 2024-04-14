@@ -43,6 +43,12 @@ class TaskManager {
 
 UiRenderer ..> TaskManager
 
+note right of TaskManager
+  The class diagram for TaskManager
+  can be found under the section 
+  "Data Component".
+end note
+
 hide circle
 
 @enduml
