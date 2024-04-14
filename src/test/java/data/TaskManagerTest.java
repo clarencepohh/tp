@@ -292,6 +292,36 @@ class TaskManagerTest {
     }
 
     @Test
+    void updateEventDescriptionOnly_validInput_updatesTask() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String initialTaskDescription = "Initial Event";
+        String updatedTaskDescription = "Updated Event";
+        String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String endDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String startTime = "1800";
+        String endTime = "2000";
+
+        TaskType testTaskType = TaskType.EVENT;
+        String[] dummyTestDates = new String[]{startDate, endDate};
+        String[] dummyTestTimes = new String[]{startTime, endTime};
+        String simulatedUserInput = "no";
+
+        Scanner scanner = new Scanner(simulatedUserInput);
+
+        boolean inMonthView = false;
+
+        WeekView weekView = new WeekView(LocalDate.now(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        addTask(date, initialTaskDescription, testTaskType, dummyTestDates, dummyTestTimes);
+
+        // Act
+        updateTask(date, 0, updatedTaskDescription, scanner, inMonthView, weekView);
+
+        // Assert
+        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(date).get(0).getName());
+    }
+    @Test
     void getFreeTimeSlots_validInput_returnsCorrectSlots() throws TaskManagerException {
         // Arrange
         LocalDate date = LocalDate.of(2024, 4, 7);
