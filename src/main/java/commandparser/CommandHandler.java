@@ -14,6 +14,7 @@ public class CommandHandler {
     private final MonthView monthView;
     private boolean inMonthView;
 
+
     /**
      * Constructs a CommandHandler with the specified dependencies.
      *
