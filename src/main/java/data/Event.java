@@ -1,12 +1,5 @@
 package data;
 
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.component.VEvent;
-
-import java.util.GregorianCalendar;
-
-import static java.lang.Integer.parseInt;
-
 public class Event extends Task {
     protected String startDate;
     protected String endDate;
