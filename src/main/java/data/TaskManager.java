@@ -22,13 +22,13 @@ import java.util.logging.Logger;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
 import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
 import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
-import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
 import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
 import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
 import static storage.Storage.saveTasksToFile;
