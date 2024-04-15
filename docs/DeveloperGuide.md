@@ -41,14 +41,16 @@ ical4J Library: [https://www.ical4j.org/](https://www.ical4j.org/)
 
 
 ## Architecture
-The Calendar application is designed with a modular architecture, consisting of the following components:
+The ***Architecture diagram*** given below shows the high-level architecture of CLI-nton.
+The application is designed with a modular architecture, consisting of the following components:
 
+![img.png](diagrams/architecture/architeturediagram.png)
 
-#### Main Components
-- **UI**: The `UiRenderer` class handles the rendering of the calendar views (week and month) to the console.
-- **Logic**: The `Main` class acts as the central logic component, handling user input and dispatching commands to the appropriate components.
-- **Data**: The `TaskManager` class manages the tasks and their corresponding dates, providing methods for adding, updating, and deleting tasks.
-- **Storage**: The `Storage` class handles the persistence of tasks by reading from and writing to a file.
+#### Main Components of the architecture
+- **UI**: The `UiRenderer` class handles the rendering of the calendar views (week and month) to the console, and 'AvatarUi' class handles the rendering of the avatar.
+- **Main**: The `Main` class acts as the central logic component, handling user input and dispatching commands to the appropriate components.
+- **Data**: The `TaskManager` class manages the tasks and their corresponding dates, providing methods for adding, updating, and deleting tasks. 'Exceptions' contains the exceptions that are thrown by the application.
+- **Storage**: The `Storage` class handles the writing and reading of tasks to and from clintonData.txt file, ensuring persistence of task data across sessions.
 - **Time**: The `View` class and its subclasses (`WeekView` and `MonthView`) manage the rendering and navigation of the week and month views.
 
 # Design & Implementation
