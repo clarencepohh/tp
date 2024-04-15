@@ -3,7 +3,7 @@ This page outlines what I have done for the module CS2113 - Software Engineering
 
 Our project: CLI-nton, a powerful task management application designed to help you stay organized and productive. With a simple command-line interface, CLI-nton makes it easy to manage your tasks, whether they're todos, deadlines, or events.
 
-CLI-nton was a idea sprung by our group's collective minds, and it turned out to be a great practice in SWE as well as programming.
+CLI-nton was an idea sprung by our group's collective minds, and it turned out to be a great practice in SWE as well as programming.
 Working with a new language - `Java` - helps to improve our tech stack (and hopefully our resumes!) 
 
 ## Overview
