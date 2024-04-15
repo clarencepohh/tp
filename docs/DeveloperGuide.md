@@ -12,7 +12,7 @@
     * [Update Task Method](#update-task-method)
     * [Adding Tasks](#adding-tasks)
     * [Deleting Tasks](#deleting-tasks)
-    * [Interfacing with Storage class](#interfacing-with-storage-class)
+    * [Interfacing with Storage class](#interfacing-with-storage-class)]
   * [Storage component](#storage-component)
   * [Exceptions and Logging](#exceptions-and-logging)
   * [Exporting .ics File Component](#exporting-ics-file-component)
@@ -61,6 +61,7 @@ Below is a sequence diagram that illustrates a possible sequence when the user r
 ![Data Sequence Diagram](images/sequence/DataSequenceDiagram.png)
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
+![Ui Class Diagram](images/class/Ui.png)
 
 ### Overview: <br> 
 The UiRenderer component is responsible for rendering the user interface. It is used to display messages, week views as well as month views to the user.
@@ -69,16 +70,15 @@ The UiRenderer component is responsible for rendering the user interface. It is 
 1. When week view is requested, the UiRenderer component will render the week view.
 2. This is done by printing the table in ASCII art format, with the days of the week as columns.
 3. The week view will display the tasks for the week, with the tasks for each day displayed in the respective columns.
-4. The UiRenderer component will also display the current date at the top of the week view.
-5. Similarly, when month view is requested, the UiRenderer component will render the month view.
+4. The month view will display a summary of the tasks for each day in the month, with the dates of the month displayed in a month calendar format.
 
-### printWeekView Method
-![Sequence Diagram for printWeekView()](images/sequence/PrintWeekViewSequenceDiagram.png)
+### printView Method for Week View
+![Sequence Diagram for printView()](images/sequence/PrintWeekViewSequenceDiagram.png)
 
 ### printWeekHeader Method
 `printWeekHeader` Method
 
-The `printWeekHeader` method is responsible for rendering the header section of the week view, including the names of the days and optionally the dates.
+The `printWeekHeader` method is responsible for rendering the header section of the week and month view, including the names of the days and the dates.
 
 #### Method signature:
 ```
@@ -96,7 +96,7 @@ public static void printWeekHeader(LocalDate startOfView, DateTimeFormatter date
 - If not in month view, prints the dates for the respective week.
 
 ### printWeekBody Method
-The printWeekBody method displays the body of the week view, showing tasks for each day in their respective columns.
+The `printWeekBody` method displays the body of the week view, showing tasks for each day in their respective columns.
 
 #### Method Signature
 ```
@@ -109,8 +109,25 @@ public static void printWeekBody(LocalDate startOfWeek, TaskManager taskManager)
 - taskManager: The TaskManager instance managing tasks.
 
 #### Method Functionality
-- Determines the maximum number of tasks in any day of the week to set the row count.
-- Iterates through each day, displaying tasks or placeholders if there are fewer tasks on certain days.
+- Calls `printTasksInWeek`, which prints the tasks for each day in the week.
+
+### printTasksInWeek Method
+The `printTasksInWeek` method displays the tasks for each day in the week view, wrapping the task descriptions to fit within the column width.
+
+#### Method Signature
+```
+public static void printTasksInWeek(LocalDate startOfWeek, TaskManager taskManager)
+```
+
+#### Parameters
+- startOfWeek: The starting date of the week for which tasks are displayed.
+- taskManager: The TaskManager instance managing tasks.
+
+#### Method Functionality
+- Retrieves the tasks for each day in the week into a map.
+- Wrap the task descriptions to the width of the calendar box.
+- Stores the task descriptions in a map.
+- Prints the task descriptions for each day in the week in the appropriate formatting.
 
 ### Month View Rendering
 The month view utilizes the printWeekHeader method with the isMonthView parameter set to true, limiting the display to only include week headers without individual tasks.
@@ -139,9 +156,7 @@ public void printView(TaskManager taskManager)
 
 The sequence diagram above illustrates the interactions between the `m:MonthView`, `u:UiRenderer`, `t:TaskManager`, and `l:Logger` classes during the execution of the `printView` method.
 
-### Displaying Help and User Commands
-`printHelp` Method
-
+### printHelp Method
 The printHelp method provides users with a list of available commands and their descriptions, aiding in navigation and task management.
 
 #### Method Signature
@@ -151,7 +166,6 @@ public static void printHelp()
 
 #### Method Functionality
 - Prints a structured list of commands and their purposes within the user interface.
-- Highlights key functionalities like navigating views, adding, and updating tasks.
 
 ## View Switching
 

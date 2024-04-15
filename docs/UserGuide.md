@@ -403,6 +403,18 @@ ics, import, tasks.ics
 
 **A**: You can transfer your data to another computer by copying the data file saved in the CLI-nton application directory. The data file is typically named `clintonData.txt` and contains all your tasks. Simply copy this file to the same location on the other computer to transfer your tasks.
 
+**Q**: When adding an Event task, I entered `add,1,E,Event 1` to add an event on the first day of the month, but after that, I was prompted to enter the start date again. Why is that?
+
+**A**: Not to worry! Our program registers the start date as the date you keyed into the original command, i.e. the first day of the month. The subsequent prompt for the start date is for formatting purposes and will not affect the actual date of the event.
+
+**Q**: I have an event lasting from 15 Apr to 19 Apr within a week. Why is it that `free, 16` shows that the day is free?
+
+**A**: For events which stretch over multiple days, we only consider the original day of the event when calculating free times. In this case, the event starts on the 15th and ends on the 19th, so the 16th, 17th, 18th and 19th are considered free days. Our advise: add events with their corresponding timings for each day of the event to get a more accurate representation of your schedule.
+
+**Q**: Does the scheduler account for clashes in event timings?
+
+**A**: No. This is to accomodate for users who may have overlapping events or tasks. We recommend users to manually check for clashes and adjust their schedules accordingly.
+
 ## Command Summary
 
 For a quick reference, here's a summary of available commands:
@@ -414,18 +426,19 @@ For a quick reference, here's a summary of available commands:
 - Delete task `delete, <day number>, <taskIndex>`
 - Mark task as complete or not complete `mark, <day number>, <taskIndex>`
 - Set priority level for task `priority, <day number>, <taskIndex>, <priority>`
+- Find free times in a day `free, <day number>`
 - Switch to month view `month`
 - Switch to week view `week`
 - Quit the application `quit`
 
 Here's a summary of task types:
 
-- `Todo`: A basic task with no start or end date / times.
-- `Deadline`: A task that has a date / time to complete by.
-- `Event`: A task that has a start and end date / time.
+- Todo (`T`): A basic task with no start or end date / times.
+- Deadline (`D`): A task that has a date / time to complete by.
+- Event (`E`): A task that has a start and end date / time.
 
 Tasks can be classified in the following ways:
-- marked as `HIGH`, `MEDIUM` or `LOW` priority. Default level is `LOW`.
-- marked as `COMPLETE` or `INCOMPLETE`. Default is `INCOMPLETE`.
+- marked as HIGH (`H`), MEDIUM (`M`) or LOW (`L`) priority. Default level is LOW.
+- marked as COMPLETE (`X`) or INCOMPLETE (`O`). Default is INCOMPLETE.
 
 Start managing your tasks efficiently with CLI-nton today!
