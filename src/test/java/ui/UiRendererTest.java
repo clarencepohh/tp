@@ -19,7 +19,6 @@ import static data.TaskManager.addTask;
 import static ui.UiRenderer.printWeekHeader;
 import static ui.UiRenderer.printWeekBody;
 import static data.TaskManager.deleteAllTasksOnDate;
-import static time.DateUtils.getStartOfWeek;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ui.UiRenderer.printTaskForDay;
@@ -91,7 +90,7 @@ public class UiRendererTest {
 
     @Test
     void printWeekHeader_forMonthView_printsMonthViewHeading() {
-        LocalDate startOfMonth = LocalDate.of(2023, 4, 1);
+        LocalDate startOfMonth = LocalDate.now().withDayOfMonth(1);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -111,7 +110,6 @@ public class UiRendererTest {
     @Test
     void printWeekBody_noTasks_printsEmptyWeekBody() {
         LocalDate startOfWeek = DateUtils.getStartOfWeek(LocalDate.now());
-
         deleteAllTasksOnDate(taskManager, startOfWeek);
 
         outContent.reset();
@@ -127,12 +125,10 @@ public class UiRendererTest {
     void printWeekBody_singleTaskPerDay_printsWeekBodyWithSingleTaskPerDay() throws TaskManagerException {
         LocalDate startOfWeek = DateUtils.getStartOfWeek(LocalDate.now());
 
-        // Make sure the task manager is clear before adding new tasks
-        deleteAllTasksOnDate(taskManager, startOfWeek);; // Assuming such a method exists
+        deleteAllTasksOnDate(taskManager, startOfWeek);
         addTask(startOfWeek, "Task 1", TaskType.TODO, new String[]{}, new String[]{});
         addTask(startOfWeek.plusDays(1), "Task 2", TaskType.TODO, new String[]{}, new String[]{});
 
-        // Reset the output stream before printing
         outContent.reset();
         printWeekBody(startOfWeek, taskManager);
 
@@ -148,9 +144,8 @@ public class UiRendererTest {
     }
 
     @Test
-    void printWeekBody_multipleTasksPerDay_printsWeekBodyWithMultipleTasksPerDay() throws TaskManagerException{
-        LocalDate today = LocalDate.now();
-        LocalDate startOfWeek = DateUtils.getStartOfWeek(today);
+    void printWeekBody_multipleTasksPerDay_printsWeekBodyWithMultipleTasksPerDay() throws TaskManagerException {
+        LocalDate startOfWeek = DateUtils.getStartOfWeek(LocalDate.now());
 
         addTask(startOfWeek, "Task 1", TaskType.TODO, new String[]{}, new String[]{});
         addTask(startOfWeek, "Task 2", TaskType.TODO, new String[]{}, new String[]{});
