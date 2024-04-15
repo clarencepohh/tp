@@ -1,4 +1,4 @@
-# kyhjonathan - Project Portfolio Page
+# Kuek Yeau Hao, Jonathan - Project Portfolio Page
 
 ## Overview
 Given below are my contributions to the project.
