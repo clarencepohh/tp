@@ -67,8 +67,7 @@ The UiRenderer component is responsible for rendering the user interface. It is 
 1. When week view is requested, the UiRenderer component will render the week view.
 2. This is done by printing the table in ASCII art format, with the days of the week as columns.
 3. The week view will display the tasks for the week, with the tasks for each day displayed in the respective columns.
-4. The UiRenderer component will also display the current date at the top of the week view.
-5. Similarly, when month view is requested, the UiRenderer component will render the month view.
+4. The month view will display a summary of the tasks for each day in the month, with the dates of the month displayed in a month calendar format.
 
 ### printWeekView Method
 ![Sequence Diagram for printWeekView()](images/sequence/PrintWeekViewSequenceDiagram.png)
