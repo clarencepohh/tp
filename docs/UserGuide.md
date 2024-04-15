@@ -151,26 +151,31 @@ The application will switch to the **Week view.**
 
 Adds a new task to the calendar.
 
-Format: `add, <day>, <taskType>, <taskDescription>`
+Format: `add, <day number>, <taskType>, <taskDescription>`
 
 You will be prompted on further inputs based on your desired task type.
 
 #### Adding a `Todo`
 > Todos are regular tasks with no time limit!
 
-Format to add a `Todo`: `add, <day index>, T, <todo description>`
+Format to add a `Todo`: `add, <day number>, T, <todo description>`
 
-Your Todo Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
+Your Todo Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Todo Adding Example Console Inputs and Outputs](images/Todo-Example.png)
 
+Here's what that would look like in month view:
+
+![AddTodoInMonthView.png](images/AddTodoInMonthView.png)
+
+The Todos are represented by blue parenthesis, and they are empty indicating  the todo is not marked.
 
 #### Adding a `Deadline`
 > Deadlines are tasks with an additional date/time of completion!
 
-Format to add a `Deadline`: `add, <day index>, D, <deadline description>`
+Format to add a `Deadline`: `add, <day number>, D, <deadline description>`
 
 You will then be asked to provide the deadline (date and time) for this task in the format `"DD/MM/YYYY HHMM"`.
 
@@ -178,17 +183,22 @@ You will then be asked to provide the deadline (date and time) for this task in 
 
 Example format: `06/04/2024 1800`
 
-Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
+Your Deadline Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Deadline Adding Example Console Inputs and Outputs](images/Deadline-Example.png)
 
+Here's what that would look like in month view:
+
+![AddDeadlineInMonthView.png](images/AddDeadlineInMonthView.png)
+
+The Deadlines are represented by yellow parenthesis, and they are empty indicating  the deadline is not marked.
 
 #### Adding an `Event`
 > Events are tasks with a start and end date/time!
 
-Format to add an `Event`: `add, <day index>, E, <event description here>`
+Format to add an `Event`: `add, <day number>, E, <event description here>`
 
 You will then be asked to provide the start and end dates/times for this task in the format `"DD/MM/YYYY HHMM"`.
 
@@ -200,11 +210,17 @@ Example format: `05/04/2024 1200`
 
 Example format: `07/05/2024 2000`
 
-Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
+Your Event Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
+
+Here's what that would look like in month view:
+
+![AddEventInMonthView.png](images/AddEventInMonthView.png)
+
+The Events are represented by red parenthesis, and they are empty indicating the event is not marked.
 
 #### **Notes to users**
 > Dashes`-`, Slashes`/`, Commas`,` and pipes`|` are used in our application as delimiters and separators in our storage file(clintonData.txt).
@@ -217,14 +233,14 @@ Here's what that would look like:
 
 >You can update the description of a task using the `update` command. This command allows you to change the description of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
 
-Format to update a task Description: `update, <day>, <task index>, <new description>`
+Format to update a task Description: `update, <day number>, <task index>, <new description>`
 
 You will be prompted on further inputs based on the task type you seek to update.
 
 #### Updating a `Todo`:
 
 ```
-update, <day>, <task index>, <new todo description>
+update, <day number>, <task index>, <new todo description>
 ```
 
 Your Todo will now be updated to `"<new todo description>"` on the 31st (of whichever week/month you are viewing)!
@@ -240,7 +256,7 @@ After updating the todo, the task will be displayed as follows:
 
 To update a Deadline, follow this format:
 ```
-update, <day>, <task index>, <new deadline description>
+update, <day number>, <task index>, <new deadline description>
 ```
 
 Your Deadline Task will be updated to `"<new deadline description>"` on the 31st! You will then be prompted to provide the 
@@ -258,7 +274,7 @@ After the update, the task will be displayed as follows:
 
 To update an Event, use the following format:
 ```
-update, <day>, <task index>, <new event description>
+update, <day number>, <task index>, <new event description>
 ```
 
 Your Event Task will be updated to `"<new event description>"` on the 1st! You will then be prompted to provide the updated 
@@ -280,7 +296,7 @@ up-to-date scheduling.
 
 Deletes a task.
 
-Format: `delete, <day>, <taskIndex>`
+Format: `delete, <day number>, <taskIndex>`
 - Deletes the task at the specified index on the given day
 - Shows an error message if the task index does not exist
 
@@ -301,7 +317,7 @@ If the task that is being attempted to be deleted does not exist, an error messa
 
 Marks a task as complete or not complete.
 
-Format: `mark, <day>, <taskIndex>`
+Format: `mark, <day number>, <taskIndex>`
 - Marks task as complete if it is incomplete
 - Marks task as incomplete if it is complete
 
@@ -319,7 +335,7 @@ The command will work the same way in Month View as well.
 
 Sets priority level for a task.
 
-Format: `priority, <day>, <taskIndex>, <priority>`
+Format: `priority, <day number>, <taskIndex>, <priority>`
 - Priority levels: `H` (high), `M` (medium), `L` (low)
 - Default priority level: `L`
 - Setting priority level will update any existing priority level for the task to the new level
@@ -369,29 +385,42 @@ ics, import, tasks.ics
 
 **A**: You can transfer your data to another computer by copying the data file saved in the CLI-nton application directory. The data file is typically named `clintonData.txt` and contains all your tasks. Simply copy this file to the same location on the other computer to transfer your tasks.
 
+**Q**: When adding an Event task, I entered `add,1,E,Event 1` to add an event on the first day of the month, but after that, I was prompted to enter the start date again. Why is that?
+
+**A**: Not to worry! Our program registers the start date as the date you keyed into the original command, i.e. the first day of the month. The subsequent prompt for the start date is for formatting purposes and will not affect the actual date of the event.
+
+**Q**: I have an event lasting from 15 Apr to 19 Apr within a week. Why is it that `free, 16` shows that the day is free?
+
+**A**: For events which stretch over multiple days, we only consider the original day of the event when calculating free times. In this case, the event starts on the 15th and ends on the 19th, so the 16th, 17th, 18th and 19th are considered free days. Our advise: add events with their corresponding timings for each day of the event to get a more accurate representation of your schedule.
+
+**Q**: Does the scheduler account for clashes in event timings?
+
+**A**: No. This is to accomodate for users who may have overlapping events or tasks. We recommend users to manually check for clashes and adjust their schedules accordingly.
+
 ## Command Summary
 
 For a quick reference, here's a summary of available commands:
 
 - Move to next week or month `next`
 - Move to previous week or month `prev`
-- Update task description `update, <day>, <taskIndex>, <newDescription>`
-- Add new task `add, <day>, <taskType>, <taskDescription>`
-- Delete task `delete, <day>, <taskIndex>`
-- Mark task as complete or not complete `mark, <day>, <taskIndex>`
-- Set priority level for task `priority, <day>, <taskIndex>, <priority>`
+- Update task description `update, <day number>, <taskIndex>, <newDescription>`
+- Add new task `add, <day number>, <taskType>, <taskDescription>`
+- Delete task `delete, <day number>, <taskIndex>`
+- Mark task as complete or not complete `mark, <day number>, <taskIndex>`
+- Set priority level for task `priority, <day number>, <taskIndex>, <priority>`
+- Find free times in a day `free, <day number>`
 - Switch to month view `month`
 - Switch to week view `week`
 - Quit the application `quit`
 
 Here's a summary of task types:
 
-- `Todo`: A basic task with no start or end date / times.
-- `Deadline`: A task that has a date / time to complete by.
-- `Event`: A task that has a start and end date / time.
+- Todo (`T`): A basic task with no start or end date / times.
+- Deadline (`D`): A task that has a date / time to complete by.
+- Event (`E`): A task that has a start and end date / time.
 
 Tasks can be classified in the following ways:
-- marked as `HIGH`, `MEDIUM` or `LOW` priority. Default level is `LOW`.
-- marked as `COMPLETE` or `INCOMPLETE`. Default is `INCOMPLETE`.
+- marked as HIGH (`H`), MEDIUM (`M`) or LOW (`L`) priority. Default level is LOW.
+- marked as COMPLETE (`X`) or INCOMPLETE (`O`). Default is INCOMPLETE.
 
 Start managing your tasks efficiently with CLI-nton today!
