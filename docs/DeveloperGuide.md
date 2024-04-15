@@ -180,40 +180,62 @@ The `MonthView` class also provides the following private methods:
 - `printTasksForWeek(LocalDate weekStart, int maxTasks, TaskManager taskManager)`: This method prints the tasks for a given week within the month view. It iterates over the tasks and calls the `printTaskForDay` method for each task.
 - `printTaskForDay(List<Task> dayTasks, int taskIndex)`: This method prints a single task for a given day within the month view.
 
-### View Switching in Main
+Sure, here's the updated version of the "View Switching in Main" section that fits with the `handleMonthCommand()` and `handleWeekCommand()` methods:
 
-The `Main` class is responsible for handling user input and dispatching commands to the appropriate components. It manages the switching between the week and month views based on the user's input.
+### View Switching in CommandHandler
 
-When the user enters the `month` command, the `Main` class toggles the `inMonthView` flag and calls the `printView` method of the `MonthView` instance, rendering the month view. Similarly, when the user enters the `week` command, the `Main` class sets the `inMonthView` flag to `false` and calls the `printView` method of the `WeekView` instance, rendering the week view.
+The `CommandHandler` class is responsible for handling user input and dispatching commands to the appropriate components. It manages the switching between the week and month views based on the user's input.
 
-The following code snippet illustrates the view switching logic in the `Main` class:
+When the user enters the `month` command, the `CommandHandler` class calls the `handleMonthCommand()` method, which toggles the `inMonthView` flag and renders the month view by calling the `printView` method of the `MonthView` instance. Similarly, when the user enters the `week` command, the `CommandHandler` class calls the `handleWeekCommand()` method, which sets the `inMonthView` flag to `false` and renders the week view by calling the `printView` method of the `WeekView` instance.
 
-```
-while (true) {
-    // ... (User input handling)
+The following code snippets illustrate the view switching logic in the `CommandHandler` class:
 
-    switch (command) {
-        case "month":
-            monthView.printView(taskManager);
-            inMonthView = !inMonthView; // Toggle month view mode
-            printWeek = false;
-            break;
-        case "week":
-            inMonthView = false;
-            break;
-        // ... (Other command handling)
-    }
-
-    if (printWeek) {
-        if (!inMonthView) {
-            weekView.printView(taskManager);
-        } else {
-            monthView.printView(taskManager);
-        }
-    }
+```java
+private void handleMonthCommand() {
+    inMonthView = true;
 }
-
 ```
+
+This `handleMonthCommand()` method sets the `inMonthView` flag to `true`, indicating that the month view should be displayed.
+
+```java
+private void handleWeekCommand() {
+    inMonthView = false;
+}
+```
+
+This `handleWeekCommand()` method sets the `inMonthView` flag to `false`, indicating that the week view should be displayed.
+
+The `handleCommand()` method in the `CommandHandler` class is responsible for rendering the appropriate view based on the `inMonthView` flag:
+
+```java
+public void handleCommand() {
+  AvatarUi.printAvatar();
+  if (!inMonthView) {
+    weekView.printView(taskManager);
+  } else {
+    monthView.printView(taskManager);
+  }
+
+  System.out.println("Enter help to learn commands");
+  String input = scanner.nextLine().trim().toLowerCase();
+  String[] parts = input.split(",\\s*");
+  String command = parts[0];
+
+  switch (command) {
+  // ...
+  case "month":
+    handleMonthCommand();
+    break;
+  case "week":
+    handleWeekCommand();
+    break;
+  // ...
+  }
+}
+```
+
+This method first prints the avatar using `AvatarUi.printAvatar()`, and then checks the value of the `inMonthView` flag to determine whether to call `weekView.printView(taskManager)` or `monthView.printView(taskManager)` to render the appropriate view.
 
 ### Logging
 The `FileLogger` class sets up a logger that writes log messages to the `logs.log` file in the project directory. The logger is configured to use the `SimpleFormatter` and to write to the file instead of the console.
@@ -486,8 +508,6 @@ For example:
 ```
 
 The `loadTasksFromFile` method reads the tasks from the file and populates the `TaskManager` with the loaded tasks.
-
-Sure, here's the updated section of the Developer Guide for the `CommandHandler` class:
 
 ## CommandHandler Component
 

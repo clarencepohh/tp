@@ -151,16 +151,16 @@ The application will switch to the **Week view.**
 
 Adds a new task to the calendar.
 
-Format: `add, <day>, <taskType>, <taskDescription>`
+Format: `add, <day number>, <taskType>, <taskDescription>`
 
 You will be prompted on further inputs based on your desired task type.
 
 #### Adding a `Todo`
 > Todos are regular tasks with no time limit!
 
-Format to add a `Todo`: `add, <day index>, T, <todo description>`
+Format to add a `Todo`: `add, <day number>, T, <todo description>`
 
-Your Todo Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
+Your Todo Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
 Here's what that would look like:
 
@@ -170,7 +170,7 @@ Here's what that would look like:
 #### Adding a `Deadline`
 > Deadlines are tasks with an additional date/time of completion!
 
-Format to add a `Deadline`: `add, <day index>, D, <deadline description>`
+Format to add a `Deadline`: `add, <day number>, D, <deadline description>`
 
 You will then be asked to provide the deadline (date and time) for this task in the format `"DD/MM/YYYY HHMM"`.
 
@@ -178,7 +178,7 @@ You will then be asked to provide the deadline (date and time) for this task in 
 
 Example format: `06/04/2024 1800`
 
-Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
+Your Deadline Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
 Here's what that would look like:
 
@@ -188,7 +188,7 @@ Here's what that would look like:
 #### Adding an `Event`
 > Events are tasks with a start and end date/time!
 
-Format to add an `Event`: `add, <day index>, E, <event description here>`
+Format to add an `Event`: `add, <day number>, E, <event description here>`
 
 You will then be asked to provide the start and end dates/times for this task in the format `"DD/MM/YYYY HHMM"`.
 
@@ -200,7 +200,7 @@ Example format: `05/04/2024 1200`
 
 Example format: `07/05/2024 2000`
 
-Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
+Your Event Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
 Here's what that would look like:
 
@@ -216,14 +216,14 @@ Here's what that would look like:
 
 >You can update the description of a task using the `update` command. This command allows you to change the description of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
 
-Format to update a task Description: `update, <day>, <task index>, <new description>`
+Format to update a task Description: `update, <day number>, <task index>, <new description>`
 
 You will be prompted on further inputs based on the task type you seek to update.
 
 #### Updating a `Todo`:
 
 ```
-update, <day>, <task index>, <new todo description>
+update, <day number>, <task index>, <new todo description>
 ```
 
 Your Todo will now be updated to `"<new todo description>"` on the 31st (of whichever week/month you are viewing)!
@@ -239,7 +239,7 @@ After updating the todo, the task will be displayed as follows:
 
 To update a Deadline, follow this format:
 ```
-update, <day>, <task index>, <new deadline description>
+update, <day number>, <task index>, <new deadline description>
 ```
 
 Your Deadline Task will be updated to `"<new deadline description>"` on the 31st! You will then be prompted to provide the 
@@ -257,7 +257,7 @@ After the update, the task will be displayed as follows:
 
 To update an Event, use the following format:
 ```
-update, <day>, <task index>, <new event description>
+update, <day number>, <task index>, <new event description>
 ```
 
 Your Event Task will be updated to `"<new event description>"` on the 1st! You will then be prompted to provide the updated 
@@ -279,7 +279,7 @@ up-to-date scheduling.
 
 Deletes a task.
 
-Format: `delete, <day>, <taskIndex>`
+Format: `delete, <day number>, <taskIndex>`
 - Deletes the task at the specified index on the given day
 - Shows an error message if the task index does not exist
 
@@ -306,7 +306,7 @@ Output:
 
 Marks a task as complete or not complete.
 
-Format: `mark, <day>, <taskIndex>`
+Format: `mark, <day number>, <taskIndex>`
 - Marks task as complete if it is incomplete
 - Marks task as incomplete if it is complete
 
@@ -324,7 +324,7 @@ mark, 4, 1
 
 Sets priority level for a task.
 
-Format: `priority, <day>, <taskIndex>, <priority>`
+Format: `priority, <day number>, <taskIndex>, <priority>`
 - Priority levels: `H` (high), `M` (medium), `L` (low)
 - Default priority level: `L`
 - Setting priority level will update any existing priority level for the task to the new level
@@ -393,11 +393,11 @@ For a quick reference, here's a summary of available commands:
 
 - Move to next week or month `next`
 - Move to previous week or month `prev`
-- Update task description `update, <day>, <taskIndex>, <newDescription>`
-- Add new task `add, <day>, <taskType>, <taskDescription>`
-- Delete task `delete, <day>, <taskIndex>`
-- Mark task as complete or not complete `mark, <day>, <taskIndex>`
-- Set priority level for task `priority, <day>, <taskIndex>, <priority>`
+- Update task description `update, <day number>, <taskIndex>, <newDescription>`
+- Add new task `add, <day number>, <taskType>, <taskDescription>`
+- Delete task `delete, <day number>, <taskIndex>`
+- Mark task as complete or not complete `mark, <day number>, <taskIndex>`
+- Set priority level for task `priority, <day number>, <taskIndex>, <priority>`
 - Switch to month view `month`
 - Switch to week view `week`
 - Quit the application `quit`
