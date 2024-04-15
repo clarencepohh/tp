@@ -1,10 +1,10 @@
 package commandparser;
 
-import data.TaskManagerException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import data.exceptions.TaskManagerException;
 
 /**
  * This class provides utility methods for parsing and validating strings related to tasks.
@@ -66,7 +66,7 @@ public class StringParser {
         if (trimmedPriority.equals("H") || trimmedPriority.equals("M") || trimmedPriority.equals("L")) {
             return trimmedPriority;
         } else {
-            throw new TaskManagerException("Invalid priority level. Please use 'high', 'medium', or 'low'.");
+            throw new TaskManagerException("Invalid priority level. Please use 'H', 'M', or 'L'.");
         }
     }
 
