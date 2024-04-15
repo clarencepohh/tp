@@ -395,7 +395,11 @@ ics, import, tasks.ics
 
 **Q**: Does the scheduler account for clashes in event timings?
 
-**A**: No. This is to accomodate for users who may have overlapping events or tasks. We recommend users to manually check for clashes and adjust their schedules accordingly.
+**A**: No. This is to accommodate for users who may have overlapping events or tasks. We recommend users to manually check for clashes and adjust their schedules accordingly.
+
+**Q**: I accidentally typed in a wrong command after CLI-nton asked me "Do you want to update the start and end dates and times? (yes/no)". It says "Event Updated.", but the Date/Time is not updated. What does it mean?
+
+**A**: The message "Event Updated." is a general message to indicate that the event has been updated. However, in this case, the date/time was not updated as the user did not provide the correct input. We recommend users to carefully follow the instructions and provide the correct input to ensure that the task is updated accurately.
 
 ## Command Summary
 
