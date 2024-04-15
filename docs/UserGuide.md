@@ -162,10 +162,15 @@ Format to add a `Todo`: `add, <day number>, T, <todo description>`
 
 Your Todo Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Todo Adding Example Console Inputs and Outputs](images/Todo-Example.png)
 
+Here's what that would look like in month view:
+
+![AddTodoInMonthView.png](images/AddTodoInMonthView.png)
+
+The Todos are represented by blue parenthesis, and they are empty indicating  the todo is not marked.
 
 #### Adding a `Deadline`
 > Deadlines are tasks with an additional date/time of completion!
@@ -180,10 +185,15 @@ Example format: `06/04/2024 1800`
 
 Your Deadline Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Deadline Adding Example Console Inputs and Outputs](images/Deadline-Example.png)
 
+Here's what that would look like in month view:
+
+![AddDeadlineInMonthView.png](images/AddDeadlineInMonthView.png)
+
+The Deadlines are represented by yellow parenthesis, and they are empty indicating  the deadline is not marked.
 
 #### Adding an `Event`
 > Events are tasks with a start and end date/time!
@@ -202,9 +212,15 @@ Example format: `07/05/2024 2000`
 
 Your Event Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
+
+Here's what that would look like in month view:
+
+![AddEventInMonthView.png](images/AddEventInMonthView.png)
+
+The Events are represented by red parenthesis, and they are empty indicating the event is not marked.
 
 #### **Notes to users**
 > Commas`,` and pipes`|` are used in our application as command delimiters as well as for file storage purposes.
