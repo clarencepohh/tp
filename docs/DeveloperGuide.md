@@ -656,6 +656,10 @@ quickly create entries in their calendar.
 ## Non-Functional Requirements
 
 1. Should work on Linux, macOS, Unix and Windows as long as Java `11` is installed.
+2. A user with with an average typing speed should be able to add a task faster using commands than a mouse.
+3. The application will be free for all users
+4. The application should be able to work on typical CLI interface without the need of third-party software
+5. The application should be able to repond in no more than 5 seconds for any command
 
 ## Glossary
 
