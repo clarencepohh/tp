@@ -361,6 +361,8 @@ public static void addTask(LocalDate date, String taskDescription, TaskType task
 ### `addManager` Method
 
 The `addManager` method facilitates the management of adding tasks from user input along with the specified date. It prompts users to input task details, validates the input, and delegates the task creation process to the `addTask` method.
+The sequence diagram below illustrates the flow of the `addManager` method:
+![img.png](images/sequence/AddManagerSequenceDiagram.png)
 
 #### Method Signature
 

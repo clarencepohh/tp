@@ -1,0 +1,17 @@
+@startuml
+User -> TaskManager: addManager(scanner, weekView, monthView, inMonthView, action, day, taskTypeString, taskDescription)
+activate TaskManager
+TaskManager -> TaskManager: findDateFromDayNumber(weekView, monthView, inMonthView, dayInt)
+TaskManager -> TaskManager: parseTaskType(taskTypeString.toUpperCase())
+TaskManager -> TaskManager: addTaskBasedOnType(scanner, taskDescription, taskType, date)
+activate TaskManager
+TaskManager -> TaskManager: parseAndAddEvent(scanner, taskDescription, taskType, date)
+deactivate TaskManager
+TaskManager -> TaskManager: parseAndAddDeadline(scanner, taskDescription, taskType, date)
+deactivate TaskManager
+TaskManager -> TaskManager: addTask(date, taskDescription, taskType, dummyDates, dummyTimes)
+deactivate TaskManager
+TaskManager -> Storage: saveTasksToFile(tasks, Storage.FILE_PATH)
+TaskManager -> System: println(typeName + " added.")
+deactivate TaskManager
+@enduml
