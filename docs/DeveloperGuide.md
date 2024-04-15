@@ -57,6 +57,8 @@ Below is a summary of the classes found in the Data package:
 - `TaskType` is an enumeration used in classifying the types of `Task` created.
 - `TaskPriorityLevel` is an enumeration used in classifying the priority level of a `Task`.
 
+Below is a sequence diagram that illustrates a possible sequence when the user runs CLI-nton:
+![Data Sequence Diagram](images/sequence/DataSequenceDiagram.png)
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
 
@@ -640,6 +642,7 @@ quickly create entries in their calendar.
 | v1.0    | user         | be able to edit and update any tasks I may have already added                | can correct any mistakes or update them to reflect changes in my priorities |
 | v1.0    | user         | add tasks to be displayed                                                    | can keep track of them easily and not forget them                           |
 | v1.0    | user         | remove/delete tasks that I've completed                                      | keep my tasks as up-to-date as possible                                     |
+| v1.0    | user         | be able to interact with program using just the CLI                          | can use the program with little to no mouse inputs                          |
 | v2.0    | new user     | have a quick tutorial/help page                                              | can find out how to use the program clearly                                 |
 | v2.0    | user         | be able to tag and categorize tasks and events                               | can organize my schedule more effectively                                   |
 | v2.0    | user         | add, remove and edit tasks with fewer keystrokes                             | manage my busy schedule more efficiently                                    |
