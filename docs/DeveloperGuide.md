@@ -391,7 +391,14 @@ Within the `addTask` method, a switch statement delineates the type of task bein
 
 ### Error Handling
 
-The implementation incorporates error handling mechanisms to effectively manage scenarios involving invalid inputs or unsupported task types. Exceptions such as `TaskManagerException` are employed to convey descriptive error messages, ensuring user guidance and application integrity.
+The implementation incorporates error handling mechanisms to effectively manage scenarios involving invalid inputs or unsupported task types. 
+Below is a list of exceptions and a description of how they are handled:
+* `TaskManagerException`: Handles errors that occur during task creation, such as invalid dates or task types.
+* `DateTimeParseException`: Manages exceptions related to date and time parsing errors.
+* `IndexOutOfBoundsException`: Ensures the task index is within bounds when updating tasks.
+* `StorageFileException`: Handles issues related to the storage of task data, such as invalid date formats in the task file.
+* `MarkTaskException`: Manages exceptions that occur when marking a task as complete.
+* `SetPriorityException`: Handles exceptions related to setting the priority of a task.
 
 ### Saving Tasks to File
 
