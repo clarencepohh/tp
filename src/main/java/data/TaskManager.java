@@ -172,7 +172,6 @@ public class TaskManager {
     public static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
             int taskIndex, String newTaskDescription, String oldDescription) {
         Event oldEvent = (Event) dayTasks.get(taskIndex);
-        LocalDate oldDate = LocalDate.parse(oldEvent.getStartDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
 
         System.out.println("Do you want to update the start and end dates and times? (yes/no)");
@@ -197,6 +196,7 @@ public class TaskManager {
 
             logger.log(Level.INFO, "Updating task description from " +
                     oldDescription + " to: " + newTaskDescription);
+            dayTasks.set(taskIndex, task);
             return task;
         }
     }
@@ -237,6 +237,8 @@ public class TaskManager {
 
             logger.log(Level.INFO, "Updating task description from " +
                     oldDescription + " to: " + newTaskDescription);
+
+            dayTasks.set(taskIndex, task);
             return task;
         }
     }
@@ -337,13 +339,6 @@ public class TaskManager {
 
         // Convert the day to a LocalDate
         LocalDate date;
-        // Convert the dayString to date range
-        String[] dates = new String[2];
-        if (day.contains("-")) {
-            dates = day.split("-");
-        } else {
-            dates[0] = day;
-        }
 
         // Convert dayString to int
         int dayInt = Integer.parseInt(day);
@@ -724,26 +719,6 @@ public class TaskManager {
         }
     }
 
-    //@@author
-    /**
-     * Lists task of the input date.
-     *
-     * @param taskManager Hashmap of tasks.
-     * @param date Date that's prompted by user.
-     * @param message Message to be prompted to the user.
-     * @throws TaskManagerException If not in correct week/month view.
-     */
-    private static void listTasksAtDate(TaskManager taskManager, LocalDate date, String message)
-            throws TaskManagerException {
-        List<Task> dayTasks = taskManager.getTasksForDate(date);
-        checkIfDateHasTasks(dayTasks);
-
-        System.out.println(message);
-        for (int i = 0; i < dayTasks.size(); i++) {
-            System.out.println((i + 1) + ". " + dayTasks.get(i).getName());
-        }
-    }
-
     /**
      * Prompts user for task description and deletes task from hashmap and tasks.txt file.
      *
@@ -854,7 +829,7 @@ public class TaskManager {
 
                 // Add free time slot before the event
                 if (Duration.between(lastEndTime, eventStartTime).toMinutes() > 0) {
-                    freeTimeSlots.add(lastEndTime.toString() + " - " + eventStartTime.toString());
+                    freeTimeSlots.add(lastEndTime + " - " + eventStartTime);
                 }
 
                 // Update the last end time
@@ -864,7 +839,7 @@ public class TaskManager {
 
         // Add remaining time of the day to free slots only if lastEndTime is not endOfDay
         if (!lastEndTime.equals(endOfDay) && Duration.between(lastEndTime, endOfDay).toMinutes() > 0) {
-            freeTimeSlots.add(lastEndTime.toString() + " - " + endOfDay.toString());
+            freeTimeSlots.add(lastEndTime + " - " + endOfDay.toString());
         }
 
         return freeTimeSlots;

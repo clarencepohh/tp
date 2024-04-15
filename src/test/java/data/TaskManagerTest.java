@@ -218,8 +218,8 @@ class TaskManagerTest {
         String[] dummyTestDates = new String[]{byDate};
         String[] dummyTestTimes = new String[]{byTime};
         String simulatedUserInput = "yes\n" +
-                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +  " 1500\n";
-        String updatedByDate = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " 1500\n";
+        String updatedByDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String updatedByTime = "1500";
 
         Scanner scanner = new Scanner(simulatedUserInput);
@@ -231,12 +231,12 @@ class TaskManagerTest {
         addTask(date, initialTaskDescription, testTaskType, dummyTestDates, dummyTestTimes);
 
         // Act
-        updateTask(date, 0, updatedTaskDescription, scanner,inMonthView, weekView);
+        updateTask(date, 0, updatedTaskDescription, scanner, inMonthView, weekView);
 
         // Assert
-        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(date).get(0).getName());
-        assertEquals(updatedByTime, taskManager.getTasksForDate(date).get(0).getByTime());
-        assertEquals(updatedByDate, taskManager.getTasksForDate(date).get(0).getByDate());
+        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(LocalDate.parse(updatedByDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getName());
+        assertEquals(updatedByTime, taskManager.getTasksForDate(LocalDate.parse(updatedByDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getByTime());
+        assertEquals(updatedByDate, taskManager.getTasksForDate(LocalDate.parse(updatedByDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getByDate());
     }
 
     @Test
@@ -357,11 +357,11 @@ class TaskManagerTest {
         updateTask(date, 0, updatedTaskDescription, scanner, inMonthView, weekView);
 
         // Assert
-        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(date).get(0).getName());
-        assertEquals(updatedStartDate, taskManager.getTasksForDate(date).get(0).getStartDate());
-        assertEquals(updatedStartTime, taskManager.getTasksForDate(date).get(0).getStartTime());
-        assertEquals(updatedEndDate, taskManager.getTasksForDate(date).get(0).getEndDate());
-        assertEquals(updatedEndTime, taskManager.getTasksForDate(date).get(0).getEndTime());
+        assertEquals(updatedTaskDescription, taskManager.getTasksForDate(LocalDate.parse(updatedStartDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getName());
+        assertEquals(updatedStartDate, taskManager.getTasksForDate(LocalDate.parse(updatedStartDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getStartDate());
+        assertEquals(updatedStartTime, taskManager.getTasksForDate(LocalDate.parse(updatedStartDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getStartTime());
+        assertEquals(updatedEndDate, taskManager.getTasksForDate(LocalDate.parse(updatedStartDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getEndDate());
+        assertEquals(updatedEndTime, taskManager.getTasksForDate(LocalDate.parse(updatedStartDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getEndTime());
     }
 
     @Test
