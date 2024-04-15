@@ -270,8 +270,8 @@ The `updateManager` method facilitates the updating of tasks. It prompts the use
 #### Method Signature
 
 ```
-public void updateManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView,
-                          TaskManager taskManager, int day, int taskIndex, String newDescription)
+public void updateManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView, 
+        TaskManager taskManager, int day, int taskIndex, String newDescription) 
         throws TaskManagerException, DateTimeParseException
 ```
 
@@ -300,6 +300,8 @@ public void updateManager(Scanner scanner, WeekView weekView, MonthView monthVie
 5. Provides feedback to the user upon successful update.
 
 ### Update Task Method
+
+![UpdateTaskSequenceDiagram.png](images%2Fsequence%2FUpdateTaskSequenceDiagram.png)
 
 The `updateTask` method is responsible for modifying the details of a task based on the user input.
 
@@ -342,8 +344,8 @@ The `addTask` method orchestrates the creation and addition of a new task to the
 #### Method Signature
 
 ```
-public static void addTask(LocalDate date, String taskDescription, TaskType taskType, String[] dates,
-                           String[] times) throws TaskManagerException
+public static void addTask(LocalDate date, String taskDescription, TaskType taskType, String[] dates, 
+        String[] times) throws TaskManagerException
 ```
 
 #### Parameters
@@ -362,7 +364,7 @@ The `addManager` method facilitates the management of adding tasks from user inp
 
 ```
 public void addManager(Scanner scanner, WeekView weekView, MonthView monthView, boolean inMonthView, String action,
-                       String day, String taskTypeString, String taskDescription)
+        String day, String taskTypeString, String taskDescription)
         throws TaskManagerException, DateTimeParseException
 ```
 
