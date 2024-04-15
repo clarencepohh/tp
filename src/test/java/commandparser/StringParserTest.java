@@ -27,8 +27,9 @@ class StringParserTest {
 
     @Test
     void parseDate_invalidDateFormatGiven_exceptionThrown() {
-        String invalidDateString = "03-15-2023";
-        assertThrows(TaskManagerException.class, () -> StringParser.parseDate(invalidDateString));
+        String invalidDateString = "30-02-2023";
+        assertThrows(TaskManagerException.class, ()
+                -> StringParser.parseDate(invalidDateString));
     }
 
     @Test
@@ -65,7 +66,7 @@ class StringParserTest {
     }
 
     @Test
-    void parsePriorityLevel_validMediumPriorityGiven_noExceptionThrown() {
+    void parsePriorityLevel_validPriorityGiven_noExceptionThrown() {
         String priority = "m";
         String expectedPriority = "M";
         assertDoesNotThrow(() -> {

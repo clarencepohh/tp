@@ -53,7 +53,7 @@ The application is designed with a modular architecture, consisting of the follo
 - **Storage**: The `Storage` class handles the writing and reading of tasks to and from clintonData.txt file, ensuring persistence of task data across sessions.
 - **Time**: The `DateUtils` class provides utility methods for working with dates and times.
 - **Logger**: The `FileLogger` class sets up a logger that writes log messages to the `logs.log` file in the project directory.
-- **CommandParser**: The `CommandParser` class parses user
+- **CommandParser**: The `CommandParser` class parses user input commands and extracts relevant information for processing.
 
 # Design & Implementation
 
