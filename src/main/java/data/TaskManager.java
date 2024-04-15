@@ -1,8 +1,5 @@
 package data;
 
-import data.exceptions.MarkTaskException;
-import data.exceptions.SetPriorityException;
-import data.exceptions.TaskManagerException;
 import storage.Storage;
 import time.MonthView;
 import time.WeekView;
@@ -21,16 +18,17 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static data.TaskManagerException.checkIfDateHasTasks;
+import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
+import static data.SetPriorityException.checkIfPriorityIsValid;
+import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
-import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
-import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
-import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
-import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
-import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
-import static data.exceptions.TaskManagerException.checkIfTaskExistsInCurrentDate;
-import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
+import static data.TaskManagerException.checkIfDateInFormat;
+import static data.TaskManagerException.checkIfDateTimeInFormat;
+import static data.TaskManagerException.checkIfTaskExistsInCurrentDate;
+import static data.TaskManagerException.checkIfTimeInFormat;
 import static storage.Storage.saveTasksToFile;
 
 /**
@@ -170,7 +168,7 @@ public class TaskManager {
      * @return Updated Task object.
      */
     public static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
-            int taskIndex, String newTaskDescription, String oldDescription) {
+            int taskIndex, String newTaskDescription, String oldDescription) throws TaskManagerException {
         Event oldEvent = (Event) dayTasks.get(taskIndex);
 
 
@@ -180,6 +178,11 @@ public class TaskManager {
             System.out.println("Enter the new start date, end date, start time and end time, " +
                     "separated by spaces:");
             String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
+
+            checkIfDateInFormat(newDatesAndTimes[0]);
+            checkIfDateInFormat(newDatesAndTimes[1]);
+            checkIfTimeInFormat(newDatesAndTimes[2]);
+            checkIfTimeInFormat(newDatesAndTimes[3]);
 
             Task task = new Event(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1], newDatesAndTimes[2],
                     newDatesAndTimes[3]);

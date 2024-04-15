@@ -1,0 +1,26 @@
+@startuml
+participant ":User" as User
+participant ":TaskManager" as TaskManager
+participant ":Storage" as Storage
+participant ":System" as System
+User -> TaskManager: addManager(scanner, weekView, monthView,\n inMonthView, action, day, taskTypeString, taskDescription)
+activate TaskManager
+TaskManager -> TaskManager++: findDateFromDayNumber(weekView, monthView, inMonthView, dayInt)
+return date
+TaskManager -> TaskManager++: parseTaskType(taskTypeString.toUpperCase())
+return taskType
+TaskManager -> TaskManager++: addTaskBasedOnType(scanner, taskDescription, taskType, date)
+return
+TaskManager -> TaskManager++: parseAndAddEvent(scanner, taskDescription, taskType, date)
+return
+TaskManager -> TaskManager++: parseAndAddDeadline(scanner, taskDescription, taskType, date)
+return
+TaskManager -> TaskManager++: addTask(date, taskDescription, taskType, dummyDates, dummyTimes)
+return
+TaskManager -> Storage++: saveTasksToFile(tasks, Storage.FILE_PATH)
+return
+TaskManager -> System++: println(typeName + " added.")
+return
+return
+hide footbox
+@enduml

@@ -59,4 +59,13 @@ add, 17, D, new deadline 2
 priority,17,2,M
 update, 17, 1, qioncioqnc uion uioqen qwpc
 delete, 17, 4
+week
+next
+add,25,E,new event
+25/04/2024 1200
+25/04/2024 1400
+add,25,E,another event
+25/04/2024 1800
+27/04/2024 1400
+free
 quit

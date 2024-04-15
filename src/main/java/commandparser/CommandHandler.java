@@ -1,7 +1,7 @@
 package commandparser;
 
 import data.TaskManager;
-import data.exceptions.TaskManagerException;
+import data.TaskManagerException;
 import time.MonthView;
 import time.WeekView;
 import ui.AvatarUi;
@@ -20,6 +20,7 @@ public class CommandHandler {
     private final WeekView weekView;
     private final MonthView monthView;
     private boolean inMonthView;
+
 
     /**
      * Constructs a CommandHandler with the specified dependencies.

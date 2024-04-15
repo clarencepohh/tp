@@ -1,7 +1,9 @@
 package data.exceptions;
 
+import data.SetPriorityException;
 import data.Task;
 import data.TaskManager;
+import data.TaskManagerException;
 import data.TaskType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +15,6 @@ import java.util.List;
 import static data.TaskManager.addTask;
 import static data.TaskManager.deleteAllTasksOnDate;
 import static data.TaskManager.getDayTasks;
-import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
-import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -50,7 +50,7 @@ public class SetPriorityExceptionTest {
         List<Task> dayTasks = getDayTasks(date);
 
         // Assert
-        assertDoesNotThrow(() -> checkIfTaskIndexIsValidForPriority(dayTasks, 1));
+        assertDoesNotThrow(() -> SetPriorityException.checkIfTaskIndexIsValidForPriority(dayTasks, 1));
 
     }
 
@@ -71,7 +71,7 @@ public class SetPriorityExceptionTest {
 
         // Assert
         SetPriorityException thrown = assertThrows(SetPriorityException.class, () ->
-                checkIfTaskIndexIsValidForPriority(dayTasks, 2));
+                SetPriorityException.checkIfTaskIndexIsValidForPriority(dayTasks, 2));
 
         assertEquals("The task index you attempted to set a priority to is out of range!", thrown.getMessage());
 
@@ -88,7 +88,7 @@ public class SetPriorityExceptionTest {
 
         // Assert
         SetPriorityException thrown = assertThrows(SetPriorityException.class, () ->
-                checkIfTaskIndexIsValidForPriority(dayTasks, 1));
+                SetPriorityException.checkIfTaskIndexIsValidForPriority(dayTasks, 1));
 
         assertEquals("There are no tasks to set a priority to on this day!", thrown.getMessage());
 
@@ -100,7 +100,7 @@ public class SetPriorityExceptionTest {
         String priorityString = "H";
 
         // Act and Assert
-        assertDoesNotThrow(() -> checkIfPriorityIsValid(priorityString));
+        assertDoesNotThrow(() -> SetPriorityException.checkIfPriorityIsValid(priorityString));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class SetPriorityExceptionTest {
         String priorityString = "M";
 
         // Act and Assert
-        assertDoesNotThrow(() -> checkIfPriorityIsValid(priorityString));
+        assertDoesNotThrow(() -> SetPriorityException.checkIfPriorityIsValid(priorityString));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class SetPriorityExceptionTest {
         String priorityString = "L";
 
         // Act and Assert
-        assertDoesNotThrow(() -> checkIfPriorityIsValid(priorityString));
+        assertDoesNotThrow(() -> SetPriorityException.checkIfPriorityIsValid(priorityString));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class SetPriorityExceptionTest {
 
         // Act and Assert
         SetPriorityException thrown = assertThrows(SetPriorityException.class, () ->
-                checkIfPriorityIsValid(priorityString));
+                SetPriorityException.checkIfPriorityIsValid(priorityString));
         assertEquals("The priority you entered is invalid! Please enter a valid priority (L, M, H)!",
                 thrown.getMessage());
     }
@@ -140,7 +140,7 @@ public class SetPriorityExceptionTest {
 
         // Act and Assert
         SetPriorityException thrown = assertThrows(SetPriorityException.class, () ->
-                checkIfPriorityIsValid(priorityString));
+                SetPriorityException.checkIfPriorityIsValid(priorityString));
         assertEquals("The priority you entered is invalid! Please enter a valid priority (L, M, H)!",
                 thrown.getMessage());
     }
