@@ -75,7 +75,7 @@ The UiRenderer component is responsible for rendering the user interface. It is 
 ### printWeekHeader Method
 `printWeekHeader` Method
 
-The `printWeekHeader` method is responsible for rendering the header section of the week view, including the names of the days and optionally the dates.
+The `printWeekHeader` method is responsible for rendering the header section of the week and month view, including the names of the days and the dates.
 
 #### Method signature:
 ```
@@ -93,7 +93,7 @@ public static void printWeekHeader(LocalDate startOfView, DateTimeFormatter date
 - If not in month view, prints the dates for the respective week.
 
 ### printWeekBody Method
-The printWeekBody method displays the body of the week view, showing tasks for each day in their respective columns.
+The `printWeekBody` method displays the body of the week view, showing tasks for each day in their respective columns.
 
 #### Method Signature
 ```
