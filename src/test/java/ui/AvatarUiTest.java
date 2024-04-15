@@ -26,30 +26,33 @@ class AvatarUiTest {
     @Test
     void printAvatar_displaysCorrectAvatar() {
         AvatarUi.printAvatar();
+
+        String lineSeparator = System.lineSeparator();
         String expectedOutput = 
-                "            *****=            \n" +
-                "          %%#**#%#**          \n" +
-                "         +%#==== =#%          \n" +
-                "          @*+=  =+##          \n" +
-                "          %++=====*#          \n" +
-                "           *= == =+           \n" +
-                "           =*=++=*            \n" +
-                "           +**++*+=           \n" +
-                "        =*%=  +=  +%+         \n" +
-                "  -##*##%##   %#  +######**+  \n" +
-                "*#%###*##*#=  #*  ***##*###%*+\n" +
-                "*#%#########  ##  %########%%#\n" +
-                " %%%%######%= %% +%######%%%@#\n" +
-                "*@%%%%##%%%%##%%##%%%#*#%%%%%=\n" +
-                "\n";
+                "            *****=            " + lineSeparator +
+                "          %%#**#%#**          " + lineSeparator +
+                "         +%#==== =#%          " + lineSeparator +
+                "          @*+=  =+##          " + lineSeparator +
+                "          %++=====*#          " + lineSeparator +
+                "           *= == =+           " + lineSeparator +
+                "           =*=++=*            " + lineSeparator +
+                "           +**++*+=           " + lineSeparator +
+                "        =*%=  +=  +%+         " + lineSeparator +
+                "  -##*##%##   %#  +######**+  " + lineSeparator +
+                "*#%###*##*#=  #*  ***##*###%*+" + lineSeparator +
+                "*#%#########  ##  %########%%#" + lineSeparator +
+                " %%%%######%= %% +%######%%%@#" + lineSeparator +
+                "*@%%%%##%%%%##%%##%%%#*#%%%%%=" + lineSeparator + lineSeparator;
         assertEquals(expectedOutput, outContent.toString());
     }
 
     @Test
     void printWelcomeMessage_displaysCorrectMessage() {
         AvatarUi.printWelcomeMessage();
+
+        String lineSeparator = System.lineSeparator();
         String expectedOutput = "Hello there, I am CLI-nton, your CLI-based " + 
-                                "personal assistant in event management!" + "\n";
+                                "personal assistant in event management!" + lineSeparator;
         assertEquals(expectedOutput, outContent.toString());
     }
 }

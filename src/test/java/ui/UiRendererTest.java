@@ -163,17 +163,18 @@ public class UiRendererTest {
 
         printWeekBody(startOfWeek, taskManager);
 
+        String lineSeparator = System.lineSeparator();
         String expectedOutput = 
                 "|1.[T][O][L]    |1.[T][O][L]    |               |               |" + 
-                "               |               |               |\n" +
+                "               |               |               |" + lineSeparator +
                 "|Task 1         |Task 3         |               |               |" + 
-                "               |               |               |\n" +
+                "               |               |               |" + lineSeparator +
                 "|2.[T][O][L]    |2.[T][O][L]    |               |               |" + 
-                "               |               |               |\n" +
+                "               |               |               |" + lineSeparator +
                 "|Task 2         |Task 4         |               |               |" + 
-                "               |               |               |\n" +
+                "               |               |               |" + lineSeparator +
                 "+---------------+---------------+---------------+---------------+" + 
-                "---------------+---------------+---------------+\n";
+                "---------------+---------------+---------------+" + lineSeparator;
         assertEquals(expectedOutput, outContent.toString());
     }
 }
