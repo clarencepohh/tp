@@ -10,15 +10,17 @@ Working with a new language - `Java` - helps to improve our tech stack (and hope
 Here are my contributions to the project:
 
 - **New Feature**: Created TaskManager as a basis for other members to handle CRUD of basic Tasks.
+  - To see how the TaskManager works, view our [DG: TaskManager Component.](../DeveloperGuide.md/#taskmanager-component)
+  - Alternatively, view the [GitHub Repo for our DG!](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/docs/DeveloperGuide.md)
 
-- **Code Contribution**: [Reposense Link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=clarencepohh&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
+- **Code Contribution**: [Reposense Link.](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=clarencepohh&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
-- **Active review**: Constantly monitoring build status of member's PRs, and try to assist in resolving them.
+- **Active Code Review**: Constantly monitoring build status of member's PRs, and try to assist in resolving them.
   Here are some PRs reviewed by me (with non-trivial comments): [#43](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/43),
   [#75](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/75), [77](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/77),
   [#93](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/93), [#139](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/139),
   [#147](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/147), [#148](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/148),
-  [#149](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/149)
+  [#149](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/149), [#160](https://github.com/AY2324S2-CS2113-W13-2/tp/pull/160)
 
 - **Project Management**:
     - Managed release `v2.0` on GitHub.
@@ -39,14 +41,14 @@ Here are my contributions to the project:
   - User Guide:
         - Formatted the UG and created the Table of Contents according to content written by group mates.
         - Maintained image consistency and proper organization of images in their respective folders.
-        - Alternatively, view the [GitHub Repo for our UG](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/docs/UserGuide.md)
+        - Alternatively, view the [GitHub Repo for our UG!](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/docs/UserGuide.md)
   
   - Developer Guide:
       - Formatted the DG and created the Table of Contents according to content written by group mates.
       - Handled the overall flow of DG to ensure reading ease for developers.
-      - Wrote the Data component in the DG and created their respective UML diagrams [DG: Data Component](../DeveloperGuide.md/#data-component). 
-      - Maintained the Appendix in the DG to reflect our application needs [DG: Appendix](../DeveloperGuide.md/#appendix-requirements). 
-        - Alternatively, view the [GitHub Repo for our DG](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/docs/DeveloperGuide.md)
+      - Wrote the Data component in the DG and created their respective UML diagrams [DG: Data Component](../DeveloperGuide.md/#data-component).
+      - Maintained the Appendix in the DG to reflect our application needs. See [DG: Appendix](../DeveloperGuide.md/#appendix-requirements). 
+        - Alternatively, view the [GitHub Repo for our DG!](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/docs/DeveloperGuide.md)
 
 - **Community Contributions**:
 
