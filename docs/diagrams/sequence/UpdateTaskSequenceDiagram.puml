@@ -5,7 +5,6 @@ participant ":Todo" as Todo
 participant ":Event" as Event
 participant ":Deadline" as Deadline
 participant ":Scanner" as Scanner
-participant "logger:Logger" as Logger
 
 hnote over TaskManager : updateTask(LocalDate date, int taskIndex, String newTaskDescription, Scanner scanner, boolean inMonthView, WeekView weekView)
 
@@ -14,11 +13,6 @@ activate Task
 
 Task -> TaskManager : getName()
 activate TaskManager
-
-TaskManager -> Logger : logger.log(Level level, String msg)
-activate Logger
-Logger -> TaskManager
-deactivate Logger
 
 Task -> TaskManager : getTaskType()
 deactivate Task
@@ -55,11 +49,11 @@ else currentTaskType == "E"
         activate Event
         TaskManager -> Task : dayTasks.set(taskIndex, Event)
         deactivate Event
-       else
-               TaskManager -> Event : new Event(name, oldStartDate, oldEndDate, oldStartTime, oldEndTime)
-               activate Event
-               TaskManager -> Task : dayTasks.set(taskIndex, Event)
-               deactivate Event
+    else
+        TaskManager -> Event : new Event(name, oldStartDate, oldEndDate, oldStartTime, oldEndTime)
+        activate Event
+        TaskManager -> Task : dayTasks.set(taskIndex, Event)
+        deactivate Event
     end
 else currentTaskType == "D"
     hnote over TaskManager : updateDeadlineTask(Scanner, dayTasks, taskIndex, newTaskDescription, oldDescription)

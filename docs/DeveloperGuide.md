@@ -293,7 +293,7 @@ public void updateManager(Scanner scanner, WeekView weekView, MonthView monthVie
 
 ### Update Task Method
 
-![UpdateTaskSequenceDiagram.png](images%2Fsequence%2FUpdateTaskSequenceDiagram.png)
+![UpdateTaskSequenceDiagram.png](images/sequence/UpdateTaskSequenceDiagram.png)
 
 The `updateTask` method is responsible for modifying the details of a task based on the user input.
 
