@@ -312,13 +312,7 @@ This is how you calendar would look like in Week View before marking a task.
 This is how you calendar would look like in Week View after marking a task.
 ![img.png](images/AfterMarkingTaskWeekView.png)
 
-```
-// marks task 3 on day 2 as complete
-mark, 2, 3
-
-// marks task 1 on day 4 as incomplete
-mark, 4, 1
-```
+The command will work the same way in Month View as well.
 
 ### Setting Priority Level for a Task: `priority`
 
@@ -329,15 +323,12 @@ Format: `priority, <day>, <taskIndex>, <priority>`
 - Default priority level: `L`
 - Setting priority level will update any existing priority level for the task to the new level
 
-Example of usage:
+This is how you calendar would look like in Week View before setting a task's priority to high (Default Priority: Low).
+![img.png](images/BeforeSetPriorityWeekView.png)
 
-```
-// sets priority level HIGH for task 1 on day 5
-priority, 5, 1, H
+This is how you calendar would look like in Week View after setting a task's priority to high.
+![img.png](images/AfterSetPriorityWeekView.png)
 
-// sets priority level MEDIUM for task 2 on day 3
-priority, 3, 2, M
-```
 
 ### Quitting the Application: `quit`
 
@@ -350,18 +341,8 @@ quit
 ```
 
 **Example:**
-
-```
-Week View: 21/04/2024 - 27/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|21/04/2024     |22/04/2024     |23/04/2024     |24/04/2024     |25/04/2024     |26/04/2024     |27/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-
-quit
-Exiting Calendar...
-```
+Below shows how a user would quit the application.
+![img.png](images/QuitApplication.png)
 The application will exit after displaying a goodbye message.
 
 ### ICS Exporting and Importing: `ics` `[coming in future versions]`
