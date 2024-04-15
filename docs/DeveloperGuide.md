@@ -481,6 +481,9 @@ The 'storage' component:
 * Identifies unique tasks stored in task hashmap, parses and writes to `./save/clintonData.txt` file.
 * Handles exception if `./save/clintonData.txt` is in corrupted format.
 
+Below is a UML class diagram of the Storage component:
+![img.png](images/class/Storage.png)
+
 The `saveTasksToFile` method writes the tasks in a HashMap to the file in the following format:
 
 ```
