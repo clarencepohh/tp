@@ -387,6 +387,10 @@ ics, import, tasks.ics
 
 **A**: You can transfer your data to another computer by copying the data file saved in the CLI-nton application directory. The data file is typically named `clintonData.txt` and contains all your tasks. Simply copy this file to the same location on the other computer to transfer your tasks.
 
+**Q**: When adding an Event task, I entered `add,1,E,Event 1` to add an event on the first day of the month, but after that, I was prompted to enter the start date again. Why is that?
+
+**A**: Not to worry! Our program registers the start date as the date you keyed into the original command, i.e. the first day of the month. The subsequent prompt for the start date is for formatting purposes and will not affect the actual date of the event.
+
 ## Command Summary
 
 For a quick reference, here's a summary of available commands:
