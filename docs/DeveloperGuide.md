@@ -469,22 +469,24 @@ public void addTasksFromFile(Map<LocalDate, List<Task>> tasksFromFile) throws Ta
 **API** : [Storage.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/storage/Storage.java)
 
 The 'storage' component:
+* Creates new file if `./save/clintonData.txt` does not exist.
 * Reads tasks from the formatted `./save/clintonData.txt` file and appends to task hashmap.
-* Identifies unique tasks stored in task hashmap, parses and writes to `./save/clintonData.txt` file
-* Handles exception if `./save/clintonData.txt` is in corrupted format
+* Identifies unique tasks stored in task hashmap, parses and writes to `./save/clintonData.txt` file.
+* Handles exception if `./save/clintonData.txt` is in corrupted format.
 
 The `saveTasksToFile` method writes the tasks in a HashMap to the file in the following format:
 
 ```
-<date>|<taskType>|<taskDescription>|<additionalData>
+<date>|<taskType>|<markedStatus>|<priorityLevel>|<taskDescription>|<taskDetails>
 ```
 
 For example:
 
 ```
-2023-06-01|TODO|Buy groceries
-2023-06-02|EVENT|Meeting|2023-06-02|2023-06-03|09:00|11:00
-2023-06-05|DEADLINE|Submit report|2023-06-10|23:59
+2024-04-15|D|O|L|task 2|19/04/2024|1400
+2024-04-18|E|O|L|event 1|14/04/2024|19/04/2024|1200|1200
+2024-04-17|T|O|L|cs2113 deadline
+
 ```
 
 The `loadTasksFromFile` method reads the tasks from the file and populates the `TaskManager` with the loaded tasks.
