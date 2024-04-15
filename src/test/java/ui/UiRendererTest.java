@@ -75,15 +75,16 @@ public class UiRendererTest {
 
         printWeekHeader(startOfWeek, dateFormatter, false);
 
+        String lineSeparator = System.lineSeparator();
         String expectedOutput = 
                 "+---------------+---------------+---------------+---------------+" + 
-                "---------------+---------------+---------------+\n" + 
+                "---------------+---------------+---------------+" + lineSeparator + 
                 "|Sunday         |Monday         |Tuesday        |Wednesday      |" + 
-                "Thursday       |Friday         |Saturday       |\n" + 
+                "Thursday       |Friday         |Saturday       |" + lineSeparator + 
                 "|14/04/2024     |15/04/2024     |16/04/2024     |17/04/2024     |" + 
-                "18/04/2024     |19/04/2024     |20/04/2024     |\n" + 
+                "18/04/2024     |19/04/2024     |20/04/2024     |" + lineSeparator + 
                 "+---------------+---------------+---------------+---------------+" + 
-                "---------------+---------------+---------------+\n";
+                "---------------+---------------+---------------+" + lineSeparator;
                                 
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -97,13 +98,15 @@ public class UiRendererTest {
 
         printWeekHeader(startOfMonth, dateFormatter, true);
 
+        String lineSeparator = System.lineSeparator();
         String expectedOutput = 
                 "+---------------+---------------+---------------+---------------+" + 
-                "---------------+---------------+---------------+\n" + 
+                "---------------+---------------+---------------+" + lineSeparator + 
                 "|Sunday         |Monday         |Tuesday        |Wednesday      |" + 
-                "Thursday       |Friday         |Saturday       |\n" + 
+                "Thursday       |Friday         |Saturday       |" + lineSeparator + 
                 "+---------------+---------------+---------------+---------------+" + 
-                "---------------+---------------+---------------+\n";
+                "---------------+---------------+---------------+" + lineSeparator;
+
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -115,9 +118,11 @@ public class UiRendererTest {
         outContent.reset();
         printWeekBody(startOfWeek, taskManager);
 
+        String lineSeparator = System.lineSeparator();
         String expectedOutput = 
                 "+---------------+---------------+---------------+---------------+" + 
-                "---------------+---------------+---------------+\n";
+                "---------------+---------------+---------------+" + lineSeparator;
+
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -132,13 +137,14 @@ public class UiRendererTest {
         outContent.reset();
         printWeekBody(startOfWeek, taskManager);
 
+        String lineSeparator = System.lineSeparator();
         String expectedOutput = 
                 "|1.[T][O][L]    |1.[T][O][L]    |               |               |" + 
-                "               |               |               |\n" +
+                "               |               |               |" + lineSeparator +
                 "|Task 1         |Task 2         |               |               |" + 
-                "               |               |               |\n" +
+                "               |               |               |" + lineSeparator +
                 "+---------------+---------------+---------------+---------------+" + 
-                "---------------+---------------+---------------+\n";
+                "---------------+---------------+---------------+" + lineSeparator;
 
         assertEquals(expectedOutput, outContent.toString());
     }
