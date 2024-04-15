@@ -7,27 +7,30 @@ This user guide provides comprehensive instructions on how to use CLI-nton, from
 Read on to learn how to manage your tasks efficiently with CLI-nton!
 
 ### Table of Contents
-- [Quick Start](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#quick-start)
-- [Features](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#features)
-  - [Moving to the next Week or Month](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#moving-to-next-week-or-month-next)
-  - [Moving to the previous Week or Month](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#moving-to-previous-week-or-month-prev)
-  - [Switching to Month View](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#switching-to-month-view-month)
-  - [Switching to Week View](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#switching-to-week-view-week)
-  - [Adding a new Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-new-task-add)
-    - [Adding a Todo](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-todo)
-    - [Adding a Deadline](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-a-deadline)
-    - [Adding an Event](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#adding-an-event)
-  - [Updating a Task Description](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-task-description-update)
-    - [Updating a Todo](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-todo-1)
-    - [Updating a Deadline](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-a-deadline)
-    - [Updating an Event](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#updating-an-event)
-  - [Deleting a Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#deleting-a-task-delete)
-  - [Marking a Task as Complete or Incomplete](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#marking-a-task-as-complete-or-incomplete-mark)
-  - [Setting a Priority Level for a Task](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#setting-priority-level-for-a-task-priority)
-  - [Quitting the Application](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#quitting-the-application-quit)
-  - [ICS Importing and Exporting](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#ics-exporting-and-importing-ics-coming-in-v21)
-- [FAQ](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#faq)
-- [Command Summary](https://ay2324s2-cs2113-w13-2.github.io/tp/UserGuide.html#command-summary)
+* [Table of Contents](#table-of-contents)
+* [Quick Start](#quick-start)
+* [Features](#features)
+  * [Moving to Next Week or Month: `next`](#moving-to-next-week-or-month-next)
+  * [Moving to Previous Week or Month: `prev`](#moving-to-previous-week-or-month-prev)
+  * [Switching to Month View: `month`](#switching-to-month-view-month)
+  * [Switching to Week View: `week`](#switching-to-week-view-week)
+  * [Adding a New Task: `add`](#adding-a-new-task-add)
+    * [Adding a `Todo`](#adding-a-todo)
+    * [Adding a `Deadline`](#adding-a-deadline)
+    * [Adding an `Event`](#adding-an-event)
+    * [Notes to users](#notes-to-users)
+  * [Updating a Task Description: `update`](#updating-a-task-description-update)
+    * [Updating a `Todo`:](#updating-a-todo)
+    * [Updating a `Deadline`:](#updating-a-deadline)
+    * [Updating an `Event`:](#updating-an-event)
+  * [Deleting a Task: `delete`](#deleting-a-task-delete)
+  * [Marking a Task as Complete or Incomplete: `mark`](#marking-a-task-as-complete-or-incomplete-mark)
+  * [Setting Priority Level for a Task: `priority`](#setting-priority-level-for-a-task-priority)
+  * [Quitting the Application: `quit`](#quitting-the-application-quit)
+  * [ICS Exporting and Importing: `ics`](#ics-exporting-and-importing-ics-coming-in-v21)
+* [FAQ](#faq)
+* [Command Summary](#command-summary)
+
 
 ## Quick Start
 
@@ -104,7 +107,7 @@ The application will move to the previous month view, displaying the month prior
 
 ### Switching to Month View: `month`
 
-The `month` command allows you to switch to the month view from any other view.
+The `month` command allows you to switch to the month view from week view.
 
 **Usage:**
 
@@ -124,7 +127,7 @@ The application will switch to the month view from week view and current month w
 
 ### Switching to Week View: `week`
 
-The `week` command allows you to switch to the week view from any other view.
+The `week` command allows you to switch to the week view from month view.
 
 **Usage:**
 
@@ -148,26 +151,31 @@ The application will switch to the **Week view.**
 
 Adds a new task to the calendar.
 
-Format: `add, <day>, <taskType>, <taskDescription>`
+Format: `add, <day number>, <taskType>, <taskDescription>`
 
 You will be prompted on further inputs based on your desired task type.
 
 #### Adding a `Todo`
 > Todos are regular tasks with no time limit!
 
-Format to add a `Todo`: `add, <day index>, T, <todo description>`
+Format to add a `Todo`: `add, <day number>, T, <todo description>`
 
-Your Todo Task is now added to your calendar on the 4th (of whichever week/month you are viewing)!
+Your Todo Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Todo Adding Example Console Inputs and Outputs](images/Todo-Example.png)
 
+Here's what that would look like in month view:
+
+![AddTodoInMonthView.png](images/AddTodoInMonthView.png)
+
+The Todos are represented by blue parenthesis, and they are empty indicating  the todo is not marked.
 
 #### Adding a `Deadline`
 > Deadlines are tasks with an additional date/time of completion!
 
-Format to add a `Deadline`: `add, <day index>, D, <deadline description>`
+Format to add a `Deadline`: `add, <day number>, D, <deadline description>`
 
 You will then be asked to provide the deadline (date and time) for this task in the format `"DD/MM/YYYY HHMM"`.
 
@@ -175,17 +183,22 @@ You will then be asked to provide the deadline (date and time) for this task in 
 
 Example format: `06/04/2024 1800`
 
-Your Deadline Task is now added to your calendar on the 3rd (of whichever week/month you are viewing)!
+Your Deadline Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Deadline Adding Example Console Inputs and Outputs](images/Deadline-Example.png)
 
+Here's what that would look like in month view:
+
+![AddDeadlineInMonthView.png](images/AddDeadlineInMonthView.png)
+
+The Deadlines are represented by yellow parenthesis, and they are empty indicating  the deadline is not marked.
 
 #### Adding an `Event`
 > Events are tasks with a start and end date/time!
 
-Format to add an `Event`: `add, <day index>, E, <event description here>`
+Format to add an `Event`: `add, <day number>, E, <event description here>`
 
 You will then be asked to provide the start and end dates/times for this task in the format `"DD/MM/YYYY HHMM"`.
 
@@ -197,30 +210,37 @@ Example format: `05/04/2024 1200`
 
 Example format: `07/05/2024 2000`
 
-Your Event Task is now added to your calendar on the 5th (of whichever week/month you are viewing)!
+Your Event Task is now added to your calendar on the selected day (of whichever week/month you are viewing)!
 
-Here's what that would look like:
+Here's what that would look like in week view:
 
 ![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
 
+Here's what that would look like in month view:
+
+![AddEventInMonthView.png](images/AddEventInMonthView.png)
+
+The Events are represented by red parenthesis, and they are empty indicating the event is not marked.
+
 #### **Notes to users**
-> Commas`,` and pipes`|` are used in our application as command delimiters as well as for file storage purposes.
-> Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues.
->
+> Dashes`-`, Slashes`/`, Commas`,` and pipes`|` are used in our application as delimiters and separators in our storage file(clintonData.txt).
+> 
+> Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues during the writing and reading of the storage file.
+> 
 > You have been **informed**!
 
 ### Updating a Task Description: `update`
 
 >You can update the description of a task using the `update` command. This command allows you to change the description of a task on a specific day for todos, or additionally also change the date and time for deadlines and events.
 
-Format to update a task Description: `update, <day>, <task index>, <new description>`
+Format to update a task Description: `update, <day number>, <task index>, <new description>`
 
 You will be prompted on further inputs based on the task type you seek to update.
 
 #### Updating a `Todo`:
 
 ```
-update, <day>, <task index>, <new todo description>
+update, <day number>, <task index>, <new todo description>
 ```
 
 Your Todo will now be updated to `"<new todo description>"` on the 31st (of whichever week/month you are viewing)!
@@ -236,7 +256,7 @@ After updating the todo, the task will be displayed as follows:
 
 To update a Deadline, follow this format:
 ```
-update, <day>, <task index>, <new deadline description>
+update, <day number>, <task index>, <new deadline description>
 ```
 
 Your Deadline Task will be updated to `"<new deadline description>"` on the 31st! You will then be prompted to provide the 
@@ -254,7 +274,7 @@ After the update, the task will be displayed as follows:
 
 To update an Event, use the following format:
 ```
-update, <day>, <task index>, <new event description>
+update, <day number>, <task index>, <new event description>
 ```
 
 Your Event Task will be updated to `"<new event description>"` on the 1st! You will then be prompted to provide the updated 
@@ -276,65 +296,86 @@ up-to-date scheduling.
 
 Deletes a task.
 
-Format: `delete, <day>, <taskIndex>`
+Format: `delete, <day number>, <taskIndex>`
 - Deletes the task at the specified index on the given day
 - Shows an error message if the task index does not exist
 
-Example of usage:
-- Deletes task 2 on Wednesday
+Here's an example on how to delete a task from your calendar:
 
-```
-//deletes task 2 on day 3
-delete, 3, 2
+This is how your calender would look like in Week View before deleting a task:
+![img.png](images/Before-Deletion-Week_View.png)
 
-//deletes task 1 on day 5
-delete, 5, 1
-```
-- Shows error message if task does not exist
+This is how your calender would look like in Week View after deleting a task:
+![img.png](images/After-Deletion-Week-View.png)
 
-```
-//attempts to delete task 1 on day 5, but the task does not exist
-delete, 5, 1
-```
-Output: 
-![Invalid Delete Example Console Inputs and Outputs](images/Invalid-Delete-Example.png)
+The behaviour of the program would be the same in Month View as well.
+
+If the task that is being attempted to be deleted does not exist, an error message will be displayed 
+(*So please make sure you check the correct dates!*).
 
 ### Marking a Task as Complete or Incomplete: `mark`
 
 Marks a task as complete or not complete.
 
-Format: `mark, <day>, <taskIndex>`
+Format: `mark, <day number>, <taskIndex>`
 - Marks task as complete if it is incomplete
 - Marks task as incomplete if it is complete
 
 Example of usage:
 
-```
-// marks task 3 on day 2 as complete
-mark, 2, 3
+This is how you calendar would look like in Week View before marking a task.
+![img.png](images/BeforeMarkTaskWeekView.png
 
-// marks task 1 on day 4 as incomplete
-mark, 4, 1
-```
+This is how you calendar would look like in Week View after marking a task.
+![img.png](images/AfterMarkingTaskWeekView.png)
+
+The command will work the same way in Month View as well.
 
 ### Setting Priority Level for a Task: `priority`
 
 Sets priority level for a task.
 
-Format: `priority, <day>, <taskIndex>, <priority>`
+Format: `priority, <day number>, <taskIndex>, <priority>`
 - Priority levels: `H` (high), `M` (medium), `L` (low)
 - Default priority level: `L`
 - Setting priority level will update any existing priority level for the task to the new level
 
-Example of usage:
+This is how you calendar would look like in Week View before setting a task's priority to high (Default Priority: Low).
+![img.png](images/BeforeSetPriorityWeekView.png)
 
-```
-// sets priority level HIGH for task 1 on day 5
-priority, 5, 1, H
+This is how you calendar would look like in Week View after setting a task's priority to high.
+![img.png](images/AfterSetPriorityWeekView.png)
 
-// sets priority level MEDIUM for task 2 on day 3
-priority, 3, 2, M
-```
+
+### Identifying Free Times: `free`
+
+The `free` feature enables users to identify and utilize their available time slots effectively. This section provides instructions on how to use the `free` feature to manage your schedule efficiently.
+
+Format: `free, <day>`
+
+- `<day>`: Specifies the day of the month for which the user wants to identify free time slots.
+
+#### Usage Example
+
+Here's an example demonstrating the usage of the `free` feature:
+
+1. Identifying Free Times for a Specific Day:
+
+   For instance, to identify free time slots for the 20th day of the month:
+
+   ```
+   free, 20
+   ```
+
+#### Output
+
+![Free-Times-Example.png](images/Free-Times-Example.png)
+
+#### Error Handling
+
+The application will handle errors in case the specified day is invalid or if there are any other issues encountered during the process.
+
+By following these instructions, users can efficiently utilize the `free` feature to optimize their schedules and manage their time effectively.
 
 ### Quitting the Application: `quit`
 
@@ -347,21 +388,11 @@ quit
 ```
 
 **Example:**
-
-```
-Week View: 21/04/2024 - 27/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|21/04/2024     |22/04/2024     |23/04/2024     |24/04/2024     |25/04/2024     |26/04/2024     |27/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-
-quit
-Exiting Calendar...
-```
+Below shows how a user would quit the application.
+![img.png](images/QuitApplication.png)
 The application will exit after displaying a goodbye message.
 
-### ICS Exporting and Importing: `ics` `[coming in v2.1]`
+### ICS Exporting and Importing: `ics` `[coming in future versions]`
 Exporting and importing tasks to and from an ICS file.
 
 Format: `ics <export> <filename>` or `ics <import> <filename>`
@@ -384,29 +415,46 @@ ics, import, tasks.ics
 
 **A**: You can transfer your data to another computer by copying the data file saved in the CLI-nton application directory. The data file is typically named `clintonData.txt` and contains all your tasks. Simply copy this file to the same location on the other computer to transfer your tasks.
 
+**Q**: When adding an Event task, I entered `add,1,E,Event 1` to add an event on the first day of the month, but after that, I was prompted to enter the start date again. Why is that?
+
+**A**: Not to worry! Our program registers the start date as the date you keyed into the original command, i.e. the first day of the month. The subsequent prompt for the start date is for formatting purposes and will not affect the actual date of the event.
+
+**Q**: I have an event lasting from 15 Apr to 19 Apr within a week. Why is it that `free, 16` shows that the day is free?
+
+**A**: For events which stretch over multiple days, we only consider the original day of the event when calculating free times. In this case, the event starts on the 15th and ends on the 19th, so the 16th, 17th, 18th and 19th are considered free days. Our advise: add events with their corresponding timings for each day of the event to get a more accurate representation of your schedule.
+
+**Q**: Does the scheduler account for clashes in event timings?
+
+**A**: No. This is to accommodate for users who may have overlapping events or tasks. We recommend users to manually check for clashes and adjust their schedules accordingly.
+
+**Q**: I accidentally typed in a wrong command after CLI-nton asked me "Do you want to update the start and end dates and times? (yes/no)". It says "Event Updated.", but the Date/Time is not updated. What does it mean?
+
+**A**: The message "Event Updated." is a general message to indicate that the event has been updated. However, in this case, the date/time was not updated as the user did not provide the correct input. We recommend users to carefully follow the instructions and provide the correct input to ensure that the task is updated accurately.
+
 ## Command Summary
 
 For a quick reference, here's a summary of available commands:
 
 - Move to next week or month `next`
 - Move to previous week or month `prev`
-- Update task description `update, <day>, <taskIndex>, <newDescription>`
-- Add new task `add, <day>, <taskType>, <taskDescription>`
-- Delete task `delete, <day>, <taskIndex>`
-- Mark task as complete or not complete `mark, <day>, <taskIndex>`
-- Set priority level for task `priority, <day>, <taskIndex>, <priority>`
+- Update task description `update, <day number>, <taskIndex>, <newDescription>`
+- Add new task `add, <day number>, <taskType>, <taskDescription>`
+- Delete task `delete, <day number>, <taskIndex>`
+- Mark task as complete or not complete `mark, <day number>, <taskIndex>`
+- Set priority level for task `priority, <day number>, <taskIndex>, <priority>`
+- Find free times in a day `free, <day number>`
 - Switch to month view `month`
 - Switch to week view `week`
 - Quit the application `quit`
 
 Here's a summary of task types:
 
-- `Todo`: A basic task with no start or end date / times.
-- `Deadline`: A task that has a date / time to complete by.
-- `Event`: A task that has a start and end date / time.
+- Todo (`T`): A basic task with no start or end date / times.
+- Deadline (`D`): A task that has a date / time to complete by.
+- Event (`E`): A task that has a start and end date / time.
 
 Tasks can be classified in the following ways:
-- marked as `HIGH`, `MEDIUM` or `LOW` priority. Default level is `LOW`.
-- marked as `COMPLETE` or `INCOMPLETE`. Default is `INCOMPLETE`.
+- marked as HIGH (`H`), MEDIUM (`M`) or LOW (`L`) priority. Default level is LOW.
+- marked as COMPLETE (`X`) or INCOMPLETE (`O`). Default is INCOMPLETE.
 
 Start managing your tasks efficiently with CLI-nton today!

@@ -7,6 +7,13 @@ import time.WeekView;
 import ui.AvatarUi;
 import java.util.Scanner;
 
+/**
+ * The CommandHandler class handles user commands by delegating to appropriate methods based on the command type.
+ * It provides methods to handle various commands such as "next", "prev", "update", "add", "delete", "mark", "free",
+ * "priority", "month", "week", "help", and "quit".
+ * The class uses a Scanner object for user input, a TaskManager object for managing tasks, a WeekView object for
+ * displaying weekly tasks, and a MonthView object for displaying monthly tasks.
+ */
 public class CommandHandler {
     private final Scanner scanner;
     private final TaskManager taskManager;
@@ -14,13 +21,14 @@ public class CommandHandler {
     private final MonthView monthView;
     private boolean inMonthView;
 
+
     /**
      * Constructs a CommandHandler with the specified dependencies.
      *
-     * @param scanner    the Scanner object for user input
-     * @param taskManager the TaskManager object for managing tasks
-     * @param weekView   the WeekView object for displaying weekly tasks
-     * @param monthView  the MonthView object for displaying monthly tasks
+     * @param scanner    the Scanner object for user input.
+     * @param taskManager the TaskManager object for managing tasks.
+     * @param weekView   the WeekView object for displaying weekly tasks.
+     * @param monthView  the MonthView object for displaying monthly tasks.
      */
     public CommandHandler(Scanner scanner, TaskManager taskManager, WeekView weekView, MonthView monthView) {
         this.scanner = scanner;
@@ -113,7 +121,7 @@ public class CommandHandler {
     /**
      * Handles the "update" command to update task descriptions.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handleUpdateCommand(String[] parts) {
         try {
@@ -131,7 +139,7 @@ public class CommandHandler {
     /**
      * Handles the "add" command to add new tasks.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handleAddCommand(String[] parts) {
         try {
@@ -139,6 +147,7 @@ public class CommandHandler {
             String day = parts[1].trim();
             String taskTypeString = parts[2].trim();
             String taskDescription = StringParser.parseTaskDescription(parts[3]);
+            int dayIndex = StringParser.parseTaskIndex(day);
             taskManager.addManager(scanner, weekView, monthView, inMonthView, "add", day,
                     taskTypeString, taskDescription);
         } catch (TaskManagerException e) {
@@ -149,13 +158,14 @@ public class CommandHandler {
     /**
      * Handles the "delete" command to delete tasks.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handleDeleteCommand(String[] parts) {
         try {
             StringParser.validateDeleteCommand(parts);
             String day = parts[1].trim();
             int taskIndex = StringParser.parseTaskIndex(parts[2]);
+            int dayIndex = StringParser.parseTaskIndex(day);
             TaskManager.deleteManager(weekView, monthView, inMonthView, taskManager, day, taskIndex);
         } catch (TaskManagerException e) {
             System.out.println(e.getMessage());
@@ -165,13 +175,14 @@ public class CommandHandler {
     /**
      * Handles the "mark" command to mark tasks as completed.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handleMarkCommand(String[] parts) {
         try {
             StringParser.validateMarkCommand(parts);
             String day = parts[1].trim();
             int taskIndex = StringParser.parseTaskIndex(parts[2]);
+            int dayIndex = StringParser.parseTaskIndex(day);
             taskManager.markManager(weekView, monthView, inMonthView, day, taskIndex);
         } catch (TaskManagerException e) {
             System.out.println(e.getMessage());
@@ -193,7 +204,7 @@ public class CommandHandler {
     /**
      * Handles the "priority" command to set task priorities.
      *
-     * @param parts the array of command parts
+     * @param parts the array of command parts.
      */
     private void handlePriorityCommand(String[] parts) {
         try {
@@ -201,6 +212,7 @@ public class CommandHandler {
             String day = parts[1].trim();
             int taskIndex = StringParser.parseTaskIndex(parts[2]);
             String priorityLevel = StringParser.parsePriorityLevel(parts[3]);
+            int dayIndex = StringParser.parseTaskIndex(day);
             taskManager.priorityManager(weekView, monthView, inMonthView, day, taskIndex, priorityLevel);
         } catch (TaskManagerException e) {
             System.out.println(e.getMessage());
@@ -211,8 +223,7 @@ public class CommandHandler {
      * Handles the "month" command to switch to the month view.
      */
     private void handleMonthCommand() {
-        monthView.printView(taskManager);
-        inMonthView = !inMonthView; // Toggle month view mode
+        inMonthView = true;
     }
 
     /**

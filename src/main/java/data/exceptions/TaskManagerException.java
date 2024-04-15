@@ -1,13 +1,11 @@
 package data.exceptions;
 
-import data.Task;
 import time.WeekView;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import data.Task;
 
 public class TaskManagerException extends Exception {
 
@@ -15,16 +13,9 @@ public class TaskManagerException extends Exception {
             "The date must be within the current week. Please try again.";
     public static final String NOT_CURRENT_MONTH_MESSAGE =
             "The date must be within the current month. Please try again.";
-    public static final String INVALID_DATE_FORMAT_MESSAGE =
-            "Invalid date format. Please enter a valid date in the format: dd/MM/yyyy";
-    public static final String INVALID_TIME_FORMAT_MESSAGE =
-            "Invalid time format. Please enter a valid time in the format: HH:mm";
     public static final String NO_TASKS_MESSAGE =
             "There are no tasks on this date. Please try again.";
-    public static final String START_DATE_AFTER_END_DATE_MESSAGE =
-            "Start date must be before end date.";
-    private static final String START_TIME_AFTER_END_TIME_MESSAGE =
-            "Start time must be before end time.";
+
 
     /**
      * Constructor for TaskManagerException class.
@@ -39,7 +30,7 @@ public class TaskManagerException extends Exception {
     public static void checkIfDateTimeInFormat(String dateTime) throws TaskManagerException {
         // Validate start date and time format
         if (!dateTime.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}")) {
-            throw new TaskManagerException("Invalid start date and time format. " +
+            throw new TaskManagerException("Invalid date and time format. " +
                     "Please use the format dd/MM/yyyy HHmm");
         }
     }
@@ -47,8 +38,19 @@ public class TaskManagerException extends Exception {
     public static void checkIfDateInFormat(String date) throws TaskManagerException {
         // Validate start date format
         if (!date.matches("\\d{2}/\\d{2}/\\d{4}")) {
-            throw new TaskManagerException("Invalid start date format. " +
+            throw new TaskManagerException("Invalid date format. " +
                     "Please use the format dd/MM/yyyy");
+        }
+    }
+
+    /**
+     * need to debug this method
+     */
+    public static void checkIfTaskExistsInCurrentDate(List<Task> dayTasks, int index) throws TaskManagerException {
+        if (index <= 0) {
+            throw new TaskManagerException("Invalid task number. Please try again.");
+        } else if (index > dayTasks.size()) {
+            throw new TaskManagerException("Task number does not exist. Please try again.");
         }
     }
 
@@ -73,39 +75,6 @@ public class TaskManagerException extends Exception {
             throw new TaskManagerException(NOT_CURRENT_WEEK_MESSAGE);
         }
     }
-
-    /**
-     * Checks if the provided string is a valid date in the format "dd/MM/yyyy".
-     * Throws a TaskManagerException if the date is not valid.
-     *
-     * @param date The date string to be checked.
-     * @throws TaskManagerException If the date string is not a valid date in the format "dd/MM/yyyy".
-     */
-    public static void checkIfValidDate(String date) throws TaskManagerException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate.parse(date, formatter);
-        } catch (DateTimeParseException e) {
-            throw new TaskManagerException(INVALID_DATE_FORMAT_MESSAGE);
-        }
-    }
-
-    /**
-     * Checks if the provided string is a valid time in the format "HH:mm".
-     * Throws a TaskManagerException if the time is not valid.
-     *
-     * @param time The time string to be checked.
-     * @throws TaskManagerException If the time string is not a valid time in the format "HH:mm".
-     */
-    public static void checkIfValidTime(String time) throws TaskManagerException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-            LocalTime.parse(time, formatter);
-        } catch (DateTimeParseException e) {
-            throw new TaskManagerException(INVALID_TIME_FORMAT_MESSAGE);
-        }
-    }
-
 
     /**
      * Method that checks if the date is in the current month shown by the calendar.
@@ -136,74 +105,6 @@ public class TaskManagerException extends Exception {
         if (dayTasks.isEmpty()) {
             throw new TaskManagerException(NO_TASKS_MESSAGE);
         }
-    }
-
-    /**
-     * Method that checks if start date is before end date, and throw TaskManagerException if not,
-     * convert to LocalDate first
-     *
-     * @param startDate The start date to be checked.
-     * @param endDate The end date to be checked.
-     * @throws TaskManagerException if start date is after end date.
-     */
-    public static void checkIfStartDateBeforeEndDate(String startDate, String endDate) throws TaskManagerException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate start = LocalDate.parse(startDate, formatter);
-            LocalDate end = LocalDate.parse(endDate, formatter);
-            if (start.isAfter(end)) {
-                throw new TaskManagerException(START_DATE_AFTER_END_DATE_MESSAGE);
-            }
-        } catch (DateTimeParseException e) {
-            throw new TaskManagerException(INVALID_DATE_FORMAT_MESSAGE);
-        }
-    }
-
-    /**
-     * Method that checks if start time is before end time, and throw TaskManagerException if not,
-     * convert to LocalTime first
-     *
-     * @param startTime The start time to be checked.
-     * @param endTime The end time to be checked.
-     * @throws TaskManagerException if start time is after end time.
-     */
-    public static void checkIfStartTimeBeforeEndTime(String startTime, String endTime) throws TaskManagerException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-            LocalTime start = LocalTime.parse(startTime, formatter);
-            LocalTime end = LocalTime.parse(endTime, formatter);
-            if (start.isAfter(end)) {
-                throw new TaskManagerException(START_TIME_AFTER_END_TIME_MESSAGE);
-            }
-        } catch (DateTimeParseException e) {
-            throw new TaskManagerException(INVALID_TIME_FORMAT_MESSAGE);
-        }
-    }
-
-    /**
-     * Checks the validity of the provided date and time.
-     * The date is checked for its format and whether it falls within the current week or month.
-     * The time is checked for its format.
-     *
-     * @param weekView The current week view shown by the calendar.
-     * @param inMonthView A boolean indicating whether the month is being viewed.
-     * @param startDate The start date to be checked.
-     * @param startTime The start time to be checked.
-     * @throws TaskManagerException If the date or time is not valid, or does not fall within the current week or month.
-     */
-    public static void checkDateAndTimeValidity(WeekView weekView, boolean inMonthView, String startDate,
-                                                String startTime) throws TaskManagerException {
-        // Check if date is valid
-        checkIfValidDate(startDate);
-
-        if (inMonthView) {
-            checkIfDateInCurrentMonth(LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        } else {
-            checkIfDateInCurrentWeek(LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), weekView);
-        }
-
-        //Check if time is valid
-        checkIfValidTime(startTime);
     }
 
 }

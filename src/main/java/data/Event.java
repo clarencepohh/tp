@@ -1,12 +1,5 @@
 package data;
 
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.component.VEvent;
-
-import java.util.GregorianCalendar;
-
-import static java.lang.Integer.parseInt;
-
 public class Event extends Task {
     protected String startDate;
     protected String endDate;
@@ -98,33 +91,6 @@ public class Event extends Task {
         return getTaskType() + "|" + getMarkedStatusIcon() + "|" + getPriorityLevelIcon() + "|" + 
                 getName() + "|" + getStartDate() + "|" + getEndDate() + "|" + getStartTime() + "|"
                 + getEndTime();
-    }
-
-    public static VEvent eventToVEvent(Event event) {
-        java.util.Calendar startDate = new GregorianCalendar();
-        int intStartDate = parseInt(event.getStartDate().substring(2,5)) - 1;
-        System.out.println(intStartDate);
-        startDate.set(java.util.Calendar.MONTH, 3);
-        startDate.set(java.util.Calendar.DAY_OF_MONTH, 1);
-        startDate.set(java.util.Calendar.YEAR, 2023);
-        startDate.set(java.util.Calendar.HOUR_OF_DAY, 9);
-        startDate.set(java.util.Calendar.MINUTE, 0);
-        startDate.set(java.util.Calendar.SECOND, 0);
-
-        java.util.Calendar endDate = new GregorianCalendar();
-        endDate.set(java.util.Calendar.MONTH, java.util.Calendar.APRIL);
-        endDate.set(java.util.Calendar.DAY_OF_MONTH, 1);
-        endDate.set(java.util.Calendar.YEAR, 2023);
-        endDate.set(java.util.Calendar.HOUR_OF_DAY, 13);
-        endDate.set(java.util.Calendar.MINUTE, 0);
-        endDate.set(java.util.Calendar.SECOND, 0);
-
-        // Create the event
-        DateTime start = new DateTime(startDate.getTime());
-        DateTime end = new DateTime(endDate.getTime());
-        VEvent meeting = new VEvent(start, end, "Team Meeting");
-
-        return meeting;
     }
 }
 

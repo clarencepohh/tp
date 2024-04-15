@@ -1,62 +1,71 @@
-add,1,T,Read a book
-add,2,T,Write a report
-add,3,T,Plan weekend getaway
-add,4,T,Organize desk
-add,5,T,Call grandma
-add,6,T,Workout
-add,7,T,Research new project
-add,31,T,Pay bills
-add,2,T,Buy groceries
-add,2,T,Prepare presentation
-add,3,E,Lunch with team
-02/04/2024 1200
-03/04/2024 1300
-add,2,E,Doctor's appointment
-02/04/2024 1000
-03/04/2024 1100
-add,3,E,Client meeting
-03/04/2024 0900
-03/04/2024 1030
-add,4,E,Coffee with friend
-04/04/2024 1500
-04/04/2024 1600
-add,5,E,Team building activity
-05/04/2024 0900
-05/04/2024 1700
-add,6,E,Dinner date
-06/04/2024 1900
-06/04/2024 2100
-add,7,E,Networking event
-07/04/2024 1800
-07/04/2024 2000
-add,2,D,Submit assignment
-02/04/2024 2359
-add,2,D,Finish project proposal
-02/04/2024 1800
-add,3,D,Email final report
-03/04/2024 1700
-add,4,D,Complete online course
-04/04/2024 2359
-add,5,D,File taxes
-05/04/2024 2359
-add,6,D,Return library books
-06/04/2024 2000
-priority,1,1,H
-priority,2,1,M
-priority,3,2,H
-mark,3,1
-mark,5,1
-mark,7,1
+add,14,T,Read a book
+add,15,T,Write a report
+add,16,T,Plan weekend getaway
+add,17,T,Organize desk
+add,18,T,Call grandma
+add,19,T,Workout
+add,20,T,Research new project
+add,14,T,Pay bills
+add,15,T,Buy groceries
+add,16,T,Prepare presentation
+add,14,E,Lunch with team
+14/04/2024 1200
+14/04/2024 1300
+add,15,E,Doctor's appointment
+15/04/2024 1000
+15/04/2024 1100
+add,16,E,Client meeting
+16/04/2024 0900
+16/04/2024 1030
+add,17,E,Coffee with friend
+17/04/2024 1500
+17/04/2024 1600
+add,18,E,Team building activity
+18/04/2024 0900
+18/04/2024 1700
+add,19,E,Dinner date
+19/04/2024 1900
+19/04/2024 2100
+add,20,E,Networking event
+20/04/2024 1800
+20/04/2024 2000
+add,14,D,Submit assignment
+14/04/2024 2359
+add,15,D,Finish project proposal
+15/04/2024 1800
+add,16,D,Email final report
+16/04/2024 1700
+add,17,D,Complete online course
+17/04/2024 2359
+add,18,D,File taxes
+18/04/2024 2359
+add,19,D,Return library books
+19/04/2024 2000
+priority,14,1,H
+priority,15,1,M
+priority,16,2,H
+mark,16,1
+mark,18,1
+mark,20,1
 month
-add, 30, T, new todo
-add, 30, T, another todo
-add, 30, D, deadline1
-30/03/2024 1800
-mark,30,2
-mark,30,1
-add, 30, D, new deadline 2
-30/03/2024 2100
-priority,30,2,M
-update, 30, 1, qioncioqnc uion uioqen qwpc
-delete, 30, 4
+add, 17, T, new todo
+add, 17, T, another todo
+add, 17, D, deadline1
+17/04/2024 1800
+mark,17,2
+mark,17,1
+add, 17, D, new deadline 2
+17/04/2024 2100
+priority,17,2,M
+update, 17, 1, qioncioqnc uion uioqen qwpc
+delete, 17, 4
+week
+next
+add,25,E,new event
+25/04/2024 1200
+25/04/2024 1400
+add,25,E,another event
+25/04/2024 1800
+27/04/2024 1400
+free
 quit

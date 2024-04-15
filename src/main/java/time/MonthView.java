@@ -26,8 +26,8 @@ public class MonthView extends View {
     /**
      * Constructs a MonthView with the specified start date and date formatter.
      *
-     * @param startOfMonth   the start date of the month
-     * @param dateFormatter the date formatter for formatting dates
+     * @param startOfMonth   the start date of the month.
+     * @param dateFormatter the date formatter for formatting dates.
      */
     public MonthView(LocalDate startOfMonth, DateTimeFormatter dateFormatter) {
         super(startOfMonth, dateFormatter);
@@ -37,7 +37,7 @@ public class MonthView extends View {
     /**
      * Prints the month view with tasks from the task manager.
      *
-     * @param taskManager the TaskManager object containing tasks
+     * @param taskManager the TaskManager object containing tasks.
      */
     @Override
     public void printView(TaskManager taskManager) {
@@ -60,7 +60,7 @@ public class MonthView extends View {
     /**
      * Prints the header for the month view.
      *
-     * @param yearMonth the YearMonth object representing the month
+     * @param yearMonth the YearMonth object representing the month.
      */
     private void printMonthHeader(YearMonth yearMonth) {
         System.out.println("\nMonth View: " + yearMonth.getMonth() + " " + yearMonth.getYear());
@@ -69,8 +69,8 @@ public class MonthView extends View {
     /**
      * Prints a week within the month view.
      *
-     * @param currentDate the current date in the week
-     * @param taskManager the TaskManager object containing tasks
+     * @param currentDate the current date in the week.
+     * @param taskManager the TaskManager object containing tasks.
      */
     private void printWeek(LocalDate currentDate, TaskManager taskManager) {
         for (int i = 0; i < NUMBER_OF_DAYS_IN_WEEK; i++) {
@@ -91,8 +91,8 @@ public class MonthView extends View {
     /**
      * Prints the day number if it falls within the current month, otherwise prints an empty placeholder.
      *
-     * @param currentDate the current date to print
-     * @param startOfMonth the start date of the current month
+     * @param currentDate the current date to print.
+     * @param startOfMonth the start date of the current month.
      */
     private void printDay(LocalDate currentDate, LocalDate startOfMonth) {
         if (currentDate.getMonth().equals(YearMonth.from(startOfMonth).getMonth())) {
@@ -105,7 +105,7 @@ public class MonthView extends View {
     /**
      * Prints the day number for a given date.
      *
-     * @param currentDate the current date to print
+     * @param currentDate the current date to print.
      */
     private void printDayNumber(LocalDate currentDate) {
         DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("d");
@@ -115,9 +115,9 @@ public class MonthView extends View {
     /**
      * Returns the maximum number of tasks for a week.
      *
-     * @param weekStart   the start date of the week
-     * @param taskManager the TaskManager object containing tasks
-     * @return the maximum number of tasks for the week
+     * @param weekStart   the start date of the week.
+     * @param taskManager the TaskManager object containing tasks.
+     * @return the maximum number of tasks for the week.
      */
     private int getMaxTasksForWeek(LocalDate weekStart, TaskManager taskManager) {
         int maxTasks = 0;
@@ -131,9 +131,9 @@ public class MonthView extends View {
     /**
      * Prints tasks for each day of the week.
      *
-     * @param weekStart   the start date of the week
-     * @param maxTasks    the maximum number of tasks for the week
-     * @param taskManager the TaskManager object containing tasks
+     * @param weekStart   the start date of the week.
+     * @param maxTasks    the maximum number of tasks for the week.
+     * @param taskManager the TaskManager object containing tasks.
      */
     private void printTasksForWeek(LocalDate weekStart, int maxTasks, TaskManager taskManager) {
         for (int taskIndex = 0; taskIndex < maxTasks; taskIndex++) {
@@ -149,8 +149,8 @@ public class MonthView extends View {
     /**
      * Prints the tasks for a specific day within a week.
      *
-     * @param dayTasks  the list of tasks for the day
-     * @param taskIndex the index of the task to print
+     * @param dayTasks  the list of tasks for the day.
+     * @param taskIndex the index of the task to print.
      */
     private void printTaskForDay(List<Task> dayTasks, int taskIndex) {
         if (taskIndex < dayTasks.size()) {
@@ -164,7 +164,7 @@ public class MonthView extends View {
     /**
      * Prints a task icon based on its type and status.
      *
-     * @param task the task to print
+     * @param task the task to print.
      */
     private void printTaskIcon(Task task) {
         String taskIcon = getTaskIcon(task);
@@ -174,8 +174,8 @@ public class MonthView extends View {
     /**
      * Retrieves the task icon based on its type and status.
      *
-     * @param task the task to retrieve the icon for
-     * @return the task icon
+     * @param task the task to retrieve the icon for.
+     * @return the task icon.
      */
     private String getTaskIcon(Task task) {
         String taskIcon;
@@ -199,9 +199,9 @@ public class MonthView extends View {
     /**
      * Retrieves a colored task icon.
      *
-     * @param task  the task to retrieve the icon for
-     * @param color the color of the task icon
-     * @return the colored task icon
+     * @param task  the task to retrieve the icon for.
+     * @param color the color of the task icon.
+     * @return the colored task icon.
      */
     private String getColoredTaskIcon(Task task, String color) {
         String taskIcon;

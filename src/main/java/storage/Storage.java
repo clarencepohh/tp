@@ -1,10 +1,10 @@
 package storage;
 
-import data.exceptions.StorageFileException;
 import data.Task;
-import data.exceptions.TaskManagerException;
 import data.TaskPriorityLevel;
 import data.TaskType;
+import data.exceptions.StorageFileException;
+import data.exceptions.TaskManagerException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,22 +19,29 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static data.exceptions.StorageFileException.checkStorageTextDateFormat;
 import static data.TaskManager.addTask;
 import static data.TaskManager.getDayTasks;
 import static data.TaskManager.parseTaskType;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
+import static data.exceptions.StorageFileException.checkStorageTextDateFormat;
 
+
+/**
+ * The Storage class handles all operations related to storing and retrieving tasks from a file.
+ * It provides methods to create a new file, save tasks to a file, load tasks from a file, and check the file format.
+ * It also provides methods to configure the statuses of tasks after they are loaded from the file.
+ * The class uses a Logger to log information and warnings related to file handling and task management.
+ */
 public class Storage {
 
-    public static final Path FILE_PATH = Path.of("./save/tasks.txt");
+    public static final Path FILE_PATH = Path.of("./save/clintonData.txt");
     private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Creates directory and tasks.txt if it does not exist.
      *
-     * @param path File Path of tests.txt file.
+     * @param path File Path of clintonData.txt file.
      * @throws IOException If an I/O exception occurs during file handling.
      */
     public static void createNewFile(Path path) throws IOException {
@@ -44,15 +51,16 @@ public class Storage {
         }
         if (!Files.exists(path)) {
             Files.createFile(path);
-            logger.log(Level.INFO, "new tests.txt file created");
+            logger.log(Level.INFO, "new clintonData.txt file created");
         }
     }
 
+    //@@author kyhjonathan
     /**
-     * Reads tasks in hashmap and writes it in formatted form to tests.txt.
+     * Reads tasks in hashmap and writes it in formatted form to clintonData.txt.
      *
      * @param tasks Hashmap of tasks.
-     * @param path File Path of tests.txt file.
+     * @param path File Path of clintonData.txt file.
      */
     public static void saveTasksToFile(Map<LocalDate, List<Task>> tasks, Path path) {
         try (FileWriter writer = new FileWriter(path.toFile())) {
@@ -77,7 +85,7 @@ public class Storage {
     /**
      * Loads tasks from test.txt to hashmap.
      *
-     * @param path File Path of tests.txt file.
+     * @param path File Path of clintonData.txt file.
      * @return tasks hashmap of tasks read from test.txt.
      */
     public static Map<LocalDate, List<Task>> loadTasksFromFile(Path path) {
@@ -168,10 +176,9 @@ public class Storage {
     /**
      * Checks if the file format is correct.
      *
-     * @param line The string in the save file to be checked.
-     * @return True if the format is correct, false otherwise.
+     * @param line Line to be checked.
+     * @return True if the file format is correct, false otherwise.
      */
-
     public static boolean checkFileFormat(String line) {
         String regex = "\\d{4}-\\d{2}-\\d{2}\\|.+";
         return line.matches(regex);
