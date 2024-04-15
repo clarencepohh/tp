@@ -2,8 +2,6 @@ package commandparser;
 
 import data.exceptions.TaskManagerException;
 import org.junit.jupiter.api.Test;
-import time.MonthView;
-import time.WeekView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -159,7 +157,7 @@ class StringParserTest {
         assertThrows(TaskManagerException.class, () ->
                 StringParser.validateDeleteCommand(invalidParts));
     }
-    
+
     @Test
     void validateMarkCommand_validFormatGiven_noExceptionThrown() {
         String[] validParts = {"mark", "15/03/2023", "1"};

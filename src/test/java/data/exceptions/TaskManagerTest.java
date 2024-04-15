@@ -24,6 +24,7 @@ import static data.TaskManager.addTask;
 import static data.TaskManager.updateTask;
 import static data.TaskManager.deleteAllTasksOnDate;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -60,6 +61,50 @@ class TaskManagerTest {
 
         // Assert
         assertEquals(testTask.getName(), addedTask.getName());
+    }
+
+    @Test
+    void addTask_validTodoTask_noExceptionThrown() {
+        LocalDate date = LocalDate.now();
+        String taskDescription = "Test Todo";
+        TaskType taskType = TaskType.TODO;
+        String[] dates = {null};
+        String[] times = {null};
+
+        assertDoesNotThrow(() -> TaskManager.addTask(date, taskDescription, taskType, dates, times));
+    }
+
+    @Test
+    void addTask_validEventTask_noExceptionThrown() {
+        LocalDate date = LocalDate.now();
+        String taskDescription = "Test Event";
+        TaskType taskType = TaskType.EVENT;
+        String[] dates = {"15/03/2023", "16/03/2023"};
+        String[] times = {"1000", "1200"};
+
+        assertDoesNotThrow(() -> TaskManager.addTask(date, taskDescription, taskType, dates, times));
+    }
+
+    @Test
+    void addTask_validDeadlineTask_noExceptionThrown() {
+        LocalDate date = LocalDate.now();
+        String taskDescription = "Test Deadline";
+        TaskType taskType = TaskType.DEADLINE;
+        String[] dates = {"15/03/2023"};
+        String[] times = {"1200"};
+
+        assertDoesNotThrow(() -> TaskManager.addTask(date, taskDescription, taskType, dates, times));
+    }
+
+    @Test
+    void addTask_invalidTaskType_throwsException() {
+        LocalDate date = LocalDate.now();
+        String taskDescription = "Test Invalid";
+        TaskType taskType = TaskType.INVALID;
+        String[] dates = {null};
+        String[] times = {null};
+
+        assertThrows(TaskManagerException.class, () -> TaskManager.addTask(date, taskDescription, taskType, dates, times));
     }
 
     @Test
@@ -105,6 +150,22 @@ class TaskManagerTest {
     }
 
     @Test
+    void updateTask_validTodoTask_noExceptionThrown() throws TaskManagerException {
+        LocalDate date = LocalDate.now();
+        String initialTaskDescription = "Initial Todo";
+        String updatedTaskDescription = "Updated Todo";
+        TaskType taskType = TaskType.TODO;
+        String[] dates = {null};
+        String[] times = {null};
+        Scanner scanner = new Scanner(updatedTaskDescription);
+
+        addTask(date, initialTaskDescription, taskType, dates, times);
+        assertDoesNotThrow(() ->
+                TaskManager.updateTask(date, 0, updatedTaskDescription, scanner,
+                        false, new WeekView(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+    }
+
+    @Test
     void getTasksForDate_validDate_returnsTasks() throws TaskManagerException {
         // Arrange
         LocalDate date = LocalDate.now();
@@ -124,6 +185,40 @@ class TaskManagerTest {
     }
 
     @Test
+    void getTasksForDate_multipleTasksOnDate_returnsAllTasks() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String taskDescription1 = "Test Task 1";
+        String taskDescription2 = "Test Task 2";
+        TaskType taskType = TaskType.TODO;
+        String[] dates = {null};
+        String[] times = {null};
+
+        addTask(date, taskDescription1, taskType, dates, times);
+        addTask(date, taskDescription2, taskType, dates, times);
+
+        // Act
+        List<Task> tasksForDate = taskManager.getTasksForDate(date);
+
+        // Assert
+        assertEquals(2, tasksForDate.size());
+        assertEquals(taskDescription1, tasksForDate.get(0).getName());
+        assertEquals(taskDescription2, tasksForDate.get(1).getName());
+    }
+
+    @Test
+    void getTasksForDate_noTasksOnDate_returnsEmptyList() {
+        // Arrange
+        LocalDate date = LocalDate.now();
+
+        // Act
+        List<Task> tasksForDate = taskManager.getTasksForDate(date);
+
+        // Assert
+        assertTrue(tasksForDate.isEmpty());
+    }
+
+    @Test
     void addTodoFromFile_validInput_addsTasks() throws TaskManagerException {
         // Arrange
         LocalDate date = LocalDate.now();
@@ -136,7 +231,8 @@ class TaskManagerTest {
         taskManager.addTasksFromFile(tasksFromFile);
 
         // Assert
-        assertEquals(testTodoTask.getName(), taskManager.getTasksForDate(date).get(0).getName());
+        assertEquals(testTodoTask.getName(),
+                taskManager.getTasksForDate(date).get(0).getName());
     }
 
     @Test
@@ -370,6 +466,46 @@ class TaskManagerTest {
     }
 
     @Test
+    void addEvent_nullInput_throwsException() {
+        // Arrange
+        LocalDate date = null;
+        String taskDescription = null;
+        String startDate = null;
+        String endDate = null;
+        String startTime = null;
+        String endTime = null;
+
+        // Act
+        TaskType testTaskType = TaskType.EVENT;
+        String[] dummyTestDates = new String[]{startDate, endDate};
+        String[] dummyTestTimes = new String[]{startTime, endTime};
+
+        // Assert
+        assertThrows(NullPointerException.class, () ->
+                addTask(date, taskDescription, testTaskType, dummyTestDates,dummyTestTimes));
+    }
+
+    @Test
+    void addEvent_emptyInput_throwsException() {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String taskDescription = "";
+        String startDate = "";
+        String endDate = "";
+        String startTime = "";
+        String endTime = "";
+
+        // Act
+        TaskType testTaskType = TaskType.EVENT;
+        String[] dummyTestDates = new String[]{startDate, endDate};
+        String[] dummyTestTimes = new String[]{startTime, endTime};
+
+        // Assert
+        assertThrows(TaskManagerException.class, () ->
+                addTask(date, taskDescription, testTaskType, dummyTestDates,dummyTestTimes));
+    }
+
+    @Test
     void getFreeTimeSlots_validInput_returnsCorrectSlots() throws TaskManagerException {
         // Arrange
         LocalDate date = LocalDate.of(2024, 4, 7);
@@ -384,7 +520,8 @@ class TaskManagerTest {
 
         // Act
         addTask(date, taskDescription, testTaskType, testDates, testTimes);
-        List<String> freeTimeSlots = taskManager.getFreeTimeSlots(TaskManager.getEventsForDate(date), date);
+        List<Task> events = TaskManager.getEventsForDate(date);
+        List<String> freeTimeSlots = taskManager.getFreeTimeSlots(events, date);
 
         // Assert
         assertEquals(2, freeTimeSlots.size());
@@ -428,6 +565,59 @@ class TaskManagerTest {
         assertEquals(endDate, eventsForDate.get(0).getEndDate());
         assertEquals(startTime, eventsForDate.get(0).getStartTime());
         assertEquals(endTime, eventsForDate.get(0).getEndTime());
+    }
+
+    @Test
+    void getEventsForDate_multipleEventsOnDate_returnsAllEvents() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String taskDescription1 = "Test Event 1";
+        String taskDescription2 = "Test Event 2";
+        TaskType taskType = TaskType.EVENT;
+        String[] dates = {date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), date.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))};
+        String[] times = {"1000", "1200"};
+
+        addTask(date, taskDescription1, taskType, dates, times);
+        addTask(date, taskDescription2, taskType, dates, times);
+
+        // Act
+        List<Task> eventsForDate = TaskManager.getEventsForDate(date);
+
+        // Assert
+        assertEquals(2, eventsForDate.size());
+        assertEquals(taskDescription1, eventsForDate.get(0).getName());
+        assertEquals(taskDescription2, eventsForDate.get(1).getName());
+    }
+
+    @Test
+    void getEventsForDate_noEventsOnDate_returnsEmptyList() {
+        // Arrange
+        LocalDate date = LocalDate.now();
+
+        // Act
+        List<Task> eventsForDate = TaskManager.getEventsForDate(date);
+
+        // Assert
+        assertTrue(eventsForDate.isEmpty());
+    }
+
+    @Test
+    void getEventsForDate_eventOnDifferentDate_returnsEmptyList() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        LocalDate differentDate = date.plusDays(1);
+        String taskDescription = "Test Event";
+        TaskType taskType = TaskType.EVENT;
+        String[] dates = {differentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), differentDate.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))};
+        String[] times = {"1000", "1200"};
+
+        addTask(differentDate, taskDescription, taskType, dates, times);
+
+        // Act
+        List<Task> eventsForDate = TaskManager.getEventsForDate(date);
+
+        // Assert
+        assertTrue(eventsForDate.isEmpty());
     }
 
     @Test

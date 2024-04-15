@@ -128,7 +128,6 @@ public class Storage {
         logger.log(Level.INFO, "tasks returned");
         return tasks;
     }
-    //@@author
 
     /**
      * Configures the statuses of the tasks after they are loaded from the file.
