@@ -1,6 +1,11 @@
-package data;
+package data.exceptions;
 
-import data.exceptions.TaskManagerException;
+import data.Deadline;
+import data.Event;
+import data.Task;
+import data.TaskManager;
+import data.TaskType;
+import data.Todo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

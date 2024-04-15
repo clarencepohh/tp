@@ -33,6 +33,32 @@ class StringParserTest {
     }
 
     @Test
+    void parseDate_emptyStringGiven_exceptionThrown() {
+        String emptyDateString = "";
+        assertThrows(TaskManagerException.class, () -> StringParser.parseDate(emptyDateString));
+    }
+
+    @Test
+    void parseDate_invalidMonthGiven_exceptionThrown() {
+        String invalidDateString = "15/13/2023";
+        assertThrows(TaskManagerException.class, () -> StringParser.parseDate(invalidDateString));
+    }
+
+    @Test
+    void parseDate_invalidDayGiven_exceptionThrown() {
+        String invalidDateString = "32/12/2023";
+        assertThrows(TaskManagerException.class, () -> StringParser.parseDate(invalidDateString));
+    }
+
+    @Test
+    void parseDate_leapYearGiven_noExceptionThrown() throws TaskManagerException {
+        String leapYearDateString = "29/02/2024";
+        LocalDate expectedDate = LocalDate.of(2024, 2, 29);
+        LocalDate parsedDate = StringParser.parseDate(leapYearDateString);
+        assertEquals(expectedDate, parsedDate);
+    }
+
+    @Test
     void arseTaskIndex_validIntegerGiven_noExceptionThrown() {
         String validIndexString = "5";
         int expectedIndex = 5;
@@ -104,8 +130,6 @@ class StringParserTest {
     @Test
     void validateAddCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"add", "15/03/2023", "taskDescription"};
-        LocalDate startOfWeek = LocalDate.of(2023, 3, 13);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         assertThrows(TaskManagerException.class, () ->
                 StringParser.validateAddCommand(invalidParts));
     }
@@ -119,7 +143,8 @@ class StringParserTest {
     @Test
     void validateUpdateCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"update", "15/03/2023", "newDescription"};
-        assertThrows(TaskManagerException.class, () -> StringParser.validateUpdateCommand(invalidParts));
+        assertThrows(TaskManagerException.class, () ->
+                StringParser.validateUpdateCommand(invalidParts));
     }
 
     @Test
@@ -131,9 +156,10 @@ class StringParserTest {
     @Test
     void validateDeleteCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"delete", "15/03/2023"};
-        assertThrows(TaskManagerException.class, () -> StringParser.validateDeleteCommand(invalidParts));
+        assertThrows(TaskManagerException.class, () ->
+                StringParser.validateDeleteCommand(invalidParts));
     }
-
+    
     @Test
     void validateMarkCommand_validFormatGiven_noExceptionThrown() {
         String[] validParts = {"mark", "15/03/2023", "1"};
@@ -143,7 +169,8 @@ class StringParserTest {
     @Test
     void validateMarkCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"mark", "15/03/2023"};
-        assertThrows(TaskManagerException.class, () -> StringParser.validateMarkCommand(invalidParts));
+        assertThrows(TaskManagerException.class, () ->
+                StringParser.validateMarkCommand(invalidParts));
     }
 
     @Test
@@ -155,6 +182,7 @@ class StringParserTest {
     @Test
     void validatePriorityCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"priority", "15/03/2023", "1"};
-        assertThrows(TaskManagerException.class, () -> StringParser.validatePriorityCommand(invalidParts));
+        assertThrows(TaskManagerException.class, () ->
+                StringParser.validatePriorityCommand(invalidParts));
     }
 }
