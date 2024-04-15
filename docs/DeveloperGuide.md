@@ -106,8 +106,25 @@ public static void printWeekBody(LocalDate startOfWeek, DateTimeFormatter dateFo
 - taskManager: The TaskManager instance managing tasks.
 
 #### Method Functionality
-- Determines the maximum number of tasks in any day of the week to set the row count.
-- Iterates through each day, displaying tasks or placeholders if there are fewer tasks on certain days.
+- Calls `printTasksInWeek`, which prints the tasks for each day in the week.
+
+### printTasksInWeek Method
+The `printTasksInWeek` method displays the tasks for each day in the week view, wrapping the task descriptions to fit within the column width.
+
+#### Method Signature
+```
+public static void printTasksInWeek(LocalDate startOfWeek, TaskManager taskManager)
+```
+
+#### Parameters
+- startOfWeek: The starting date of the week for which tasks are displayed.
+- taskManager: The TaskManager instance managing tasks.
+
+#### Method Functionality
+- Retrieves the tasks for each day in the week into a map.
+- Wrap the task descriptions to the width of the calendar box
+- Stores the task descriptions in a map
+- Prints the task descriptions for each day in the week in the appropriate formatting
 
 ### Month View Rendering
 The month view utilizes the printWeekHeader method with the isMonthView parameter set to true, limiting the display to only include week headers without individual tasks.
