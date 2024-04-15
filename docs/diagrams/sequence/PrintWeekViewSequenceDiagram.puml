@@ -3,8 +3,6 @@
 participant ":WeekView" as WeekView
 participant ":UiRenderer" as UiRenderer
 
-title Sequence Diagram for printWeekView()
-
 ' Printing of Week Header
 WeekView -> UiRenderer: printWeekHeader()
 
@@ -52,4 +50,5 @@ deactivate UiRenderer
 UiRenderer --> WeekView
 deactivate UiRenderer
 
+hide footbox
 @enduml
