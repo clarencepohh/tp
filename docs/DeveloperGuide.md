@@ -395,7 +395,7 @@ The implementation incorporates error handling mechanisms to effectively manage 
 
 ### Saving Tasks to File
 
-Upon task creation, the `addTask` method guarantees the preservation of the updated task list to a file (`tasks.txt`) by invoking the `saveTasksToFile` method from the `Storage` class. This serves to persist task data across application sessions.
+Upon task creation, the `addTask` method guarantees the preservation of the updated task list to a file (`clintonData.txt`) by invoking the `saveTasksToFile` method from the `Storage` class. This serves to persist task data across application sessions.
 
 ### Exceptions
 
@@ -469,9 +469,9 @@ public void addTasksFromFile(Map<LocalDate, List<Task>> tasksFromFile) throws Ta
 **API** : [Storage.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/storage/Storage.java)
 
 The 'storage' component:
-* Reads tasks from the formatted `./save/tasks.txt` file and appends to task hashmap.
-* Identifies unique tasks stored in task hashmap, parses and writes to `./save/tasks.txt` file
-* Handles exception if `./save/tasks.txt` is in corrupted format
+* Reads tasks from the formatted `./save/clintonData.txt` file and appends to task hashmap.
+* Identifies unique tasks stored in task hashmap, parses and writes to `./save/clintonData.txt` file
+* Handles exception if `./save/clintonData.txt` is in corrupted format
 
 The `saveTasksToFile` method writes the tasks in a HashMap to the file in the following format:
 
