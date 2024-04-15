@@ -501,6 +501,9 @@ For example:
 
 The `loadTasksFromFile` method reads the tasks from the file and populates the `TaskManager` with the loaded tasks.
 
+Shown below is the sequence diagram for 'saveTasksToFile' and 'loadTasksFromFile' methods:
+![img.png](images/sequence/SaveAndLoadSequenceDiagram.png)
+
 ## Exceptions and Logging
 
 ### Exceptions
