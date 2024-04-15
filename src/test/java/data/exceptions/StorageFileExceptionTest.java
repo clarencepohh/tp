@@ -1,8 +1,8 @@
+//@@author kyhjonathan
 package data.exceptions;
 
 import org.junit.jupiter.api.Test;
 
-import static data.exceptions.StorageFileException.checkStorageTextDateFormat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,7 +15,7 @@ public class StorageFileExceptionTest {
         String testStorageTextDate = "2024-12-03";
 
         // Act and Assert
-        assertDoesNotThrow(() -> checkStorageTextDateFormat(testStorageTextDate));
+        assertDoesNotThrow(() -> StorageFileException.checkStorageTextDateFormat(testStorageTextDate));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class StorageFileExceptionTest {
 
         // Act and Assert
         StorageFileException thrown = assertThrows(StorageFileException.class, () ->
-                checkStorageTextDateFormat(testStorageTextDate));
+                StorageFileException.checkStorageTextDateFormat(testStorageTextDate));
         assertEquals("Invalid date format in tasks.txt file. " + "Please use the format yyyy-MM-dd for dates.",
                 thrown.getMessage());
     }

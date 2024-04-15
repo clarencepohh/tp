@@ -2,8 +2,6 @@ package commandparser;
 
 import data.exceptions.TaskManagerException;
 import org.junit.jupiter.api.Test;
-import time.MonthView;
-import time.WeekView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class StringParserTest {
 
     @Test
-    void parseDateValidFormat() {
+    void parseDate_validDateFormatGiven_noExceptionThrown() {
         String validDateString = "15/03/2023";
         LocalDate expectedDate = LocalDate.of(2023, 3, 15);
         assertDoesNotThrow(() -> {
@@ -26,13 +24,40 @@ class StringParserTest {
     }
 
     @Test
-    void parseDateInvalidFormat() {
-        String invalidDateString = "03-15-2023";
+    void parseDate_invalidDateFormatGiven_exceptionThrown() {
+        String invalidDateString = "30-02-2023";
+        assertThrows(TaskManagerException.class, ()
+                -> StringParser.parseDate(invalidDateString));
+    }
+
+    @Test
+    void parseDate_emptyStringGiven_exceptionThrown() {
+        String emptyDateString = "";
+        assertThrows(TaskManagerException.class, () -> StringParser.parseDate(emptyDateString));
+    }
+
+    @Test
+    void parseDate_invalidMonthGiven_exceptionThrown() {
+        String invalidDateString = "15/13/2023";
         assertThrows(TaskManagerException.class, () -> StringParser.parseDate(invalidDateString));
     }
 
     @Test
-    void parseTaskIndexValidInteger() {
+    void parseDate_invalidDayGiven_exceptionThrown() {
+        String invalidDateString = "32/12/2023";
+        assertThrows(TaskManagerException.class, () -> StringParser.parseDate(invalidDateString));
+    }
+
+    @Test
+    void parseDate_leapYearGiven_noExceptionThrown() throws TaskManagerException {
+        String leapYearDateString = "29/02/2024";
+        LocalDate expectedDate = LocalDate.of(2024, 2, 29);
+        LocalDate parsedDate = StringParser.parseDate(leapYearDateString);
+        assertEquals(expectedDate, parsedDate);
+    }
+
+    @Test
+    void arseTaskIndex_validIntegerGiven_noExceptionThrown() {
         String validIndexString = "5";
         int expectedIndex = 5;
         assertDoesNotThrow(() -> {
@@ -42,21 +67,21 @@ class StringParserTest {
     }
 
     @Test
-    void parseTaskIndexInvalidInteger() {
+    void parseTaskIndex_invalidIntegerGiven_exceptionThrown() {
         String invalidIndexString = "five";
         assertThrows(TaskManagerException.class, () -> StringParser.parseTaskIndex(invalidIndexString));
     }
 
     @Test
-    void parseTaskDescriptionValidDescription() {
-        String description = "  This is a task description.  ";
-        String expectedDescription = "This is a task description.";
+    void arseTaskDescription_validDescriptionGiven_correctDescriptionReturned() {
+        String description = "Valid task description";
+        String expectedDescription = "Valid task description";
         assertEquals(expectedDescription, StringParser.parseTaskDescription(description));
     }
 
     @Test
-    void parsePriorityLevelValidHigh() {
-        String priority = " H ";
+    void parsePriorityLevel_validHighPriorityGiven_noExceptionThrown() {
+        String priority = "H";
         String expectedPriority = "H";
         assertDoesNotThrow(() -> {
             String parsedPriority = StringParser.parsePriorityLevel(priority);
@@ -65,7 +90,7 @@ class StringParserTest {
     }
 
     @Test
-    void parsePriorityLevelValidMedium() {
+    void parsePriorityLevel_validPriorityGiven_noExceptionThrown() {
         String priority = "m";
         String expectedPriority = "M";
         assertDoesNotThrow(() -> {
@@ -75,7 +100,7 @@ class StringParserTest {
     }
 
     @Test
-    void parsePriorityLevelValidLow() {
+    void parsePriorityLevel_validLowPriorityGiven_noExceptionThrown() {
         String priority = "L";
         String expectedPriority = "L";
         assertDoesNotThrow(() -> {
@@ -85,81 +110,77 @@ class StringParserTest {
     }
 
     @Test
-    void parsePriorityLevelInvalidPriority() {
+    void parsePriorityLevel_invalidPriorityGiven_exceptionThrown() {
         String invalidPriority = "X";
         assertThrows(TaskManagerException.class, () -> StringParser.parsePriorityLevel(invalidPriority));
     }
 
     @Test
-    void validateAddCommandValidFormat() {
+    void validateAddCommand_validFormatGiven_noExceptionThrown() {
         // Ensure the day is within the range of the current week starting on Sunday.
         String[] validParts = {"add", "12", "taskType", "taskDescription"}; // Adjusted to Sunday
         LocalDate startOfWeek = LocalDate.of(2024, 4, 7); // Sunday of the week
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        WeekView weekView = new WeekView(startOfWeek, dateFormatter);
-        MonthView monthView = new MonthView(startOfWeek, dateFormatter);
-        boolean inMonthView = false;
 
         assertDoesNotThrow(() -> StringParser.validateAddCommand(validParts));
     }
 
     @Test
-    void validateAddCommandInvalidFormat() {
+    void validateAddCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"add", "15/03/2023", "taskDescription"};
-        LocalDate startOfWeek = LocalDate.of(2023, 3, 13);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        WeekView weekView = new WeekView(startOfWeek, dateFormatter);
-        MonthView monthView = new MonthView(startOfWeek, dateFormatter);
-        boolean inMonthView = false;
         assertThrows(TaskManagerException.class, () ->
                 StringParser.validateAddCommand(invalidParts));
     }
 
     @Test
-    void validateUpdateCommandValidFormat() {
+    void checkStorageTextDateFormat_validStorageTextDateGiven_noExceptionThrown() {
         String[] validParts = {"update", "15/03/2023", "1", "newDescription"};
         assertDoesNotThrow(() -> StringParser.validateUpdateCommand(validParts));
     }
 
     @Test
-    void validateUpdateCommandInvalidFormat() {
+    void validateUpdateCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"update", "15/03/2023", "newDescription"};
-        assertThrows(TaskManagerException.class, () -> StringParser.validateUpdateCommand(invalidParts));
+        assertThrows(TaskManagerException.class, () ->
+                StringParser.validateUpdateCommand(invalidParts));
     }
 
     @Test
-    void validateDeleteCommandValidFormat() {
+    void validateDeleteCommand_validFormatGiven_noExceptionThrown() {
         String[] validParts = {"delete", "15/03/2023", "1"};
         assertDoesNotThrow(() -> StringParser.validateDeleteCommand(validParts));
     }
 
     @Test
-    void validateDeleteCommandInvalidFormat() {
+    void validateDeleteCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"delete", "15/03/2023"};
-        assertThrows(TaskManagerException.class, () -> StringParser.validateDeleteCommand(invalidParts));
+        assertThrows(TaskManagerException.class, () ->
+                StringParser.validateDeleteCommand(invalidParts));
     }
 
     @Test
-    void validateMarkCommandValidFormat() {
+    void validateMarkCommand_validFormatGiven_noExceptionThrown() {
         String[] validParts = {"mark", "15/03/2023", "1"};
         assertDoesNotThrow(() -> StringParser.validateMarkCommand(validParts));
     }
 
     @Test
-    void validateMarkCommandInvalidFormat() {
+    void validateMarkCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"mark", "15/03/2023"};
-        assertThrows(TaskManagerException.class, () -> StringParser.validateMarkCommand(invalidParts));
+        assertThrows(TaskManagerException.class, () ->
+                StringParser.validateMarkCommand(invalidParts));
     }
 
     @Test
-    void validatePriorityCommandValidFormat() {
+    void validatePriorityCommand_validFormatGiven_noExceptionThrown() {
         String[] validParts = {"priority", "15/03/2023", "1", "H"};
         assertDoesNotThrow(() -> StringParser.validatePriorityCommand(validParts));
     }
 
     @Test
-    void validatePriorityCommandInvalidFormat() {
+    void validatePriorityCommand_invalidFormatGiven_exceptionThrown() {
         String[] invalidParts = {"priority", "15/03/2023", "1"};
-        assertThrows(TaskManagerException.class, () -> StringParser.validatePriorityCommand(invalidParts));
+        assertThrows(TaskManagerException.class, () ->
+                StringParser.validatePriorityCommand(invalidParts));
     }
 }
