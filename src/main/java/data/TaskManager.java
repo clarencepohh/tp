@@ -12,23 +12,22 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.HashMap;
-import java.util.Objects;
 
-import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
-import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
-import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
-import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
+import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
+import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
+import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
+import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
 import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
 import static data.exceptions.TaskManagerException.checkIfTaskExistsInCurrentDate;
 import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
@@ -136,7 +135,6 @@ public class TaskManager {
 
             String oldDescription = dayTasks.get(taskIndex).getName();
             String currentTaskType = dayTasks.get(taskIndex).getTaskType();
-            boolean startDateChanged = false;
 
             Task task;
             switch (currentTaskType) {
@@ -144,6 +142,7 @@ public class TaskManager {
                 task = new Todo(newTaskDescription);
                 logger.log(Level.INFO, "Updating task description from " +
                         oldDescription + " to: " + newTaskDescription);
+                dayTasks.set(taskIndex, task);
                 break;
             case "E":
                 task = updateEventTask(scanner, dayTasks, taskIndex, newTaskDescription, oldDescription);
@@ -153,10 +152,6 @@ public class TaskManager {
                 break;
             default:
                 throw new IllegalArgumentException("Invalid task type");
-            }
-
-            if (!startDateChanged) {
-                dayTasks.set(taskIndex, task);
             }
 
         } catch (IndexOutOfBoundsException e) {
@@ -177,6 +172,9 @@ public class TaskManager {
     public static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
             int taskIndex, String newTaskDescription, String oldDescription) {
         Event oldEvent = (Event) dayTasks.get(taskIndex);
+        LocalDate oldDate = LocalDate.parse(oldEvent.getStartDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+
         System.out.println("Do you want to update the start and end dates and times? (yes/no)");
         String eventResponse = scanner.nextLine().trim().toLowerCase();
         if (eventResponse.equals("yes")) {
@@ -186,6 +184,10 @@ public class TaskManager {
 
             Task task = new Event(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1], newDatesAndTimes[2],
                     newDatesAndTimes[3]);
+
+            tasks.computeIfAbsent(LocalDate.parse(newDatesAndTimes[0], DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    k -> new ArrayList<>()).add(task);
+            dayTasks.remove(taskIndex);
 
             updateEventLogging(newTaskDescription, oldDescription, oldEvent, newDatesAndTimes);
             return task;
@@ -218,6 +220,10 @@ public class TaskManager {
             System.out.println("Enter the new deadline date and time, separated by a space:");
             String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
             Task task = new Deadline(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1]);
+
+            tasks.computeIfAbsent(LocalDate.parse(newDatesAndTimes[0], DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    k -> new ArrayList<>()).add(task);
+            dayTasks.remove(taskIndex);
 
             logger.log(Level.INFO, "Updating task description from " +
                     oldDescription + " to: " + newTaskDescription);
