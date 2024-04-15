@@ -104,7 +104,8 @@ class TaskManagerTest {
         String[] dates = {null};
         String[] times = {null};
 
-        assertThrows(TaskManagerException.class, () -> TaskManager.addTask(date, taskDescription, taskType, dates, times));
+        assertThrows(TaskManagerException.class, () ->
+                TaskManager.addTask(date, taskDescription, taskType, dates, times));
     }
 
     @Test
@@ -258,6 +259,42 @@ class TaskManagerTest {
         assertEquals(testTask.getName(), addedTask.getName());
         assertEquals(testTask.getByDate(), addedTaskByDate);
         assertEquals(testTask.getByTime(), addedTaskByTime);
+    }
+
+    @Test
+    void addDeadline_nullInput_throwsException() {
+        // Arrange
+        LocalDate date = null;
+        String taskDescription = null;
+        String byDate = null;
+        String byTime = null;
+
+        // Act
+        TaskType testTaskType = TaskType.DEADLINE;
+        String[] dummyTestDates = new String[]{byDate};
+        String[] dummyTestTimes = new String[]{byTime};
+
+        // Assert
+        assertThrows(NullPointerException.class, () ->
+                addTask(date, taskDescription, testTaskType, dummyTestDates,dummyTestTimes));
+    }
+
+    @Test
+    void addDeadline_emptyInput_throwsException() {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        String taskDescription = "";
+        String byDate = "";
+        String byTime = "";
+
+        // Act
+        TaskType testTaskType = TaskType.DEADLINE;
+        String[] dummyTestDates = new String[]{byDate};
+        String[] dummyTestTimes = new String[]{byTime};
+
+        // Assert
+        assertThrows(TaskManagerException.class, () ->
+                addTask(date, taskDescription, testTaskType, dummyTestDates,dummyTestTimes));
     }
 
     @Test
@@ -574,7 +611,8 @@ class TaskManagerTest {
         String taskDescription1 = "Test Event 1";
         String taskDescription2 = "Test Event 2";
         TaskType taskType = TaskType.EVENT;
-        String[] dates = {date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), date.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))};
+        String[] dates = {date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                date.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))};
         String[] times = {"1000", "1200"};
 
         addTask(date, taskDescription1, taskType, dates, times);
@@ -608,7 +646,8 @@ class TaskManagerTest {
         LocalDate differentDate = date.plusDays(1);
         String taskDescription = "Test Event";
         TaskType taskType = TaskType.EVENT;
-        String[] dates = {differentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), differentDate.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))};
+        String[] dates = {differentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                differentDate.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))};
         String[] times = {"1000", "1200"};
 
         addTask(differentDate, taskDescription, taskType, dates, times);
@@ -699,6 +738,73 @@ class TaskManagerTest {
                 "Task index is out of bounds.", 
                 exceptionThrown.getMessage(), 
                 "Exception message should match expected.");
+    }
+
+    @Test
+    void markTaskAsCompleted_allTasks_marksAllTasks() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Task 1", TaskType.TODO, new String[]{null}, new String[]{null});
+        addTask(date, "Task 2", TaskType.TODO, new String[]{null}, new String[]{null});
+
+        // Act
+        taskManager.markTaskAsCompleted(date, 0);
+        taskManager.markTaskAsCompleted(date, 1);
+        Task completedTask1 = taskManager.getTasksForDate(date).get(0);
+        Task completedTask2 = taskManager.getTasksForDate(date).get(1);
+
+        // Assert
+        assertTrue(completedTask1.isCompleted(), "Task 1 should be marked as completed.");
+        assertTrue(completedTask2.isCompleted(), "Task 2 should be marked as completed.");
+    }
+
+    @Test
+    void markTaskAsNotCompleted_allTasks_marksAllTasksNotCompleted() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Task 1", TaskType.TODO, new String[]{null}, new String[]{null});
+        addTask(date, "Task 2", TaskType.TODO, new String[]{null}, new String[]{null});
+        taskManager.markTaskAsCompleted(date, 0);
+        taskManager.markTaskAsCompleted(date, 1);
+
+        // Act
+        taskManager.markTaskAsNotCompleted(date, 0);
+        taskManager.markTaskAsNotCompleted(date, 1);
+        Task unmarkedTask1 = taskManager.getTasksForDate(date).get(0);
+        Task unmarkedTask2 = taskManager.getTasksForDate(date).get(1);
+
+        // Assert
+        assertFalse(unmarkedTask1.isCompleted(), "Task 1 should be marked as not completed.");
+        assertFalse(unmarkedTask2.isCompleted(), "Task 2 should be marked as not completed.");
+    }
+
+    @Test
+    void markTaskAsCompleted_alreadyCompletedTask_noChange() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Task 1", TaskType.TODO, new String[]{null}, new String[]{null});
+        taskManager.markTaskAsCompleted(date, 0);
+
+        // Act
+        taskManager.markTaskAsCompleted(date, 0);
+        Task completedTask = taskManager.getTasksForDate(date).get(0);
+
+        // Assert
+        assertTrue(completedTask.isCompleted(), "Task should still be marked as completed.");
+    }
+
+    @Test
+    void markTaskAsNotCompleted_alreadyNotCompletedTask_noChange() throws TaskManagerException {
+        // Arrange
+        LocalDate date = LocalDate.now();
+        addTask(date, "Task 1", TaskType.TODO, new String[]{null}, new String[]{null});
+
+        // Act
+        taskManager.markTaskAsNotCompleted(date, 0);
+        Task unmarkedTask = taskManager.getTasksForDate(date).get(0);
+
+        // Assert
+        assertFalse(unmarkedTask.isCompleted(), "Task should still be marked as not completed.");
     }
     
     @Test
