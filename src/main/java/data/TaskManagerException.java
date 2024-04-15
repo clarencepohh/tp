@@ -1,6 +1,5 @@
-package data.exceptions;
+package data;
 
-import data.Task;
 import time.WeekView;
 
 import java.time.LocalDate;

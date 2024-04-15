@@ -1,7 +1,9 @@
 package data.exceptions;
 
+import data.MarkTaskException;
 import data.Task;
 import data.TaskManager;
+import data.TaskManagerException;
 import data.TaskType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +15,6 @@ import java.util.List;
 import static data.TaskManager.addTask;
 import static data.TaskManager.deleteAllTasksOnDate;
 import static data.TaskManager.getDayTasks;
-import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -49,7 +50,7 @@ public class MarkTaskExceptionTest {
         List<Task> dayTasks = getDayTasks(date);
 
         // Assert
-        assertDoesNotThrow(() -> checkIfTaskIndexIsValidForMarkingTask(dayTasks, 1));
+        assertDoesNotThrow(() -> MarkTaskException.checkIfTaskIndexIsValidForMarkingTask(dayTasks, 1));
 
     }
 
@@ -70,7 +71,7 @@ public class MarkTaskExceptionTest {
 
         // Assert
         MarkTaskException thrown = assertThrows(MarkTaskException.class, () ->
-                checkIfTaskIndexIsValidForMarkingTask(dayTasks, 2));
+                MarkTaskException.checkIfTaskIndexIsValidForMarkingTask(dayTasks, 2));
 
         assertEquals("The task index you attempted to mark is out of range!", thrown.getMessage());
 
@@ -87,7 +88,7 @@ public class MarkTaskExceptionTest {
 
         // Assert
         MarkTaskException thrown = assertThrows(MarkTaskException.class, () ->
-                checkIfTaskIndexIsValidForMarkingTask(dayTasks, 1));
+                MarkTaskException.checkIfTaskIndexIsValidForMarkingTask(dayTasks, 1));
 
         assertEquals("There are no tasks to mark on this day!", thrown.getMessage());
 

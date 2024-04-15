@@ -1,11 +1,5 @@
-package data.exceptions;
+package data;
 
-import data.Deadline;
-import data.Event;
-import data.Task;
-import data.TaskManager;
-import data.TaskType;
-import data.Todo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -406,6 +400,8 @@ class TaskManagerTest {
         assertEquals(testTask.getEndDate(), addedTaskEndDate);
         assertEquals(testTask.getStartTime(), addedTaskStartTime);
         assertEquals(testTask.getEndTime(), addedTaskEndTime);
+
+        deleteAllTasksOnDate(taskManager, LocalDate.now().plusDays(2));
     }
 
     @Test
@@ -625,6 +621,8 @@ class TaskManagerTest {
         assertEquals(2, eventsForDate.size());
         assertEquals(taskDescription1, eventsForDate.get(0).getName());
         assertEquals(taskDescription2, eventsForDate.get(1).getName());
+
+        deleteAllTasksOnDate(taskManager, LocalDate.now().plusDays(1));
     }
 
     @Test
@@ -657,6 +655,8 @@ class TaskManagerTest {
 
         // Assert
         assertTrue(eventsForDate.isEmpty());
+
+        deleteAllTasksOnDate(taskManager, LocalDate.now().plusDays(1));
     }
 
     @Test
