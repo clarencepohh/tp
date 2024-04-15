@@ -1,11 +1,11 @@
 package data.exceptions;
 
+import data.Task;
+
 import time.WeekView;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import data.Task;
 
 public class TaskManagerException extends Exception {
 

@@ -1,7 +1,8 @@
 package data;
 
-import org.junit.jupiter.api.BeforeEach;
+import data.exceptions.TaskManagerException;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import data.exceptions.TaskManagerException;
@@ -9,17 +10,15 @@ import time.WeekView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.ArrayList;
-
 
 import static data.TaskManager.addTask;
-import static data.TaskManager.updateTask;
 import static data.TaskManager.deleteAllTasksOnDate;
-
+import static data.TaskManager.updateTask;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
