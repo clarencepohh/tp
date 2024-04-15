@@ -29,6 +29,7 @@ import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPri
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
+import static data.exceptions.TaskManagerException.checkIfDateInFormat;
 import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
 import static data.exceptions.TaskManagerException.checkIfTaskExistsInCurrentDate;
 import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
@@ -175,7 +176,7 @@ public class TaskManager {
      * @return Updated Task object.
      */
     public static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
-            int taskIndex, String newTaskDescription, String oldDescription) {
+            int taskIndex, String newTaskDescription, String oldDescription) throws TaskManagerException {
         Event oldEvent = (Event) dayTasks.get(taskIndex);
         System.out.println("Do you want to update the start and end dates and times? (yes/no)");
         String eventResponse = scanner.nextLine().trim().toLowerCase();
@@ -183,6 +184,11 @@ public class TaskManager {
             System.out.println("Enter the new start date, end date, start time and end time, " +
                     "separated by spaces:");
             String[] newDatesAndTimes = scanner.nextLine().trim().split(" ");
+
+            checkIfDateInFormat(newDatesAndTimes[0]);
+            checkIfDateInFormat(newDatesAndTimes[1]);
+            checkIfTimeInFormat(newDatesAndTimes[2]);
+            checkIfTimeInFormat(newDatesAndTimes[3]);
 
             Task task = new Event(newTaskDescription, newDatesAndTimes[0], newDatesAndTimes[1], newDatesAndTimes[2],
                     newDatesAndTimes[3]);

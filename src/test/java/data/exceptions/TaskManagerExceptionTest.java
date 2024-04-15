@@ -84,7 +84,7 @@ public class TaskManagerExceptionTest {
     public void checkIfDateTimeInFormat_invalidDateTimeDelimitersGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateTimeInFormat("15-04-2024 1600"));
-        Assertions.assertEquals("Invalid start date and time format. " +
+        Assertions.assertEquals("Invalid date and time format. " +
                 "Please use the format dd/MM/yyyy HHmm", thrown.getMessage());
     }
 
@@ -92,7 +92,7 @@ public class TaskManagerExceptionTest {
     public void checkIfDateTimeInFormat_invalidDateGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateTimeInFormat("15042024 1600"));
-        Assertions.assertEquals("Invalid start date and time format. " +
+        Assertions.assertEquals("Invalid date and time format. " +
                 "Please use the format dd/MM/yyyy HHmm", thrown.getMessage());
     }
 
@@ -100,7 +100,7 @@ public class TaskManagerExceptionTest {
     public void checkIfDateTimeInFormat_invalidTimeGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateTimeInFormat("15/04/2024 16:00"));
-        Assertions.assertEquals("Invalid start date and time format. " +
+        Assertions.assertEquals("Invalid date and time format. " +
                 "Please use the format dd/MM/yyyy HHmm", thrown.getMessage());
     }
 
@@ -108,7 +108,7 @@ public class TaskManagerExceptionTest {
     public void checkIfDateTimeInFormat_dateTimeNotSeparatedWithWhiteSpace_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateTimeInFormat("15/04/2024-16:00"));
-        Assertions.assertEquals("Invalid start date and time format. " +
+        Assertions.assertEquals("Invalid date and time format. " +
                 "Please use the format dd/MM/yyyy HHmm", thrown.getMessage());
     }
 
@@ -121,7 +121,7 @@ public class TaskManagerExceptionTest {
     public void checkIfDateInFormat_invalidDateGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateInFormat("152/04/2024"));
-        Assertions.assertEquals("Invalid start date format. " +
+        Assertions.assertEquals("Invalid date format. " +
                 "Please use the format dd/MM/yyyy", thrown.getMessage());
     }
 
@@ -129,7 +129,7 @@ public class TaskManagerExceptionTest {
     public void checkIfDateInFormat_invalidDateDelimitersGiven_exceptionThrown () {
         TaskManagerException thrown = Assertions.assertThrows(TaskManagerException.class, () ->
                 checkIfDateInFormat("15-04-2024"));
-        Assertions.assertEquals("Invalid start date format. " +
+        Assertions.assertEquals("Invalid date format. " +
                 "Please use the format dd/MM/yyyy", thrown.getMessage());
     }
 
