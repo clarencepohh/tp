@@ -609,7 +609,7 @@ private static void updateEventLogging(String newTaskDescription,
 The use of centralized logging allows for easy monitoring and analysis of the application's behavior, which can be 
 helpful during development and for troubleshooting issues in the production environment.
 
-## Exporting .ics File Component
+## Exporting .ics File Component (For future development)
 
 The 'ics' component:
 * Exports the tasks in the task hashmap to a .ics file that can be imported into calendar applications
