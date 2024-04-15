@@ -1,6 +1,7 @@
 # Developer Guide
 * [Acknowledgements](#acknowledgements)
 * [Architecture](#architecture)
+    * [Main Components of the architecture](#main-components-of-the-architecture)
 * [Design & Implementation](#design--implementation)
   * [Data Component](#data-component)
   * [UiRenderer Component](#uirenderer-component)
@@ -12,10 +13,11 @@
     * [Update Task Method](#update-task-method)
     * [Adding Tasks](#adding-tasks)
     * [Deleting Tasks](#deleting-tasks)
-    * [Interfacing with Storage class](#interfacing-with-storage-class)]
+    * [Interfacing with Storage class](#interfacing-with-storage-class)
   * [Storage component](#storage-component)
+  * [CommandHandler Component](#commandhandler-component)
   * [Exceptions and Logging](#exceptions-and-logging)
-  * [Exporting .ics File Component](#exporting-ics-file-component)
+  * [Exporting .ics File Component (For future development)](#exporting-ics-file-component-for-future-development)
 * [Appendix: Requirements](#appendix-requirements)
   * [Product scope](#product-scope)
     * [Target user profile](#target-user-profile)
@@ -52,6 +54,7 @@ The application is designed with a modular architecture, consisting of the follo
 ## Data Component
 ### API: [Data](https://github.com/AY2324S2-CS2113-W13-2/tp/tree/master/src/main/java/data)
 ![Data Class Diagram](images/class/Data.jpg)
+
 The 'Data' package consists of all the classes that the commands interact with to perform various functions.
 Below is a summary of the classes found in the Data package:
 - The `TaskManager` class is created that contains all local copies of `Task`, creating a many-to-one relationship with `Task`.
@@ -62,6 +65,7 @@ Below is a summary of the classes found in the Data package:
 - `TaskPriorityLevel` is an enumeration used in classifying the priority level of a `Task`.
 
 Below is a sequence diagram that illustrates a possible sequence when the user runs CLI-nton:
+
 ![Data Sequence Diagram](images/sequence/DataSequenceDiagram.png)
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
@@ -475,9 +479,9 @@ Upon task creation, the `addTask` method guarantees the preservation of the upda
 4. Updates the task description accordingly.
 5. Logs the changes if applicable.
 
-## Deleting Tasks
+### Deleting Tasks
 
-### deleteTask Method
+#### deleteTask Method
 The `deleteTask` method is responsible for deleting a task specified by the user, on a specified date.
 
 #### Method signature:
@@ -546,7 +550,8 @@ The 'storage' component:
 * Handles exception if `./save/clintonData.txt` is in corrupted format.
 
 Below is a UML class diagram of the Storage component:
-![img.png](images/class/Storage.png)
+
+![img.png](images/class/StorageClassDiagram.png)
 
 The `saveTasksToFile` method writes the tasks in a HashMap to the file in the following format:
 

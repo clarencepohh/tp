@@ -1,9 +1,10 @@
 @startuml
-participant "Main" as M
-participant "Storage" as S
-participant "FileWriter" as FW
-participant "BufferedReader" as BR
-participant "TaskManager" as TM
+hide footbox
+participant ":Main" as M
+participant ":Storage" as S
+participant ":FileWriter" as FW
+participant ":BufferedReader" as BR
+participant ":TaskManager" as TM
 
 M -> S : saveTasksToFile(tasks, path)
 activate S
@@ -16,14 +17,14 @@ S -> FW : write(date + "|" + taskSaveFormat + System.lineSeparator())
 deactivate TM
 FW --> S :
 deactivate FW
-S --> M :
+S --> M-- :
 
 M -> S : loadTasksFromFile(path)
 activate S
-S -> BR : new BufferedReader(new FileReader(path.toFile()))
-activate BR
+create BR
+S -> BR++ : new BufferedReader(new FileReader(path.toFile()))
 S -> BR : readLine()
-BR --> S : return line
+BR --> S-- : return line
 S -> TM : addTask(date, taskDescription, taskType, dates, times)
 activate TM
 TM --> S :
