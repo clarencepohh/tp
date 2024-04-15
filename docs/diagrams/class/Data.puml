@@ -5,22 +5,32 @@ skinparam classAttributeIconSize 0
 class TaskManager {
 - {static} logger: Logger
 - {static} tasks: HashMap <LocalDate, List<Task>>
+
 + {static} addTask (date: LocalDate, taskDescription: String, taskType: TaskType, dates: String[], times: String[])
-+ {static} updateTask (date: LocalDate, taskIndex: int, newTaskDescription: String, scanner: Scanner)
++ {static} updateTask (date: LocalDate, taskIndex: int, newTaskDescription: String, scanner: Scanner, inMonthView: boolean, weekView: WeekView)
++ {static} updateEventTask (scanner: Scanner, dayTasks: List<Task>, taskIndex: int, newTaskDescription: String, oldDescription: String)
++ {static} updateDeadlineTask (scanner: Scanner, dayTasks: List<Task>, taskIndex: int, newTaskDescription: String, oldDescription: String)
 + {static} getDayTasks (date: LocalDate)
 + {static} parseTaskType (userInput: String)
 + {static} deleteManager (weekView: WeekView, monthView: MonthView, inMonthView: boolean, \n                         taskManager: TaskManager, day: String, taskIndex: int)
 + {static} deleteAllTasksOnDate (taskManager: TaskManager, specifiedDate: LocalDate)
++ {static} getEventsForDate (date: LocalDate)
 + deleteTask (date: LocalDate, taskIndex: int, isMuted: boolean)
 + markTaskAsCompleted (date: LocalDate, taskIndex: int)
 + markTaskAsNotCompleted (date: LocalDate, taskIndex: int)
 + getTasksForDate (date: LocalDate)
 + addManager (scanner: Scanner, weekView: WeekView, monthView: MonthView, inMonthView: boolean, \n                      action: String, day: String, taskTypeString: String, taskDescription: String)
++ freeTimeManager (weekView: WeekView, monthView: MonthView, inMonthView: boolean, day: String)
 + markManager (weekView: WeekView, monthView: MonthView, inMonthView: boolean, day: String, taskIndex: int)
 + handleMarkingOfTask (taskIndex: int, date: LocalDate)
 + priorityManager (weekView: WeekView, monthView: MonthView, inMonthView: boolean, day: String, taskIndex: int, \n                          priorityLevelString: String)
 + updateManager (scanner: Scanner, weekView: WeekView, monthView: MonthView, inMonthView: boolean, \n                           taskManager: TaskManager, day: int, taskIndex: int, newDescription: String)
 + addTasksFromFile (tasksFromFile: Map<LocalDate, List<Task>>)
++ getFreeTimeSlots (events: List<Task>, currentDate: LocalDate)
++ printFreeTimeSlots (freeTimeSlots: List<String>, startDate: LocalDate)
+- {static} updateEventLogging (newTaskDescription: String, oldDescription: String, oldEvent: Event, newDatesAndTimes: String[])
+- {static} addTaskBasedOnType (scanner: Scanner, taskDescription: String, taskType: TaskType, date: LocalDate)
+- {static} parseAndAddEvent (scanner: Scanner, taskDescription: String, taskType: TaskType, date: LocalDate)
 - {static} findDateFromDayNumber (weekView: WeekView, monthView: MonthView, inMonthView: boolean, dayInt: int)
 - setPriorityLevelOfTask (taskIndex: int, date: LocalDate, priorityLevelString: String)
 }
@@ -64,13 +74,6 @@ class Event extends Task {
 + getSaveFormat ()
 }
 
-class TaskManagerException extends Exception {
-+ NOT_CURRENT_WEEK_MESSAGE: String
-+ NOT_CURRENT_MONTH_MESSAGE: String
-+ {static} checkIfDateInCurrentWeek (date: LocalDate, weekView: WeekView)
-+ {static} checkIfDateInCurrentMonth (date: LocalDate)
-+ {static} checkIfDateHasTasks (dayTasks: List<Task>)
-}
 
 enum TaskType <<enumeration>> {
 TODO
@@ -86,5 +89,7 @@ LOW
 }
 
 hide circle
+
+Task "*"  <- "1"TaskManager
 
 @enduml
