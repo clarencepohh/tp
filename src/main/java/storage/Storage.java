@@ -2,10 +2,9 @@ package storage;
 
 import data.exceptions.StorageFileException;
 import data.exceptions.TaskManagerException;
+import data.Task;
 import data.TaskPriorityLevel;
 import data.TaskType;
-import data.exceptions.StorageFileException;
-import data.exceptions.TaskManagerException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -27,7 +26,6 @@ import static data.TaskManager.getDayTasks;
 import static data.TaskManager.parseTaskType;
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
-import static data.exceptions.StorageFileException.checkStorageTextDateFormat;
 
 
 /**
