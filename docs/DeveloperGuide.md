@@ -1,37 +1,29 @@
 # Developer Guide
-
-### Table of Contents
 * [Acknowledgements](#acknowledgements)
 * [Architecture](#architecture)
-    * [Main Components](#main-components)
 * [Design & Implementation](#design--implementation)
   * [Data Component](#data-component)
   * [UiRenderer Component](#uirenderer-component)
   * [View Switching](#view-switching)
-    * [View Hierarchy](#view-hierarchy)
-    * [WeekView](#weekview)
-    * [MonthView](#monthview)
-    * [View Switching in Main](#view-switching-in-main)
-    * [Logging](#logging)
-    * [Utilities](#utilities)
-    * [Task Types](#task-types)
-    * [Error Handling <br>](#error-handling-br)
+  * [Utilities](#utilities)
   * [TaskManager Component](#taskmanager-component)
-  * [Retrieving tasks from the TaskManager](#retrieving-tasks-from-the-taskmanager)
-  * [Updating a Task](#updating-a-task)
-  * [Adding Tasks](#adding-tasks)
-  * [Deleting Tasks](#deleting-tasks)
-  * [Interfacing with Storage class](#interfacing-with-storage-class)
+    * [Retrieving tasks from the TaskManager](#retrieving-tasks-from-the-taskmanager)
+    * [Updating a Task](#updating-a-task)
+    * [Update Task Method](#update-task-method)
+    * [Adding Tasks](#adding-tasks)
+    * [Deleting Tasks](#deleting-tasks)
+    * [Interfacing with Storage class](#interfacing-with-storage-class)
   * [Storage component](#storage-component)
+  * [Exceptions and Logging](#exceptions-and-logging)
   * [Exporting .ics File Component](#exporting-ics-file-component)
 * [Appendix: Requirements](#appendix-requirements)
   * [Product scope](#product-scope)
-  * [Target user profile](#target-user-profile)
-  * [Value proposition](#value-proposition)
+    * [Target user profile](#target-user-profile)
+    * [Value proposition](#value-proposition)
   * [User Stories](#user-stories)
   * [Non-Functional Requirements](#non-functional-requirements)
-* [Glossary](#glossary)
-* [Instructions for manual testing](#instructions-for-manual-testing)
+  * [Glossary](#glossary)
+  * [Instructions for manual testing](#instructions-for-manual-testing)
 
 ## Acknowledgements
 
@@ -213,34 +205,29 @@ while (true) {
 
 ```
 
-### Logging
-The `FileLogger` class sets up a logger that writes log messages to the `logs.log` file in the project directory. The logger is configured to use the `SimpleFormatter` and to write to the file instead of the console.
-
-### Utilities
+## Utilities
 The `DateUtils` class provides a utility method `getStartOfWeek` that returns the start date of the week for a given date.
-
-### Task Types
-The `TaskType` enum defines the different types of tasks supported by the application: `TODO`, `EVENT`, and `DEADLINE`.
-
-### Error Handling <br>
-The application handles various exceptions, such as `TaskManagerException`, `DateTimeParseException`, and `NumberFormatException`. When an exception occurs, an error message is printed to the console, and the application continues to run.
 
 ## TaskManager Component
 
 ### Overview: 
 The TaskManager is responsible for handling the creation, reading, updating and deletion [CRUD] of tasks.
 
-### How it works:
+#### How it works:
 1. When the program starts, a TaskManager instance is created.
 2. Saved tasks are retrieved by interfacing with the Storage class to create required tasks and save them to this 
 instance of TaskManager.  
 3. When the user requests an operation, the main function parses the input and hands it to TaskManager if it is related
 4. The TaskManager will handle all requests relating to tasks, using methods detailed in the following sections.
-   to tasks.
 5. The TaskManager will also create INFO-level logs when making changes to tasks.
 
-## Retrieving tasks from the TaskManager
-### getTasksForDate Method
+#### Task Types
+`TaskManager` supports different task types to be created by the user.
+The `TaskType` enum defines the different types of tasks supported by the application: `TODO`, `EVENT`, and `DEADLINE`.
+There is also a `INVALID` type, used for error handling.
+
+### Retrieving tasks from the TaskManager
+#### getTasksForDate Method
 The `getTasksForDate` method is responsible for retrieving all tasks on a specified date.
 This is a helper function that is called whenever tasks relating to a certain date is needed.
 
@@ -257,13 +244,12 @@ public List<Task> getTasksForDate(LocalDate date)
 - Returns an ArrayList of Tasks for the specified date. It **is** possible that an empty ArrayList is returned, given
 that there are no tasks on that specified date.
 
-## Updating a Task
-
-### Overview
+### Updating a Task
+#### Overview
 
 Updating a task involves modifying its description or other attributes such as date or time. This guide outlines the process and considerations for updating tasks within the application.
 
-### Update Manager Method
+#### Update Manager Method
 
 The `updateManager` method facilitates the updating of tasks. It prompts the user for an updated task description and handles tasks of different types (Todo, Event, Deadline) while ensuring the changes are correctly reflected in the application.
 
@@ -275,7 +261,7 @@ public void updateManager(Scanner scanner, WeekView weekView, MonthView monthVie
         throws TaskManagerException, DateTimeParseException
 ```
 
-### Parameters
+#### Parameters
 
 - `scanner`: Scanner object for user input.
 - `weekView`: Current week being viewed.
@@ -286,12 +272,12 @@ public void updateManager(Scanner scanner, WeekView weekView, MonthView monthVie
 - `taskIndex`: Index of the task to update.
 - `newDescription`: Updated description of the task.
 
-### Exceptions
+#### Exceptions
 
 - `TaskManagerException`: Thrown if not in the correct week/month view.
 - `DateTimeParseException`: Thrown if there is an error parsing the date.
 
-### Method Functionality
+#### Method Functionality
 
 1. Converts the specified day to a `LocalDate`.
 2. Verifies if the date is in the current week/month view.
@@ -305,25 +291,25 @@ public void updateManager(Scanner scanner, WeekView weekView, MonthView monthVie
 
 The `updateTask` method is responsible for modifying the details of a task based on the user input.
 
-### Method Signature
+#### Method Signature
 
 ```
 public static void updateTask(LocalDate date, int taskIndex, String newTaskDescription, Scanner scanner)
         throws IndexOutOfBoundsException
 ```
 
-### Parameters
+#### Parameters
 
 - `date`: Date of the task.
 - `taskIndex`: Index of the task to update.
 - `newTaskDescription`: Updated description of the task.
 - `scanner`: Scanner object for user input.
 
-### Exceptions
+#### Exceptions
 
 - `IndexOutOfBoundsException`: Thrown if the task index is out of bounds.
 
-### Method Functionality
+#### Method Functionality
 
 1. Retrieves the tasks for the specified date.
 2. Validates if the task index is within bounds.
@@ -331,13 +317,13 @@ public static void updateTask(LocalDate date, int taskIndex, String newTaskDescr
 4. Updates the task description accordingly.
 5. Logs the changes if applicable.
 
-## Adding Tasks
+### Adding Tasks
 
-### Overview
+#### Overview
 
 The Add Task feature enhances the TaskManager application by enabling users to create various types of tasks such as Todo, Event, and Deadline. This section elaborates on the implementation details of this feature, encompassing methods for task creation, user input handling, and task addition management.
 
-### `addTask` Method
+#### `addTask` Method
 
 The `addTask` method orchestrates the creation and addition of a new task to the TaskManager. It accepts parameters including the task date, description, type, and relevant dates/times for events and deadlines. Depending on the task type, it constructs the corresponding task object (Todo, Event, or Deadline) and integrates it into the tasks map.
 
@@ -356,7 +342,11 @@ public static void addTask(LocalDate date, String taskDescription, TaskType task
 - `dates`: An array containing relevant dates for events and deadlines.
 - `times`: An array containing relevant times for events and deadlines.
 
-### `addManager` Method
+#### Exceptions
+
+- `TaskManagerException`: Thrown if there is an error in managing tasks.
+
+#### `addManager` Method
 
 The `addManager` method facilitates the management of adding tasks from user input along with the specified date. It prompts users to input task details, validates the input, and delegates the task creation process to the `addTask` method.
 
@@ -379,27 +369,32 @@ public void addManager(Scanner scanner, WeekView weekView, MonthView monthView, 
 - `taskTypeString`: String representing the task type.
 - `taskDescription`: Description of the task.
 
-### Handling User Input
+#### Exceptions
+
+- `TaskManagerException`: Thrown if there is an error in managing tasks.
+- `DateTimeParseException`: Thrown if there is an error parsing the date or time.
+
+#### Handling User Input
 
 This segment prompts users to input essential details for task creation, encompassing descriptions, dates, and times for events and deadlines. It utilizes the `Scanner` class to capture and validate user input before initiating task creation.
 
-### Task Type Switch Statement
+#### Task Type Switch Statement
 
 Within the `addTask` method, a switch statement delineates the type of task being created based on the `taskType` parameter. Corresponding actions are executed to create and add the task to the tasks map based on the identified type.
 
-### Error Handling
+#### Error Handling
 
 The implementation incorporates error handling mechanisms to effectively manage scenarios involving invalid inputs or unsupported task types. Exceptions such as `TaskManagerException` are employed to convey descriptive error messages, ensuring user guidance and application integrity.
 
-### Saving Tasks to File
+#### Saving Tasks to File
 
 Upon task creation, the `addTask` method guarantees the preservation of the updated task list to a file (`tasks.txt`) by invoking the `saveTasksToFile` method from the `Storage` class. This serves to persist task data across application sessions.
 
-### Exceptions
+#### Exceptions
 
 `IndexOutOfBoundsException`: Thrown if the task index is out of bounds.
 
-### Method Functionality
+#### Method Functionality
 
 1. Retrieves the tasks for the specified date.
 2. Validates if the task index is within bounds.
@@ -407,27 +402,29 @@ Upon task creation, the `addTask` method guarantees the preservation of the upda
 4. Updates the task description accordingly.
 5. Logs the changes if applicable.
 
-## Deleting Tasks
+### Deleting Tasks
 
-### deleteTask Method
+#### deleteTask Method
 The `deleteTask` method is responsible for deleting a task specified by the user, on a specified date.
 
 #### Method signature:
 ```
-public void deleteTask(LocalDate date, int taskIndex)
+public void deleteTask(LocalDate date, int taskIndex, boolean isMuted)
 ```
 
 #### Parameters
 - date: The date of the task.
 - taskIndex: The index of the task to delete.
+- isMuted: Whether system outputs are muted. 
 
 #### Method Functionality
 - Gets the LocalDate requested by the user.
 - Checks if there is are active tasks on the selected date, and checks if the date is within the period currently shown
   on the UI [week or month view].
 - Deletes the task if the above two checks pass, else highlights to the user through a console-printed error message.
+- If `isMuted` is True, no outputs are printed to the console. Only true when used in testing. 
 
-### deleteAllTasksOnDate Method
+#### deleteAllTasksOnDate Method
 The `deleteAllTasksOnDate` method is responsible for deleting **ALL** tasks on a date specified by the user.
 > Do note that this method is **NOT** used is normal operation of the application. It is currently only being used in 
 > testing, for easier delete operations for dummy tasks created on a date. 
@@ -445,8 +442,8 @@ public static void deleteAllTasksOnDate (TaskManager taskManager, LocalDate spec
 - Gets the LocalDate requested by the caller.
 - Calls the `deleteTask` method on all tasks on the date.
 
-## Interfacing with Storage class
-### `addTasksFromFile` method
+### Interfacing with Storage class
+#### `addTasksFromFile` method
 The `addTasksFromFile` method is responsible for parsing save data generated by the `Storage` class.
 > See more details on the `Storage` class below.
 
@@ -457,6 +454,9 @@ public void addTasksFromFile(Map<LocalDate, List<Task>> tasksFromFile) throws Ta
 
 #### Parameters
 - tasksFromFile: A map containing tasks read from a file.
+
+#### Exceptions
+- `TaskManagerException`: Thrown if there is an error adding tasks.
 
 #### Method Functionality
 - Gets the map that contains all tasks from the save file, generated by `Storage.loadFilesFromFile`.
@@ -491,7 +491,7 @@ The `loadTasksFromFile` method reads the tasks from the file and populates the `
 
 ### Exceptions
 
-![Exceptions.png](images%2Fclass%2FExceptions.png)
+![Exceptions.png](images/class/Exceptions.png)
 
 The project utilizes centralized exception handling through the `TaskManagerException` class and its subclasses, 
 `MarkTaskException` and `SetPriorityException`.
@@ -613,7 +613,7 @@ The 'ics' component:
 * Exports the tasks in the task hashmap to a .ics file that can be imported into calendar applications
 * Import tasks from external .ics file into the task hashmap
 
-## Appendix: Requirements
+# Appendix: Requirements
 ## Product scope
 ### Target user profile
 
@@ -662,5 +662,4 @@ such as events, to-dos, journal entries, and free/busy information, and together
 calendars across different vendors. Files formatted according to this specification usually have an extension of .ics. [(1)](https://en.wikipedia.org/wiki/ICalendar)
 
 ## Instructions for manual testing
-
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+Please take a look at our [User Guide](UserGuide.md) for a list of usable commands and their uses.

@@ -174,7 +174,7 @@ public class TaskManager {
      * @param oldDescription Old description of the task.
      * @return Updated Task object.
      */
-    private static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
+    public static Task updateEventTask(Scanner scanner, List<Task> dayTasks,
             int taskIndex, String newTaskDescription, String oldDescription) {
         Event oldEvent = (Event) dayTasks.get(taskIndex);
         System.out.println("Do you want to update the start and end dates and times? (yes/no)");
@@ -209,7 +209,7 @@ public class TaskManager {
      * @param oldDescription Old description of the task.
      * @return Updated Task object.
      */
-    private static Task updateDeadlineTask(Scanner scanner, List<Task> dayTasks,
+    public static Task updateDeadlineTask(Scanner scanner, List<Task> dayTasks,
             int taskIndex, String newTaskDescription, String oldDescription) {
         Deadline oldDeadline = (Deadline) dayTasks.get(taskIndex);
         System.out.println("Do you want to update the deadline date and time? (yes/no)");
