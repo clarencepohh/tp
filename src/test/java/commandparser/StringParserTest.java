@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class StringParserTest {
 
     @Test
-    void parseDateValidFormat() {
+    void parseDate_validDateFormatGiven_noExceptionThrown() {
         String validDateString = "15/03/2023";
         LocalDate expectedDate = LocalDate.of(2023, 3, 15);
         assertDoesNotThrow(() -> {
@@ -26,7 +26,7 @@ class StringParserTest {
     }
 
     @Test
-    void parseDateInvalidFormat() {
+    void parseDate_invalidDateFormatGiven_exceptionThrown() {
         String invalidDateString = "03-15-2023";
         assertThrows(TaskManagerException.class, () -> StringParser.parseDate(invalidDateString));
     }
