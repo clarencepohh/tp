@@ -57,6 +57,8 @@ Below is a summary of the classes found in the Data package:
 - `TaskType` is an enumeration used in classifying the types of `Task` created.
 - `TaskPriorityLevel` is an enumeration used in classifying the priority level of a `Task`.
 
+Below is a sequence diagram that illustrates a possible sequence when the user runs CLI-nton:
+![Data Sequence Diagram](images/sequence/DataSequenceDiagram.png)
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
 
