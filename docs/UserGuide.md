@@ -283,24 +283,18 @@ Format: `delete, <day>, <taskIndex>`
 - Deletes the task at the specified index on the given day
 - Shows an error message if the task index does not exist
 
-Example of usage:
-- Deletes task 2 on Wednesday
+Here's an example on how to delete a task from your calendar:
 
-```
-//deletes task 2 on day 3
-delete, 3, 2
+This is how your calender would look like in Week View before deleting a task:
+![img.png](images/Before-Deletion-Week_View.png)
 
-//deletes task 1 on day 5
-delete, 5, 1
-```
-- Shows error message if task does not exist
+This is how your calender would look like in Week View after deleting a task:
+![img.png](images/After-Deletion-Week-View.png)
 
-```
-//attempts to delete task 1 on day 5, but the task does not exist
-delete, 5, 1
-```
-Output: 
-![Invalid Delete Example Console Inputs and Outputs](images/Invalid-Delete-Example.png)
+The behaviour of the program would be the same in Month View as well.
+
+If the task that is being attempted to be deleted does not exist, an error message will be displayed 
+(*So please make sure you check the correct dates!*).
 
 ### Marking a Task as Complete or Incomplete: `mark`
 
