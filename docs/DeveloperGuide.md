@@ -59,6 +59,7 @@ Below is a summary of the classes found in the Data package:
 
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
+![Ui Class Diagram](images/class/Ui.png)
 
 ### Overview: <br> 
 The UiRenderer component is responsible for rendering the user interface. It is used to display messages, week views as well as month views to the user.
