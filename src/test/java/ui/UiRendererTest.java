@@ -3,7 +3,7 @@ package ui;
 import data.Task;
 import data.TaskManager;
 import data.TaskType;
-import data.exceptions.TaskManagerException;
+import data.TaskManagerException;
 import time.DateUtils;
 
 import org.junit.jupiter.api.Test;
@@ -147,6 +147,8 @@ public class UiRendererTest {
                 "---------------+---------------+---------------+" + lineSeparator;
 
         assertEquals(expectedOutput, outContent.toString());
+
+        deleteAllTasksOnDate(taskManager, LocalDate.now().plusDays(1));
     }
 
     @Test
@@ -176,5 +178,7 @@ public class UiRendererTest {
                 "+---------------+---------------+---------------+---------------+" + 
                 "---------------+---------------+---------------+" + lineSeparator;
         assertEquals(expectedOutput, outContent.toString());
+
+        deleteAllTasksOnDate(taskManager, LocalDate.now().plusDays(1));
     }
 }

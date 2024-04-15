@@ -15,8 +15,16 @@ Given below are my contributions to the project.
 **Enhancements to existing features**:
 * Updated the `TaskList` class to include the ability to add tasks from a list of tasks.
 * Refactored taskManager methods to be more modular and easier to read.
-* Handled exception handling for parsing of DateTime
+* Handled exception handling for parsing of DateTime.
+* Updated the `Task` class to include the ability to set the task's completion status.
 
 **Tools**
 * Used ical4j library to handle ical file format.
 * Update build.gradle file to include relevant dependencies for ical4j library.
+
+### Code contributed:
+[Link to code contribution](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=kyhjonathan&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-02-23&tabOpen=true&tabType=zoom&zA=kyhjonathan&zR=AY2324S2-CS2113-W13-2%2Ftp%5Bmaster%5D&zACS=126.71478873239437&zS=2024-02-23&zFS=w13&zU=2024-04-15&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false)
+
+### Reflections:
+I have learnt much about the practices of Software Engineering that is undoubtedly paramount in the future.
+Extremely educational and important module that has taught me the importance of proper documentation and testing.

@@ -1,5 +1,9 @@
 package data;
 
+/**
+ * Represents a deadline task.
+ * A Deadline is a task that needs to be done before a specific date and time.
+ */
 public class Deadline extends Task {
     protected String byDate;
     protected String byTime;

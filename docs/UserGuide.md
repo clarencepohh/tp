@@ -107,7 +107,7 @@ The application will move to the previous month view, displaying the month prior
 
 ### Switching to Month View: `month`
 
-The `month` command allows you to switch to the month view from any other view.
+The `month` command allows you to switch to the month view from week view.
 
 **Usage:**
 
@@ -127,7 +127,7 @@ The application will switch to the month view from week view and current month w
 
 ### Switching to Week View: `week`
 
-The `week` command allows you to switch to the week view from any other view.
+The `week` command allows you to switch to the week view from month view.
 
 **Usage:**
 
@@ -223,9 +223,10 @@ Here's what that would look like in month view:
 The Events are represented by red parenthesis, and they are empty indicating the event is not marked.
 
 #### **Notes to users**
-> Commas`,` and pipes`|` are used in our application as command delimiters as well as for file storage purposes.
-> Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues.
->
+> Dashes`-`, Slashes`/`, Commas`,` and pipes`|` are used in our application as delimiters and separators in our storage file(clintonData.txt).
+> 
+> Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues during the writing and reading of the storage file.
+> 
 > You have been **informed**!
 
 ### Updating a Task Description: `update`
@@ -299,24 +300,18 @@ Format: `delete, <day number>, <taskIndex>`
 - Deletes the task at the specified index on the given day
 - Shows an error message if the task index does not exist
 
-Example of usage:
-- Deletes task 2 on Wednesday
+Here's an example on how to delete a task from your calendar:
 
-```
-//deletes task 2 on day 3
-delete, 3, 2
+This is how your calender would look like in Week View before deleting a task:
+![img.png](images/Before-Deletion-Week_View.png)
 
-//deletes task 1 on day 5
-delete, 5, 1
-```
-- Shows error message if task does not exist
+This is how your calender would look like in Week View after deleting a task:
+![img.png](images/After-Deletion-Week-View.png)
 
-```
-//attempts to delete task 1 on day 5, but the task does not exist
-delete, 5, 1
-```
-Output: 
-![Invalid Delete Example Console Inputs and Outputs](images/Invalid-Delete-Example.png)
+The behaviour of the program would be the same in Month View as well.
+
+If the task that is being attempted to be deleted does not exist, an error message will be displayed 
+(*So please make sure you check the correct dates!*).
 
 ### Marking a Task as Complete or Incomplete: `mark`
 
@@ -328,13 +323,13 @@ Format: `mark, <day number>, <taskIndex>`
 
 Example of usage:
 
-```
-// marks task 3 on day 2 as complete
-mark, 2, 3
+This is how you calendar would look like in Week View before marking a task.
+![img.png](images/BeforeMarkTaskWeekView.png
 
-// marks task 1 on day 4 as incomplete
-mark, 4, 1
-```
+This is how you calendar would look like in Week View after marking a task.
+![img.png](images/AfterMarkingTaskWeekView.png)
+
+The command will work the same way in Month View as well.
 
 ### Setting Priority Level for a Task: `priority`
 
@@ -345,15 +340,12 @@ Format: `priority, <day number>, <taskIndex>, <priority>`
 - Default priority level: `L`
 - Setting priority level will update any existing priority level for the task to the new level
 
-Example of usage:
+This is how you calendar would look like in Week View before setting a task's priority to high (Default Priority: Low).
+![img.png](images/BeforeSetPriorityWeekView.png)
 
-```
-// sets priority level HIGH for task 1 on day 5
-priority, 5, 1, H
+This is how you calendar would look like in Week View after setting a task's priority to high.
+![img.png](images/AfterSetPriorityWeekView.png)
 
-// sets priority level MEDIUM for task 2 on day 3
-priority, 3, 2, M
-```
 
 ### Quitting the Application: `quit`
 
@@ -366,18 +358,8 @@ quit
 ```
 
 **Example:**
-
-```
-Week View: 21/04/2024 - 27/04/2024
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |
-|21/04/2024     |22/04/2024     |23/04/2024     |24/04/2024     |25/04/2024     |26/04/2024     |27/04/2024     |
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-
-quit
-Exiting Calendar...
-```
+Below shows how a user would quit the application.
+![img.png](images/QuitApplication.png)
 The application will exit after displaying a goodbye message.
 
 ### ICS Exporting and Importing: `ics` `[coming in future versions]`
@@ -413,7 +395,11 @@ ics, import, tasks.ics
 
 **Q**: Does the scheduler account for clashes in event timings?
 
-**A**: No. This is to accomodate for users who may have overlapping events or tasks. We recommend users to manually check for clashes and adjust their schedules accordingly.
+**A**: No. This is to accommodate for users who may have overlapping events or tasks. We recommend users to manually check for clashes and adjust their schedules accordingly.
+
+**Q**: I accidentally typed in a wrong command after CLI-nton asked me "Do you want to update the start and end dates and times? (yes/no)". It says "Event Updated.", but the Date/Time is not updated. What does it mean?
+
+**A**: The message "Event Updated." is a general message to indicate that the event has been updated. However, in this case, the date/time was not updated as the user did not provide the correct input. We recommend users to carefully follow the instructions and provide the correct input to ensure that the task is updated accurately.
 
 ## Command Summary
 

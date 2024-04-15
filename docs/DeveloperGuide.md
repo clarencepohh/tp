@@ -1,6 +1,7 @@
 # Developer Guide
 * [Acknowledgements](#acknowledgements)
 * [Architecture](#architecture)
+    * [Main Components of the architecture](#main-components-of-the-architecture)
 * [Design & Implementation](#design--implementation)
   * [Data Component](#data-component)
   * [UiRenderer Component](#uirenderer-component)
@@ -12,10 +13,11 @@
     * [Update Task Method](#update-task-method)
     * [Adding Tasks](#adding-tasks)
     * [Deleting Tasks](#deleting-tasks)
-    * [Interfacing with Storage class](#interfacing-with-storage-class)]
+    * [Interfacing with Storage class](#interfacing-with-storage-class)
   * [Storage component](#storage-component)
+  * [CommandHandler Component](#commandhandler-component)
   * [Exceptions and Logging](#exceptions-and-logging)
-  * [Exporting .ics File Component](#exporting-ics-file-component)
+  * [Exporting .ics File Component (For future development)](#exporting-ics-file-component-for-future-development)
 * [Appendix: Requirements](#appendix-requirements)
   * [Product scope](#product-scope)
     * [Target user profile](#target-user-profile)
@@ -33,21 +35,26 @@ ical4J Library: [https://www.ical4j.org/](https://www.ical4j.org/)
 
 
 ## Architecture
-The Calendar application is designed with a modular architecture, consisting of the following components:
+The ***Architecture diagram*** given below shows the high-level architecture of CLI-nton.
+The application is designed with a modular architecture, consisting of the following components:
 
+![img.png](diagrams/architecture/architeturediagram.png)
 
-#### Main Components
-- **UI**: The `UiRenderer` class handles the rendering of the calendar views (week and month) to the console.
-- **Logic**: The `Main` class acts as the central logic component, handling user input and dispatching commands to the appropriate components.
-- **Data**: The `TaskManager` class manages the tasks and their corresponding dates, providing methods for adding, updating, and deleting tasks.
-- **Storage**: The `Storage` class handles the persistence of tasks by reading from and writing to a file.
-- **Time**: The `View` class and its subclasses (`WeekView` and `MonthView`) manage the rendering and navigation of the week and month views.
+#### Main Components of the architecture
+- **UI**: The `UiRenderer` class handles the rendering of the calendar views (week and month) to the console, and 'AvatarUi' class handles the rendering of the avatar.
+- **Main**: The `Main` class acts as the central logic component, handling user input and dispatching commands to the appropriate components.
+- **Data**: The `TaskManager` class manages the tasks and their corresponding dates, providing methods for adding, updating, and deleting tasks. 'Exceptions' contains the exceptions that are thrown by the application.
+- **Storage**: The `Storage` class handles the writing and reading of tasks to and from clintonData.txt file, ensuring persistence of task data across sessions.
+- **Time**: The `DateUtils` class provides utility methods for working with dates and times.
+- **Logger**: The `FileLogger` class sets up a logger that writes log messages to the `logs.log` file in the project directory.
+- **CommandParser**: The `CommandParser` class parses user input commands and extracts relevant information for processing.
 
 # Design & Implementation
 
 ## Data Component
 ### API: [Data](https://github.com/AY2324S2-CS2113-W13-2/tp/tree/master/src/main/java/data)
 ![Data Class Diagram](images/class/Data.jpg)
+
 The 'Data' package consists of all the classes that the commands interact with to perform various functions.
 Below is a summary of the classes found in the Data package:
 - The `TaskManager` class is created that contains all local copies of `Task`, creating a many-to-one relationship with `Task`.
@@ -58,6 +65,7 @@ Below is a summary of the classes found in the Data package:
 - `TaskPriorityLevel` is an enumeration used in classifying the priority level of a `Task`.
 
 Below is a sequence diagram that illustrates a possible sequence when the user runs CLI-nton:
+
 ![Data Sequence Diagram](images/sequence/DataSequenceDiagram.png)
 ## UiRenderer Component
 ### API: [UiRenderer.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/ui/UiRenderer.java)
@@ -409,6 +417,8 @@ public static void addTask(LocalDate date, String taskDescription, TaskType task
 #### `addManager` Method
 
 The `addManager` method facilitates the management of adding tasks from user input along with the specified date. It prompts users to input task details, validates the input, and delegates the task creation process to the `addTask` method.
+The sequence diagram below illustrates the flow of the `addManager` method:
+![img.png](images/sequence/AddManagerSequenceDiagram.png)
 
 #### Method Signature
 
@@ -444,11 +454,18 @@ Within the `addTask` method, a switch statement delineates the type of task bein
 
 #### Error Handling
 
-The implementation incorporates error handling mechanisms to effectively manage scenarios involving invalid inputs or unsupported task types. Exceptions such as `TaskManagerException` are employed to convey descriptive error messages, ensuring user guidance and application integrity.
+The implementation incorporates error handling mechanisms to effectively manage scenarios involving invalid inputs or unsupported task types. 
+Below is a list of exceptions and a description of how they are handled:
+* `TaskManagerException`: Handles errors that occur during task creation, such as invalid dates or task types.
+* `DateTimeParseException`: Manages exceptions related to date and time parsing errors.
+* `IndexOutOfBoundsException`: Ensures the task index is within bounds when updating tasks.
+* `StorageFileException`: Handles issues related to the storage of task data, such as invalid date formats in the task file.
+* `MarkTaskException`: Manages exceptions that occur when marking a task as complete.
+* `SetPriorityException`: Handles exceptions related to setting the priority of a task.
 
 #### Saving Tasks to File
 
-Upon task creation, the `addTask` method guarantees the preservation of the updated task list to a file (`tasks.txt`) by invoking the `saveTasksToFile` method from the `Storage` class. This serves to persist task data across application sessions.
+Upon task creation, the `addTask` method guarantees the preservation of the updated task list to a file (`clintonData.txt`) by invoking the `saveTasksToFile` method from the `Storage` class. This serves to persist task data across application sessions.
 
 #### Exceptions
 
@@ -484,7 +501,7 @@ public void deleteTask(LocalDate date, int taskIndex, boolean isMuted)
 - Deletes the task if the above two checks pass, else highlights to the user through a console-printed error message.
 - If `isMuted` is True, no outputs are printed to the console. Only true when used in testing. 
 
-#### deleteAllTasksOnDate Method
+### deleteAllTasksOnDate Method
 The `deleteAllTasksOnDate` method is responsible for deleting **ALL** tasks on a date specified by the user.
 > Do note that this method is **NOT** used is normal operation of the application. It is currently only being used in 
 > testing, for easier delete operations for dummy tasks created on a date. 
@@ -527,25 +544,34 @@ public void addTasksFromFile(Map<LocalDate, List<Task>> tasksFromFile) throws Ta
 **API** : [Storage.java](https://github.com/AY2324S2-CS2113-W13-2/tp/blob/master/src/main/java/storage/Storage.java)
 
 The 'storage' component:
-* Reads tasks from the formatted `./save/tasks.txt` file and appends to task hashmap.
-* Identifies unique tasks stored in task hashmap, parses and writes to `./save/tasks.txt` file
-* Handles exception if `./save/tasks.txt` is in corrupted format
+* Creates new file if `./save/clintonData.txt` does not exist.
+* Reads tasks from the formatted `./save/clintonData.txt` file and appends to task hashmap.
+* Identifies unique tasks stored in task hashmap, parses and writes to `./save/clintonData.txt` file.
+* Handles exception if `./save/clintonData.txt` is in corrupted format.
+
+Below is a UML class diagram of the Storage component:
+
+![img.png](images/class/StorageClassDiagram.png)
 
 The `saveTasksToFile` method writes the tasks in a HashMap to the file in the following format:
 
 ```
-<date>|<taskType>|<taskDescription>|<additionalData>
+<date>|<taskType>|<markedStatus>|<priorityLevel>|<taskDescription>|<taskDetails>
 ```
 
 For example:
 
 ```
-2023-06-01|TODO|Buy groceries
-2023-06-02|EVENT|Meeting|2023-06-02|2023-06-03|09:00|11:00
-2023-06-05|DEADLINE|Submit report|2023-06-10|23:59
+2024-04-15|D|O|L|task 2|19/04/2024|1400
+2024-04-18|E|O|L|event 1|14/04/2024|19/04/2024|1200|1200
+2024-04-17|T|O|L|cs2113 deadline
+
 ```
 
 The `loadTasksFromFile` method reads the tasks from the file and populates the `TaskManager` with the loaded tasks.
+
+Shown below is the sequence diagram for 'saveTasksToFile' and 'loadTasksFromFile' methods:
+![img.png](images/sequence/SaveAndLoadSequenceDiagram.png)
 
 ## CommandHandler Component
 
@@ -589,12 +615,13 @@ The `CommandHandler` class provides various command handling methods, each respo
 10. **printHelp()**: Prints the help message, displaying the available commands and their descriptions.
 11. **handleQuitCommand()**: Exits the application.
 
-### UML Class Diagram for CommandHandler
+Below shows the UML Class Diagram for CommandParser.
 
 ![CommandParser.png](images/class/CommandParser.png)
 
-The `CommandHandler` class has dependencies on the `TaskManager`, `WeekView`, `MonthView`, and `StringParser` classes. 
+The `CommandHandler` class has dependencies on the `TaskManager`, `WeekView`, `MonthView`, and `StringParser` classes.
 The `Main` class creates instances of these classes and passes them to the `CommandHandler` constructor.
+
 ## Exceptions and Logging
 
 ### Exceptions
@@ -715,7 +742,7 @@ private static void updateEventLogging(String newTaskDescription,
 The use of centralized logging allows for easy monitoring and analysis of the application's behavior, which can be 
 helpful during development and for troubleshooting issues in the production environment.
 
-## Exporting .ics File Component
+## Exporting .ics File Component (For future development)
 
 The 'ics' component:
 * Exports the tasks in the task hashmap to a .ics file that can be imported into calendar applications
@@ -763,6 +790,10 @@ quickly create entries in their calendar.
 ## Non-Functional Requirements
 
 1. Should work on Linux, macOS, Unix and Windows as long as Java `11` is installed.
+2. A user with with an average typing speed should be able to add a task faster using commands than a mouse.
+3. The application will be free for all users
+4. The application should be able to work on typical CLI interface without the need of third-party software
+5. The application should be able to repond in no more than 5 seconds for any command
 
 ## Glossary
 

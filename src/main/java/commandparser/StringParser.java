@@ -1,11 +1,16 @@
 package commandparser;
 
-import data.exceptions.TaskManagerException;
+import data.TaskManagerException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class provides utility methods for parsing and validating strings related to tasks.
+ * It includes methods for parsing dates, task indices, task descriptions, and priority levels,
+ * as well as methods for validating the format of various commands.
+ */
 public class StringParser {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

@@ -1,0 +1,19 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class Storage {
+    - {static} FILE_PATH: Path
+    - {static} logger: Logger
+    + {static} createNewFile(path: Path): void
+    + {static} saveTasksToFile(tasks: Map<LocalDate, List<Task>>, path: Path): void
+    + {static} loadTasksFromFile(path: Path): Map<LocalDate, List<Task>>
+    - {static} configureStatuses(date: LocalDate, markedStatus: String, priorityLevel: String): void
+    - {static} setPriorityLevelStatus(priorityLevel: String, recentlyAddedTask: Task): void
+    - {static} setMarkedStatus(markedStatus: String, recentlyAddedTask: Task): void
+    + {static} checkFileFormat(line: String): boolean
+}
+
+hide circle
+
+@enduml
