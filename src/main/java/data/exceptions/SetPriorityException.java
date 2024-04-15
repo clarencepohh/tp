@@ -1,8 +1,8 @@
 package data.exceptions;
 
-import data.Task;
-
 import java.util.List;
+
+import data.Task;
 
 /**
  * Represents an exception that occurs when setting priority to a task.
