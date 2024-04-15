@@ -61,7 +61,7 @@ public class StringParser {
         if (trimmedPriority.equals("H") || trimmedPriority.equals("M") || trimmedPriority.equals("L")) {
             return trimmedPriority;
         } else {
-            throw new TaskManagerException("Invalid priority level. Please use 'high', 'medium', or 'low'.");
+            throw new TaskManagerException("Invalid priority level. Please use 'H', 'M', or 'L'.");
         }
     }
 
