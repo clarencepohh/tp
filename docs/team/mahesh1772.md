@@ -8,6 +8,9 @@ As a dedicated software developer, I have made significant contributions to the 
 
 ### Enhancements Implemented
 
+#### Check out my code!
+[Mahesh's Contribution!](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-02-23&tabOpen=true&tabType=authorship&tabAuthor=Mahesh1772&tabRepo=AY2324S2-CS2113-W13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
+
 #### Specific rendering of week view
 - **What it does**: The `WeekView` class provides a detailed visual representation of the user's weekly schedule, organizing tasks by day and time.
 - **Justification**: This feature was developed to assist users in managing their weekly tasks more effectively, offering a comprehensive overview of their commitments.

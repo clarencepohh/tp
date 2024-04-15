@@ -576,7 +576,7 @@ The `CommandHandler` class provides various command handling methods, each respo
 
 ### UML Class Diagram for CommandHandler
 
-![CommandParser.png](images%2Fclass%2FCommandParser.png)
+![CommandParser.png](images/class/CommandParser.png)
 
 The `CommandHandler` class has dependencies on the `TaskManager`, `WeekView`, `MonthView`, and `StringParser` classes. 
 The `Main` class creates instances of these classes and passes them to the `CommandHandler` constructor.
@@ -584,7 +584,7 @@ The `Main` class creates instances of these classes and passes them to the `Comm
 
 ### Exceptions
 
-![Exceptions.png](images%2Fclass%2FExceptions.png)
+![Exceptions.png](images/class/Exceptions.png)
 
 The project utilizes centralized exception handling through the `TaskManagerException` class and its subclasses, 
 `MarkTaskException` and `SetPriorityException`.
