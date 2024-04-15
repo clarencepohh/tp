@@ -12,7 +12,7 @@
     * [Update Task Method](#update-task-method)
     * [Adding Tasks](#adding-tasks)
     * [Deleting Tasks](#deleting-tasks)
-    * [Interfacing with Storage class](#interfacing-with-storage-class)
+    * [Interfacing with Storage class](#interfacing-with-storage-class)]
   * [Storage component](#storage-component)
   * [Exceptions and Logging](#exceptions-and-logging)
   * [Exporting .ics File Component](#exporting-ics-file-component)
@@ -69,8 +69,8 @@ The UiRenderer component is responsible for rendering the user interface. It is 
 3. The week view will display the tasks for the week, with the tasks for each day displayed in the respective columns.
 4. The month view will display a summary of the tasks for each day in the month, with the dates of the month displayed in a month calendar format.
 
-### printWeekView Method
-![Sequence Diagram for printWeekView()](images/sequence/PrintWeekViewSequenceDiagram.png)
+### printView Method for Week View
+![Sequence Diagram for printView()](images/sequence/PrintWeekViewSequenceDiagram.png)
 
 ### printWeekHeader Method
 `printWeekHeader` Method
