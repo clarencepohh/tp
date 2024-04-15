@@ -19,11 +19,12 @@ class CommandHandler {
     - handlePriorityCommand(parts: String[]): void
     - handleMonthCommand(): void
     - handleWeekCommand(): void
-    - printHelp(): void
+    - {static} printHelp(): void
     - handleQuitCommand(): void
 }
 
 class StringParser {
+    + {static} dateFormatter: DateTimeFormatter
     + parseDate(dateString: String): LocalDate
     + parseTaskIndex(indexString: String): int
     + parseTaskDescription(descriptionString: String): String

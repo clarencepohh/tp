@@ -106,7 +106,7 @@ The printWeekBody method displays the body of the week view, showing tasks for e
 
 #### Method Signature
 ```
-public static void printWeekBody(LocalDate startOfWeek, DateTimeFormatter dateFormatter, TaskManager taskManager)
+public static void printWeekBody(LocalDate startOfWeek, TaskManager taskManager)
 ```
 
 #### Parameters
@@ -120,6 +120,30 @@ public static void printWeekBody(LocalDate startOfWeek, DateTimeFormatter dateFo
 
 ### Month View Rendering
 The month view utilizes the printWeekHeader method with the isMonthView parameter set to true, limiting the display to only include week headers without individual tasks.
+
+### printMonthView Method
+The `printView` method in the `MonthView` is responsible for rendering the month view, displaying the calendar grid and the tasks for each day.
+
+#### Method Signature
+```
+@Override
+public void printView(TaskManager taskManager)
+```
+
+#### Parameters
+- `taskManager`: The TaskManager instance containing the tasks to be displayed.
+
+#### Method Functionality
+1. Calculates the `YearMonth` and the first day of the month that falls on a Sunday.
+2. Prints the month header using the `printMonthHeader` method.
+3. Calls the `printWeekHeader` method from the `UiRenderer` to display the week header.
+4. Iterates through the weeks in the month, calling the `printWeek` method for each week.
+5. The `printWeek` method calculates the start date of the week, prints the day numbers, and then calls `printTasksForWeek` to display the tasks for that week.
+
+#### Sequence Diagram
+![MonthView Sequence Diagram](images/sequence/PrintMonthViewSequenceDiagramWithoutLogger.png)
+
+The sequence diagram above illustrates the interactions between the `m:MonthView`, `u:UiRenderer`, `t:TaskManager`, and `l:Logger` classes during the execution of the `printView` method.
 
 ### Displaying Help and User Commands
 `printHelp` Method
@@ -147,7 +171,7 @@ The `View` abstract class provides a common interface for rendering and navigati
 - `next()`: This method advances the view to the next period (e.g., next week or next month).
 - `previous()`: This method moves the view to the previous period (e.g., previous week or previous month).
 - 
-![Time.png](images%2Fclass%2FTime.png)
+![Time.png](images/class/Time.png)
 
 The `View` class also has a protected `startOfView` field, which represents the starting date of the current view period, and a `dateFormatter` field for formatting dates.
 
@@ -175,12 +199,10 @@ The `MonthView` class extends the `View` abstract class and provides an implemen
 The `MonthView` class also provides the following private methods:
 
 - `printWeek(LocalDate current, TaskManager taskManager)`: This method prints a single week within the month view. It iterates over the days of the week and calls the `printDay` method for each day. It also prints the tasks for the week using the `printTasksForWeek` method.
-- `printDay(LocalDate current)`: This method prints the day number for a given date within the month view.
+- `printDay(LocalDate currentDate, LocalDate startOfMonth)`: This method prints the day number for a given date within the month view.
 - `getMaxTasksForWeek(LocalDate weekStart, TaskManager taskManager)`: This method calculates the maximum number of tasks for a given week by iterating over the days of the week and finding the maximum number of tasks for any day.
 - `printTasksForWeek(LocalDate weekStart, int maxTasks, TaskManager taskManager)`: This method prints the tasks for a given week within the month view. It iterates over the tasks and calls the `printTaskForDay` method for each task.
 - `printTaskForDay(List<Task> dayTasks, int taskIndex)`: This method prints a single task for a given day within the month view.
-
-Sure, here's the updated version of the "View Switching in Main" section that fits with the `handleMonthCommand()` and `handleWeekCommand()` methods:
 
 ### View Switching in CommandHandler
 
@@ -330,8 +352,9 @@ The `updateTask` method is responsible for modifying the details of a task based
 ### Method Signature
 
 ```
-public static void updateTask(LocalDate date, int taskIndex, String newTaskDescription, Scanner scanner)
-        throws IndexOutOfBoundsException
+public static void updateTask(LocalDate date, int taskIndex, String newTaskDescription, Scanner scanner,
+        boolean inMonthView, WeekView weekView)
+        throws IndexOutOfBoundsException, TaskManagerException {
 ```
 
 ### Parameters
@@ -436,7 +459,7 @@ The `deleteTask` method is responsible for deleting a task specified by the user
 
 #### Method signature:
 ```
-public void deleteTask(LocalDate date, int taskIndex)
+public void deleteTask(LocalDate date, int taskIndex, boolean isMuted)
 ```
 
 #### Parameters
@@ -552,7 +575,6 @@ The `CommandHandler` class provides various command handling methods, each respo
 11. **handleQuitCommand()**: Exits the application.
 
 ### UML Class Diagram for CommandHandler
-Here's the UML class diagram for the `CommandHandler` class and its dependencies:
 
 ![CommandParser.png](images%2Fclass%2FCommandParser.png)
 

@@ -5,8 +5,8 @@ skinparam classAttributeIconSize 0
 
 
 abstract class View {
-    - startOfView: LocalDate
-    - dateFormatter: DateTimeFormatter
+    # startOfView: LocalDate
+    # dateFormatter: DateTimeFormatter
     + View(startOfView: LocalDate, dateFormatter: DateTimeFormatter)
     + abstract printView(taskManager: TaskManager): void
     + abstract next(): void
@@ -17,7 +17,10 @@ abstract class View {
 }
 
 class MonthView extends View {
-    - uiRenderer: UiRenderer
+    - logger : Logger {static}
+    - NUMBER_OF_DAYS_IN_WEEK : int {static}
+    - uiRenderer : UiRenderer
+
     + MonthView(startOfMonth: LocalDate, dateFormatter: DateTimeFormatter)
     + printView(taskManager: TaskManager): void
     - printMonthHeader(yearMonth: YearMonth): void
