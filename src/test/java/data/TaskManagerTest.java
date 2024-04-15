@@ -3,6 +3,8 @@ package data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
+import data.exceptions.TaskManagerException;
 import time.WeekView;
 
 import java.time.LocalDate;
@@ -372,6 +374,8 @@ class TaskManagerTest {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getByTime());
         assertEquals(updatedByDate, taskManager.getTasksForDate(LocalDate.parse(updatedByDate,
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getByDate());
+
+        deleteAllTasksOnDate(taskManager, LocalDate.now().plusDays(2));
     }
 
     @Test
@@ -457,10 +461,12 @@ class TaskManagerTest {
 
         // Assert
         assertEquals(updatedTaskDescription, taskManager.getTasksForDate(date).get(0).getName());
+
+        deleteAllTasksOnDate(taskManager, LocalDate.now().plusDays(2));
     }
 
     @Test
-    void updateEventDescriptionDescriptionAndDateTime_validInput_updatesTask() throws TaskManagerException {
+    void updateEventDescriptionAndDateTime_validInput_updatesTask() throws TaskManagerException {
         // Arrange
         LocalDate date = LocalDate.now();
         String initialTaskDescription = "Initial Event";
@@ -505,6 +511,8 @@ class TaskManagerTest {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getEndDate());
         assertEquals(updatedEndTime, taskManager.getTasksForDate(LocalDate.parse(updatedStartDate,
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"))).get(0).getEndTime());
+
+        deleteAllTasksOnDate(taskManager, LocalDate.now().plusDays(2));
     }
 
     @Test

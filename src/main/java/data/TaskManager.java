@@ -18,17 +18,21 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static data.TaskManagerException.checkIfDateHasTasks;
-import static data.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
-import static data.SetPriorityException.checkIfPriorityIsValid;
-import static data.SetPriorityException.checkIfTaskIndexIsValidForPriority;
+import data.exceptions.MarkTaskException;
+import data.exceptions.SetPriorityException;
+import data.exceptions.TaskManagerException;
+
 import static data.TaskType.DEADLINE;
 import static data.TaskType.EVENT;
 import static data.TaskType.TODO;
-import static data.TaskManagerException.checkIfDateInFormat;
-import static data.TaskManagerException.checkIfDateTimeInFormat;
-import static data.TaskManagerException.checkIfTaskExistsInCurrentDate;
-import static data.TaskManagerException.checkIfTimeInFormat;
+import static data.exceptions.MarkTaskException.checkIfTaskIndexIsValidForMarkingTask;
+import static data.exceptions.SetPriorityException.checkIfPriorityIsValid;
+import static data.exceptions.SetPriorityException.checkIfTaskIndexIsValidForPriority;
+import static data.exceptions.TaskManagerException.checkIfDateHasTasks;
+import static data.exceptions.TaskManagerException.checkIfDateInFormat;
+import static data.exceptions.TaskManagerException.checkIfDateTimeInFormat;
+import static data.exceptions.TaskManagerException.checkIfTaskExistsInCurrentDate;
+import static data.exceptions.TaskManagerException.checkIfTimeInFormat;
 import static storage.Storage.saveTasksToFile;
 
 /**
