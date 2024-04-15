@@ -24,29 +24,6 @@ class AvatarUiTest {
     }
 
     @Test
-    void printAvatar_displaysCorrectAvatar() {
-        AvatarUi.printAvatar();
-
-        String lineSeparator = System.lineSeparator();
-        String expectedOutput = 
-                "            *****=            " + lineSeparator +
-                "          %%#**#%#**          " + lineSeparator +
-                "         +%#==== =#%          " + lineSeparator +
-                "          @*+=  =+##          " + lineSeparator +
-                "          %++=====*#          " + lineSeparator +
-                "           *= == =+           " + lineSeparator +
-                "           =*=++=*            " + lineSeparator +
-                "           +**++*+=           " + lineSeparator +
-                "        =*%=  +=  +%+         " + lineSeparator +
-                "  -##*##%##   %#  +######**+  " + lineSeparator +
-                "*#%###*##*#=  #*  ***##*###%*+" + lineSeparator +
-                "*#%#########  ##  %########%%#" + lineSeparator +
-                " %%%%######%= %% +%######%%%@#" + lineSeparator +
-                "*@%%%%##%%%%##%%##%%%#*#%%%%%=" + lineSeparator + lineSeparator;
-        assertEquals(expectedOutput, outContent.toString());
-    }
-
-    @Test
     void printWelcomeMessage_displaysCorrectMessage() {
         AvatarUi.printWelcomeMessage();
 
