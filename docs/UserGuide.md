@@ -408,12 +408,12 @@ For a quick reference, here's a summary of available commands:
 
 Here's a summary of task types:
 
-- `Todo`: A basic task with no start or end date / times.
-- `Deadline`: A task that has a date / time to complete by.
-- `Event`: A task that has a start and end date / time.
+- Todo (`T`): A basic task with no start or end date / times.
+- Deadline (`D`): A task that has a date / time to complete by.
+- Event (`E`): A task that has a start and end date / time.
 
 Tasks can be classified in the following ways:
-- marked as `HIGH`, `MEDIUM` or `LOW` priority. Default level is `LOW`.
-- marked as `COMPLETE` or `INCOMPLETE`. Default is `INCOMPLETE`.
+- marked as HIGH (`H`), MEDIUM (`M`) or LOW (`L`) priority. Default level is LOW.
+- marked as COMPLETE (`X`) or INCOMPLETE (`O`). Default is INCOMPLETE.
 
 Start managing your tasks efficiently with CLI-nton today!
