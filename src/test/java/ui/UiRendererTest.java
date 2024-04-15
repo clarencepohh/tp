@@ -6,7 +6,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,4 +41,37 @@ public class UiRendererTest {
         assertEquals(outContent.toString(), EMPTY_TASK_DISPLAY_FORMAT);
     }
     
+    @Test
+    void printWeekHeader_forWeekView_printsWeekViewHeading() {
+        LocalDate startOfWeek = LocalDate.of(2024, 4, 14);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        UiRenderer.printWeekHeader(startOfWeek, dateFormatter, false);
+
+        String expectedOutput = 
+                "+---------------+---------------+---------------+---------------+---------------+---------------+---------------+\n" + 
+                "|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |\n" + 
+                "|14/04/2024     |15/04/2024     |16/04/2024     |17/04/2024     |18/04/2024     |19/04/2024     |20/04/2024     |\n" + 
+                "+---------------+---------------+---------------+---------------+---------------+---------------+---------------+\n";
+                                
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    void printWeekHeader_forMonthView_printsMonthViewHeading() {
+        LocalDate startOfMonth = LocalDate.of(2023, 4, 1);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        UiRenderer.printWeekHeader(startOfMonth, dateFormatter, true);
+
+        String expectedOutput = 
+                "+---------------+---------------+---------------+---------------+---------------+---------------+---------------+\n" + 
+                "|Sunday         |Monday         |Tuesday        |Wednesday      |Thursday       |Friday         |Saturday       |\n" + 
+                "+---------------+---------------+---------------+---------------+---------------+---------------+---------------+\n";
+        assertEquals(expectedOutput, outContent.toString());
+    }
 }
