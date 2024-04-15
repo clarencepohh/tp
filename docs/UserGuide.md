@@ -391,6 +391,14 @@ ics, import, tasks.ics
 
 **A**: Not to worry! Our program registers the start date as the date you keyed into the original command, i.e. the first day of the month. The subsequent prompt for the start date is for formatting purposes and will not affect the actual date of the event.
 
+**Q**: I have an event lasting from 15 Apr to 19 Apr within a week. Why is it that `free, 16` shows that the day is free?
+
+**A**: For events which stretch over multiple days, we only consider the original day of the event when calculating free times. In this case, the event starts on the 15th and ends on the 19th, so the 16th, 17th, 18th and 19th are considered free days. Our advise: add events with their corresponding timings for each day of the event to get a more accurate representation of your schedule.
+
+**Q**: Does the scheduler account for clashes in event timings?
+
+**A**: No. This is to accomodate for users who may have overlapping events or tasks. We recommend users to manually check for clashes and adjust their schedules accordingly.
+
 ## Command Summary
 
 For a quick reference, here's a summary of available commands:
