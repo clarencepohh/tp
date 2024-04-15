@@ -4,7 +4,7 @@
 **About CLI-nton**: <br>
 CLI-nton is a desktop application for managing tasks, optimized for use via a Command Line Interface (CLI). It is a Java application that uses a GUI, but the primary way to interact with it is by typing commands into a CLI. If you can type fast, CLI-nton can get your task management done faster than traditional GUI apps.
 
-### Summary of Contributions
+## Summary of Contributions
 - [**Check out my code here!**](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=nicholastanyy&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=NicholasTanYY&tabRepo=AY2324S2-CS2113-W13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 - **Enhancements implemented**:
@@ -45,3 +45,6 @@ After this, I also implemented a feature that changed the size of the avatar pri
 These were done by having a class which calculates the dimensions of the terminal. This code is not included in the unused folder as it is a code snippet modified from something I found online. The code uses an intelligent way of finding terminal dimensions, using ANSI codes to control the position of the cursor. Then using a TerminalController class (in unused code segment), I was able to send keyboard inputs to the terminal to fix some issues with the outputs to the terminal that arose during the calculation of terminal dimensions.
 <br><br>
 I successfully managed to centralise some components and fit corresponding avatar sizes but ran into major issues when trying to run the text-ui-tests. This feature took a lot of effort to implement. I had to abandon this feature as I was worried that it could cause more problems to other implementations in the future, like not working in other terminal types or conflicting with other Ui implementations.
+
+## Reflections
+This project has been a great experience and a first step into the software engineering world for my teammates and I. I look forward to learning from this experience and build more software in the future!
