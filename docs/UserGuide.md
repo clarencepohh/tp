@@ -402,6 +402,7 @@ For a quick reference, here's a summary of available commands:
 - Delete task `delete, <day>, <taskIndex>`
 - Mark task as complete or not complete `mark, <day>, <taskIndex>`
 - Set priority level for task `priority, <day>, <taskIndex>, <priority>`
+- Find free times in a day `free, <day>`
 - Switch to month view `month`
 - Switch to week view `week`
 - Quit the application `quit`
