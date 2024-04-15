@@ -51,7 +51,9 @@ The application is designed with a modular architecture, consisting of the follo
 - **Main**: The `Main` class acts as the central logic component, handling user input and dispatching commands to the appropriate components.
 - **Data**: The `TaskManager` class manages the tasks and their corresponding dates, providing methods for adding, updating, and deleting tasks. 'Exceptions' contains the exceptions that are thrown by the application.
 - **Storage**: The `Storage` class handles the writing and reading of tasks to and from clintonData.txt file, ensuring persistence of task data across sessions.
-- **Time**: The `View` class and its subclasses (`WeekView` and `MonthView`) manage the rendering and navigation of the week and month views.
+- **Time**: The `DateUtils` class provides utility methods for working with dates and times.
+- **Logger**: The `FileLogger` class sets up a logger that writes log messages to the `logs.log` file in the project directory.
+- **CommandParser**: The `CommandParser` class parses user
 
 # Design & Implementation
 
