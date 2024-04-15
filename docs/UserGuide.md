@@ -361,7 +361,7 @@ Here's an example demonstrating the usage of the `free` feature:
 
 #### Output
 
-![Free-Times-Example.png](images%2FFree-Times-Example.png)
+![Free-Times-Example.png](images/Free-Times-Example.png)
 
 #### Error Handling
 
