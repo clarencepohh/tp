@@ -207,9 +207,10 @@ Here's what that would look like:
 ![Event Adding Example Console Inputs and Outputs](images/Event-Example.png)
 
 #### **Notes to users**
-> Commas`,` and pipes`|` are used in our application as command delimiters as well as for file storage purposes.
-> Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues.
->
+> Dashes`-`, Slashes`/`, Commas`,` and pipes`|` are used in our application as delimiters and separators in our storage file(clintonData.txt).
+> 
+> Please avoid using these in your task descriptions as it could lead to parsing errors or storage issues during the writing and reading of the storage file.
+> 
 > You have been **informed**!
 
 ### Updating a Task Description: `update`
