@@ -122,16 +122,14 @@ public static void printTasksInWeek(LocalDate startOfWeek, TaskManager taskManag
 
 #### Method Functionality
 - Retrieves the tasks for each day in the week into a map.
-- Wrap the task descriptions to the width of the calendar box
-- Stores the task descriptions in a map
-- Prints the task descriptions for each day in the week in the appropriate formatting
+- Wrap the task descriptions to the width of the calendar box.
+- Stores the task descriptions in a map.
+- Prints the task descriptions for each day in the week in the appropriate formatting.
 
 ### Month View Rendering
 The month view utilizes the printWeekHeader method with the isMonthView parameter set to true, limiting the display to only include week headers without individual tasks.
 
-### Displaying Help and User Commands
-`printHelp` Method
-
+### printHelp Method
 The printHelp method provides users with a list of available commands and their descriptions, aiding in navigation and task management.
 
 #### Method Signature
@@ -141,7 +139,6 @@ public static void printHelp()
 
 #### Method Functionality
 - Prints a structured list of commands and their purposes within the user interface.
-- Highlights key functionalities like navigating views, adding, and updating tasks.
 
 ## View Switching
 
